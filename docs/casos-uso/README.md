@@ -7,8 +7,8 @@ Este documento contiene el índice de todos los casos de uso del sistema Planifi
 | ID | Nombre | Descripción | Prioridad |
 |----|--------|-------------|-----------|
 | UC-01 | [Mantenimiento de Proyecto](UC-01-mantenimiento-proyecto.md) | Gestión completa del ciclo de vida de proyectos, items y planificaciones | Alta |
-| UC-02 | [Visualizar Calendario de Planificaciones](UC-02-visualizar-calendario.md) | Permite al usuario consultar un calendario visual con todas sus planificaciones organizadas | Alta |
-| UC-03 | [Listar Planificaciones de tipo "No planificado"](UC-03-listar-no-planificado.md) | Permite al usuario obtener un listado de todas las planificaciones marcadas como "No planificado" | Media |
+| UC-02 | [Gestión de Ocurrencias](UC-02-gestion-ocurrencias.md) | Gestión funcional de ocurrencias planificadas, con operaciones individuales puntuales/periódicas y gestión por planificación | Alta |
+| UC-03 | [Visualización de Planificaciones de Tipo "No Planificado"](UC-03-listar-no-planificado.md) | Recupera y lista planificaciones de tipo "No Planificado" | Media |
 
 ### Sub-Casos de Uso UC-01
 
@@ -20,6 +20,15 @@ Este documento contiene el índice de todos los casos de uso del sistema Planifi
 | UC-01.4 | [Gestión Planificación](UC-01.4-gestion-planificacion.md) | Gestión completa de planificaciones (persistencia en BD) | Manual |
 | UC-01.5 | [Captura Datos de Planificación](UC-01.5-captura-datos-planificacion.md) | Componente reutilizable para capturar/validar datos (NO persiste) | Componente |
 
+### Sub-Casos de Uso UC-02
+
+| ID | Nombre | Descripción | Tipo |
+|----|--------|-------------|------|
+| UC-02.1 | [Visualización de Ocurrencias Planificadas](UC-02.1-visualizacion-ocurrencias.md) | Consulta por rango de ocurrencias de planificaciones planificadas | Consulta |
+| UC-02.2 | [Gestión Individual de Planificación Puntual](UC-02.2-gestion-individual-planificacion-puntual.md) | Modificación individual para tipo puntual, con actualización directa de la planificación | Operación |
+| UC-02.3 | [Gestión Individual de Ocurrencias Periódicas](UC-02.3-gestion-individual-ocurrencias-periodicas.md) | Modificación de ocurrencias periódicas, con materialización física cuando aplique | Operación |
+| UC-02.4 | [Gestión de Ocurrencias por Planificación](UC-02.4-gestion-ocurrencias-por-planificacion.md) | Gestión de ocurrencias físicas de una planificación (modificadas y eliminadas) | Operación |
+
 ## Casos de Uso por Prioridad
 
 ### Alta Prioridad
@@ -29,7 +38,11 @@ Este documento contiene el índice de todos los casos de uso del sistema Planifi
   - **UC-01.3**: Creación/Configuración Item
   - **UC-01.4**: Gestión Planificación
   - **UC-01.5**: Captura Datos de Planificación
-- **UC-02**: Visualizar Calendario de Planificaciones
+- **UC-02**: Gestión de Ocurrencias
+  - **UC-02.1**: Visualización de Ocurrencias Planificadas
+  - **UC-02.2**: Gestión Individual de Planificación Puntual
+  - **UC-02.3**: Gestión Individual de Ocurrencias Periódicas
+  - **UC-02.4**: Gestión de Ocurrencias por Planificación
 
 ### Media Prioridad
 ## Descripción General
@@ -48,10 +61,10 @@ Caso de uso principal que engloba toda la gestión de proyectos, items y planifi
 
 Este es el caso de uso más complejo del sistema. UC-01.5 concentra la definición de tipos/subtipos y la captura/validación de configuración, mientras UC-01.4 persiste la planificación base. UC-01.5 garantiza interfaz consistente para configuración.
 
-### UC-02: Visualizar Calendario de Planificaciones
-Permite al usuario visualizar todas sus planificaciones en un formato de calendario. El sistema expande las planificaciones periódicas para mostrar cada ocurrencia y diferencia visualmente los estados (pendiente, completada, expirada).
+### UC-02: Gestión de Ocurrencias
+Define la gestión funcional mediante cuatro subcasos: visualización de ocurrencias planificadas, gestión individual puntual, gestión individual periódica y gestión de ocurrencias físicas por planificación.
 
-### UC-03: Listar Planificaciones de tipo "No planificado"
+### UC-03: Visualización de Planificaciones de Tipo "No Planificado"
 Proporciona al usuario una vista de todas las planificaciones que no tienen fecha asignada, facilitando la gestión del backlog y la posterior programación de tareas.
 
 ---

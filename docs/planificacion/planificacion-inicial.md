@@ -59,8 +59,8 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Diagrama Mermaid de secuencia mostrando interacción usuario → sistema
 - Cubrir escenarios de los diferentes tipos de planificación (Puntual, Periódica diaria/semanal/mensual, No planificado)
 
-**Step 4: Generar caso de uso: Visualizar calendario de planificaciones** (*depends on 2*)
-- Archivo: `docs/casos-uso/UC-02-visualizar-calendario.md`
+**Step 4: Generar caso de uso: Gestión de ocurrencias** (*depends on 2*)
+- Archivo: `docs/casos-uso/UC-02-gestion-ocurrencias.md`
 - Incluir: actores, precondiciones, flujo principal (filtros, vista mensual/semanal)
 - Diagrama Mermaid de flujo mostrando proceso de visualización
 - Considerar cómo mostrar planificaciones periódicas expandidas en el calendario
@@ -97,7 +97,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 |---------|-------------|
 | `README.md` | Documentación principal del proyecto |
 | `docs/casos-uso/UC-01-mantenimiento-proyecto.md` | Caso de uso #1 con diagrama de secuencia |
-| `docs/casos-uso/UC-02-visualizar-calendario.md` | Caso de uso #2 con diagrama de flujo |
+| `docs/casos-uso/UC-02-gestion-ocurrencias.md` | Caso de uso #2 con diagrama de casos y subcasos |
 | `docs/casos-uso/UC-03-listar-no-planificado.md` | Caso de uso #3 con diagrama de flujo |
 | `docs/casos-uso/README.md` | Índice de casos de uso |
 | `docs/modelo-entidad-relacion.md` | Diagrama ERD con modelo de datos |

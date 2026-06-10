@@ -26,6 +26,7 @@ graph TB
         UC14[UC-01.4: Gestión<br/>Planificación]
         UC15[UC-01.5: Captura Datos<br/>Planificación]
     end
+    UC24[UC-02.4: Gestión de Ocurrencias<br/>por Planificación]
     
     Usuario --> UC11
     Usuario --> UC12
@@ -34,12 +35,14 @@ graph TB
     
     UC11 -.include.-> UC15
     UC14 -.include.-> UC15
+    UC24 -.extend.-> UC14
     
     style UC11 fill:#e1f5ff
     style UC12 fill:#fff4e1
     style UC13 fill:#fff4e1
     style UC14 fill:#fff4e1
     style UC15 fill:#c8e6c9
+    style UC24 fill:#f3e5f5
 ```
 
 ---

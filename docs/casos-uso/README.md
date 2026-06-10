@@ -46,7 +46,7 @@ Caso de uso principal que engloba toda la gestión de proyectos, items y planifi
 
 **Componente Reutilizable (UC-01.5):** Captura y valida datos de planificación sin persistir. Usado por UC-01.1 y UC-01.4.
 
-Este es el caso de uso más complejo del sistema. UC-01.4 incluye el manejo de planificaciones periódicas y sus ocurrencias individuales. UC-01.5 garantiza interfaz consistente para configuración.
+Este es el caso de uso más complejo del sistema. UC-01.5 concentra la definición de tipos/subtipos y la captura/validación de configuración, mientras UC-01.4 persiste la planificación base. UC-01.5 garantiza interfaz consistente para configuración.
 
 ### UC-02: Visualizar Calendario de Planificaciones
 Permite al usuario visualizar todas sus planificaciones en un formato de calendario. El sistema expande las planificaciones periódicas para mostrar cada ocurrencia y diferencia visualmente los estados (pendiente, completada, expirada).

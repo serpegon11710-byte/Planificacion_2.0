@@ -34,16 +34,12 @@ graph TB
     
     UC11 -.include.-> UC15
     UC14 -.include.-> UC15
-    UC12 -.crea automáticamente.-> Item[Item + Planificación]
-    UC13 -.crea automáticamente.-> Planif[Planificación]
     
     style UC11 fill:#e1f5ff
     style UC12 fill:#fff4e1
     style UC13 fill:#fff4e1
     style UC14 fill:#fff4e1
     style UC15 fill:#c8e6c9
-    style Item fill:#eeeeee
-    style Planif fill:#eeeeee
 ```
 
 ---
@@ -95,8 +91,6 @@ graph TB
 **Características:**
 - Invoca UC-01.5 para capturar/editar datos
 - Persiste/actualiza/elimina planificaciones en BD
-- Las ocurrencias periódicas NO se crean físicamente (se calculan dinámicamente)
-- Gestiona tabla `OcurrenciaModificada` para modificaciones individuales
 
 **Responsabilidad:** Capa de persistencia de planificaciones.
 

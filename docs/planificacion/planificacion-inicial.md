@@ -5,7 +5,7 @@
 
 ## Resumen Ejecutivo
 
-Crear la documentación fundamental del proyecto Planificacion 2.0, incluyendo README principal, casos de uso con diagramas Mermaid, y diagrama entidad-relación. El proyecto gestiona planificaciones de proyectos con definiciones de tiempo puntuales, periódicas (diarias, semanales, mensuales) y no planificadas.
+Crear la documentación fundamental del proyecto Planificacion 2.0, incluyendo README principal, casos de uso con diagramas Mermaid, y diagrama entidad-relación. El proyecto gestiona planificaciones de proyectos con definiciones de tiempo puntuales, periódicas (diarias, semanales, mensuales) y de tipo "No planificado".
 
 ## Arquitectura de Componentes
 
@@ -13,7 +13,7 @@ Crear la documentación fundamental del proyecto Planificacion 2.0, incluyendo R
 - **Proyecto**: Contenedor principal identificado por nombre
   - **Item**: Subdivisión de proyecto
     - **Planificación**: Tarea con definición temporal y estado
-      - **Definición Fecha/Hora**: Especificación temporal (Puntual, Periódica, No Planificada)
+      - **Definición Fecha/Hora**: Especificación temporal (Puntual, Periódica, No planificado)
 
 ### Estados de Planificación
 - **Pendiente**: No completada y dentro de plazo
@@ -34,7 +34,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - **Semanal**: Mismo día cada semana
 - **Mensual**: Mismo día cada mes
 
-#### 3. No Planificada
+#### 3. No planificado
 - Sin fecha asignada (backlog)
 
 ## Plan de Implementación
@@ -43,7 +43,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 **Step 1: Crear README.md principal**
 - Documento raíz que define el proyecto, sus objetivos, arquitectura de datos, y componentes principales (Proyecto → Items → Planificaciones)
 - Incluir sección de arquitectura con descripción de componentes
-- Documentar tipos de planificación (Puntual, Periódica con subtipos, No Planificada)
+- Documentar tipos de planificación (Puntual, Periódica con subtipos, No planificado)
 - Añadir estado de planificaciones (Completada, Pendiente, Expirada)
 - Incluir referencia a la carpeta docs/
 
@@ -54,10 +54,10 @@ Con fecha inicio, fecha fin y periodo de repetición:
 
 ### Fase 2: Casos de Uso
 **Step 3: Generar caso de uso: Crear proyecto, item y planificación** (*depends on 2*)
-- Archivo: `docs/casos-uso/UC-01-crear-proyecto-item-planificacion.md`
+- Archivo: `docs/casos-uso/UC-01-mantenimiento-proyecto.md`
 - Incluir: actores, precondiciones, flujo principal, flujos alternativos
 - Diagrama Mermaid de secuencia mostrando interacción usuario → sistema
-- Cubrir escenarios de los diferentes tipos de planificación (Puntual, Periódica diaria/semanal/mensual, No Planificada)
+- Cubrir escenarios de los diferentes tipos de planificación (Puntual, Periódica diaria/semanal/mensual, No planificado)
 
 **Step 4: Generar caso de uso: Visualizar calendario de planificaciones** (*depends on 2*)
 - Archivo: `docs/casos-uso/UC-02-visualizar-calendario.md`
@@ -66,10 +66,10 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Considerar cómo mostrar planificaciones periódicas expandidas en el calendario
 - Incluir diferenciación visual de estados (pendiente, completada, expirada)
 
-**Step 5: Generar caso de uso: Listar planificaciones sin planificar** (*depends on 2*)
-- Archivo: `docs/casos-uso/UC-03-listar-sin-planificar.md`
+**Step 5: Generar caso de uso: Listar planificaciones de tipo "No planificado"** (*depends on 2*)
+- Archivo: `docs/casos-uso/UC-03-listar-no-planificado.md`
 - Incluir: actores, precondiciones, flujo principal
-- Diagrama Mermaid de flujo mostrando filtrado de planificaciones tipo "No Planificado"
+- Diagrama Mermaid de flujo mostrando filtrado de planificaciones tipo "No planificado"
 - Considerar acciones disponibles desde el listado (editar, convertir a planificada)
 
 **Step 6: Crear índice de casos de uso** (*depends on 3, 4, 5*)
@@ -96,9 +96,9 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | Archivo | Descripción |
 |---------|-------------|
 | `README.md` | Documentación principal del proyecto |
-| `docs/casos-uso/UC-01-crear-proyecto-item-planificacion.md` | Caso de uso #1 con diagrama de secuencia |
+| `docs/casos-uso/UC-01-mantenimiento-proyecto.md` | Caso de uso #1 con diagrama de secuencia |
 | `docs/casos-uso/UC-02-visualizar-calendario.md` | Caso de uso #2 con diagrama de flujo |
-| `docs/casos-uso/UC-03-listar-sin-planificar.md` | Caso de uso #3 con diagrama de flujo |
+| `docs/casos-uso/UC-03-listar-no-planificado.md` | Caso de uso #3 con diagrama de flujo |
 | `docs/casos-uso/README.md` | Índice de casos de uso |
 | `docs/modelo-entidad-relacion.md` | Diagrama ERD con modelo de datos |
 
@@ -108,7 +108,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 2. ✓ Los 3 casos de uso incluyen diagramas Mermaid que se renderizan correctamente
 3. ✓ El diagrama entidad-relación representa todas las entidades y relaciones descritas
 4. ✓ La estructura de carpetas docs/ facilita la organización y escalabilidad futura
-5. ✓ Todos los tipos de planificación están cubiertos (Puntual, Diaria, Semanal, Mensual, No Planificada)
+5. ✓ Todos los tipos de planificación están cubiertos (Puntual, Diaria, Semanal, Mensual, No planificado)
 
 ## Decisiones Tomadas
 

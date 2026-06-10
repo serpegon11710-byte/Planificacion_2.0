@@ -38,12 +38,12 @@ Permite al usuario crear la estructura jerárquica completa del sistema: Proyect
 6. **El sistema crea automáticamente un Item con el mismo nombre que el proyecto**
 7. El sistema solicita datos del Item (nombre editable, descripción)
 8. El usuario confirma o modifica el nombre del Item y añade descripción
-9. **El sistema crea automáticamente una Planificación tipo "No Planificado" con observaciones = nombre del Item**
+9. **El sistema crea automáticamente una Planificación tipo "No planificado" con observaciones = nombre del Item**
 10. El sistema solicita configuración de la planificación
 11. El usuario selecciona el tipo de definición temporal:
     - **Puntual**: Ver flujo alternativo FA-1
     - **Periódica**: Ver flujo alternativo FA-2
-    - **No Planificado**: Se mantiene la planificación creada automáticamente
+    - **No planificado**: Se mantiene la planificación creada automáticamente
 12. El usuario guarda la configuración
 13. El sistema muestra confirmación de creación exitosa
 
@@ -54,7 +54,7 @@ Permite al usuario crear la estructura jerárquica completa del sistema: Proyect
 3. El usuario ingresa el nombre del proyecto
 4. El sistema valida que el nombre no exista
 5. El sistema crea el proyecto
-6. **El sistema crea automáticamente un Item con el mismo nombre que el proyecto** y **El sistema crea automáticamente una Planificación tipo "No Planificado" con observaciones = nombre del Item**
+6. **El sistema crea automáticamente un Item con el mismo nombre que el proyecto** y **El sistema crea automáticamente una Planificación tipo "No planificado" con observaciones = nombre del Item**
 7. El sistema muestra confirmación de creación exitosa
 8. El sistema muestra el proyecto creado con su Item automático
 9. El usuario navega por el proyecto y selecciona "Configurar Item" sobre uno ya existente o "Crear Item" para añadir uno nuevo
@@ -63,7 +63,7 @@ Permite al usuario crear la estructura jerárquica completa del sistema: Proyect
 12. El sistema valida que no exista un Item con el mismo nombre en el proyecto
 13. El sistema actualiza o crea el Item
 14. El sistema muestra confirmación de creación o modificación exitosa
-15. **Si el Item es nuevo, el sistema crea automáticamente una Planificación tipo "No Planificado" con observaciones = nombre del Item**
+15. **Si el Item es nuevo, el sistema crea automáticamente una Planificación tipo "No planificado" con observaciones = nombre del Item**
 16. El usuario accede a las planificaciones del Item
 17. El usuario selecciona "Configurar Planificación" sobre una existente o "Crear Planificación" para añadir una nueva
 18. El sistema solicita configuración de la planificación
@@ -190,7 +190,7 @@ Permite al usuario crear la estructura jerárquica completa del sistema: Proyect
 ### Éxito
 - Se ha creado un Proyecto con nombre único
 - Se ha creado al menos un Item asociado al Proyecto
-- El Item tiene al menos una Planificación (automática "No Planificado" o configurada por el usuario)
+- El Item tiene al menos una Planificación (automática "No planificado" o configurada por el usuario)
 - Si la planificación es periódica, el sistema puede calcular todas sus ocurrencias futuras
 
 ### Fallo
@@ -211,7 +211,7 @@ Dentro de un mismo proyecto, no puede haber dos Items con el mismo nombre. Items
 Al crear un Proyecto, se crea automáticamente un Item con el mismo nombre del proyecto. Este nombre es editable posteriormente.
 
 ### RN-4: Creación Automática de Planificación
-Al crear un Item, se crea automáticamente una Planificación tipo "No Planificado" cuyas observaciones coinciden con el nombre del Item.
+Al crear un Item, se crea automáticamente una Planificación tipo "No planificado" cuyas observaciones coinciden con el nombre del Item.
 
 ### RN-5: Validación de Fechas Periódicas
 En planificaciones periódicas, la fecha fin debe ser estrictamente posterior a la fecha inicio.
@@ -296,7 +296,7 @@ sequenceDiagram
     S->>DB: Actualizar Item nombre
     
     Note over S,DB: Creación automática de Planificación
-    S->>DB: Crear Planificación "No Planificado"<br/>observaciones: "Módulo Principal"
+    S->>DB: Crear Planificación "No planificado"<br/>observaciones: "Módulo Principal"
     DB-->>S: Planificación creada (ID: 1)
     
     S->>U: Solicitar tipo definición temporal

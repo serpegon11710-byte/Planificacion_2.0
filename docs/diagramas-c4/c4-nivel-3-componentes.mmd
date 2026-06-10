@@ -1,0 +1,49 @@
+C4Component
+title Planificacion 2.0 - C4 Nivel 3 (Componentes Back-End)
+
+Person(usuario, "Usuario", "Gestiona proyectos, planificaciones y ocurrencias")
+Container(frontend, "Front-End", "Aplicacion Web en navegador", "Interfaz web")
+System_Ext(db, "Motor BBDD", "PostgreSQL/MySQL", "Almacenamiento fisico de datos externo")
+
+Container_Boundary(backend_boundary, "Back-End") {
+  Component(api, "API REST", "HTTP/JSON", "Punto de entrada para operaciones del sistema")
+
+  Container_Boundary(negocio_boundary, "Capa de Negocio") {
+    Component(proyecto, "Proyecto", "Entidad", "Agregado raiz de proyectos, consume Items")
+    Component(item, "Item", "Entidad", "Agregado de items, depende de Proyecto")
+    Component(planificacion, "Planificacion", "Entidad", "Agregado de planificaciones, consume Ocurrencias")
+    Component(ocurrencia, "Ocurrencia", "Entidad", "Agregado de ocurrencias, nivel mas bajo en la jerarquia")
+  }
+
+  Component(puerto_persistencia, "Puerto de Persistencia", "Interfaz", "Contrato de operaciones de persistencia")
+}
+
+Container_Boundary(persistencia_boundary, "Capa de Persistencia") {
+  Component(adaptador_persistencia, "Adaptador de Persistencia", "Infraestructura", "Implementa el puerto de persistencia")
+  Component(puerto_conexion, "Puerto de Conexion a BBDD", "Interfaz", "Contrato de conexion independiente del motor SQL")
+}
+
+System_Ext(adaptador_motor, "Adaptador Motor SQL", "PostgreSQL/MySQL Driver", "Implementa conexion al motor de BBDD")
+
+Rel(usuario, frontend, "Usa", "HTTPS")
+Rel(frontend, api, "Consume", "JSON/HTTPS")
+
+Rel(api, proyecto, "Invoca")
+Rel(api, item, "Invoca")
+Rel(api, planificacion, "Invoca")
+Rel(api, ocurrencia, "Invoca")
+
+Rel(proyecto, item, "Consume")
+Rel(planificacion, ocurrencia, "Consume")
+
+Rel(proyecto, puerto_persistencia, "Solicita persistencia")
+Rel(item, puerto_persistencia, "Solicita persistencia")
+Rel(planificacion, puerto_persistencia, "Solicita persistencia")
+Rel(ocurrencia, puerto_persistencia, "Solicita persistencia")
+
+Rel(puerto_persistencia, adaptador_persistencia, "Es implementado por")
+Rel(adaptador_persistencia, puerto_conexion, "Usa")
+Rel(puerto_conexion, adaptador_motor, "Es implementado por")
+Rel(adaptador_motor, db, "Conecta a", "SQL")
+
+UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="2")

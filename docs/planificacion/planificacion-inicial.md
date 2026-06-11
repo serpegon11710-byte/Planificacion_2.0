@@ -5,7 +5,7 @@
 
 ## Resumen Ejecutivo
 
-Crear la documentación fundamental del proyecto Planificacion 2.0, incluyendo README principal, casos de uso con diagramas Mermaid, y diagrama entidad-relación. El proyecto gestiona planificaciones de proyectos con definiciones de tiempo puntuales, periódicas (diarias, semanales, mensuales) y de tipo "No planificado".
+Crear la documentacion fundamental del proyecto Planificacion 2.0, incluyendo README principal, casos de uso, modelos funcionales, arquitectura logica y, como cierre de arquitectura, seleccion de stack tecnologico antes de definir el modelo entidad-relacion. El proyecto gestiona planificaciones de proyectos con definiciones de tiempo puntuales, periodicas (diarias, semanales, mensuales) y de tipo "No planificado".
 
 ## Arquitectura de Componentes
 
@@ -77,8 +77,31 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Listar los 3 casos de uso con enlaces y descripción breve
 - Tabla resumen con ID, nombre, y prioridad
 
-### Fase 3: Modelo de Datos
-**Step 7: Generar diagrama entidad-relación** (*parallel con steps 3-6*)
+### Fase 3: Modelos funcionales del dominio
+**Step 7: Documentar modelos funcionales** (*depends on 3-6*)
+- Archivos:
+  - `docs/entidades/planificaciones.md`
+  - `docs/entidades/ocurrencias.md`
+- Definir estructura funcional del dominio y trazabilidad con casos de uso.
+
+### Fase 4: Definicion de arquitectura
+**Step 8: Definir arquitectura** (*depends on 7*)
+
+**Step 8a: Arquitectura logica y contratos** (*depends on 7*)
+- Archivo principal: `docs/arquitectura/README.md`
+- Archivos de soporte:
+  - `docs/arquitectura/contratos-minimos.md`
+  - `docs/arquitectura/granularidad-modulos-negocio.md`
+  - `docs/arquitectura/transacciones-consistencia.md`
+  - `docs/arquitectura/errores-validaciones-capas.md`
+- Alcance:
+  - Contratos minimos de puertos e interfaces
+  - Granularidad final de modulos de negocio
+  - Transacciones y limites de consistencia
+  - Politicas de errores y validaciones por capa
+
+### Fase 5: Modelo de Datos (ER)
+**Step 9: Generar diagrama entidad-relación** (*depends on 8*)
 - Archivo: `docs/modelo-entidad-relacion.md`
 - Diagrama Mermaid ERD mostrando entidades:
   - **Proyecto** (id, nombre, fecha_creacion)
@@ -100,15 +123,26 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/casos-uso/UC-02-gestion-ocurrencias.md` | Caso de uso #2 con diagrama de casos y subcasos |
 | `docs/casos-uso/UC-03-listar-no-planificado.md` | Caso de uso #3 con diagrama de flujo |
 | `docs/casos-uso/README.md` | Índice de casos de uso |
+| `docs/entidades/planificaciones.md` | Modelo funcional de planificaciones |
+| `docs/entidades/ocurrencias.md` | Modelo funcional de ocurrencias |
+| `docs/arquitectura/README.md` | Base de arquitectura logica |
+| `docs/arquitectura/contratos-minimos.md` | Contratos logicos minimos de arquitectura |
+| `docs/arquitectura/granularidad-modulos-negocio.md` | Granularidad final de modulos de negocio |
+| `docs/arquitectura/transacciones-consistencia.md` | Transacciones y limites de consistencia |
+| `docs/arquitectura/errores-validaciones-capas.md` | Politicas de errores y validaciones por capa |
 | `docs/modelo-entidad-relacion.md` | Diagrama ERD con modelo de datos |
 
 ## Verificación
 
 1. ✓ README.md contiene todas las secciones necesarias y es comprensible para nuevos desarrolladores
 2. ✓ Los 3 casos de uso incluyen diagramas Mermaid que se renderizan correctamente
-3. ✓ El diagrama entidad-relación representa todas las entidades y relaciones descritas
-4. ✓ La estructura de carpetas docs/ facilita la organización y escalabilidad futura
-5. ✓ Todos los tipos de planificación están cubiertos (Puntual, Diaria, Semanal, Mensual, No planificado)
+3. ✓ Los casos de uso estan documentados y trazables
+4. ✓ Los modelos funcionales del dominio estan documentados y trazables con casos de uso
+5. ✓ La arquitectura se documenta en su propio README y sus archivos de soporte
+6. ✓ El stack tecnologico se define al cierre de arquitectura
+7. ✓ El diagrama entidad-relacion representa todas las entidades y relaciones descritas
+8. ✓ La estructura de carpetas docs/ facilita la organizacion y escalabilidad futura
+9. ✓ Todos los tipos de planificacion estan cubiertos (Puntual, Diaria, Semanal, Mensual, No planificado)
 
 ## Decisiones Tomadas
 
@@ -149,11 +183,22 @@ Se consideran 3 estados (Pendiente, Completada, Expirada) donde "Expirada" se ca
 
 [x] 1. Revisar y aprobar este plan
 [x] 2. Ejecutar Fase 1: Crear estructura base y README
-[ ] 3. Ejecutar Fase 2: Documentar casos de uso
-[ ] 4. Ejecutar Fase 3: Crear modelo entidad-relación
-[ ] 5. Validar toda la documentación
-[ ] 6. Proceder con la implementación técnica
+[x] 3. Ejecutar Fase 2: Documentar casos de uso
+[ ] 4. Ejecutar Fase 3: Documentar modelos funcionales del dominio
+[ ] 5. Ejecutar Fase 4: Definir arquitectura (pasos 8a, 8b, 8c)
+[ ] 6. Ejecutar Fase 5: Crear modelo entidad-relacion (paso 9)
+[ ] 7. Validar toda la documentacion
+[ ] 8. Proceder con la implementacion tecnica
 
 ## Historial
 2026-06-10 - Paso 1 Completado
 2026-06-10 - Paso 2 Completado
+2026-06-10 - Paso 3 Completado
+2026-06-11 - Plan reajustado: se agrega fase intermedia de modelos funcionales
+2026-06-11 - Orden fijado: arquitectura -> stack tecnologico -> modelo ER
+2026-06-11 - Arquitectura: granularidad final de modulos de negocio definida
+2026-06-12 - Arquitectura: granularidad completada (agregados, sub-UCs, orquestacion) y transacciones definidas
+2026-06-12 - Arquitectura: politicas de errores y validaciones por capa definidas
+2026-06-12 - Verificacion transversal: revision SOLID global e i18n reubicados en docs/ (fuera de arquitectura)
+2026-06-12 - Plan: Step 8 unificado con sub-pasos 8a, 8b y 8c; Step 9 renumerado (antes 10)
+2026-06-12 - Politicas transversales centralizadas en docs/politicas-transversales/

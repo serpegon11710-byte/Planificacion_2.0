@@ -51,6 +51,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Carpeta `docs/` en la raíz del proyecto
 - Subcarpeta `docs/casos-uso/` para organizar los casos de uso
 - Subcarpeta `docs/planificacion/` para documentos de planificación
+- Subcarpeta `docs/politicas-transversales/` para politicas globales del proyecto
 
 ### Fase 2: Casos de Uso
 **Step 3: Generar caso de uso: Crear proyecto, item y planificación** (*depends on 2*)
@@ -100,6 +101,18 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - Transacciones y limites de consistencia
   - Politicas de errores y validaciones por capa
 
+**Step 8b: Verificacion transversal pre-stack** (*depends on 8a*)
+- Carpeta: `docs/politicas-transversales/`
+- Archivos:
+  - `docs/politicas-transversales/revision-principios-solid.md`
+  - `docs/politicas-transversales/internacionalizacion.md`
+- Alcance:
+  - Revision SOLID en toda la documentacion del proyecto
+  - Politica de i18n para la implementacion
+
+**Step 8c: Stack tecnologico (cierre de arquitectura)** (*depends on 8a, 8b*)
+- Resultado: criterios y seleccion tecnologica alineada con arquitectura.
+
 ### Fase 5: Modelo de Datos (ER)
 **Step 9: Generar diagrama entidad-relación** (*depends on 8*)
 - Archivo: `docs/modelo-entidad-relacion.md`
@@ -130,6 +143,9 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/arquitectura/granularidad-modulos-negocio.md` | Granularidad final de modulos de negocio |
 | `docs/arquitectura/transacciones-consistencia.md` | Transacciones y limites de consistencia |
 | `docs/arquitectura/errores-validaciones-capas.md` | Politicas de errores y validaciones por capa |
+| `docs/politicas-transversales/README.md` | Indice de politicas transversales |
+| `docs/politicas-transversales/revision-principios-solid.md` | Revision global de cumplimiento SOLID |
+| `docs/politicas-transversales/internacionalizacion.md` | Politica transversal de i18n |
 | `docs/modelo-entidad-relacion.md` | Diagrama ERD con modelo de datos |
 
 ## Verificación

@@ -162,6 +162,7 @@ No se diagraman en N4 los agregados con CRUD directo y reglas simples si el N3 y
 - Resolucion de mensajes al usuario en cliente.
 
 **Nota:** N4 de presentacion es opcional en una primera iteracion; las zonas ZC-1 a ZC-5 del Back-End tienen prioridad.  
+**N3 Front-End:** [c4-nivel-3-componentes-frontend.mmd](../c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) (zoom de componentes UI; Step 8b).  
 **N4 canonico:** [pseudocodigo/zc-6-presentacion.md](pseudocodigo/zc-6-presentacion.md)
 
 ## Componentes N3 excluidos de N4

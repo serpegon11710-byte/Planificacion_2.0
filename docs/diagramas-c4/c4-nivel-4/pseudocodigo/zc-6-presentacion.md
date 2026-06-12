@@ -1,6 +1,6 @@
 # ZC-6: Presentacion — captura y calendario
 
-**Componente N3:** `Front-End`  
+**Componente N3:** `Front-End` (ver [N3 Front-End](../../c4-nivel-3/c4-nivel-3-componentes-frontend.mmd))  
 **Prioridad:** Media (opcional en primera iteracion)  
 **Casos de uso:** UC-01.1, UC-01.4 (via UC-01.5), UC-02.1
 

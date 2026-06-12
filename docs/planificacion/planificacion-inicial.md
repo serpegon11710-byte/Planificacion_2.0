@@ -170,6 +170,8 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/arquitectura/transacciones-consistencia.md` | Transacciones y limites de consistencia |
 | `docs/arquitectura/errores-validaciones-capas.md` | Politicas de errores y validaciones por capa |
 | `docs/diagramas-c4/README.md` | Indice de diagramas C4 (N1–N4) |
+| `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes.mmd` | C4 N3 componentes Back-End y persistencia |
+| `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes-frontend.mmd` | C4 N3 componentes Front-End (Step 8b) |
 | `docs/diagramas-c4/c4-nivel-4/zonas-criticas-n4.md` | Zonas criticas y alcance del N4 |
 | `docs/diagramas-c4/c4-nivel-4/pseudocodigo/` | N4 canonico por zona critica (ZC-1 a ZC-6) |
 | `docs/politicas-transversales/README.md` | Indice de politicas transversales |
@@ -216,7 +218,7 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 Resumen de estado (2026-06-12):
 
 - **Resueltas:** FAQ-001 a FAQ-009, FAQ-104 a FAQ-108 (ver FAQ).
-- **Pendientes de ejecutar:** Step 8b (N3 Front-End).
+- **Pendientes de ejecutar:** ninguno en diagramas C4 (Step 8b cerrado).
 - **Postergadas:** FAQ-101, FAQ-102 (Step 9c).
 
 ## Próximos Pasos
@@ -228,7 +230,7 @@ Resumen de estado (2026-06-12):
 [x] 5. Ejecutar Step 7b: Documentar entidades Proyecto e Item (FAQ-005)
 [x] 6. Ejecutar Fase 4 parcial: Diagramas C4 N1–N4 canonico (Step 8)
 [x] 7. Ejecutar Step 8c: Trazabilidad UC ↔ C4 distribuida (FAQ-104)
-[ ] 8. Ejecutar Step 8b: Diagrama C4 N3 Front-End (FAQ-103)
+[x] 8. Ejecutar Step 8b: Diagrama C4 N3 Front-End (FAQ-103)
 [x] 9. Ejecutar Fase 5 parcial: Arquitectura logica y verificacion transversal (Steps 9a, 9b)
 [ ] 10. Ejecutar Step 9c: Definir stack tecnologico (FAQ-101, FAQ-102)
 [ ] 11. Completar N4 implementacion por stack (depende de 9c)
@@ -250,4 +252,4 @@ Resumen de estado (2026-06-12):
 2026-06-12 - Diagramas C4 (Step 8) e integracion con arquitectura (Step 9a); N4 canonico cerrado
 2026-06-12 - Plan corregido: indices duplicados resueltos — Step 7 modelos funcionales, Step 8 diagramas C4 (ambos pasos conservados)
 2026-06-12 - Revision SOLID actualizada incluyendo docs/diagramas-c4/
-2026-06-12 - FAQ actualizado con resoluciones del equipo; Steps 7b, 8b, 8c registrados
+2026-06-12 - Step 8b completado: diagrama N3 Front-End (FAQ-103)

@@ -2,7 +2,7 @@
 
 Parte del **Step 8** del plan de documentacion. Visualiza la estructura del software Planificacion 2.0 e integra con arquitectura (Step 9a).
 
-Dudas abiertas (trazabilidad UC, N3 Front-End, etc.): [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
+Dudas abiertas: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (Step 9c, stack).
 
 ## Estructura por nivel
 
@@ -10,7 +10,7 @@ Dudas abiertas (trazabilidad UC, N3 Front-End, etc.): [dudas-y-resoluciones.md](
 diagramas-c4/
 ├── c4-nivel-1/          # Contexto
 ├── c4-nivel-2/          # Contenedores
-├── c4-nivel-3/          # Componentes
+├── c4-nivel-3/          # Componentes (Back-End + Front-End)
 └── c4-nivel-4/          # Detalle (codigo)
     ├── zonas-criticas-n4.md
     ├── pseudocodigo/    # Canonico (independiente del stack)
@@ -23,13 +23,21 @@ diagramas-c4/
 |-------|---------|------------|--------|
 | N1 — Contexto | [c4-nivel-1/](c4-nivel-1/) | [c4-nivel-1-contexto.mmd](c4-nivel-1/c4-nivel-1-contexto.mmd) | Cerrado |
 | N2 — Contenedores | [c4-nivel-2/](c4-nivel-2/) | [c4-nivel-2-contenedores.mmd](c4-nivel-2/c4-nivel-2-contenedores.mmd) | Cerrado |
-| N3 — Componentes | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes.mmd](c4-nivel-3/c4-nivel-3-componentes.mmd) | Cerrado |
+| N3 — Componentes Back-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes.mmd](c4-nivel-3/c4-nivel-3-componentes.mmd) | Cerrado |
+| N3 — Componentes Front-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes-frontend.mmd](c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) | Cerrado |
 | N4 — Detalle | [c4-nivel-4/](c4-nivel-4/) | [zonas-criticas-n4.md](c4-nivel-4/zonas-criticas-n4.md) + [pseudocodigo/](c4-nivel-4/pseudocodigo/) | Cerrado (canonico) |
 | N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Pendiente | Requiere stack |
 
 ## Nivel 3
 
-Un unico diagrama: componentes del Back-End, Capa de Persistencia y referencia al Front-End (detalle de presentacion en N4 ZC-6). No hay zoom separado por contenedor en este momento.
+Dos diagramas de componentes (FAQ-103):
+
+| Diagrama | Alcance |
+|----------|---------|
+| [c4-nivel-3-componentes.mmd](c4-nivel-3/c4-nivel-3-componentes.mmd) | Back-End, capa de negocio y persistencia |
+| [c4-nivel-3-componentes-frontend.mmd](c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) | Zoom del contenedor Front-End; complementa N4 [ZC-6](c4-nivel-4/pseudocodigo/zc-6-presentacion.md) |
+
+El diagrama Back-End referencia al Front-End como contenedor; el detalle de presentacion vive en el diagrama Front-End y en ZC-6.
 
 ## Nivel 4
 

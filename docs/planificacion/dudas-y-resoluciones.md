@@ -221,6 +221,16 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 ---
 
+### FAQ-103 — Diagrama C4 N3 para Front-End
+
+**Origen:** Step 8.
+
+**Resolucion (2026-06-12):** **Si**, crear un **segundo diagrama N3** de componentes Front-End (ademas del N3 Back-End/Persistencia existente).
+
+**Estado de ejecucion:** **Completado** — `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes-frontend.mmd` (Step 8b).
+
+---
+
 ## Abiertas
 
 ### FAQ-101 — Motor de base de datos
@@ -239,21 +249,9 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 ---
 
-### FAQ-103 — Diagrama C4 N3 para Front-End
-
-**Origen:** Step 8.
-
-**Resolucion (2026-06-12):** **Si**, crear un **segundo diagrama N3** de componentes Front-End (ademas del N3 Back-End/Persistencia existente).
-
-**Estado de ejecucion:** **Pendiente** — registrado en el plan como Step 8b (ver `planificacion-inicial.md`).
-
----
-
 ## Pendientes de ejecutar
 
-| ID | Accion | Registro en plan |
-|----|--------|------------------|
-| FAQ-103 | `c4-nivel-3/c4-nivel-3-componentes-frontend.mmd` | Step 8b |
+_Ninguno registrado en el FAQ (2026-06-12)._
 
 ---
 
@@ -280,3 +278,4 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 | 2026-06-12 | FAQ-004: aclarada semantica herencia (NULL en BD, valor visible heredado, persistencia al interactuar) |
 | 2026-06-12 | FAQ-104 a FAQ-108 resueltas; trazabilidad distribuida; modelo dos tablas; Sin planificar |
 | 2026-06-12 | Step 7b: entidades proyectos.md e items.md (FAQ-005) |
+| 2026-06-12 | Step 8b: diagrama N3 Front-End (FAQ-103) |

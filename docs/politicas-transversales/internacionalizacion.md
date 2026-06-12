@@ -1,4 +1,4 @@
-﻿# Politica de internacionalizacion (i18n)
+# Politica de internacionalizacion (i18n)
 
 Politica transversal del proyecto Planificacion 2.0. Aplica a la implementacion de la aplicacion, no a la estructura arquitectonica en si.
 
@@ -15,6 +15,12 @@ Separar textos orientados al usuario de la logica de dominio, permitiendo traduc
 - **Idioma por defecto:** espanol (`es`), coherente con `docs/planificacion/planificacion-inicial.md`.
 - **Identificadores estables:** codigos de error, tipos de planificacion en persistencia y enums de dominio no se traducen; se usan como claves.
 - **Mensajes al usuario:** se resuelven por clave i18n en la capa que presenta informacion al usuario final.
+
+## Fechas y zonas horarias (FAQ-002)
+
+**Decision:** persistencia y comparaciones en **UTC**; la UI formatea segun locale del usuario.
+
+**Entregable Step 10:** nota operativa en este documento (alineada al ER) al cerrar `modelo-entidad-relacion.md`. Hasta entonces, ver [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002).
 
 ## Donde SI aplica i18n
 

@@ -88,4 +88,4 @@ El estado de una ocurrencia puede estar registrado en la propia ocurrencia o, en
 ## Referencias
 
 - Completado por ocurrencia vs `InstanciaPlanificacion`: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-003).
-- Tabla ER de ocurrencias materializadas: FAQ-004.
+- Tabla ER de ocurrencias materializadas: FAQ-004 (detalle de persistencia — **entregable Step 10**).

@@ -221,7 +221,7 @@ Las flechas indican referencia/trazabilidad, no acoplamiento de implementacion.
 
 ## Deuda documental detectada (no bloqueante)
 
-Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, FAQ-102 — Step 9c).
+Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, FAQ-102, FAQ-007 — Step 9c).
 
 ---
 

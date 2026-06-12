@@ -12,8 +12,8 @@ Los documentos funcionales (`entidades/`, `arquitectura/`, etc.) deben **referen
 
 | Estado | Significado |
 |--------|-------------|
-| **Resuelta** | Decision acordada; pendiente de reflejar en todos los artefactos si aun no lo esta |
-| **Abierta** | Requiere decision antes o durante Step 9c / Step 10 |
+| **Resuelta** | Decision acordada; el detalle documental puede quedar como entregable del Step indicado en cada FAQ |
+| **Abierta** | Requiere decision; ver Step 9c o Step 10 segun el FAQ |
 | **Supersedida** | Duda historica; ver resolucion y nota de nomenclatura |
 
 ---
@@ -32,7 +32,7 @@ Los documentos funcionales (`entidades/`, `arquitectura/`, etc.) deben **referen
 - **Periodica semanal:** **lista de dias de la semana** (p. ej. martes y jueves en la misma planificacion). Puede haber varios dias seleccionados.
 - **Periodica mensual:** sin cambio respecto al catalogo funcional (`planificaciones.md`).
 
-**Pendiente de reflejar en:** `planificaciones.md`, pseudocodigo ZC-3 (semanal ya admite conjunto de dias; diaria debe usar enum, no lista generica).
+**Reflejado en:** `planificaciones.md`, `zc-3-planificacion-temporal.md`.
 
 **Nota:** El plan original recomendaba lista flexible para diarios; queda **supersedida**.
 
@@ -44,9 +44,9 @@ Los documentos funcionales (`entidades/`, `arquitectura/`, etc.) deben **referen
 
 **Pregunta:** ¿Una sola zona horaria o multi-zona?
 
-**Resolucion (2026-06-12):** Persistir y comparar fechas/horas en **UTC**. Evita ambiguedades al cerrar el modelo (Step 10) sin disenar multi-zona de usuario todavia.
+**Resolucion (2026-06-12):** Persistir y comparar fechas/horas en **UTC**. Formateo a locale del usuario en presentacion (i18n).
 
-**Pendiente de reflejar en:** Step 10 (ER), politica i18n (formateo a locale en presentacion; almacenamiento UTC).
+**Entregable Step 10:** tipos UTC en el ER (`modelo-entidad-relacion.md`) y nota en `internacionalizacion.md` (almacenamiento vs visualizacion).
 
 ---
 
@@ -95,7 +95,7 @@ Relacionado con FAQ-003 (estado vacio = hereda).
 | `completada` / estado | Nullable | NULL = hereda; usuario ve el estado de la planificacion; se persiste al interactuar |
 | Eliminacion virtual | Si (flag/tipo) | RO-4 |
 
-**Pendiente de reflejar en:** Step 10, `ocurrencias.md` si hace falta detalle de persistencia.
+**Entregable Step 10:** tabla `OcurrenciasMaterializadas` en `modelo-entidad-relacion.md`; seccion de persistencia en `ocurrencias.md` alineada al ER.
 
 ---
 
@@ -118,16 +118,6 @@ Relacionado con FAQ-003 (estado vacio = hereda).
 **Pregunta:** ¿Que locales en la primera implementacion?
 
 **Resolucion (2026-06-12):** **Espanol** en la UI. **Infraestructura i18n** preparada para cualquier idioma. **Sin literales en la capa de negocio** (solo `codigo`; mensajes en presentacion).
-
----
-
-### FAQ-007 — N4 implementacion al cambiar de stack
-
-**Origen:** `c4-nivel-4/implementacion/README.md`.
-
-**Pregunta:** ¿Que hacer con el N4 de un stack anterior?
-
-**Resolucion (2026-06-12):** **Conservar** carpetas `{stack}/` como historico. Detalle de politica de archivo pendiente de conversacion futura.
 
 ---
 
@@ -183,7 +173,9 @@ Asi quien implementa una ZC ve de inmediato el origen funcional; quien lee un UC
 | Sin planificar → Periodica | Anular puntual; crear periodica. Sin impacto en ocurrencias |
 | Periodica → Sin planificar | Anular periodica; crear puntual con `sin_planificar = true`. Precondicion: sin ocurrencias materializadas (RT-3) |
 
-Detalle en `docs/entidades/planificaciones.md`.
+Detalle funcional en `docs/entidades/planificaciones.md`.
+
+**Entregable Step 10:** tablas y relaciones en `modelo-entidad-relacion.md`.
 
 ---
 
@@ -203,6 +195,8 @@ Detalle en `docs/entidades/planificaciones.md`.
 
 Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `Diario`, no filas de catalogo.
 
+**Entregable Step 10:** tabla `TipoPlanificacion` en `modelo-entidad-relacion.md`.
+
 ---
 
 ### FAQ-107 — Nomenclatura «Sin planificar»
@@ -211,13 +205,15 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 **Resolucion (2026-06-12):** Usar **«Sin planificar»** en toda la documentacion y **`SinPlanificar`** como codigo de tipo. Clase de dominio: `PlanificacionSinPlanificar`. Sustituye la nomenclatura anterior «No planificado» / `NoPlanificado`.
 
+**Reflejado en:** documentacion funcional y pseudocodigo (renombrado 2026-06-12).
+
 ---
 
 ### FAQ-108 — Borrador ER del plan: `DefinicionFechaHora`
 
 **Origen:** `planificacion-inicial.md` (Step 10 y «Decisiones tomadas»).
 
-**Resolucion (2026-06-12):** Sustituir `DefinicionFechaHora` por el modelo FAQ-105 / FAQ-106: tablas `PlanificacionesPuntuales`, `PlanificacionesPeriodicas` y catalogo `TipoPlanificacion`. Aplicar en Step 10.
+**Resolucion (2026-06-12):** Sustituir `DefinicionFechaHora` por el modelo FAQ-105 / FAQ-106. **Entregable Step 10:** `modelo-entidad-relacion.md`.
 
 ---
 
@@ -231,13 +227,23 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 ---
 
-## Abiertas
+## Abiertas (postergadas a Step 9c)
+
+### FAQ-007 — N4 implementacion al cambiar de stack
+
+**Origen:** `c4-nivel-4/implementacion/README.md`.
+
+**Principio acordado (2026-06-12):** **Conservar** carpetas `{stack}/` como historico al cambiar de stack; no mezclar implementaciones en la misma carpeta.
+
+**Entregable Step 9c:** politica de archivo detallada en `implementacion/README.md` (cuando se cierre la seleccion de stack).
+
+---
 
 ### FAQ-101 — Motor de base de datos
 
 **Origen:** Step 9c.
 
-**Estado:** **Postergada** — no abordar aun. Se retomara en Step 9c cuando proceda.
+**Estado:** **Postergada** — entregable Step 9c.
 
 ---
 
@@ -245,13 +251,24 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 **Origen:** Step 9c.
 
-**Estado:** **Postergada** — no abordar aun. Se retomara en Step 9c cuando proceda.
+**Estado:** **Postergada** — entregable Step 9c.
+
+---
+
+## Entregables por Step (resumen)
+
+| Step | FAQ / contenido | Artefactos |
+|------|-----------------|------------|
+| **9c** | FAQ-007, 101, 102 | Stack, motor BBDD, politica N4 historico, `implementacion/{stack}/` |
+| **10** | FAQ-002, 004, 105, 106, 108 | `modelo-entidad-relacion.md`; UTC en ER + `internacionalizacion.md`; ocurrencias materializadas; tablas planificacion y catalogo |
+
+Los Steps 7b, 8b y 8c ya estan cerrados. Las FAQ 001, 003, 006, 008, 009, 103, 104, 107 no tienen entregable pendiente fuera de lo ya documentado.
 
 ---
 
 ## Pendientes de ejecutar
 
-_Ninguno registrado en el FAQ (2026-06-12)._
+_Ninguno fuera de Steps 9c y 10 (2026-06-12)._
 
 ---
 
@@ -265,7 +282,8 @@ _Ninguno registrado en el FAQ (2026-06-12)._
 | `entidades/planificaciones.md` | FAQ-001, 105, 106, 107 |
 | `revision-principios-solid.md` | FAQ-005, 009 |
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
-| Step 9c | FAQ-101, 102 |
+| Step 9c | FAQ-007, 101, 102 |
+| Step 10 | FAQ-002, 004, 105, 106, 108 |
 
 ---
 
@@ -279,3 +297,4 @@ _Ninguno registrado en el FAQ (2026-06-12)._
 | 2026-06-12 | FAQ-104 a FAQ-108 resueltas; trazabilidad distribuida; modelo dos tablas; Sin planificar |
 | 2026-06-12 | Step 7b: entidades proyectos.md e items.md (FAQ-005) |
 | 2026-06-12 | Step 8b: diagrama N3 Front-End (FAQ-103) |
+| 2026-06-12 | Limpieza FAQ: entregables Step 9c/10; FAQ-007 a 9c; FAQ-001 cerrada |

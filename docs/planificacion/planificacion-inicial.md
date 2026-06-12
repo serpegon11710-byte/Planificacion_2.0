@@ -12,8 +12,9 @@ Crear la documentacion fundamental del proyecto Planificacion 2.0, incluyendo RE
 ### Jerarquía del Sistema
 - **Proyecto**: Contenedor principal identificado por nombre
   - **Item**: Subdivisión de proyecto
-    - **Planificación**: Tarea con definición temporal y estado
-      - **Definición Fecha/Hora**: Especificación temporal (Puntual, Periódica, Sin planificar)
+    - **Planificación**: Tarea con tipo temporal, estado y observaciones
+      - **Puntual** o **Periódica** (Diario / Semanal / Mensual) o **Sin planificar**
+      - **Ocurrencia**: Instancia calculada o materializada (planificaciones con fecha)
 
 ### Estados de Planificación
 - **Pendiente**: No completada y dentro de plazo
@@ -31,7 +32,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - Todos los días
   - De Lunes a Viernes
   - Fin de semana
-- **Semanal**: Mismo día cada semana
+- **Semanal**: Lista de uno o más días de la semana (p. ej. martes y jueves)
 - **Mensual**: Mismo día cada mes
 
 #### 3. Sin planificar
@@ -139,17 +140,21 @@ Con fecha inicio, fecha fin y periodo de repetición:
 
 **Step 9c: Stack tecnologico (cierre de arquitectura)** (*depends on 9a, 9b*)
 - Resultado: criterios y seleccion tecnologica alineada con arquitectura y diagramas C4.
+- Entregables (FAQ):
+  - **FAQ-101:** motor de base de datos
+  - **FAQ-102:** stack de aplicacion (Front-End, Back-End, herramientas)
+  - **FAQ-007:** politica de archivo de carpetas `implementacion/{stack}/` historicas
+  - Crear `docs/diagramas-c4/c4-nivel-4/implementacion/{stack}/` (proyeccion del N4 canonico)
 
 ### Fase 6: Modelo de Datos (ER)
-**Step 10: Generar diagrama entidad-relación** (*depends on 9*)
-- Archivo: `docs/modelo-entidad-relacion.md`
-- Basarse en [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (FAQ-004 a FAQ-108) y [planificaciones.md](../entidades/planificaciones.md).
-- Entidades principales (orientativo; detalle en FAQ-105/106/108):
-  - **Proyecto**, **Item**
-  - **TipoPlanificacion** (catalogo: Puntual, SinPlanificar, Diario, Semanal, Mensual)
-  - **PlanificacionesPuntuales** (`sin_planificar`, fecha, hora)
-  - **PlanificacionesPeriodicas** (fecha_inicio, fecha_fin, hora, patron)
-  - **Ocurrencias** materializadas (FAQ-004)
+**Step 10: Generar diagrama entidad-relacion** (*depends on 9*)
+- Archivo principal: `docs/modelo-entidad-relacion.md`
+- Basarse en [dudas-y-resoluciones.md](dudas-y-resoluciones.md) y entidades en `docs/entidades/`.
+- Entregables (FAQ):
+  - **FAQ-105 / 106 / 108:** ERD con `Proyectos`, `Items`, `TipoPlanificacion`, `PlanificacionesPuntuales`, `PlanificacionesPeriodicas` (sustituye borrador `DefinicionFechaHora`)
+  - **FAQ-004:** tabla `OcurrenciasMaterializadas`; alinear seccion de persistencia en `ocurrencias.md`
+  - **FAQ-002:** columnas fecha/hora en UTC en el ER; nota en `internacionalizacion.md` (almacenamiento UTC vs formateo en UI)
+- Diagrama Mermaid ERD, atributos clave y restricciones (UNIQUE, FK, CHECK segun reglas RP-*, RI-*, RT-*)
 
 ## Archivos a Crear
 
@@ -188,8 +193,8 @@ Con fecha inicio, fecha fin y periodo de repetición:
 4. ✓ Los modelos funcionales del dominio estan documentados y trazables con casos de uso
 5. ✓ Los diagramas C4 estan documentados (Step 8) e integrados con arquitectura (Step 9a)
 6. ✓ La arquitectura logica se documenta en su README y archivos de soporte (Step 9a)
-7. ✓ El stack tecnologico se define al cierre de arquitectura (Step 9c)
-8. ✓ El diagrama entidad-relacion representa todas las entidades y relaciones descritas
+7. [ ] El stack tecnologico se define al cierre de arquitectura (Step 9c)
+8. [ ] El diagrama entidad-relacion representa todas las entidades y relaciones descritas (Step 10)
 9. ✓ La estructura de carpetas docs/ facilita la organizacion y escalabilidad futura
 10. ✓ Todos los tipos de planificacion estan cubiertos (Puntual, Diaria, Semanal, Mensual, Sin planificar)
 
@@ -217,9 +222,9 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 
 Resumen de estado (2026-06-12):
 
-- **Resueltas:** FAQ-001 a FAQ-009, FAQ-104 a FAQ-108 (ver FAQ).
-- **Pendientes de ejecutar:** ninguno en diagramas C4 (Step 8b cerrado).
-- **Postergadas:** FAQ-101, FAQ-102 (Step 9c).
+- **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-108 (decisiones cerradas; ER en Step 10).
+- **Postergadas a Step 9c:** FAQ-007 (detalle archivo N4), FAQ-101, FAQ-102.
+- **Entregables pendientes:** Step 9c (stack + N4 implementacion), Step 10 (ER).
 
 ## Próximos Pasos
 
@@ -252,4 +257,4 @@ Resumen de estado (2026-06-12):
 2026-06-12 - Diagramas C4 (Step 8) e integracion con arquitectura (Step 9a); N4 canonico cerrado
 2026-06-12 - Plan corregido: indices duplicados resueltos — Step 7 modelos funcionales, Step 8 diagramas C4 (ambos pasos conservados)
 2026-06-12 - Revision SOLID actualizada incluyendo docs/diagramas-c4/
-2026-06-12 - Step 8b completado: diagrama N3 Front-End (FAQ-103)
+2026-06-12 - Limpieza plan y FAQ: entregables Step 9c/10; verificacion 7-8 corregida

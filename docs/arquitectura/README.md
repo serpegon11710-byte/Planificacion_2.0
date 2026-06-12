@@ -39,13 +39,13 @@ Definir una arquitectura generica, independiente del stack, para alinear decisio
 
 ## Decisiones pendientes (sin stack)
 
-Ver FAQ-101 y FAQ-102 en [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
+Ver FAQ-007, FAQ-101 y FAQ-102 en [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (Step 9c).
 
 [x] Definir contratos minimos de puertos e interfaces.
 [x] Definir granularidad final de modulos de negocio.
 [x] Definir transacciones y limites de consistencia.
 [x] Definir politicas de errores y validaciones por capa.
-[ ] Step 9c: definir criterios para seleccion de stack tecnologico.
+[ ] Step 9c: stack, motor BBDD, politica N4 historico (FAQ-007, 101, 102).
 
 ## Documentos de soporte de arquitectura
 

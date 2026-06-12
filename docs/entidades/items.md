@@ -25,7 +25,7 @@ Un **item** es una unidad de trabajo o entregable dentro de un **proyecto**. Cad
 
 | Atributo | Obligatorio | Notas |
 |----------|-------------|-------|
-| `id` | Si (persistencia) | Identificador interno |
+| `item_id` | Si (persistencia) | Identificador interno (PK; FAQ-115) |
 | `proyecto_id` | Si | FK al proyecto padre |
 | `nombre` | Si | Único **dentro del mismo proyecto** (RI-1) |
 | `descripcion` | No | Texto libre |
@@ -36,12 +36,12 @@ La edición de un item **no modifica** las planificaciones existentes; solo actu
 
 ## Modelo de persistencia (orientativo)
 
-Tabla `Items` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico `(proyecto_id, id)`; índice `UNIQUE (proyecto_id, nombre)` (FAQ-113).
+Tabla `Items` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico `(proyecto_id, item_id)`; índice `UNIQUE (proyecto_id, nombre)` (FAQ-113).
 
 | Campo | Tipo orientativo | Restricción |
 |-------|------------------|-------------|
-| `id` | PK | |
-| `proyecto_id` | FK → `Proyectos` | NOT NULL, `ON DELETE CASCADE` (RE-1) |
+| `item_id` | PK | FAQ-115 |
+| `proyecto_id` | FK → `Proyectos.proyecto_id` | NOT NULL, `ON DELETE CASCADE` (RE-1) |
 | `nombre` | texto | UNIQUE (`proyecto_id`, `nombre`) |
 | `descripcion` | texto | nullable |
 

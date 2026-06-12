@@ -85,7 +85,7 @@ FUNCION aplicar(planificacion, cambios):
 
 ```
 FUNCION aplicar(planificacion, fecha_original, cambios):
-  periodo_id = planificacion.id   // PlanificacionPeriodo.PK = planificacion_id
+  periodo_id = planificacion.planificacion_id   // PlanificacionPeriodo.PK = planificacion_id
   registro_existente = puerto_ocurrencia.buscarPorFechaOriginal(periodo_id, fecha_original)
 
   SI registro_existente ES NULL:
@@ -116,7 +116,7 @@ FUNCION aplicar(planificacion, fecha_original, cambios):
 
 ```
 FUNCION eliminarIndividual(planificacion, fecha_original):
-  registro = puerto_ocurrencia.buscarPorFechaOriginal(planificacion.id, fecha_original)
+  registro = puerto_ocurrencia.buscarPorFechaOriginal(planificacion.planificacion_id, fecha_original)
 
   SI registro ES NULL:
     registro = materializador.crearDesdeNatural(planificacion, fecha_original)
@@ -158,7 +158,7 @@ FUNCION completar(planificacion, fecha_original_opcional):
     planificacion.estado = COMPLETADA
     puerto_planificacion.guardar(planificacion)
   SINO:
-    mutarOcurrencia(planificacion.id, fecha_original_opcional, { estado: COMPLETADA })
+    mutarOcurrencia(planificacion.planificacion_id, fecha_original_opcional, { estado: COMPLETADA })
 
 FUNCION reabrir(planificacion, fecha_original_opcional):
   // Simetrico: estado -> PENDIENTE
@@ -170,7 +170,7 @@ FUNCION reabrir(planificacion, fecha_original_opcional):
 FUNCION crearDesdeNatural(planificacion, fecha_original):
   natural = motor_calculo.obtenerNatural(planificacion, fecha_original)  // ZC-1
   RETORNAR RegistroOcurrencia {
-    planificacion_id: planificacion.id,
+    planificacion_id: planificacion.planificacion_id,
     fecha_original: fecha_original,
     fecha_efectiva: natural.fecha_efectiva,
     hora: natural.hora,

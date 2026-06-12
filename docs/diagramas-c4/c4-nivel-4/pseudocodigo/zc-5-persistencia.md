@@ -151,7 +151,7 @@ FUNCION bloqueosDePlanificacion(planificacion):
     motivos.agregar(COMPLETADA)
   cantidad = 0
   SI planificacion.periodo NO ES NULL:
-    cantidad = adaptador_ocurrencia.contarPorPlanificacion(planificacion.id)
+    cantidad = adaptador_ocurrencia.contarPorPlanificacion(planificacion.planificacion_id)
   SI cantidad > 0:
     motivos.agregar(OCURRENCIAS_MATERIALIZADAS)
   SI motivos.estaVacio():
@@ -159,7 +159,7 @@ FUNCION bloqueosDePlanificacion(planificacion):
   item = adaptador_item.obtener(planificacion.item_id)
   proyecto = adaptador_proyecto.obtener(item.proyecto_id)
   RETORNAR BloqueoEliminacionPlanificacion(
-    planificacion_id = planificacion.id,
+    planificacion_id = planificacion.planificacion_id,
     identificable_por_usuario = construirIdentificablePorUsuario(planificacion, proyecto, item),
     motivos = motivos,
     cantidad_ocurrencias_materializadas = cantidad SI cantidad > 0 SINO NULL
@@ -191,7 +191,7 @@ FUNCION listarBloqueosEliminacionItem(item_id):
 FUNCION listarBloqueosEliminacionProyecto(proyecto_id):
   bloqueos = []
   PARA CADA item EN adaptador_item.listarPorProyecto(proyecto_id):
-    bloqueos.agregarTodos(listarBloqueosEliminacionItem(item.id))
+    bloqueos.agregarTodos(listarBloqueosEliminacionItem(item.item_id))
   RETORNAR bloqueos
 ```
 
@@ -239,7 +239,7 @@ FUNCION eliminarPlanificacionEnCascada(planificacion_id, tx):
 FUNCION eliminarEnCascadaItem(item_id, tx):
   planificaciones = adaptador_planificacion.listarPorItem(item_id)
   PARA CADA planificacion EN planificaciones:
-    eliminarPlanificacionEnCascada(planificacion.id, tx)
+    eliminarPlanificacionEnCascada(planificacion.planificacion_id, tx)
 
   almacen.eliminar(tabla = items, id = item_id, tx)
 ```
@@ -249,7 +249,7 @@ FUNCION eliminarEnCascada(proyecto_id):
   ejecutarEnTransaccion(tx):
     items = adaptador_item.listarPorProyecto(proyecto_id)
     PARA CADA item EN items:
-      eliminarEnCascadaItem(item.id, tx)
+      eliminarEnCascadaItem(item.item_id, tx)
 
     almacen.eliminar(tabla = proyectos, id = proyecto_id, tx)
 ```

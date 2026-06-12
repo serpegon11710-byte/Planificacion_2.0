@@ -3,7 +3,9 @@
 **Última actualización:** 2026-06-12 (`TipoPeriodo` catálogo de visibilidad de campos)  
 **Step:** 10
 
-Modelo lógico de persistencia para Planificacion 2.0. **Jerarquía de clases de dominio:** [modelo-clases-planificacion.md](modelo-clases-planificacion.md). Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105, 106, 107, 110, 111, 112, 113, 114) y entidades en esta carpeta.
+Modelo lógico de persistencia para Planificacion 2.0. **Jerarquía de clases de dominio:** [modelo-clases-planificacion.md](modelo-clases-planificacion.md). Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105–114, **115**) y entidades en esta carpeta.
+
+**Convención PK (FAQ-115):** la clave primaria de cada tabla se nombra **`{entidad}_id`** (`proyecto_id`, `item_id`, `planificacion_id`, `tipo_periodo_id`, `ocurrencia_id`). **Excepción:** `PlanificacionPeriodo` no tiene PK propia; usa **`planificacion_id`** heredada de `Planificaciones` (FAQ-114).
 
 **Notas transversales:**
 
@@ -29,21 +31,21 @@ erDiagram
     PlanificacionPeriodo ||--o{ OcurrenciasMaterializadas : ocurrencias
 
     Proyectos {
-        bigint id PK
+        bigint proyecto_id PK
         varchar nombre
         text descripcion
         timestamp fecha_creacion
     }
 
     Items {
-        bigint id PK
+        bigint item_id PK
         bigint proyecto_id FK
         varchar nombre
         text descripcion
     }
 
     Planificaciones {
-        bigint id PK
+        bigint planificacion_id PK
         bigint item_id FK
         date fecha_inicio
         date fecha_fin
@@ -53,7 +55,7 @@ erDiagram
     }
 
     TipoPeriodo {
-        smallint id PK
+        smallint tipo_periodo_id PK
         varchar codigo
         boolean visibilidad_variante_diaria
         boolean visibilidad_dias_semana
@@ -114,8 +116,8 @@ Una fila por planificación del item. Campos comunes a todas las especializacion
 
 | Columna | Obligatorio | Notas |
 |---------|-------------|-------|
-| `id` | PK | |
-| `item_id` | FK → Items | Pertenece a un item |
+| `planificacion_id` | PK | FAQ-115 |
+| `item_id` | FK → `Items.item_id` | Pertenece a un item |
 | `fecha_inicio` | Condicional | `NULL` en Sin planificar |
 | `fecha_fin` | Condicional | `NULL` en Sin planificar |
 | `hora` | Condicional | `NULL` en Sin planificar; obligatoria en Puntual y Periódica |
@@ -136,7 +138,7 @@ Detalle y diagrama: [modelo-clases-planificacion.md](modelo-clases-planificacion
 
 ## Tabla `PlanificacionPeriodo` (definición del patrón)
 
-Relación **1:1** con `Planificaciones`. **PK = `planificacion_id`** (FK → `Planificaciones.id`); no tiene `id` propio (FAQ-114). Solo existe en planificaciones periódicas.
+Relación **1:1** con `Planificaciones`. **PK = `planificacion_id`** (FK → `Planificaciones.planificacion_id`); no tiene PK propia (FAQ-114, FAQ-115).
 
 | Columna | Obligatorio | Notas |
 |---------|-------------|-------|
@@ -157,7 +159,7 @@ Tabla de referencia para **tipos de periodo** periódicos. No sustituye almacena
 
 | Columna | Uso |
 |---------|-----|
-| `id` | PK |
+| `tipo_periodo_id` | PK | FAQ-115 |
 | `codigo` | Clave estable e i18n: `Diario`, `Semanal`, `Mensual` |
 | `visibilidad_variante_diaria` | Muestra / valida `variante_diaria` |
 | `visibilidad_dias_semana` | Muestra / valida `dias_semana` |
@@ -225,13 +227,14 @@ Listar cada planificación bloqueante con **`IdentificablePorUsuario`** — ver 
 
 ## Orden físico e índices de acceso (FAQ-113)
 
-La **PK surrogate** (`id`) en cada tabla sigue siendo necesaria para FK, joins y APIs, pero **no define por sí sola** el orden físico de almacenamiento ni el patrón de lectura principal. El orden físico (cluster / índice agrupado) se fija según las reglas siguientes; la sintaxis concreta (`CLUSTER`, `INCLUDE`, `NULLS FIRST`, etc.) se elige en Step 11 según motor de BBDD.
+La **PK** (`{tabla}_id`) identifica filas y enlaza FK; **no define por sí sola** el orden físico (FAQ-113). Sintaxis concreta en Step 11.
 
 ### Principio
 
 | Concepto | Uso |
 |----------|-----|
-| `id` (PK) | Identidad estable, FK, ORM — **excepción:** `PlanificacionPeriodo` usa `planificacion_id` como PK (FAQ-114) |
+| `{tabla}_id` (PK) | Identidad estable, FK, ORM (FAQ-115) |
+| **Excepción** | `PlanificacionPeriodo`: PK = `planificacion_id` heredada (FAQ-114) |
 | **Orden físico** | Localidad de lecturas habituales (listados por proyecto, item, rango de fechas) |
 | **Índices adicionales** | Unicidad de negocio y búsquedas por nombre |
 
@@ -239,29 +242,30 @@ La **PK surrogate** (`id`) en cada tabla sigue siendo necesaria para FK, joins y
 
 | Aspecto | Definición |
 |---------|------------|
-| Orden físico | Por `id` (orden de inserción / secuencia) |
+| Orden físico | Por `proyecto_id` |
 | Índice adicional | `UNIQUE (nombre)` — RP-1; búsqueda y validación por nombre |
 
 ### `Items`
 
 | Aspecto | Definición |
 |---------|------------|
-| Orden físico | `(proyecto_id, id)` — todos los items de un proyecto contiguos; `id` desempata |
+| Orden físico | `(proyecto_id, item_id)` |
 | Índice adicional | `UNIQUE (proyecto_id, nombre)` — RI-1 |
 
 ### `Planificaciones`
 
 | Aspecto | Definición |
 |---------|------------|
-| Orden físico | `(item_id, fecha_inicio, hora, id)` — ver efectos abajo |
+| Orden físico | `(item_id, fecha_inicio, hora, planificacion_id)` — ver efectos abajo |
 | Índice adicional | `UNIQUE (item_id, observaciones)` parcial — RC-8: `WHERE fecha_inicio IS NULL` |
 
-**Efectos del orden `(item_id, fecha_inicio, hora id)`:**
+**Efectos del orden `(item_id, fecha_inicio, hora, planificacion_id)`:**
 
 1. **Por item:** todas las planificaciones de un mismo item quedan juntas (alineado con RE-2 y listados UC-01.4).
 2. **Sin planificar:** comparten `fecha_inicio IS NULL` y `hora IS NULL` → quedan **agrupadas** al inicio (o al final, según política `NULLS` del motor) del bloque del item, sin mezclarse con fechas concretas.
 3. **Puntuales y periódicas:** el subtipo (puntual vs periódica, Diario/Semanal/Mensual) **no** interviene en el orden físico; lo relevante es **`fecha_inicio`** (cronológico dentro del item). Las puntuales usan una sola fecha (`fecha_inicio = fecha_fin`); las periódicas ordenan por inicio del rango.
-4. **`id` final:** desempate estable cuando dos planificaciones comparten item y `fecha_inicio` (p. ej. varias Sin planificar con distintas observaciones).
+4. **`hora`:** orden cronológico dentro del mismo item y `fecha_inicio` (p. ej. varias puntuales el mismo día a distinta hora).
+5. **`planificacion_id` final:** desempate estable cuando comparten item, `fecha_inicio` y `hora` (p. ej. varias Sin planificar con distintas observaciones).
 
 ### Tablas satélite (FAQ-114)
 
@@ -297,27 +301,30 @@ Las tablas satélite **no comparten** el orden físico de `Planificaciones` (ord
 
 | Restricción | Regla |
 |-------------|-------|
+| `PK proyecto_id` | FAQ-115 |
 | `UNIQUE (nombre)` | RP-1 |
-| Orden físico | FAQ-113: por `id` |
+| Orden físico | FAQ-113: por `proyecto_id` |
 
 ### `Items`
 
 | Restricción | Regla |
 |-------------|-------|
+| `PK item_id` | FAQ-115 |
 | `UNIQUE (proyecto_id, nombre)` | RI-1 |
-| `FK proyecto_id → Proyectos ON DELETE CASCADE` | RE-1, RI-6 |
-| Orden físico | FAQ-113: `(proyecto_id, id)` |
+| `FK proyecto_id → Proyectos.proyecto_id ON DELETE CASCADE` | RE-1, RI-6 |
+| Orden físico | FAQ-113: `(proyecto_id, item_id)` |
 
 ### `Planificaciones`
 
 | Restricción | Regla |
 |-------------|-------|
-| `FK item_id → Items ON DELETE CASCADE` | RE-2 |
-| Orden físico | FAQ-113: `(item_id, fecha_inicio, hora, id)` |
+| `PK planificacion_id` | FAQ-115 |
+| `FK item_id → Items.item_id ON DELETE CASCADE` | RE-2 |
+| Orden físico | FAQ-113: `(item_id, fecha_inicio, hora, planificacion_id)` |
 | Sin planificar | `fecha_inicio IS NULL AND fecha_fin IS NULL AND hora IS NULL AND estado IS NULL` |
 | Sin planificar | `observaciones IS NOT NULL` (RC-8) |
 | Puntual | `fecha_inicio IS NOT NULL AND fecha_inicio = fecha_fin AND hora IS NOT NULL AND estado IS NOT NULL` |
-| Puntual | No existe fila en `PlanificacionPeriodo` para ese `id` |
+| Puntual | No existe fila en `PlanificacionPeriodo` para ese `planificacion_id` |
 | Periódica | `fecha_fin > fecha_inicio AND hora IS NOT NULL AND estado IS NOT NULL` |
 | Periódica | Existe exactamente una fila en `PlanificacionPeriodo` |
 | `UNIQUE (item_id, observaciones)` parcial | RC-8: `WHERE fecha_inicio IS NULL` |
@@ -328,7 +335,7 @@ Las tablas satélite **no comparten** el orden físico de `Planificaciones` (ord
 | Restricción | Regla |
 |-------------|-------|
 | `PK planificacion_id` | 1:1 con `Planificaciones`; FAQ-114 |
-| `FK planificacion_id → Planificaciones ON DELETE CASCADE` | |
+| `FK planificacion_id → Planificaciones.planificacion_id ON DELETE CASCADE` | |
 | Orden físico | FAQ-114: `planificacion_id` |
 | `FK tipo_periodo_id` | → `TipoPeriodo` |
 | `CHECK variante_diaria` | Obligatorio si `TipoPeriodo.visibilidad_variante_diaria` |
@@ -340,6 +347,7 @@ Las tablas satélite **no comparten** el orden físico de `Planificaciones` (ord
 
 | Restricción | Regla |
 |-------------|-------|
+| `PK tipo_periodo_id` | FAQ-115 |
 | `UNIQUE (codigo)` | Catálogo cerrado en v1 |
 | Visibilidades | Al menos una `true` por fila |
 | `Diario` / `Semanal` / `Mensual` | Filas semilla según tabla anterior |

@@ -80,8 +80,8 @@ FUNCION confirmarWizard(sesion):
 
   INICIAR transaccion:
     proyecto = agregado_proyecto.crear(sesion.datos_proyecto)
-    item = agregado_item.crear(proyecto.id, sesion.datos_item)
-    planificacion = agregado_planificacion.crear(item.id, sesion.config_planificacion)
+    item = agregado_item.crear(proyecto.proyecto_id, sesion.datos_item)
+    planificacion = agregado_planificacion.crear(item.item_id, sesion.config_planificacion)
   CONFIRMAR transaccion
 
   RETORNAR { proyecto, item, planificacion }
@@ -105,12 +105,12 @@ FUNCION crearProyectoConAcoplamiento(datos_proyecto):
   INICIAR transaccion:
     proyecto = agregado_proyecto.crear(datos_proyecto)
 
-    item = agregado_item.crear(proyecto.id, {
+    item = agregado_item.crear(proyecto.proyecto_id, {
       nombre: datos_proyecto.nombre,    // item automatico mismo nombre
       descripcion: datos_proyecto.descripcion
     })
 
-    planificacion = agregado_planificacion.crear(item.id,
+    planificacion = agregado_planificacion.crear(item.item_id,
       definicionSinPlanificarPorDefecto()
     )
   CONFIRMAR transaccion
@@ -127,7 +127,7 @@ FUNCION crearItemConPlanificacion(proyecto_id, datos_item):
 
   INICIAR transaccion:
     item = agregado_item.crear(proyecto_id, datos_item)
-    planificacion = agregado_planificacion.crear(item.id,
+    planificacion = agregado_planificacion.crear(item.item_id,
       definicionSinPlanificarPorDefecto()
     )
   CONFIRMAR transaccion

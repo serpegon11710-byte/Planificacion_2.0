@@ -105,7 +105,7 @@ Tabla `OcurrenciasMaterializadas` — ver [modelo-entidad-relacion.md](modelo-en
 
 | Campo | Obligatorio | Notas |
 |-------|-------------|-------|
-| `ocurrencia_id` | PK | Identidad de fila (FAQ-114) |
+| `ocurrencia_id` | PK | Identidad de fila (FAQ-114, FAQ-115) |
 | `planificacion_id` | Sí | FK → `PlanificacionPeriodo` (`PK = planificacion_id`) |
 | `fecha_original` | Sí | RO-5; parte del orden físico |
 | `fecha_efectiva` | Sí | Visibilidad RO-8, RO-9, RO-10 |

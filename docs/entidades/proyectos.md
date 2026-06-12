@@ -33,7 +33,7 @@ Un proyecto siempre debe tener **al menos un item** (garantizado por la creació
 
 | Atributo | Obligatorio | Notas |
 |----------|-------------|-------|
-| `id` | Si (persistencia) | Identificador interno |
+| `proyecto_id` | Si (persistencia) | Identificador interno (PK; FAQ-115) |
 | `nombre` | Si | Único en todo el sistema (RP-1) |
 | `descripcion` | No | Texto libre |
 | `fecha_creacion` | Si (persistencia) | Metadato; UTC si incluye hora (FAQ-002) |
@@ -44,11 +44,11 @@ La edición de un proyecto **no modifica** los items ni planificaciones existent
 
 ## Modelo de persistencia (orientativo)
 
-Tabla `Proyectos` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico por `id`; índice `UNIQUE (nombre)` (FAQ-113).
+Tabla `Proyectos` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico por `proyecto_id`; índice `UNIQUE (nombre)` (FAQ-113).
 
 | Campo | Tipo orientativo | Restricción |
 |-------|------------------|-------------|
-| `id` | PK | |
+| `proyecto_id` | PK | FAQ-115 |
 | `nombre` | texto | UNIQUE global |
 | `descripcion` | texto | nullable |
 | `fecha_creacion` | timestamptz | UTC |

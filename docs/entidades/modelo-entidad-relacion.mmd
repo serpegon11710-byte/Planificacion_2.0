@@ -9,21 +9,21 @@ erDiagram
     PlanificacionPeriodo ||--o{ OcurrenciasMaterializadas : ocurrencias
 
     Proyectos {
-        bigint id PK
+        bigint proyecto_id PK
         varchar nombre
         text descripcion
         timestamp fecha_creacion
     }
 
     Items {
-        bigint id PK
+        bigint item_id PK
         bigint proyecto_id FK
         varchar nombre
         text descripcion
     }
 
     Planificaciones {
-        bigint id PK
+        bigint planificacion_id PK
         bigint item_id FK
         date fecha_inicio
         date fecha_fin
@@ -33,7 +33,7 @@ erDiagram
     }
 
     TipoPeriodo {
-        smallint id PK
+        smallint tipo_periodo_id PK
         varchar codigo
         boolean visibilidad_variante_diaria
         boolean visibilidad_dias_semana

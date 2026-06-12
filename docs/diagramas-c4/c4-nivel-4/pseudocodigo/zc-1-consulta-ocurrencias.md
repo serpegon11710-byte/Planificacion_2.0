@@ -109,7 +109,7 @@ FUNCION componer(planificacion, desde, hasta):
   // PERIODICA — RO-9, RO-10
   rango_plan = [planificacion.fecha_inicio, planificacion.fecha_fin]
   materializadas = puerto_ocurrencia.buscarPorPlanificacionEnRango(
-    planificacion.id, desde, hasta, rango_plan
+    planificacion.planificacion_id, desde, hasta, rango_plan
   )
   fechas_ocupadas = conjunto(materializadas.map(m => m.fecha_original))
 
@@ -223,7 +223,7 @@ FUNCION resolver(ocurrencia_vista, planificacion):
 FUNCION listarOcurrenciasFisicas(planificacion_id):
   planificacion = puerto_planificacion.obtener(planificacion_id)
   SI planificacion.periodo ES NULL: RETORNAR { modificadas: [], eliminadas: [] }
-  registros = puerto_ocurrencia.buscarTodasMaterializadasPorPlanificacion(planificacion.id)
+  registros = puerto_ocurrencia.buscarTodasMaterializadasPorPlanificacion(planificacion.planificacion_id)
   modificadas = registros DONDE NOT es_eliminada
   eliminadas  = registros DONDE es_eliminada
   RETORNAR { modificadas, eliminadas }

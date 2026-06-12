@@ -105,7 +105,7 @@ FUNCION validarSinPlanificar(planificacion):
   SI planificacion.observaciones ES NULL O vacio:
     LANZAR ErrorFuncional("PLANIFICACION_CONFIGURACION_INVALIDA")
   SI puerto_planificacion.existeSinPlanificarConObservaciones(
-      planificacion.item_id, planificacion.observaciones, excluir = planificacion.id):
+      planificacion.item_id, planificacion.observaciones, excluir = planificacion.planificacion_id):
     LANZAR ErrorFuncional("PLANIFICACION_SIN_PLANIFICAR_OBSERVACIONES_DUPLICADAS")
 ```
 
@@ -165,7 +165,7 @@ FUNCION validarTransicion(actual, destino):
   SI origen == PERIODICA Y destino_n == SIN_PLANIFICAR:
     SI actual.estado != PENDIENTE:
       LANZAR ErrorFuncional("PERIODICA_COMPLETADA_NO_PUEDE_A_SIN_PLANIFICAR")
-    SI puerto_ocurrencia.contarPorPlanificacion(actual.id) > 0:
+    SI puerto_ocurrencia.contarPorPlanificacion(actual.planificacion_id) > 0:
       LANZAR ErrorFuncional("PERIODICA_CON_OCURRENCIAS_FISICAS_NO_PUEDE_A_SIN_PLANIFICAR")
 ```
 
@@ -176,13 +176,13 @@ FUNCION aplicarCambioNaturaleza(actual, destino):
 
   // Sin planificar <-> Puntual: misma fila Planificaciones
   SI (origen == SIN_PLANIFICAR Y destino_n == PUNTUAL) O (origen == PUNTUAL Y destino_n == SIN_PLANIFICAR):
-    RETORNAR puerto_planificacion.actualizar(actual.id, destino)
+    RETORNAR puerto_planificacion.actualizar(actual.planificacion_id, destino)
 
   SI origen == SIN_PLANIFICAR Y destino_n == PERIODICA:
-    RETORNAR puerto_planificacion.actualizarYCrearPeriodo(actual.id, destino)
+    RETORNAR puerto_planificacion.actualizarYCrearPeriodo(actual.planificacion_id, destino)
 
   SI origen == PERIODICA Y destino_n == SIN_PLANIFICAR:
-    RETORNAR puerto_planificacion.eliminarPeriodoYActualizar(actual.id, destino)
+    RETORNAR puerto_planificacion.eliminarPeriodoYActualizar(actual.planificacion_id, destino)
 ```
 
 ### Lectura Sin planificar (UC-03)

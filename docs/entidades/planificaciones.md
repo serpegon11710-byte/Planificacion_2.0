@@ -97,7 +97,7 @@ No se instancia directamente. Segunda especialización por clase concreta (cada 
 
 ## Modelo de persistencia (ER)
 
-Definición canónica: [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico de filas por item y `fecha_inicio`: FAQ-113.
+Definición canónica: [modelo-entidad-relacion.md](modelo-entidad-relacion.md). PK `planificacion_id` (FAQ-115). Orden físico de filas `(item_id, fecha_inicio, hora, planificacion_id)`: FAQ-113.
 
 ```
 Items 1──N Planificaciones

@@ -3,6 +3,7 @@
 **Componente N3:** `Ocurrencia`, `Planificacion` (lectura)  
 **Prioridad:** Alta  
 **Reglas:** `docs/entidades/ocurrencias.md` (RO-1, RO-3, RO-7)  
+**Clases:** `docs/entidades/modelo-clases-planificacion.md` (`generarNaturales` por subclase periódica)  
 **Casos de uso:** UC-02.1, UC-02.3 (lectura previa), UC-02.4
 
 ## Trazabilidad (FAQ-104)
@@ -38,7 +39,7 @@ flowchart LR
 | Subcomponente | Responsabilidad |
 |---------------|-----------------|
 | `ServicioConsultaOcurrencias` | Orquesta consulta en rango (UC-02.1) |
-| `FiltroPlanificaciones` | Excluye Sin planificar (`sin_planificar`); acota al rango |
+| `FiltroPlanificaciones` | Excluye Sin planificar (fechas NULL); acota al rango |
 | `CompositorOcurrenciasEnRango` | Lee fisicas primero; compone resultado sin doble trabajo |
 | `MotorCalculoOcurrencias` | Genera naturales pendientes, excluyendo fechas ya materializadas (RO-1, RO-3) |
 | `ResolucionEstadoEfectivo` | Estado propio, herencia y expirado (RO-7) |
@@ -96,17 +97,26 @@ FUNCION obtenerOcurrenciasEnRango(desde, hasta, filtros_opcionales):
 
 ```
 FUNCION componer(planificacion, desde, hasta):
-  // Paso 1: leer fisicas que intersectan el rango (fecha_efectiva o fecha_original)
+  naturaleza = inferirNaturaleza(planificacion)
+
+  SI naturaleza == SIN_PLANIFICAR:
+    RETORNAR LISTA_VACIA
+
+  SI naturaleza == PUNTUAL:
+    RETORNAR generarPuntualPendiente(planificacion, desde, hasta, conjunto_vacio())
+      .map(o -> { o.estado_efectivo = estado.resolver(o, planificacion); RETORNAR o })
+
+  // PERIODICA — RO-9, RO-10
+  rango_plan = [planificacion.fecha_inicio, planificacion.fecha_fin]
   materializadas = puerto_ocurrencia.buscarPorPlanificacionEnRango(
-    planificacion.id, desde, hasta
+    planificacion.planificacion_id, desde, hasta, rango_plan
   )
   fechas_ocupadas = conjunto(materializadas.map(m => m.fecha_original))
 
   ocurrencias = LISTA_VACIA
 
-  // Incluir fisicas no eliminadas cuya fecha_efectiva cae en el rango visible
   PARA CADA registro EN materializadas:
-    SI NOT registro.es_eliminada Y registro.fecha_efectiva EN [desde, hasta]:
+    SI NOT registro.es_eliminada Y esVisible(registro, desde, hasta, rango_plan):
       ocurrencias.agregar(desdeRegistroMaterializado(registro))
 
   // Paso 2: generar naturales solo en fechas sin registro previo (RO-3)
@@ -136,8 +146,14 @@ FUNCION generarNaturalesPendientes(planificacion, desde, hasta, fechas_ocupadas)
 ```
 
 ```
+FUNCION esVisible(registro, desde, hasta, rango_plan):
+  // RO-10: fecha_original fuera de rango_plan pero fecha_efectiva dentro → visible
+  SI registro.fecha_efectiva EN interseccion([desde, hasta], rango_plan):
+    RETORNAR VERDADERO
+  RETORNAR FALSO
+
 FUNCION generarPuntualPendiente(planificacion, desde, hasta, fechas_ocupadas):
-  fecha = planificacion.fecha
+  fecha = planificacion.fecha_inicio   // = fecha_fin en puntual
   SI fecha NO ESTA EN [desde, hasta]:
     RETORNAR LISTA_VACIA
   SI fechas_ocupadas.contiene(fecha):
@@ -165,20 +181,25 @@ FUNCION generarPeriodicaPendiente(planificacion, desde, hasta, fechas_ocupadas):
 
 ```
 FUNCION coincideConPatron(planificacion, fecha):
-  SEGUN planificacion.subtipo_periodica:
-    DIARIA_TODOS:        RETORNAR VERDADERO
-    DIARIA_LUN_VIE:      RETORNAR fecha.esLaboral()
-    DIARIA_FIN_SEMANA:   RETORNAR fecha.esFinDeSemana()
-    SEMANAL:             RETORNAR fecha.diaSemana EN planificacion.dias_semana
-    MENSUAL:
-      dia_objetivo = planificacion.dia_mes
+  // Delegacion polimorfica: PlanificacionDiaria | Semanal | Mensual — modelo-clases-planificacion.md
+  periodo = planificacion.periodo
+  SEGUN inferirClase(planificacion):
+    PlanificacionDiaria:
+      SEGUN periodo.variante_diaria:
+        TODOS: RETORNAR VERDADERO
+        LUN_VIE: RETORNAR fecha.esLaboral()
+        FIN_SEMANA: RETORNAR fecha.esFinDeSemana()
+    PlanificacionSemanal:
+      RETORNAR fecha.letraDiaSemana() CONTENIDA_EN periodo.dias_semana
+    PlanificacionMensual:
+      dia_objetivo = periodo.dia_mes
       SI fecha.dia == dia_objetivo: RETORNAR VERDADERO
-      SI dia_objetivo > 28 Y fecha.esUltimoDiaDelMes() Y planificacion.comportamiento_mes_corto == ULTIMO_DIA_MES:
+      SI dia_objetivo > 28 Y fecha.esUltimoDiaDelMes() Y periodo.comportamiento_mes_corto == ULTIMO_DIA_MES:
         RETORNAR VERDADERO
-      SI dia_objetivo > 28 Y fecha.dia == 1 Y planificacion.comportamiento_mes_corto == DIA_1_MES_SIGUIENTE:
+      SI dia_objetivo > 28 Y fecha.dia == 1 Y periodo.comportamiento_mes_corto == DIA_1_MES_SIGUIENTE:
         RETORNAR dia_objetivo > diasEnMes(fecha.mesAnterior())
-      SI dia_objetivo > 28 Y planificacion.comportamiento_mes_corto == OMITIR:
-        RETORNAR FALSO  // mes sin ese dia no genera ocurrencia
+      SI dia_objetivo > 28 Y periodo.comportamiento_mes_corto == OMITIR:
+        RETORNAR FALSO
       RETORNAR FALSO
 ```
 
@@ -200,7 +221,9 @@ FUNCION resolver(ocurrencia_vista, planificacion):
 
 ```
 FUNCION listarOcurrenciasFisicas(planificacion_id):
-  registros = puerto_ocurrencia.buscarTodasMaterializadas(planificacion_id)
+  planificacion = puerto_planificacion.obtener(planificacion_id)
+  SI planificacion.periodo ES NULL: RETORNAR { modificadas: [], eliminadas: [] }
+  registros = puerto_ocurrencia.buscarTodasMaterializadasPorPlanificacion(planificacion.planificacion_id)
   modificadas = registros DONDE NOT es_eliminada
   eliminadas  = registros DONDE es_eliminada
   RETORNAR { modificadas, eliminadas }
@@ -212,9 +235,8 @@ FUNCION listarOcurrenciasFisicas(planificacion_id):
 
 ```
 INTERFAZ PuertoOcurrenciaMaterializada:
-  // Registros cuya fecha_efectiva o fecha_original intersecta el rango
-  buscarPorPlanificacionEnRango(planificacion_id, desde, hasta) -> Lista<RegistroOcurrencia>
-  buscarTodasMaterializadas(planificacion_id) -> Lista<RegistroOcurrencia>
+  buscarPorPlanificacionEnRango(planificacion_id, desde, hasta, rango_planificacion) -> Lista<RegistroOcurrencia>
+  buscarTodasMaterializadasPorPlanificacion(planificacion_id) -> Lista<RegistroOcurrencia>
 ```
 
 En implementacion SQL, la lectura del paso 1 puede resolverse en una unica consulta indexada por `planificacion_id` y fechas; la generacion de naturales pendientes equivale a recorrer el patron omitiendo claves ya presentes (candidato a procedimiento almacenado cuando exista stack).

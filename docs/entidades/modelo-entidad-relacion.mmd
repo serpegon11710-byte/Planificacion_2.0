@@ -1,0 +1,62 @@
+erDiagram
+    Proyectos ||--o{ Items : contiene
+    Items ||--o{ Planificaciones : planifica
+
+    Planificaciones ||--o| PlanificacionPeriodo : periodo
+
+    TipoPeriodo ||--o{ PlanificacionPeriodo : tipo
+
+    PlanificacionPeriodo ||--o{ OcurrenciasMaterializadas : ocurrencias
+
+    Proyectos {
+        bigint proyecto_id PK
+        varchar nombre
+        text descripcion
+        timestamp fecha_creacion
+    }
+
+    Items {
+        bigint item_id PK
+        bigint proyecto_id FK
+        varchar nombre
+        text descripcion
+    }
+
+    Planificaciones {
+        bigint planificacion_id PK
+        bigint item_id FK
+        date fecha_inicio
+        date fecha_fin
+        time hora
+        text observaciones
+        varchar estado
+    }
+
+    TipoPeriodo {
+        smallint tipo_periodo_id PK
+        varchar codigo
+        boolean visibilidad_variante_diaria
+        boolean visibilidad_dias_semana
+        boolean visibilidad_dia_mes
+        boolean visibilidad_comportamiento_mes_corto
+    }
+
+    PlanificacionPeriodo {
+        bigint planificacion_id PK
+        smallint tipo_periodo_id FK
+        varchar variante_diaria
+        varchar dias_semana
+        smallint dia_mes
+        varchar comportamiento_mes_corto
+    }
+
+    OcurrenciasMaterializadas {
+        bigint ocurrencia_id PK
+        bigint planificacion_id FK
+        date fecha_original
+        date fecha_efectiva
+        time hora
+        text observaciones
+        varchar estado
+        boolean eliminada_virtual
+    }

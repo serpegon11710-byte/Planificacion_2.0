@@ -4,7 +4,7 @@ Este documento audita el cumplimiento de los principios SOLID en **toda** la doc
 
 ## Objetivo
 
-Verificar coherencia de diseno a nivel global como parte del Step 9b, antes del Step 9c (stack tecnologico), identificando cumplimientos, desviaciones justificadas y deuda documental a corregir.
+Verificar coherencia de diseno a nivel global como parte del Step 9b, antes del Step 11 (stack tecnologico), identificando cumplimientos, desviaciones justificadas y deuda documental a corregir.
 
 ## Alcance revisado
 
@@ -75,7 +75,7 @@ Separar planificaciones y ocurrencias en dos ficheros respeta SRP: cada uno camb
 | Zona / componente | Responsabilidad unica | Estado |
 |-------------------|----------------------|--------|
 | ZC-1 `CompositorOcurrenciasEnRango` | Composicion fisicas + naturales pendientes | Cumple |
-| ZC-2 `EnrutadorPorTipoPlanificacion` | Desvio puntual vs periodico | Cumple |
+| ZC-2 `EnrutadorPorNaturaleza` | Desvio puntual vs periodico | Cumple |
 | ZC-3 `ValidadorConfiguracion` / `GestorCambioTipo` | Validacion y cambio de tipo separados | Cumple |
 | ZC-4 Coordinadores por flujo (wizard, proyecto, item) | Orquestacion acotada por UC | Cumple |
 | ZC-5 Puertos por agregado | Persistencia segregada | Cumple |
@@ -221,7 +221,7 @@ Las flechas indican referencia/trazabilidad, no acoplamiento de implementacion.
 
 ## Deuda documental detectada (no bloqueante)
 
-Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, FAQ-102, FAQ-007 — Step 9c).
+Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, FAQ-102, FAQ-007 — Step 11).
 
 ---
 
@@ -240,4 +240,4 @@ Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resolu
 
 **Ultima revision:** 2026-06-12 (post-integracion C4 con arquitectura)
 
-La documentacion global del proyecto cumple SOLID de forma coherente. Las desviaciones detectadas son menores y no bloquean la seleccion de stack tecnologico (Step 9c). La revision debe repetirse al anadir nuevos casos de uso, entidades, modulos de arquitectura o zonas criticas N4.
+La documentacion global del proyecto cumple SOLID de forma coherente. Las desviaciones detectadas son menores y no bloquean la seleccion de stack tecnologico (Step 11). La revision debe repetirse al anadir nuevos casos de uso, entidades, modulos de arquitectura o zonas criticas N4.

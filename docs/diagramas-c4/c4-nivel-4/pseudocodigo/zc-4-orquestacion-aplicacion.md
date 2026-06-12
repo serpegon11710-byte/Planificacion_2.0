@@ -80,8 +80,8 @@ FUNCION confirmarWizard(sesion):
 
   INICIAR transaccion:
     proyecto = agregado_proyecto.crear(sesion.datos_proyecto)
-    item = agregado_item.crear(proyecto.id, sesion.datos_item)
-    planificacion = agregado_planificacion.crear(item.id, sesion.config_planificacion)
+    item = agregado_item.crear(proyecto.proyecto_id, sesion.datos_item)
+    planificacion = agregado_planificacion.crear(item.item_id, sesion.config_planificacion)
   CONFIRMAR transaccion
 
   RETORNAR { proyecto, item, planificacion }
@@ -105,12 +105,12 @@ FUNCION crearProyectoConAcoplamiento(datos_proyecto):
   INICIAR transaccion:
     proyecto = agregado_proyecto.crear(datos_proyecto)
 
-    item = agregado_item.crear(proyecto.id, {
+    item = agregado_item.crear(proyecto.proyecto_id, {
       nombre: datos_proyecto.nombre,    // item automatico mismo nombre
       descripcion: datos_proyecto.descripcion
     })
 
-    planificacion = agregado_planificacion.crear(item.id,
+    planificacion = agregado_planificacion.crear(item.item_id,
       definicionSinPlanificarPorDefecto()
     )
   CONFIRMAR transaccion
@@ -127,7 +127,7 @@ FUNCION crearItemConPlanificacion(proyecto_id, datos_item):
 
   INICIAR transaccion:
     item = agregado_item.crear(proyecto_id, datos_item)
-    planificacion = agregado_planificacion.crear(item.id,
+    planificacion = agregado_planificacion.crear(item.item_id,
       definicionSinPlanificarPorDefecto()
     )
   CONFIRMAR transaccion
@@ -137,16 +137,25 @@ FUNCION crearItemConPlanificacion(proyecto_id, datos_item):
 
 ### Eliminacion con cascada (UC-01.2, UC-01.3)
 
+RE-3 y RE-4 bloquean la cascada si alguna planificacion del ambito esta Completada o tiene ocurrencias materializadas. ZC-5 valida antes de borrar; el usuario revierte con UC-01.4 y UC-02.4.
+
 ```
 FUNCION eliminarProyecto(proyecto_id):
+  bloqueos = puerto_planificacion.listarBloqueosEliminacionProyecto(proyecto_id)
+  SI bloqueos NO esta vacio:
+    LANZAR ErrorFuncional("ELIMINACION_PROYECTO_BLOQUEADA", detalle = bloqueos)   // RE-5
+
   INICIAR transaccion:
     agregado_proyecto.eliminarEnCascada(proyecto_id)
-    // items, planificaciones y ocurrencias materializadas via ZC-5
   CONFIRMAR transaccion
 
 FUNCION eliminarItem(proyecto_id, item_id):
   SI agregado_item.esUltimoDelProyecto(proyecto_id):
     LANZAR ErrorFuncional("ITEM_ULTIMO_NO_ELIMINABLE")
+
+  bloqueos = puerto_planificacion.listarBloqueosEliminacionItem(item_id)
+  SI bloqueos NO esta vacio:
+    LANZAR ErrorFuncional("ELIMINACION_ITEM_BLOQUEADA", detalle = bloqueos)   // RE-5
 
   INICIAR transaccion:
     agregado_item.eliminarEnCascada(item_id)

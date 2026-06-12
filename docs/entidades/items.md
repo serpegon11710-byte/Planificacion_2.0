@@ -25,7 +25,7 @@ Un **item** es una unidad de trabajo o entregable dentro de un **proyecto**. Cad
 
 | Atributo | Obligatorio | Notas |
 |----------|-------------|-------|
-| `id` | Si (persistencia) | Identificador interno |
+| `item_id` | Si (persistencia) | Identificador interno (PK; FAQ-115) |
 | `proyecto_id` | Si | FK al proyecto padre |
 | `nombre` | Si | Único **dentro del mismo proyecto** (RI-1) |
 | `descripcion` | No | Texto libre |
@@ -36,19 +36,19 @@ La edición de un item **no modifica** las planificaciones existentes; solo actu
 
 ## Modelo de persistencia (orientativo)
 
-Tabla `Items` (detalle en Step 10):
+Tabla `Items` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico `(proyecto_id, item_id)`; índice `UNIQUE (proyecto_id, nombre)` (FAQ-113).
 
 | Campo | Tipo orientativo | Restricción |
 |-------|------------------|-------------|
-| `id` | PK | |
-| `proyecto_id` | FK → `Proyectos` | NOT NULL |
+| `item_id` | PK | FAQ-115 |
+| `proyecto_id` | FK → `Proyectos.proyecto_id` | NOT NULL, `ON DELETE CASCADE` (RE-1) |
 | `nombre` | texto | UNIQUE (`proyecto_id`, `nombre`) |
 | `descripcion` | texto | nullable |
 
 Relaciones:
 
 - **Proyecto 1:N Item**
-- **Item 1:N Planificación** (tablas `PlanificacionesPuntuales` y `PlanificacionesPeriodicas`; ver [planificaciones.md](planificaciones.md))
+- **Item 1:N Planificación** (tabla `Planificaciones`; orden físico `(item_id, fecha_inicio, hora, planificacion_id)` — FAQ-113; clases en [modelo-clases-planificacion.md](modelo-clases-planificacion.md); ver [planificaciones.md](planificaciones.md))
 
 ---
 
@@ -86,7 +86,7 @@ Valores por defecto de la planificación automática:
 
 | Campo | Valor inicial |
 |-------|---------------|
-| Tipo | Sin planificar (`sin_planificar = true` en `PlanificacionesPuntuales`) |
+| Tipo | Sin planificar (`fecha_inicio` y `fecha_fin` NULL en `Planificaciones`) |
 | `observaciones` | Nombre del item |
 | Estado | Pendiente |
 
@@ -132,7 +132,11 @@ Relacionado con la regla de planificaciones: cada item debe poder listarse en UC
 
 ### RI-5: Eliminación en cascada
 
-Al eliminar un item (cuando RI-3 lo permite) se eliminan en cascada:
+**RE-3 y RE-4 bloquean esta operación** mientras alguna planificación del item esté Completada o tenga ocurrencias materializadas. El usuario debe revertir manualmente con UC-01.4 y UC-02.4; solo entonces puede eliminarse el item.
+
+**RE-5:** si el borrado se rechaza, el aviso debe listar **inequívocamente** cada planificación bloqueante mediante su **`IdentificablePorUsuario`** + motivo. Ver UC-01.3 FA-5, RN-3.7 y `ELIMINACION_ITEM_BLOQUEADA`.
+
+Cuando se cumple la precondición, al eliminar un item (si RI-3 lo permite) se borran en cascada:
 
 - Todas las **planificaciones** del item
 - Todas las **ocurrencias materializadas** de esas planificaciones

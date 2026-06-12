@@ -1,4 +1,4 @@
-# Zonas criticas para C4 Nivel 4
+﻿# Zonas criticas para C4 Nivel 4
 
 Define que componentes del [Nivel 3](../c4-nivel-3/c4-nivel-3-componentes.mmd) merecen un diagrama N4 (detalle interno) y con que alcance funcional.
 
@@ -9,7 +9,7 @@ El N4 se documenta en dos capas:
 | Capa | Ubicacion | Rol |
 |------|-----------|-----|
 | **Canonico** | [pseudocodigo/](pseudocodigo/) | Estructura logica + pseudocodigo; independiente del stack |
-| **Implementacion** | [implementacion/](implementacion/) | Proyeccion al stack concreto; pendiente hasta definir Step 9c |
+| **Implementacion** | [implementacion/](implementacion/) | Proyeccion al stack concreto; pendiente hasta definir Step 11 |
 
 El pseudocodigo es la fuente de verdad funcional. Si cambia el stack, se regenera la capa de implementacion a partir del mismo canonico, sin redefinir las zonas criticas ni las reglas de negocio.
 

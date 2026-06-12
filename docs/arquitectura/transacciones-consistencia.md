@@ -1,4 +1,4 @@
-﻿# Transacciones y limites de consistencia
+# Transacciones y limites de consistencia
 
 Este documento define los limites transaccionales y de consistencia de Planificacion 2.0, alineado con la granularidad de modulos y los casos de uso existentes.
 
@@ -56,13 +56,19 @@ Implicacion transaccional: no se permite eliminar el ultimo Item de un Proyecto 
 
 ### RC-T3: Eliminacion en cascada
 
+**Precondicion (RE-3, RE-4):** no se inicia la cascada de proyecto ni de item si alguna planificacion del ambito esta Completada o tiene ocurrencias materializadas. El usuario debe revertir con UC-01.4 y UC-02.4 antes de reintentar. Objetivo: evitar borrados masivos accidentales de datos que deben persistir.
+
+Cuando se cumple la precondicion:
+
 | Eliminacion origen | Efecto en cascada |
 |--------------------|-------------------|
 | Proyecto | Items del proyecto, planificaciones de esos items, ocurrencias materializadas |
 | Item | Planificaciones del item, ocurrencias materializadas de esas planificaciones |
-| Planificacion | Ocurrencias materializadas de esa planificacion |
+| Planificacion | Ocurrencias materializadas de esa planificacion (solo si RE-4 cumplida) |
 
-Toda cascada se ejecuta dentro de una unica transaccion.
+Toda cascada se ejecuta dentro de una unica transaccion. Si RE-3 o RE-4 fallan en cualquier planificacion del ambito, la transaccion no borra nada.
+
+**RE-5:** antes de iniciar la transaccion, el sistema recopila **todas** las planificaciones bloqueantes con su `IdentificablePorUsuario` y las devuelve en un unico aviso (`ELIMINACION_PROYECTO_BLOQUEADA` / `ELIMINACION_ITEM_BLOQUEADA` con payload `bloqueos`).
 
 ### RC-T4: Creacion automatica acoplada
 

@@ -6,208 +6,297 @@
 
 ## Propósito
 
-Este documento define el catálogo común de tipos de planificación, sus reglas de configuración, el modelo de persistencia (ER) y las clases de dominio. Cualquier caso de uso que necesite capturar, validar o persistir planificaciones debe referenciar este documento como fuente única.
+Este documento define la entidad abstracta **Planificación**, sus especializaciones de dominio, el modelo de persistencia (ER) y las reglas de configuración. Cualquier caso de uso que capture, valide o persista planificaciones debe referenciar este documento como fuente única.
 
-Decisiones de modelo físico y nomenclatura: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-105, FAQ-106, FAQ-107).
+**Jerarquía de clases (dominio):** [modelo-clases-planificacion.md](modelo-clases-planificacion.md) — diagrama y mapeo persistencia ↔ clase.
 
----
-
-## Catálogo de Tipos de Planificación
-
-### 1. Puntual
-
-Planificación que ocurre una única vez en una fecha y hora específica.
-
-**Configuración requerida:**
-
-- Fecha
-- Hora
-- Observaciones (opcional)
+Decisiones de modelo: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-105, FAQ-106, FAQ-107, FAQ-110, FAQ-111, FAQ-112).
 
 ---
 
-### 2. Periódica
+## Entidad abstracta `Planificacion`
 
-Planificación que se repite según un patrón temporal.
+Lo que define a toda planificación:
 
-**Configuración base requerida:**
+| Atributo | Descripción |
+|----------|-------------|
+| Pertenencia | Un **item** concreto (`item_id`) |
+| `fecha_inicio`, `fecha_fin` | Rango temporal; vacías en Sin planificar |
+| `hora` | Hora de la planificación (UTC) |
+| `observaciones` | Texto libre; obligatorias en Sin planificar |
+| `estado` | `Pendiente` \| `Completada`; vacío en Sin planificar |
 
-- Fecha inicio
-- Fecha fin
-- Hora
-- Observaciones (opcional)
+La clase de dominio es **abstracta**. La clase concreta se instancia vía factory desde persistencia (sin flags en BD) — ver [modelo-clases-planificacion.md](modelo-clases-planificacion.md).
 
-#### Variantes de planificación periódica
-
-**a) Diaria**
-
-Subtipo **prefijado (enum)**, no lista libre (FAQ-001):
-
-- Todos los días
-- Lunes a Viernes
-- Fin de semana
-
-**b) Semanal**
-
-- **Lista** de uno o más días de la semana (p. ej. martes y jueves en la misma planificación)
-
-**c) Mensual**
-
-- Día del mes (1-31)
-- Para días mayores a 28, debe definirse uno de estos comportamientos cuando el mes no tenga ese día:
-  - Usar el último día del mes
-  - Mover al día 1 del mes siguiente
-  - Omitir la ocurrencia de ese mes
+```text
+Planificacion (abstracta)
+├── PlanificacionSinPlanificar
+├── PlanificacionPuntual
+└── PlanificacionPeriodica (abstracta)
+    ├── PlanificacionDiaria
+    ├── PlanificacionSemanal
+    └── PlanificacionMensual
+```
 
 ---
 
-### 3. Sin planificar
+## Especializaciones de dominio
 
-Planificación sin fecha ni hora asignada. En la UI y documentación funcional se denomina **«Sin planificar»** (FAQ-107).
+### `PlanificacionSinPlanificar`
 
-**Configuración requerida:**
+| Característica | Regla |
+|----------------|-------|
+| Fechas | `fecha_inicio` y `fecha_fin` vacías (`NULL`) |
+| `hora` | Vacía |
+| `observaciones` | **Obligatorias** (RC-8) |
+| `estado` | Siempre vacío (`NULL`) |
+| Ocurrencias | Lista vacía |
 
-- Observaciones (opcional)
+### `PlanificacionPuntual`
 
-No genera ocurrencias.
+| Característica | Regla |
+|----------------|-------|
+| Fechas | `fecha_inicio = fecha_fin` |
+| `hora` | Obligatoria |
+| `estado` | Obligatorio (`Pendiente` \| `Completada`) |
+| Periodo | **No** existe fila en `PlanificacionPeriodo` |
+| Ocurrencias | Una sola ocurrencia **dinámica** que refleja los datos de la planificación |
 
----
+### `PlanificacionPeriodica` (abstracta)
 
-## Catálogo de tipos (persistencia)
+| Característica | Regla |
+|----------------|-------|
+| Fechas | `fecha_fin > fecha_inicio` |
+| `hora` | Obligatoria |
+| `estado` | Obligatorio |
+| Periodo | Existe fila **1:1** en `PlanificacionPeriodo` |
+| Ocurrencias | Una o varias, dinámicas y/o materializadas |
 
-Tabla de referencia `TipoPlanificacion` (FAQ-106). El campo `periodica` distingue el almacenamiento y el motor de ocurrencias:
+No se instancia directamente. Segunda especialización por clase concreta (cada una con su `generarNaturales` en ZC-1):
 
-| Tipo (`codigo`) | `periodica` | Tabla destino |
-|-----------------|-------------|---------------|
-| `Puntual` | `false` | `PlanificacionesPuntuales` (`sin_planificar = false`) |
-| `SinPlanificar` | `NULL` | `PlanificacionesPuntuales` (`sin_planificar = true`) |
-| `Diario` | `true` | `PlanificacionesPeriodicas` |
-| `Semanal` | `true` | `PlanificacionesPeriodicas` |
-| `Mensual` | `true` | `PlanificacionesPeriodicas` |
+#### `PlanificacionDiaria` (`TipoPeriodo.codigo = Diario`)
 
-Los subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuración de la fila periódica con tipo `Diario`, no filas adicionales del catálogo.
+| Campo de patrón | Regla |
+|-----------------|-------|
+| `variante_diaria` | FAQ-001: Todos los días \| Lunes a Viernes \| Fin de semana |
+
+#### `PlanificacionSemanal` (`TipoPeriodo.codigo = Semanal`)
+
+| Campo de patrón | Regla |
+|-----------------|-------|
+| `dias_semana` | Letras **L M X J V S D** (p. ej. `MX`, `LMXJVSD`) |
+
+#### `PlanificacionMensual` (`TipoPeriodo.codigo = Mensual`)
+
+| Campo de patrón | Regla |
+|-----------------|-------|
+| `dia_mes` | 1–31 |
+| `comportamiento_mes_corto` | Obligatorio si `dia_mes > 28` |
 
 ---
 
 ## Modelo de persistencia (ER)
 
-Dos tablas hijas por naturaleza temporal (FAQ-105). Campos comunes (item, observaciones, estado, tipo_id, etc.) en cada tabla o en cabecera compartida según diseño final del Step 10.
+Definición canónica: [modelo-entidad-relacion.md](modelo-entidad-relacion.md). PK `planificacion_id` (FAQ-115). Orden físico de filas `(item_id, fecha_inicio, hora, planificacion_id)`: FAQ-113.
 
-### `PlanificacionesPuntuales`
+```
+Items 1──N Planificaciones
+Planificaciones 1──0..1 PlanificacionPeriodo
+PlanificacionPeriodo 1──N OcurrenciasMaterializadas (solo materializadas)
+```
 
-| Campo | Obligatorio | Notas |
-|-------|-------------|-------|
-| `fecha` | Si `sin_planificar = false` | UTC (FAQ-002) |
-| `hora` | Si `sin_planificar = false` | UTC |
-| `sin_planificar` | Si | `true` = tipo Sin planificar; `false` = Puntual con fecha/hora |
+### Tabla `Planificaciones`
 
-Un mismo registro puntual puede pasar de **Sin planificar** a **Puntual** (y viceversa) **mutando el flag** y los campos fecha/hora en la misma fila, sin cambiar de tabla.
+Almacena **Sin planificar**, **Puntual** y los datos comunes de **Periódica**. Sin columnas discriminadoras: la naturaleza se infiere.
 
-### `PlanificacionesPeriodicas`
+### Tabla `PlanificacionPeriodo`
 
-| Campo | Obligatorio | Notas |
-|-------|-------------|-------|
-| `fecha_inicio`, `fecha_fin`, `hora` | Si | UTC |
-| Patrón según tipo | Si | Enum diario, lista días semanal, día mes + comportamiento mensual |
+Solo para periódicas. Relación **1:1** con `Planificaciones`: **PK = `planificacion_id`** (sin `id` propio; FAQ-114). Tipo de periodo vía `tipo_periodo_id` (FK → `TipoPeriodo`).
 
-ZC-1 y flujos de ocurrencias operan sobre filas periódicas y puntuales con `sin_planificar = false`. UC-03 consulta puntuales con `sin_planificar = true`.
+### Catálogo `TipoPeriodo` (FAQ-111)
+
+No es un mero duplicado del `codigo` en el periodo: registra **qué campos de patrón son visibles y exigibles** por tipo (`visibilidad_variante_diaria`, `visibilidad_dias_semana`, `visibilidad_dia_mes`, `visibilidad_comportamiento_mes_corto`). Los **valores** del patrón siguen en `PlanificacionPeriodo`.
+
+| `codigo` | Campos visibles |
+|----------|-----------------|
+| `Diario` | `variante_diaria` |
+| `Semanal` | `dias_semana` |
+| `Mensual` | `dia_mes`, `comportamiento_mes_corto` (este último obligatorio si `dia_mes > 28`) |
+
+Puntual y Sin planificar no tienen fila en `TipoPeriodo`.
+
+---
+
+## Metadatos de captura y validación
+
+### Campos comunes (`Planificaciones`)
+
+Definidos en este documento y validados por naturaleza inferida (ZC-3):
+
+| Campo | Puntual / Periódica | Sin planificar |
+|-------|---------------------|----------------|
+| `fecha_inicio`, `fecha_fin` | sí | no (NULL) |
+| `hora` | sí | no |
+| `observaciones` | opcional | obligatorias (RC-8) |
+| `estado` | obligatorio | NULL |
+
+### Campos de patrón (`PlanificacionPeriodo`)
+
+Visibilidad y obligatoriedad según fila de **`TipoPeriodo`** enlazada por `tipo_periodo_id`:
+
+| Campo en periodo | Columna de visibilidad en `TipoPeriodo` |
+|------------------|----------------------------------------|
+| `variante_diaria` | `visibilidad_variante_diaria` |
+| `dias_semana` | `visibilidad_dias_semana` |
+| `dia_mes` | `visibilidad_dia_mes` |
+| `comportamiento_mes_corto` | `visibilidad_comportamiento_mes_corto` |
+
+Al añadir un tipo de periodo (RC-5): fila en `TipoPeriodo` con sus visibilidades, estrategia de motor en ZC-1, CHECK en ER.
+
+### Flujo metadata-driven
+
+```mermaid
+flowchart LR
+  Cat["TipoPeriodo BD"]
+  Per["PlanificacionPeriodo"]
+  V["ValidadorConfiguracion ZC-3"]
+  C["Captura UC-01.5 ZC-6"]
+  M["Motor ocurrencias ZC-1"]
+
+  Cat -->|visibilidades| V
+  Cat -->|visibilidades| C
+  Per --> V
+  Cat -->|codigo| M
+```
+
+1. **Clase concreta:** `inferirClase(planificacion)` — ver [modelo-clases-planificacion.md](modelo-clases-planificacion.md).
+2. **Captura / validación periódica:** cargar `TipoPeriodo` por `tipo_periodo_id`; mostrar y validar solo columnas con visibilidad `true`.
+3. **Motor:** polimorfismo en `PlanificacionDiaria` / `PlanificacionSemanal` / `PlanificacionMensual` (`generarNaturales`).
 
 ---
 
 ## Modelo de dominio (código)
 
-En la capa de negocio existen clases especializadas que encapsulan la definición temporal; la persistencia usa las dos tablas anteriores:
+Diagrama y factory: **[modelo-clases-planificacion.md](modelo-clases-planificacion.md)**.
 
-| Clase de dominio | Persistencia | Notas |
-|------------------|--------------|-------|
-| `PlanificacionPuntual` | `PlanificacionesPuntuales` | `sin_planificar = false` |
-| `PlanificacionSinPlanificar` | `PlanificacionesPuntuales` | `sin_planificar = true` |
-| `PlanificacionPeriodica` | `PlanificacionesPeriodicas` | Subtipos Diario / Semanal / Mensual |
+| Clase concreta | Persistencia |
+|----------------|--------------|
+| `PlanificacionSinPlanificar` | `Planificaciones` (fechas NULL, sin periodo) |
+| `PlanificacionPuntual` | `Planificaciones` (inicio = fin, sin periodo) |
+| `PlanificacionDiaria` | `Planificaciones` + `PlanificacionPeriodo` (`Diario`) |
+| `PlanificacionSemanal` | `Planificaciones` + `PlanificacionPeriodo` (`Semanal`) |
+| `PlanificacionMensual` | `Planificaciones` + `PlanificacionPeriodo` (`Mensual`) |
 
-`PlanificacionSinPlanificar` no implica una tercera tabla: es la representación de dominio del flag `sin_planificar` en la tabla puntual.
+`Planificacion` y `PlanificacionPeriodica` son **abstractas**; no se persisten como tipos distintos.
 
 ---
 
 ## Estado de Planificación
 
-Las planificaciones tienen estado base de negocio:
+- **Pendiente** / **Completada** — solo Puntual y Periódica.
+- **Sin planificar:** `estado` siempre `NULL`.
 
-- **Pendiente**
-- **Completada**
+El estado puede heredarse en ocurrencias sin estado propio (FAQ-003, FAQ-004).
 
-Este estado puede ser utilizado por las ocurrencias cuando una ocurrencia no tenga estado propio registrado (FAQ-003, FAQ-004).
+---
+
+## IdentificablePorUsuario
+
+Siempre incluye **proyecto** e **item** (nombre visible).
+
+| Naturaleza | Campos |
+|------------|--------|
+| **Periódica** | proyecto + item + `tipo_periodo` (`TipoPeriodo.codigo`) + observaciones + fecha_inicio + fecha_fin + hora |
+| **Puntual** | proyecto + item + «Puntual» + observaciones + fecha_inicio + hora |
+| **Sin planificar** | proyecto + item + «Sin planificar» + observaciones |
+
+Plantillas orientativas:
+
+- Periódica: `Proyecto «{proyecto}» · Item «{item}» · {tipo_periodo} · «{observaciones}» · {fecha_inicio}–{fecha_fin} · {hora}`
+- Puntual: `Proyecto «{proyecto}» · Item «{item}» · Puntual · «{observaciones}» · {fecha_inicio} · {hora}`
+- Sin planificar: `Proyecto «{proyecto}» · Item «{item}» · Sin planificar · «{observaciones}»`
 
 ---
 
 ## Reglas Comunes de Configuración
 
-### RC-1: Aplicación de reglas por tipo
+### RC-1: Aplicación de reglas por naturaleza y subtipo
 
-Cada tipo y variante aplica únicamente sus propias reglas de configuración.
+Validación y captura iteran campos comunes + patrones del subtipo periódico cuando aplique.
 
 ### RC-2: Validación de rango temporal
 
-Cuando exista fecha inicio/fin, la fecha fin debe ser posterior a la fecha inicio.
+- **Puntual:** `fecha_inicio = fecha_fin`.
+- **Periódica:** `fecha_fin > fecha_inicio`.
 
-### RC-3: Validación de consistencia
+### RC-3: Al menos una ocurrencia
 
-La configuración debe ser válida y permitir generar al menos una ocurrencia para los tipos que generan ocurrencias (Puntual y Periódica), según su configuración y rango cuando aplique.
+Tipos que generan ocurrencias (Puntual y Periódica) deben permitir al menos una ocurrencia en su rango según la configuración.
 
 ### RC-4: Mantenimiento planificaciones
 
-La creación/modificación de planificaciones no gestiona ocurrencias individuales; solo persiste la planificación base.
+UC-01.4 persiste configuración base; no gestiona ocurrencias individuales salvo edición de `estado`.
 
 ### RC-5: Evolución del catálogo
 
-Nuevos tipos o variantes deben incorporarse en este documento y en `TipoPlanificacion`, y luego ser consumidos por los casos de uso.
+Nuevo tipo de periodo: fila en `TipoPeriodo`, nueva subclase de `PlanificacionPeriodica` (p. ej. `PlanificacionQuincenal`), columnas en ER, `generarNaturales` en ZC-1.
+
+### RC-6: Eliminación restringida (RE-3, RE-4)
+
+No eliminar si `estado = Completada` o si la planificación **periódica** tiene ocurrencias materializadas.
+
+### RC-7: Aviso RE-5
+
+Listar todas las planificaciones bloqueantes con `IdentificablePorUsuario`.
+
+### RC-8: Unicidad Sin planificar
+
+`UNIQUE (item_id, observaciones)` donde `fecha_inicio IS NULL`. Código: `PLANIFICACION_SIN_PLANIFICAR_OBSERVACIONES_DUPLICADAS`.
 
 ---
 
-## Reglas de Cambio de Tipo de Planificación
+## Reglas de Cambio de Naturaleza (RT-*)
 
-### RT-1: Sin planificar hacia Puntual o Periódica
+Todas las transiciones operan sobre **una fila** en `Planificaciones` (y opcionalmente `PlanificacionPeriodo`); no hay cambio de tabla.
 
-- **Sin planificar → Puntual:** misma tabla `PlanificacionesPuntuales`: `sin_planificar = false` y completar fecha/hora. Estado Pendiente.
-- **Sin planificar → Periódica:** **anular** el registro en `PlanificacionesPuntuales` y **crear** registro en `PlanificacionesPeriodicas` con la configuración destino. **No afecta a ocurrencias** (no existían).
+### RT-1: Sin planificar → Puntual o Periódica
 
-### RT-2: Puntual hacia Sin planificar
+- **→ Puntual:** completar `fecha_inicio = fecha_fin`, `hora`, `estado = Pendiente`.
+- **→ Periódica:** completar fechas (`fin > inicio`), `hora`, `estado`; **crear** `PlanificacionPeriodo`.
 
-Solo si estado **Pendiente**. Misma tabla: `sin_planificar = true` y limpiar fecha/hora (o dejarlas ignoradas).
+### RT-2: Puntual → Sin planificar
 
-### RT-3: Periódica hacia Sin planificar
+Solo si `estado = Pendiente`. Vaciar fechas, `hora` y `estado`.
 
-Precondiciones (sin cambio funcional):
+### RT-3: Periódica → Sin planificar
 
-- Estado **Pendiente**
-- No existen ocurrencias materializadas de modificación ni eliminación
+Precondiciones: `estado = Pendiente`; sin ocurrencias materializadas. **Eliminar** `PlanificacionPeriodo`; vaciar fechas, `hora` y `estado`.
 
-Operación: **anular** registro en `PlanificacionesPeriodicas` y **crear** registro en `PlanificacionesPuntuales` con `sin_planificar = true`.
+### RT-4: Puntual ↔ Periódica
 
-### RT-4: Cambios no permitidos entre Puntual y Periódica
+No permitido directamente (solo vía Sin planificar).
 
-No se permite cambiar el tipo de planificación entre **Puntual** y **Periódica** en ningún sentido (salvo vía Sin planificar como estado intermedio implícito en RT-1 / RT-3).
+### RT-5: Cambio entre tipos de periodo (Diario ↔ Semanal ↔ Mensual)
 
-### RT-5: Cambios no permitidos de subtipo periódico
-
-No se permite modificar el subtipo de una planificación **Periódica** (Diaria, Semanal o Mensual) una vez creada.
+No permitido directamente (solo vía Sin planificar): la planificación periódica debe pasar primero por **RT-3** (→ Sin planificar, sin ocurrencias materializadas) y luego por **RT-1** (→ Periódica con el nuevo `tipo_periodo_id`). No se puede modificar `tipo_periodo_id` de un `PlanificacionPeriodo` existente in situ.
 
 ---
 
 ## Uso por Casos de Uso
 
-- UC-01.5 debe usar este documento para captura y validación, sin redefinir tipos internamente.
-- UC-01.4 debe persistir la configuración resultante sin redefinir el catálogo.
-- UC-03 lista planificaciones con `sin_planificar = true` (tipo Sin planificar).
-- UC-01.2 y UC-01.3 deben referenciar [proyectos.md](proyectos.md) e [items.md](items.md) para reglas de unicidad y efectos automáticos.
-- Cualquier otro caso de uso que opere con planificaciones debe referenciar este catálogo común.
+- UC-01.5: captura y validación desde este documento.
+- UC-01.4: persistencia en `Planificaciones` / `PlanificacionPeriodo`.
+- UC-03: planificaciones con `fecha_inicio IS NULL` (Sin planificar).
+- UC-01.2 / UC-01.3: RE-3, RE-4, RE-5.
 
 ---
 
 ## Trazabilidad C4
 
-| Zona crítica N4 | Rol |
-|-----------------|-----|
-| [ZC-3](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-3-planificacion-temporal.md) | Validación, catálogo, cambios de tipo (RT-*) |
-| [ZC-5](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | Persistencia en tablas puntuales / periódicas |
-
-Los casos de uso referencian zonas críticas en sus propios documentos (FAQ-104).
+| Artefacto / zona | Rol |
+|------------------|-----|
+| [modelo-clases-planificacion.md](modelo-clases-planificacion.md) | Jerarquía de clases e `inferirClase` |
+| [ZC-3](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-3-planificacion-temporal.md) | Validación, RT-*, `inferirClase` |
+| [ZC-1](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-1-consulta-ocurrencias.md) | Motor por subtipo periódico |
+| [ZC-5](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | `Planificaciones`, `PlanificacionPeriodo` |
+| [ZC-6](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-6-presentacion.md) | Formulario UC-01.5 |

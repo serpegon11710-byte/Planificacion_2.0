@@ -5,7 +5,7 @@
 
 ## Resumen Ejecutivo
 
-Crear la documentacion fundamental del proyecto Planificacion 2.0, incluyendo README principal, casos de uso, modelos funcionales, diagramas C4, arquitectura logica y, como cierre de arquitectura, seleccion de stack tecnologico antes de definir el modelo entidad-relacion. El proyecto gestiona planificaciones de proyectos con definiciones de tiempo puntuales, periodicas (diarias, semanales, mensuales) y de tipo "Sin planificar".
+Crear la documentacion fundamental del proyecto Planificacion 2.0, incluyendo README principal, casos de uso, modelos funcionales, diagramas C4, arquitectura logica, modelo entidad-relacion y, como cierre de arquitectura, seleccion de stack tecnologico. El proyecto gestiona planificaciones de proyectos con definiciones de tiempo puntuales, periodicas (diarias, semanales, mensuales) y de tipo "Sin planificar".
 
 ## Arquitectura de Componentes
 
@@ -83,6 +83,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 **Step 7: Documentar modelos funcionales** (*depends on 3-6*)
 - Archivos:
   - `docs/entidades/planificaciones.md`
+  - `docs/entidades/modelo-clases-planificacion.md` (jerarquía de clases; FAQ-112)
   - `docs/entidades/ocurrencias.md`
 - Definir estructura funcional del dominio y trazabilidad con casos de uso.
 
@@ -101,7 +102,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - `docs/diagramas-c4/c4-nivel-2/c4-nivel-2-contenedores.mmd` (N2 cerrado)
   - `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes.mmd` (N3 cerrado)
   - N4 canonico: `docs/diagramas-c4/c4-nivel-4/pseudocodigo/` + `zonas-criticas-n4.md` (cerrado)
-  - N4 implementacion por stack: `docs/diagramas-c4/c4-nivel-4/implementacion/` (pendiente hasta Step 9c)
+  - N4 implementacion por stack: `docs/diagramas-c4/c4-nivel-4/implementacion/` (pendiente hasta Step 11)
 - Incorporar trazabilidad entre diagramas C4 y casos de uso UC-01, UC-02, UC-03 (ver FAQ-104 en [dudas-y-resoluciones.md](dudas-y-resoluciones.md))
 
 **Step 8b: Diagrama C4 N3 — Front-End** (*depends on 8*; FAQ-103)
@@ -138,23 +139,34 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - Revision SOLID en toda la documentacion del proyecto
   - Politica de i18n para la implementacion
 
-**Step 9c: Stack tecnologico (cierre de arquitectura)** (*depends on 9a, 9b*)
-- Resultado: criterios y seleccion tecnologica alineada con arquitectura y diagramas C4.
+### Fase 6: Modelo de Datos (ER)
+**Step 10: Generar diagrama entidad-relacion** (*depends on 9a, 9b*)
+- Archivo principal: `docs/entidades/modelo-entidad-relacion.md`
+- Basarse en [dudas-y-resoluciones.md](dudas-y-resoluciones.md) y entidades en `docs/entidades/`.
+- Entregables (FAQ):
+  - **FAQ-105 / 106 / 108 / 110 / 111:** ERD con `Proyectos`, `Items`, `Planificaciones`, `PlanificacionPeriodo`, `TipoPeriodo` (visibilidad campos patrón), `OcurrenciasMaterializadas`; naturaleza inferida sin flags (sustituye borrador `DefinicionFechaHora`)
+  - **FAQ-004:** tabla `OcurrenciasMaterializadas`; alinear seccion de persistencia en `ocurrencias.md`
+  - **FAQ-002:** columnas fecha/hora en UTC en el ER; nota en `internacionalizacion.md` (almacenamiento UTC vs formateo en UI)
+- Diagrama Mermaid ERD, atributos clave y restricciones (UNIQUE, FK, CHECK segun reglas RP-*, RI-*, RT-*)
+
+### Fase 7: Stack e implementacion N4
+**Step 11: Stack tecnologico (cierre de arquitectura)** (*depends on 9a, 9b, 10*)
+- Resultado: criterios y seleccion tecnologica alineada con arquitectura, diagramas C4 y modelo ER.
 - Entregables (FAQ):
   - **FAQ-101:** motor de base de datos
   - **FAQ-102:** stack de aplicacion (Front-End, Back-End, herramientas)
   - **FAQ-007:** politica de archivo de carpetas `implementacion/{stack}/` historicas
   - Crear `docs/diagramas-c4/c4-nivel-4/implementacion/{stack}/` (proyeccion del N4 canonico)
 
-### Fase 6: Modelo de Datos (ER)
-**Step 10: Generar diagrama entidad-relacion** (*depends on 9*)
-- Archivo principal: `docs/modelo-entidad-relacion.md`
-- Basarse en [dudas-y-resoluciones.md](dudas-y-resoluciones.md) y entidades en `docs/entidades/`.
-- Entregables (FAQ):
-  - **FAQ-105 / 106 / 108:** ERD con `Proyectos`, `Items`, `TipoPlanificacion`, `PlanificacionesPuntuales`, `PlanificacionesPeriodicas` (sustituye borrador `DefinicionFechaHora`)
-  - **FAQ-004:** tabla `OcurrenciasMaterializadas`; alinear seccion de persistencia en `ocurrencias.md`
-  - **FAQ-002:** columnas fecha/hora en UTC en el ER; nota en `internacionalizacion.md` (almacenamiento UTC vs formateo en UI)
-- Diagrama Mermaid ERD, atributos clave y restricciones (UNIQUE, FK, CHECK segun reglas RP-*, RI-*, RT-*)
+**Step 12: N4 implementacion por stack** (*depends on 11*)
+- Completar proyeccion del N4 canonico en `docs/diagramas-c4/c4-nivel-4/implementacion/{stack}/` (ZC-1 a ZC-6).
+
+### Fase 8: Cierre documental e implementacion
+**Step 13: Validar toda la documentacion** (*depends on 10, 12*)
+- Revision de coherencia entre entidades, ER, C4, arquitectura y casos de uso.
+
+**Step 14: Proceder con la implementacion tecnica** (*depends on 13*)
+- Codigo de aplicacion segun stack elegido en Step 11.
 
 ## Archivos a Crear
 
@@ -183,7 +195,8 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/politicas-transversales/revision-principios-solid.md` | Revision global de cumplimiento SOLID |
 | `docs/politicas-transversales/internacionalizacion.md` | Politica transversal de i18n |
 | `docs/planificacion/dudas-y-resoluciones.md` | FAQ centralizado de dudas, resoluciones y nomenclatura |
-| `docs/modelo-entidad-relacion.md` | Diagrama ERD con modelo de datos |
+| `docs/entidades/modelo-entidad-relacion.md` | Diagrama ERD Mermaid (Step 10) |
+| `docs/entidades/modelo-clases-planificacion.md` | Diagrama de clases dominio (FAQ-112) |
 
 ## Verificación
 
@@ -193,8 +206,8 @@ Con fecha inicio, fecha fin y periodo de repetición:
 4. ✓ Los modelos funcionales del dominio estan documentados y trazables con casos de uso
 5. ✓ Los diagramas C4 estan documentados (Step 8) e integrados con arquitectura (Step 9a)
 6. ✓ La arquitectura logica se documenta en su README y archivos de soporte (Step 9a)
-7. [ ] El stack tecnologico se define al cierre de arquitectura (Step 9c)
-8. [ ] El diagrama entidad-relacion representa todas las entidades y relaciones descritas (Step 10)
+7. [x] El diagrama entidad-relacion representa todas las entidades y relaciones descritas (Step 10)
+8. [ ] El stack tecnologico se define al cierre de arquitectura (Step 11)
 9. ✓ La estructura de carpetas docs/ facilita la organizacion y escalabilidad futura
 10. ✓ Todos los tipos de planificacion estan cubiertos (Puntual, Diaria, Semanal, Mensual, Sin planificar)
 
@@ -222,9 +235,9 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 
 Resumen de estado (2026-06-12):
 
-- **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-108 (decisiones cerradas; ER en Step 10).
-- **Postergadas a Step 9c:** FAQ-007 (detalle archivo N4), FAQ-101, FAQ-102.
-- **Entregables pendientes:** Step 9c (stack + N4 implementacion), Step 10 (ER).
+- **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-112 (decisiones cerradas; ER en Step 10).
+- **Postergadas a Step 11:** FAQ-007 (detalle archivo N4), FAQ-101, FAQ-102.
+- **Entregables pendientes:** Step 11–12 (stack + N4 implementacion).
 
 ## Próximos Pasos
 
@@ -236,25 +249,26 @@ Resumen de estado (2026-06-12):
 [x] 6. Ejecutar Fase 4 parcial: Diagramas C4 N1–N4 canonico (Step 8)
 [x] 7. Ejecutar Step 8c: Trazabilidad UC ↔ C4 distribuida (FAQ-104)
 [x] 8. Ejecutar Step 8b: Diagrama C4 N3 Front-End (FAQ-103)
-[x] 9. Ejecutar Fase 5 parcial: Arquitectura logica y verificacion transversal (Steps 9a, 9b)
-[ ] 10. Ejecutar Step 9c: Definir stack tecnologico (FAQ-101, FAQ-102)
-[ ] 11. Completar N4 implementacion por stack (depende de 9c)
-[ ] 12. Ejecutar Fase 6: Crear modelo entidad-relacion (Step 10)
-[ ] 13. Validar toda la documentacion
-[ ] 14. Proceder con la implementacion tecnica
+[x] 9. Ejecutar Fase 5 : Arquitectura logica y verificacion transversal (Steps 9a, 9b)
+[x] 10. Ejecutar Step 10: Crear modelo entidad-relacion (ER)
+[ ] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-101, FAQ-102, FAQ-007)
+[ ] 12. Ejecutar Step 12: Completar N4 implementacion por stack
+[ ] 13. Ejecutar Step 13: Validar toda la documentacion
+[ ] 14. Ejecutar Step 14: Proceder con la implementacion tecnica
 
 ## Historial
 2026-06-10 - Paso 1 Completado
 2026-06-10 - Paso 2 Completado
 2026-06-10 - Paso 3 Completado
 2026-06-11 - Plan reajustado: se agrega fase intermedia de modelos funcionales
-2026-06-11 - Orden fijado: arquitectura -> stack tecnologico -> modelo ER
+2026-06-11 - Orden fijado: arquitectura -> modelo ER -> stack tecnologico
 2026-06-11 - Arquitectura: granularidad final de modulos de negocio definida
 2026-06-12 - Arquitectura: granularidad completada (agregados, sub-UCs, orquestacion) y transacciones definidas
 2026-06-12 - Arquitectura: politicas de errores y validaciones por capa definidas
 2026-06-12 - Verificacion transversal: revision SOLID global e i18n reubicados en docs/politicas-transversales/
-2026-06-12 - Plan: Step 9 unificado con sub-pasos 9a, 9b y 9c; Step 10 renumerado (ER)
+2026-06-12 - Plan: Step 9 unificado con sub-pasos 9a y 9b; stack desacoplado como Step 11
 2026-06-12 - Diagramas C4 (Step 8) e integracion con arquitectura (Step 9a); N4 canonico cerrado
 2026-06-12 - Plan corregido: indices duplicados resueltos — Step 7 modelos funcionales, Step 8 diagramas C4 (ambos pasos conservados)
 2026-06-12 - Revision SOLID actualizada incluyendo docs/diagramas-c4/
-2026-06-12 - Limpieza plan y FAQ: entregables Step 9c/10; verificacion 7-8 corregida
+2026-06-12 - Limpieza plan y FAQ: entregables Step 10/11; verificacion 7-8 corregida
+2026-06-12 - Step 10 completado: modelo ER en docs/entidades/modelo-entidad-relacion.md

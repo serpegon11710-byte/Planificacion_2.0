@@ -3,7 +3,7 @@
 **Última actualización:** 2026-06-12 (`TipoPeriodo` catálogo de visibilidad de campos)  
 **Step:** 10
 
-Modelo lógico de persistencia para Planificacion 2.0. **Jerarquía de clases de dominio:** [modelo-clases-planificacion.md](modelo-clases-planificacion.md). Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105–114, **115**) y entidades en esta carpeta.
+Modelo lógico de persistencia para Planificacion 2.0. **Jerarquía de clases de dominio:** [modelo-clases-planificacion.md](modelo-clases-planificacion.md). Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105–114, **115**, **116**) y entidades en esta carpeta.
 
 **Convención PK (FAQ-115):** la clave primaria de cada tabla se nombra **`{entidad}_id`** (`proyecto_id`, `item_id`, `planificacion_id`, `tipo_periodo_id`, `ocurrencia_id`). **Excepción:** `PlanificacionPeriodo` no tiene PK propia; usa **`planificacion_id`** heredada de `Planificaciones` (FAQ-114).
 
@@ -209,6 +209,8 @@ Solo las **periódicas** persisten filas en `OcurrenciasMaterializadas` (FK **`p
 | **RE-4** | ≥1 fila en `OcurrenciasMaterializadas` del `PlanificacionPeriodo` de esa planificación | UC-02.4 |
 
 RE-4 **no** aplica a Sin planificar ni Puntual.
+
+**Borrado masivo para vaciar RE-4 (feature futura):** si se implementa vaciado en bloque de `OcurrenciasMaterializadas` desde UC-02.4, debe acotarse a **un solo `planificacion_id` por operación** (`DELETE … WHERE planificacion_id = ?`). Evitar `DELETE … WHERE planificacion_id IN (…)` o vaciado de item/proyecto en una sola transacción: en READ COMMITTED con locking (p. ej. SQL Server sin RCSI) puede bloquear lecturas concurrentes sobre otras planificaciones del mismo índice. Ver [FAQ-116](../planificacion/dudas-y-resoluciones.md).
 
 ### RE-1, RE-2 — cascada
 

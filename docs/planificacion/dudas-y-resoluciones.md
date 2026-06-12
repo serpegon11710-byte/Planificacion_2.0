@@ -260,6 +260,36 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 ---
 
+### FAQ-116 — Bloqueos en borrado masivo de `OcurrenciasMaterializadas` (RE-4)
+
+**Origen:** Analisis de concurrencia (escenario multi-usuario / SQL Server); feature futura de vaciado masivo para resolver RE-4 desde UC-02.4.
+
+**Contexto:** Orden fisico de la tabla (FAQ-114): **`(planificacion_id, fecha_original, hora, ocurrencia_id)`**. La PK surrogate `ocurrencia_id` no define la localidad de lectura/borrado.
+
+**Resolucion (2026-06-12):**
+
+1. **Escrituras ligeras (UC-02.3):** actualizar solo `observaciones` (u otros campos) de una fila ya localizada implica bloqueo minimo (UPDATE puntual).
+
+2. **Borrado masivo por planificacion (feature futura RE-4):** patron SQL recomendado:
+   ```sql
+   DELETE FROM OcurrenciasMaterializadas WHERE planificacion_id = @planificacion_id;
+   ```
+   Un solo prefijo del indice agrupado → rango contiguo, transaccion corta. Alineado con UC-02.4 (ambito: **una planificacion**).
+
+3. **Patron a evitar (READ COMMITTED con locking, p. ej. SQL Server sin RCSI):**
+   ```sql
+   DELETE FROM OcurrenciasMaterializadas WHERE planificacion_id IN (@id1, @id2, …);
+   ```
+   Aunque los `planificacion_id` del DELETE y los de un `SELECT … WHERE planificacion_id IN (…)` **no compartan filas**, en la practica puede bloquear lecturas concurrentes sobre **otros** prefijos del mismo indice (locks en claves/paginas, planes de acceso amplios, **lock escalation**). RCSI / SNAPSHOT mitiga el bloqueo lector/escritor, pero aumenta coste de servidor (version store); no siempre es viable a gran escala.
+
+4. **Cascada item/proyecto:** no vaciar ocurrencias de **varias planificaciones** en una unica sentencia ni en una transaccion larga. Para cumplir RE-4 antes de UC-01.4 / UC-01.3 / UC-01.2: **una planificacion por operacion** (commit breve entre planificaciones si aplica).
+
+5. **Lectura calendario (UC-02.1):** con borrado acotado a un solo `planificacion_id`, el conflicto con lecturas de otras planificaciones es **extremadamente improbable** en READ COMMITTED locking. Bucle por planificacion o lectura batch del alumno: ambos son viables; el riesgo venia del DELETE multi-`planificacion_id`, no del shape del SELECT.
+
+**Entregable:** trazabilidad en `modelo-entidad-relacion.md` (RE-4), `ocurrencias.md`, UC-02.4. Implementacion concreta (aislamiento, RCSI, lotes) en **Step 11** (FAQ-101).
+
+---
+
 ### FAQ-107 — Nomenclatura «Sin planificar»
 
 **Origen:** FAQ-105 / modelo ER.
@@ -360,15 +390,16 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | Documento | IDs FAQ |
 |-----------|---------|
 | `planificacion-inicial.md` | FAQ-001, 002, 003, 108 |
-| `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108, 113, 114, **115** |
-| `entidades/ocurrencias.md` | FAQ-003, 004 |
+| `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108, 113, 114, **115**, **116** |
+| `entidades/ocurrencias.md` | FAQ-003, 004, **116** |
 | `entidades/proyectos.md`, `items.md` | FAQ-005, **115** |
-| `entidades/planificaciones.md`, `modelo-clases-planificacion.md` | FAQ-001, 105, 106, 107, 110, 111, 112, **115** |
+| `entidades/planificaciones.md`, `modelo-clases-planificacion.md` | FAQ-001, 105, 106, 107, 110, 111, 112, **115**, **116** |
+| `casos-uso/UC-02.4` | **116** (borrado masivo RE-4) |
 | `revision-principios-solid.md` | FAQ-005, 009 |
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
-| Step 11 | FAQ-007, 101, 102 |
+| Step 11 | FAQ-007, 101, 102, **116** |
 | Step 12 | N4 implementacion por stack |
-| Step 10 | FAQ-002, 004, 105, 106, 108, 110, 111, 112, 113, 114, **115** |
+| Step 10 | FAQ-002, 004, 105, 106, 108, 110, 111, 112, 113, 114, **115**, **116** |
 ---
 
 ## Historial del FAQ
@@ -389,3 +420,4 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | 2026-06-12 | FAQ-113: orden fisico cluster (item, fechas) vs PK id |
 | 2026-06-12 | FAQ-114: satelites PK planificacion_id; ocurrencias (planificacion_id, fecha_original, hora, ocurrencia_id) |
 | 2026-06-12 | FAQ-115: PK {tabla}_id (proyecto_id, item_id, planificacion_id, etc.); excepcion PlanificacionPeriodo |
+| 2026-06-12 | FAQ-116: bloqueos borrado masivo OcurrenciasMaterializadas; RE-4 acotado a una planificacion |

@@ -243,7 +243,7 @@ Nuevo tipo de periodo: fila en `TipoPeriodo`, nueva subclase de `PlanificacionPe
 
 ### RC-6: Eliminación restringida (RE-3, RE-4)
 
-No eliminar si `estado = Completada` o si la planificación **periódica** tiene ocurrencias materializadas.
+No eliminar si `estado = Completada` o si la planificación **periódica** tiene ocurrencias materializadas. Vaciado masivo futuro de materializadas para RE-4: ver [FAQ-116](../planificacion/dudas-y-resoluciones.md) y UC-02.4.
 
 ### RC-7: Aviso RE-5
 

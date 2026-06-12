@@ -5,6 +5,14 @@
 **Reglas:** `docs/entidades/planificaciones.md` (RC-*, RT-*)  
 **Casos de uso:** UC-01.4, UC-01.5 (validacion), UC-03
 
+## Trazabilidad (FAQ-104)
+
+| Caso de uso | Rol en esta zona |
+|-------------|------------------|
+| [UC-01.4](../../casos-uso/UC-01.4-gestion-planificacion.md) | Crear/editar planificacion; cambios de tipo (RT-*) |
+| [UC-01.5](../../casos-uso/UC-01.5-captura-datos-planificacion.md) | Validacion de captura sin persistir |
+| [UC-03](../../casos-uso/UC-03-listar-sin-planificar.md) | Listado `PlanificacionesPuntuales` con `sin_planificar = true` |
+
 ---
 
 ## Estructura logica
@@ -26,7 +34,7 @@ flowchart LR
 | Subcomponente | Responsabilidad |
 |---------------|-----------------|
 | `AgregadoPlanificacion` | Entidad raiz; estado Pendiente/Completada |
-| `CatalogoTipos` | Puntual, Periodica (Diaria/Semanal/Mensual), No planificado |
+| `CatalogoTipos` | Puntual, Periodica (Diaria/Semanal/Mensual), Sin planificar |
 | `DefinicionesTemporales` | Value objects por variante |
 | `ValidadorConfiguracion` | RC-1, RC-2, RC-3 |
 | `GestorCambioTipo` | RT-1 a RT-5 |
@@ -50,7 +58,7 @@ TIPO DefinicionMensual = DefinicionPeriodicaBase +
   dia_mes: Entero(1..31) +
   comportamiento_mes_corto: ULTIMO_DIA_MES | DIA_1_MES_SIGUIENTE | OMITIR
 
-TIPO DefinicionNoPlanificado =
+TIPO DefinicionSinPlanificar =
   observaciones?
 ```
 
@@ -67,8 +75,8 @@ FUNCION validarConfiguracion(planificacion):
       validarPuntual(planificacion.definicion)
     PERIODICA:
       validarPeriodica(planificacion.definicion, planificacion.subtipo)
-    NO_PLANIFICADO:
-      validarNoPlanificado(planificacion.definicion)
+    SIN_PLANIFICAR:
+      validarSinPlanificar(planificacion.definicion)
     OTRO:
       LANZAR ErrorFuncional("TIPO_DESCONOCIDO")
 ```
@@ -119,7 +127,7 @@ FUNCION existeAlMenosUnaOcurrenciaEnRango(def, subtipo):
 ```
 
 ```
-FUNCION validarNoPlanificado(def):
+FUNCION validarSinPlanificar(def):
   // Solo observaciones opcionales; sin fechas
   RETORNAR OK
 ```
@@ -170,33 +178,55 @@ FUNCION validarTransicion(actual, tipo_destino):
   SI origen == PERIODICA Y tipo_destino == PERIODICA Y actual.subtipo != destino.subtipo:
     LANZAR ErrorFuncional("CAMBIO_SUBTIPO_PERIODICO_NO_PERMITIDO")
 
-  // RT-1: No planificado -> Puntual | Periodica
-  SI origen == NO_PLANIFICADO:
+  // RT-1: Sin planificar -> Puntual | Periodica
+  SI origen == SIN_PLANIFICAR:
     RETORNAR OK   // parametros destino validados en validarConfiguracion
 
-  // RT-2: Puntual -> No planificado solo si Pendiente
-  SI origen == PUNTUAL Y tipo_destino == NO_PLANIFICADO:
+  // RT-2: Puntual -> Sin planificar solo si Pendiente
+  SI origen == PUNTUAL Y tipo_destino == SIN_PLANIFICAR:
     SI actual.estado != PENDIENTE:
-      LANZAR ErrorFuncional("PUNTUAL_COMPLETADA_NO_PUEDE_A_NO_PLANIFICADO")
+      LANZAR ErrorFuncional("PUNTUAL_COMPLETADA_NO_PUEDE_A_SIN_PLANIFICAR")
     RETORNAR OK
 
-  // RT-3: Periodica -> No planificado
-  SI origen == PERIODICA Y tipo_destino == NO_PLANIFICADO:
+  // RT-3: Periodica -> Sin planificar
+  SI origen == PERIODICA Y tipo_destino == SIN_PLANIFICAR:
     SI actual.estado != PENDIENTE:
-      LANZAR ErrorFuncional("PERIODICA_COMPLETADA_NO_PUEDE_A_NO_PLANIFICADO")
+      LANZAR ErrorFuncional("PERIODICA_COMPLETADA_NO_PUEDE_A_SIN_PLANIFICAR")
     fisicas = puerto_ocurrencia.buscarTodasMaterializadas(actual.id)
     SI fisicas.contieneModificacion() O fisicas.contieneEliminacion():
-      LANZAR ErrorFuncional("PERIODICA_CON_OCURRENCIAS_FISICAS_NO_PUEDE_A_NO_PLANIFICADO")
+      LANZAR ErrorFuncional("PERIODICA_CON_OCURRENCIAS_FISICAS_NO_PUEDE_A_SIN_PLANIFICAR")
     RETORNAR OK
 
   LANZAR ErrorFuncional("CAMBIO_TIPO_NO_PERMITIDO")
 ```
 
-### Lectura No planificado (UC-03)
+### Lectura Sin planificar (UC-03)
 
 ```
-FUNCION listarNoPlanificados(filtros):
-  RETORNAR puerto_planificacion.buscarPorTipo(NO_PLANIFICADO, filtros)
+FUNCION listarSinPlanificar(filtros):
+  RETORNAR puerto_planificacion.buscarPuntuales(sin_planificar=true, filtros)
+```
+
+### Persistencia en cambio de tipo (FAQ-105)
+
+```
+FUNCION aplicarCambioTipo(actual, destino):
+  origen = actual.tipo
+  tipo_destino = destino.tipo
+
+  // Sin planificar <-> Puntual: misma tabla PlanificacionesPuntuales
+  SI (origen == SIN_PLANIFICAR Y tipo_destino == PUNTUAL) O (origen == PUNTUAL Y tipo_destino == SIN_PLANIFICAR):
+    RETORNAR puerto_planificacion.actualizarPuntual(actual.id, destino)
+
+  // Sin planificar -> Periodica: anular puntual; crear periodica (sin impacto en ocurrencias)
+  SI origen == SIN_PLANIFICAR Y tipo_destino ES PERIODICA:
+    puerto_planificacion.anularPuntual(actual.id)
+    RETORNAR puerto_planificacion.crearPeriodica(desde(destino))
+
+  // Periodica -> Sin planificar: precondiciones RT-3; anular periodica; crear puntual sin_planificar
+  SI origen == PERIODICA Y tipo_destino == SIN_PLANIFICAR:
+    puerto_planificacion.anularPeriodica(actual.id)
+    RETORNAR puerto_planificacion.crearPuntual(sin_planificar=true, desde(destino))
 ```
 
 ---

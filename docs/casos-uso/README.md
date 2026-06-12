@@ -1,4 +1,4 @@
-# Casos de Uso - Planificacion 2.0
+﻿# Casos de Uso - Planificacion 2.0
 
 Este documento contiene el índice de todos los casos de uso del sistema Planificacion 2.0.
 
@@ -8,7 +8,7 @@ Este documento contiene el índice de todos los casos de uso del sistema Planifi
 |----|--------|-------------|-----------|
 | UC-01 | [Mantenimiento de Proyecto](UC-01-mantenimiento-proyecto.md) | Gestión completa del ciclo de vida de proyectos, items y planificaciones | Alta |
 | UC-02 | [Gestión de Ocurrencias](UC-02-gestion-ocurrencias.md) | Gestión funcional de ocurrencias planificadas, con operaciones individuales puntuales/periódicas y gestión por planificación | Alta |
-| UC-03 | [Visualización de Planificaciones de Tipo "No Planificado"](UC-03-listar-no-planificado.md) | Recupera y lista planificaciones de tipo "No Planificado" | Media |
+| UC-03 | [Visualización de Planificaciones de Tipo "Sin planificar"](UC-03-listar-sin-planificar.md) | Recupera y lista planificaciones de tipo "Sin planificar" | Media |
 
 ### Sub-Casos de Uso UC-01
 
@@ -64,7 +64,7 @@ Este es el caso de uso más complejo del sistema. UC-01.5 concentra la definici�
 ### UC-02: Gestión de Ocurrencias
 Define la gestión funcional mediante cuatro subcasos: visualización de ocurrencias planificadas, gestión individual puntual, gestión individual periódica y gestión de ocurrencias físicas por planificación.
 
-### UC-03: Visualización de Planificaciones de Tipo "No Planificado"
+### UC-03: Visualización de Planificaciones de Tipo "Sin planificar"
 Proporciona al usuario una vista de todas las planificaciones que no tienen fecha asignada, facilitando la gestión del backlog y la posterior programación de tareas.
 
 ---

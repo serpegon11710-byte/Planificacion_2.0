@@ -9,9 +9,11 @@ El N4 se documenta en dos capas:
 | Capa | Ubicacion | Rol |
 |------|-----------|-----|
 | **Canonico** | [pseudocodigo/](pseudocodigo/) | Estructura logica + pseudocodigo; independiente del stack |
-| **Implementacion** | [implementacion/](implementacion/) | Proyeccion al stack concreto; pendiente hasta definir Step 8c |
+| **Implementacion** | [implementacion/](implementacion/) | Proyeccion al stack concreto; pendiente hasta definir Step 9c |
 
 El pseudocodigo es la fuente de verdad funcional. Si cambia el stack, se regenera la capa de implementacion a partir del mismo canonico, sin redefinir las zonas criticas ni las reglas de negocio.
+
+**Trazabilidad (FAQ-104):** cada ZC N4 documenta los casos de uso que la justifican; cada UC referencia las ZC afectadas. No hay fichero central de correspondencias.
 
 ## Criterios de seleccion
 
@@ -80,9 +82,9 @@ No se diagraman en N4 los agregados con CRUD directo y reglas simples si el N3 y
 | Contenedor | Back-End |
 | Prioridad | Alta |
 
-**Motivo:** multiples tipos y subtipos (puntual, periodica diaria/semanal/mensual, no planificado), reglas de configuracion (RC-*) y restricciones de cambio de tipo (RT-*).
+**Motivo:** multiples tipos y subtipos (puntual, periodica diaria/semanal/mensual, Sin planificar), reglas de configuracion (RC-*) y restricciones de cambio de tipo (RT-*).
 
-**Casos de uso:** UC-01.4, UC-01.5 (validacion), UC-03 (lectura no planificado).
+**Casos de uso:** UC-01.4, UC-01.5 (validacion), UC-03 (lectura Sin planificar).
 
 **Alcance N4:**
 
@@ -160,6 +162,7 @@ No se diagraman en N4 los agregados con CRUD directo y reglas simples si el N3 y
 - Resolucion de mensajes al usuario en cliente.
 
 **Nota:** N4 de presentacion es opcional en una primera iteracion; las zonas ZC-1 a ZC-5 del Back-End tienen prioridad.  
+**N3 Front-End:** [c4-nivel-3-componentes-frontend.mmd](../c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) (zoom de componentes UI; Step 8b).  
 **N4 canonico:** [pseudocodigo/zc-6-presentacion.md](pseudocodigo/zc-6-presentacion.md)
 
 ## Componentes N3 excluidos de N4

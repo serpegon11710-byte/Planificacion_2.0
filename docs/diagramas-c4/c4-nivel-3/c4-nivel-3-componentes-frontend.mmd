@@ -1,0 +1,59 @@
+C4Component
+title Planificacion 2.0 - C4 Nivel 3 (Componentes Front-End)
+
+Person(usuario, "Usuario", "Gestiona proyectos, planificaciones y ocurrencias")
+Container_Ext(backend, "Back-End", "API REST", "Punto de entrada HTTP/JSON del sistema")
+
+Container_Boundary(frontend_boundary, "Front-End") {
+  Component(shell, "Shell Aplicacion", "SPA / navegacion", "Layout, rutas y orquestacion de vistas (UC-01, UC-02, UC-03)")
+
+  Component(vista_proyectos, "Vista Gestion Proyectos", "UI", "CRUD de proyectos (UC-01.2)")
+  Component(vista_wizard, "Vista Wizard Proyecto", "UI", "Flujo guiado de creacion atomica (UC-01.1)")
+  Component(vista_items, "Vista Gestion Items", "UI", "CRUD de items por proyecto (UC-01.3)")
+  Component(vista_planificaciones, "Vista Gestion Planificaciones", "UI", "Persistencia de planificaciones (UC-01.4)")
+
+  Component(captura_planificacion, "Modulo Captura Planificacion", "Componente UI reutilizable", "Captura y validacion local sin persistir (UC-01.5)")
+
+  Component(vista_calendario, "Modulo Vista Calendario", "UI", "Consulta de ocurrencias en rango (UC-02.1)")
+  Component(vista_ocurrencias, "Vista Gestion Ocurrencias", "UI", "Gestion individual y por planificacion (UC-02.2, UC-02.3, UC-02.4)")
+  Component(vista_sin_planificar, "Vista Sin Planificar", "UI", "Listado de planificaciones sin fecha (UC-03)")
+
+  Component(cliente_api, "Cliente API", "HTTP/JSON", "Invoca endpoints del Back-End")
+  Component(servicio_mensajes, "Servicio Mensajes", "i18n", "Resuelve codigos de error/validacion a texto de usuario")
+}
+
+Rel(usuario, shell, "Usa", "HTTPS")
+
+Rel(shell, vista_proyectos, "Navega a")
+Rel(shell, vista_wizard, "Navega a")
+Rel(shell, vista_items, "Navega a")
+Rel(shell, vista_planificaciones, "Navega a")
+Rel(shell, vista_calendario, "Navega a")
+Rel(shell, vista_sin_planificar, "Navega a")
+
+Rel(vista_wizard, captura_planificacion, "Incluye", "UC-01.5")
+Rel(vista_planificaciones, captura_planificacion, "Incluye", "UC-01.5")
+
+Rel(vista_calendario, vista_ocurrencias, "Abre gestion", "UC-02.2 / UC-02.3")
+Rel(vista_planificaciones, vista_ocurrencias, "Abre gestion", "UC-02.4")
+
+Rel(vista_proyectos, cliente_api, "Consume")
+Rel(vista_wizard, cliente_api, "Consume")
+Rel(vista_items, cliente_api, "Consume")
+Rel(vista_planificaciones, cliente_api, "Consume")
+Rel(vista_calendario, cliente_api, "Consume")
+Rel(vista_ocurrencias, cliente_api, "Consume")
+Rel(vista_sin_planificar, cliente_api, "Consume")
+
+Rel(captura_planificacion, servicio_mensajes, "Muestra errores locales")
+Rel(vista_calendario, servicio_mensajes, "Muestra errores")
+Rel(vista_proyectos, servicio_mensajes, "Muestra errores")
+Rel(vista_items, servicio_mensajes, "Muestra errores")
+Rel(vista_planificaciones, servicio_mensajes, "Muestra errores")
+Rel(vista_ocurrencias, servicio_mensajes, "Muestra errores")
+Rel(vista_sin_planificar, servicio_mensajes, "Muestra errores")
+Rel(vista_wizard, servicio_mensajes, "Muestra errores")
+
+Rel(cliente_api, backend, "Invoca", "JSON/HTTPS")
+
+UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")

@@ -1,4 +1,4 @@
-# UC-02: Gestión de Ocurrencias
+﻿# UC-02: Gestión de Ocurrencias
 
 **ID:** UC-02  
 **Nombre:** Gestión de Ocurrencias  
@@ -79,6 +79,14 @@ UC-02.4 puede activarse como EXTEND desde UC-01.4 para revisar y gestionar cambi
 
 - Consume catálogo de ocurrencias: [docs/entidades/ocurrencias.md](../entidades/ocurrencias.md)
 
+## Trazabilidad C4
+
+| Zona critica N4 | Rol |
+|-----------------|-----|
+| [ZC-1](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-1-consulta-ocurrencias.md) | Consulta y calculo en rango |
+| [ZC-2](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-2-materializacion-ocurrencias.md) | Materializacion y mutacion |
+| [ZC-5](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | Lectura / escritura ocurrencias |
+| [ZC-6](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-6-presentacion.md) | Vista calendario (UC-02.1) |
 ---
 
 **Última revisión:** 2026-06-10

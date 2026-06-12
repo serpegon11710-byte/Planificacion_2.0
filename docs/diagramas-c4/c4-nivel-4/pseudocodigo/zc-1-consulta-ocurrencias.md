@@ -5,6 +5,16 @@
 **Reglas:** `docs/entidades/ocurrencias.md` (RO-1, RO-3, RO-7)  
 **Casos de uso:** UC-02.1, UC-02.3 (lectura previa), UC-02.4
 
+## Trazabilidad (FAQ-104)
+
+| Caso de uso | Rol en esta zona |
+|-------------|------------------|
+| [UC-02.1](../../casos-uso/UC-02.1-visualizacion-ocurrencias.md) | Consulta en rango; composicion fisicas + naturales |
+| [UC-02.3](../../casos-uso/UC-02.3-gestion-individual-ocurrencias-periodicas.md) | Lectura previa antes de materializar |
+| [UC-02.4](../../casos-uso/UC-02.4-gestion-ocurrencias-por-planificacion.md) | Consulta de ocurrencias fisicas por planificacion |
+
+Referencias cruzadas en cada UC bajo «Trazabilidad C4».
+
 ---
 
 ## Estructura logica
@@ -28,7 +38,7 @@ flowchart LR
 | Subcomponente | Responsabilidad |
 |---------------|-----------------|
 | `ServicioConsultaOcurrencias` | Orquesta consulta en rango (UC-02.1) |
-| `FiltroPlanificaciones` | Excluye tipo No planificado; acota al rango |
+| `FiltroPlanificaciones` | Excluye Sin planificar (`sin_planificar`); acota al rango |
 | `CompositorOcurrenciasEnRango` | Lee fisicas primero; compone resultado sin doble trabajo |
 | `MotorCalculoOcurrencias` | Genera naturales pendientes, excluyendo fechas ya materializadas (RO-1, RO-3) |
 | `ResolucionEstadoEfectivo` | Estado propio, herencia y expirado (RO-7) |
@@ -72,7 +82,7 @@ FUNCION obtenerOcurrenciasEnRango(desde, hasta, filtros_opcionales):
     LANZAR ErrorFuncional("RANGO_FECHAS_INVALIDO")
 
   planificaciones = puerto_planificacion.buscarPlanificadasEnRango(desde, hasta, filtros_opcionales)
-  // Excluye tipo No planificado (RN-2.1.4)
+  // Excluye tipo Sin planificar (RN-2.1.4)
 
   resultado = LISTA_VACIA
 
@@ -121,7 +131,7 @@ FUNCION generarNaturalesPendientes(planificacion, desde, hasta, fechas_ocupadas)
       RETORNAR generarPuntualPendiente(planificacion, desde, hasta, fechas_ocupadas)
     PERIODICA:
       RETORNAR generarPeriodicaPendiente(planificacion, desde, hasta, fechas_ocupadas)
-    NO_PLANIFICADO:
+    SIN_PLANIFICAR:
       RETORNAR LISTA_VACIA
 ```
 

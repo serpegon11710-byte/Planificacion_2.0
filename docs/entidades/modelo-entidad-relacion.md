@@ -15,24 +15,26 @@ Modelo lógico de persistencia para Planificacion 2.0. Decisiones de origen: [du
 
 ## Diagrama ER
 
+Fuente del diagrama: [modelo-entidad-relacion.mmd](modelo-entidad-relacion.mmd)
+
 ```mermaid
 erDiagram
-    Proyectos ||--o{ Items : "1:N CASCADE"
-    Items ||--o{ PlanificacionesPuntuales : "1:N CASCADE"
-    Items ||--o{ PlanificacionesPeriodicas : "1:N CASCADE"
+    Proyectos ||--o{ Items : contiene
+    Items ||--o{ PlanificacionesPuntuales : contiene
+    Items ||--o{ PlanificacionesPeriodicas : contiene
 
-    TipoPlanificacion ||--o{ PlanificacionesPuntuales : "tipo"
-    TipoPlanificacion ||--o{ PlanificacionesPeriodicas : "tipo"
+    TipoPlanificacion ||--o{ PlanificacionesPuntuales : clasifica
+    TipoPlanificacion ||--o{ PlanificacionesPeriodicas : clasifica
 
-    PlanificacionesPeriodicas ||--o{ PlanificacionesPeriodicasDiasSemana : "0:N CASCADE"
-    PlanificacionesPuntuales ||--o{ OcurrenciasMaterializadas : "0:N CASCADE"
-    PlanificacionesPeriodicas ||--o{ OcurrenciasMaterializadas : "0:N CASCADE"
+    PlanificacionesPeriodicas ||--o{ PlanificacionesPeriodicasDiasSemana : dias
+    PlanificacionesPuntuales ||--o{ OcurrenciasMaterializadas : ocurrencias
+    PlanificacionesPeriodicas ||--o{ OcurrenciasMaterializadas : ocurrencias
 
     Proyectos {
         bigint id PK
-        varchar nombre UK
+        varchar nombre
         text descripcion
-        timestamptz fecha_creacion
+        timestamp fecha_creacion
     }
 
     Items {
@@ -44,8 +46,8 @@ erDiagram
 
     TipoPlanificacion {
         smallint id PK
-        varchar codigo UK
-        boolean periodica "NULL=SinPlanificar"
+        varchar codigo
+        boolean periodica
     }
 
     PlanificacionesPuntuales {
@@ -53,10 +55,10 @@ erDiagram
         bigint item_id FK
         smallint tipo_planificacion_id FK
         boolean sin_planificar
-        date fecha "UTC, si puntual"
-        time hora "UTC, si puntual"
+        date fecha
+        time hora
         text observaciones
-        varchar estado "Pendiente|Completada"
+        varchar estado
         boolean anulada
     }
 
@@ -64,34 +66,36 @@ erDiagram
         bigint id PK
         bigint item_id FK
         smallint tipo_planificacion_id FK
-        date fecha_inicio "UTC"
-        date fecha_fin "UTC"
-        time hora "UTC"
-        varchar variante_diaria "TODOS|LUN_VIE|FIN_SEMANA, solo Diario"
-        smallint dia_mes "1-31, solo Mensual"
-        varchar comportamiento_mes_corto "solo Mensual"
+        date fecha_inicio
+        date fecha_fin
+        time hora
+        varchar variante_diaria
+        smallint dia_mes
+        varchar comportamiento_mes_corto
         text observaciones
-        varchar estado "Pendiente|Completada"
+        varchar estado
         boolean anulada
     }
 
     PlanificacionesPeriodicasDiasSemana {
-        bigint planificacion_periodica_id PK_FK
-        smallint dia_semana PK "1=Lun..7=Dom"
+        bigint planificacion_periodica_id FK
+        smallint dia_semana
     }
 
     OcurrenciasMaterializadas {
         bigint id PK
-        bigint planificacion_puntual_id FK "nullable"
-        bigint planificacion_periodica_id FK "nullable"
-        date fecha_original "UTC"
-        date fecha_efectiva "UTC"
-        time hora "UTC"
-        text observaciones "NULL hereda"
-        varchar estado "NULL hereda"
+        bigint planificacion_puntual_id FK
+        bigint planificacion_periodica_id FK
+        date fecha_original
+        date fecha_efectiva
+        time hora
+        text observaciones
+        varchar estado
         boolean eliminada_virtual
     }
 ```
+
+Semántica de atributos (UNIQUE, CHECK, PK compuesta en días semana, UTC, CASCADE): ver tablas de restricciones más abajo. Etiquetas de relación simplificadas por compatibilidad con el renderizador Mermaid.
 
 ---
 

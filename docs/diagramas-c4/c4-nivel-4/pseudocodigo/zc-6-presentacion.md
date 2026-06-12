@@ -77,11 +77,10 @@ FUNCION cancelar(estado):
 ```
 
 ```
-FUNCION camposPorTipo(tipo):
-  SEGUN tipo:
-    PUNTUAL:     RETORNAR [fecha, hora, observaciones]
-    PERIODICA:   RETORNAR [fecha_inicio, fecha_fin, hora, subtipo, campos_subtipo, observaciones]
-    SIN_PLANIFICAR: RETORNAR [observaciones]
+FUNCION camposPorTipo(codigo_tipo_planificacion):
+  // Metadato desde planificaciones.md via RegistroPatronesTipoPlanificacion (ZC-3)
+  campos = registro_patrones.camposConRol(codigo_tipo_planificacion, "captura")
+  RETORNAR campos.map(aDescriptorFormulario)   // id, tipo_dato, obligatorio, etiqueta i18n
 ```
 
 ```
@@ -162,13 +161,14 @@ FUNCION mostrarBloqueosEliminacion(codigo, bloqueos):
 
 FUNCION formatearIdentificablePorUsuario(id):
   // planificaciones.md — IdentificablePorUsuario
+  etiqueta_tipo = mensajes.resolverTipoPlanificacion(id.tipo_planificacion, idioma_actual)
   SEGUN id.naturaleza:
     PERIODICA:
-      RETORNAR proyecto + item + subtipo + observaciones + rango_fechas + hora (locale)
+      RETORNAR proyecto + item + etiqueta_tipo + observaciones + rango_fechas + hora (locale)
     PUNTUAL:
-      RETORNAR proyecto + item + tipo + observaciones + fecha + hora (locale)
+      RETORNAR proyecto + item + etiqueta_tipo + observaciones + fecha + hora (locale)
     SIN_PLANIFICAR:
-      RETORNAR proyecto + item + tipo + observaciones
+      RETORNAR proyecto + item + etiqueta_tipo + observaciones
 ```
 
 ---

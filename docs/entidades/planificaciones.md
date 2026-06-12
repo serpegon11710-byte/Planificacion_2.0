@@ -89,6 +89,99 @@ Los subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuración de la
 
 ---
 
+## Campos de patrón por `TipoPlanificacion`
+
+La configuración de cada planificación se describe de forma **declarativa**: el código de `TipoPlanificacion` determina qué campos aplican (patrón), dónde se persisten y cómo se validan. La fuente canónica de esa definición es **este documento**; la implementación la carga en un **registro de patrones** (ZC-3 `RegistroPatronesTipoPlanificacion`) sin hardcodear listas de tipos en validadores ni formularios.
+
+### Campos comunes (todos los tipos)
+
+Presentes en `PlanificacionesPuntuales` o `PlanificacionesPeriodicas` según tabla destino:
+
+| Campo lógico | Persistencia | Rol |
+|--------------|--------------|-----|
+| `item_id` | FK item | persistencia |
+| `tipo_planificacion_id` | FK `TipoPlanificacion` | captura, validación, `IdentificablePorUsuario` |
+| `observaciones` | columna `observaciones` | captura, validación, `IdentificablePorUsuario` |
+| `estado` | columna `estado` | persistencia (no patrón de captura UC-01.5 salvo edición UC-01.4) |
+| `anulada` | columna `anulada` | persistencia |
+
+### Metadato `CampoPatron`
+
+Cada campo de patrón se documenta con:
+
+| Atributo | Significado |
+|----------|-------------|
+| `id` | Identificador lógico estable (p. ej. `fecha_inicio`, `dias_semana`) |
+| `persistencia` | Columna en tabla principal o tabla auxiliar del ER |
+| `tipo_dato` | `fecha`, `hora`, `texto`, `entero`, `enum`, `conjunto` |
+| `obligatorio` | Si exige valor al guardar |
+| `restricciones` | Referencia a RC / CHECK del ER |
+| `roles` | Subconjunto de: `captura`, `validacion`, `motor_ocurrencias`, `identificable_usuario` |
+
+### Registro de campos patrón por tipo
+
+**`Puntual`** — tabla `PlanificacionesPuntuales` (`sin_planificar = false`)
+
+| `id` | `persistencia` | `tipo_dato` | `obligatorio` | `roles` |
+|------|----------------|-------------|---------------|---------|
+| `fecha` | `fecha` | fecha | sí | captura, validacion, identificable_usuario, motor_ocurrencias |
+| `hora` | `hora` | hora | sí | captura, validacion, identificable_usuario, motor_ocurrencias |
+
+**`SinPlanificar`** — tabla `PlanificacionesPuntuales` (`sin_planificar = true`)
+
+| `id` | `persistencia` | `tipo_dato` | `obligatorio` | `roles` |
+|------|----------------|-------------|---------------|---------|
+| _(ningún campo temporal)_ | — | — | — | — |
+
+Reglas adicionales: `observaciones` obligatorias y únicas por item (RC-8).
+
+**Tipos con `periodica = true`** — tabla `PlanificacionesPeriodicas` + campos base:
+
+| `id` | `persistencia` | `tipo_dato` | `obligatorio` | `roles` |
+|------|----------------|-------------|---------------|---------|
+| `fecha_inicio` | `fecha_inicio` | fecha | sí | captura, validacion, identificable_usuario, motor_ocurrencias |
+| `fecha_fin` | `fecha_fin` | fecha | sí | captura, validacion, identificable_usuario, motor_ocurrencias |
+| `hora` | `hora` | hora | sí | captura, validacion, identificable_usuario, motor_ocurrencias |
+
+Campos patrón **específicos** por `codigo` (además de la base periódica):
+
+| `TipoPlanificacion.codigo` | `id` | `persistencia` | `tipo_dato` | `obligatorio` | `restricciones` | `roles` |
+|----------------------------|------|----------------|-------------|---------------|-----------------|---------|
+| `Diario` | `variante_diaria` | `variante_diaria` | enum | sí | FAQ-001: `TODOS`, `LUN_VIE`, `FIN_SEMANA` | captura, validacion, motor_ocurrencias |
+| `Semanal` | `dias_semana` | `PlanificacionesPeriodicasDiasSemana` | conjunto | sí (≥1) | días 1–7 | captura, validacion, motor_ocurrencias |
+| `Mensual` | `dia_mes` | `dia_mes` | entero | sí | 1–31 | captura, validacion, motor_ocurrencias |
+| `Mensual` | `comportamiento_mes_corto` | `comportamiento_mes_corto` | enum | condicional | obligatorio si `dia_mes > 28` | captura, validacion, motor_ocurrencias |
+
+Al añadir un **nuevo** `codigo` en `TipoPlanificacion` (RC-5): documentar aquí su fila de campos patrón, actualizar el ER si hace falta, registrar el metadato en código/BD y —solo si el cálculo de ocurrencias es nuevo— aportar una estrategia en ZC-1 (`MotorOcurrenciasPorTipo`).
+
+### Cómo se implementa sin enums cerrados en código
+
+```mermaid
+flowchart LR
+  Doc["planificaciones.md\n(registro declarativo)"]
+  Reg["RegistroPatronesTipoPlanificacion\n(ZC-3)"]
+  V["ValidadorConfiguracion"]
+  C["Captura UC-01.5\n(ZC-6)"]
+  M["Motor ocurrencias\n(ZC-1)"]
+  Id["IdentificablePorUsuario\n(ZC-5 / ZC-6)"]
+
+  Doc --> Reg
+  Reg --> V
+  Reg --> C
+  Reg --> Id
+  Reg -->|estrategia por codigo| M
+```
+
+1. **Carga del registro:** al arrancar (o desde tabla de metadatos en Step 11), se construye un mapa `codigo → Lista<CampoPatron>` a partir de esta sección.
+2. **Validación (ZC-3):** `validarConfiguracion(planificacion)` obtiene `campos = registro.patronesDe(planificacion.tipo_planificacion.codigo)` y, para cada campo con rol `validacion`, comprueba presencia y restricciones. RC-2 y RC-3 se aplican sobre los campos temporales presentes en ese listado.
+3. **Captura (ZC-6 / UC-01.5):** `camposPorTipo(codigo)` devuelve los `CampoPatron` con rol `captura`; el formulario se genera a partir del metadato (`tipo_dato`, obligatorio, etiqueta i18n por `id`).
+4. **IdentificablePorUsuario:** se arman los campos con rol `identificable_usuario` más `tipo_planificacion` (etiqueta del catálogo) y contexto proyecto/item — sin duplicar lógica por tipo en mensajes de error.
+5. **Motor de ocurrencias (ZC-1):** para cada `codigo` con `periodica = true` (o `Puntual`), se resuelve `registro.estrategiaMotor(codigo)`. La estrategia **lee** los valores de los campos con rol `motor_ocurrencias`; solo hace falta código nuevo si el algoritmo de repetición es distinto.
+
+**Qué no va en el registro declarativo:** reglas transversales RT-* (cambio de tipo), RE-3/RE-4 (eliminación), RC-8 (unicidad Sin planificar). Siguen en reglas de negocio explícitas.
+
+---
+
 ## Modelo de persistencia (ER)
 
 Definición canónica: [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
@@ -124,7 +217,7 @@ En la capa de negocio existen clases especializadas que encapsulan la definició
 |------------------|--------------|-------|
 | `PlanificacionPuntual` | `PlanificacionesPuntuales` | `sin_planificar = false` |
 | `PlanificacionSinPlanificar` | `PlanificacionesPuntuales` | `sin_planificar = true` |
-| `PlanificacionPeriodica` | `PlanificacionesPeriodicas` | Subtipos Diario / Semanal / Mensual |
+| `PlanificacionPeriodica` | `PlanificacionesPeriodicas` | `tipo_planificacion_id` → catálogo con `periodica = true` |
 
 `PlanificacionSinPlanificar` no implica una tercera tabla: es la representación de dominio del flag `sin_planificar` en la tabla puntual.
 
@@ -147,24 +240,25 @@ Característica de la entidad Planificación: conjunto de atributos que permiten
 
 La identificación **siempre** incluye el **proyecto** y el **item** de pertenencia (resueltos a nombre visible en la capa de presentación).
 
-| Naturaleza | Componentes de `IdentificablePorUsuario` |
-|------------|------------------------------------------|
-| **Periódica** | Proyecto + Item + **Subtipo** (`Diario` \| `Semanal` \| `Mensual`) + Observaciones + Fecha inicio + Fecha fin + Hora |
-| **Puntual** | Proyecto + Item + **Tipo** (`Puntual`) + Observaciones + Fecha + Hora |
-| **Sin planificar** | Proyecto + Item + **Tipo** (`Sin planificar`) + Observaciones |
+| Naturaleza | Campos de `IdentificablePorUsuario` (origen en persistencia / catálogo) |
+|------------|-----------------------------------------------------------------------------|
+| **Periódica** | `proyecto` + `item` + `tipo_planificacion` + `observaciones` + `fecha_inicio` + `fecha_fin` + `hora` |
+| **Puntual** | `proyecto` + `item` + `tipo_planificacion` + `observaciones` + `fecha` + `hora` |
+| **Sin planificar** | `proyecto` + `item` + `tipo_planificacion` + `observaciones` |
 
 Notas:
 
-- **Subtipo** en periódica es el código de catálogo `Diario`, `Semanal` o `Mensual`, no el flag `periodica` de `TipoPlanificacion`.
-- **Tipo** en puntual y sin planificar es el código de catálogo `Puntual` o `SinPlanificar`.
+- `proyecto` e `item` se resuelven al **nombre visible** del proyecto y del item de pertenencia.
+- `tipo_planificacion` es el **`codigo` de `TipoPlanificacion`** vinculado a la fila (`tipo_planificacion_id`). La etiqueta mostrada al usuario se obtiene del catálogo (i18n).
+- El resto de campos visibles se obtienen del registro de patrones: todos los `CampoPatron` con rol `identificable_usuario` para ese `codigo` (ver [Campos de patrón](#campos-de-patrón-por-tipoplanificacion)).
 - Fechas y hora se muestran en el **locale** del usuario; en persistencia están en UTC (FAQ-002).
-- La capa de negocio expone `construirIdentificablePorUsuario(planificacion) -> IdentificablePorUsuario`; Presentación formatea el texto visible a partir de esa estructura (ZC-6).
+- La capa de negocio expone `construirIdentificablePorUsuario(planificacion) -> IdentificablePorUsuario`; Presentación formatea el texto visible (ZC-6).
 
-Ejemplo de texto formateado (orientativo):
+Plantilla de texto formateado (orientativo; `{…}` = valor resuelto del campo):
 
-- Periódica: `Proyecto «Marketing» · Item «Q1» · Semanal · «Reunión seguimiento» · 01/03/2026–31/12/2026 · 10:00`
-- Puntual: `Proyecto «Marketing» · Item «Q1» · Puntual · «Entrega informe» · 15/06/2026 · 18:00`
-- Sin planificar: `Proyecto «Marketing» · Item «Q1» · Sin planificar · «Backlog diseño»`
+- Periódica: `Proyecto «{proyecto}» · Item «{item}» · {tipo_planificacion} · «{observaciones}» · {fecha_inicio}–{fecha_fin} · {hora}`
+- Puntual: `Proyecto «{proyecto}» · Item «{item}» · {tipo_planificacion} · «{observaciones}» · {fecha} · {hora}`
+- Sin planificar: `Proyecto «{proyecto}» · Item «{item}» · {tipo_planificacion} · «{observaciones}»`
 
 ---
 
@@ -172,7 +266,7 @@ Ejemplo de texto formateado (orientativo):
 
 ### RC-1: Aplicación de reglas por tipo
 
-Cada tipo y variante aplica únicamente sus propias reglas de configuración.
+Cada `TipoPlanificacion.codigo` aplica únicamente los **campos patrón** declarados en su fila del registro. La validación y la captura iteran ese metadato; no se asume un enum cerrado de tipos en código de aplicación.
 
 ### RC-2: Validación de rango temporal
 
@@ -188,7 +282,7 @@ La creación/modificación de planificaciones no gestiona ocurrencias individual
 
 ### RC-5: Evolución del catálogo
 
-Nuevos tipos o variantes deben incorporarse en este documento y en `TipoPlanificacion`, y luego ser consumidos por los casos de uso.
+Nuevos tipos deben: (1) añadir fila en `TipoPlanificacion`, (2) documentar **campos patrón** en esta entidad, (3) actualizar el ER si procede, (4) extender `RegistroPatronesTipoPlanificacion` y, solo si el patrón temporal es nuevo, registrar estrategia en ZC-1.
 
 ### RC-6: Eliminación de planificación restringida
 
@@ -239,9 +333,9 @@ Operación: **anular** registro en `PlanificacionesPeriodicas` y **crear** regis
 
 No se permite cambiar el tipo de planificación entre **Puntual** y **Periódica** en ningún sentido (salvo vía Sin planificar como estado intermedio implícito en RT-1 / RT-3).
 
-### RT-5: Cambios no permitidos de subtipo periódico
+### RT-5: Cambios no permitidos de tipo periódico
 
-No se permite modificar el subtipo de una planificación **Periódica** (Diaria, Semanal o Mensual) una vez creada.
+No se permite modificar el `tipo_planificacion_id` de una fila en `PlanificacionesPeriodicas` una vez creada (el `codigo` del catálogo queda fijado).
 
 ---
 
@@ -259,7 +353,9 @@ No se permite modificar el subtipo de una planificación **Periódica** (Diaria,
 
 | Zona crítica N4 | Rol |
 |-----------------|-----|
-| [ZC-3](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-3-planificacion-temporal.md) | Validación, catálogo, cambios de tipo (RT-*) |
+| [ZC-3](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-3-planificacion-temporal.md) | `RegistroPatronesTipoPlanificacion`, validación, cambios de tipo (RT-*) |
+| [ZC-1](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-1-consulta-ocurrencias.md) | `EstrategiaMotorOcurrencias` por `codigo` (lee campos patrón) |
 | [ZC-5](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | Persistencia en tablas puntuales / periódicas |
+| [ZC-6](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-6-presentacion.md) | Formulario UC-01.5 desde campos con rol `captura` |
 
 Los casos de uso referencian zonas críticas en sus propios documentos (FAQ-104).

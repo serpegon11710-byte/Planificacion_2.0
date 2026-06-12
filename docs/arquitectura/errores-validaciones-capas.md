@@ -189,19 +189,15 @@ Los codigos `ELIMINACION_PROYECTO_BLOQUEADA` y `ELIMINACION_ITEM_BLOQUEADA` incl
 
 ```
 ESTRUCTURA IdentificablePorUsuario:
-  proyecto_nombre: Texto
-  item_nombre: Texto
+  proyecto_nombre: Texto               // nombre visible del proyecto
+  item_nombre: Texto                   // nombre visible del item
   naturaleza: PERIODICA | PUNTUAL | SIN_PLANIFICAR
-  // Periódica (naturaleza = PERIODICA)
-  subtipo: Texto | NULL              // Diario | Semanal | Mensual
+  tipo_planificacion: Texto            // TipoPlanificacion.codigo (FK); sin enum cerrado en contrato
   observaciones: Texto
-  fecha_inicio, fecha_fin: Fecha | NULL
-  hora: Hora | NULL
-  // Puntual (naturaleza = PUNTUAL)
-  tipo: Texto | NULL                 // Puntual
-  fecha: Fecha | NULL
-  // Sin planificar (naturaleza = SIN_PLANIFICAR)
-  tipo: Texto | NULL                 // SinPlanificar
+  fecha_inicio: Fecha | NULL           // solo PERIODICA
+  fecha_fin: Fecha | NULL
+  hora: Hora | NULL                    // PERIODICA y PUNTUAL
+  fecha: Fecha | NULL                  // solo PUNTUAL
 
 Fuente canonica de composicion: [planificaciones.md](../entidades/planificaciones.md) — seccion IdentificablePorUsuario.
 
@@ -228,7 +224,7 @@ Ejemplo de respuesta API (orientativo):
         "proyecto_nombre": "Marketing 2026",
         "item_nombre": "Campaña Q1",
         "naturaleza": "PERIODICA",
-        "subtipo": "Semanal",
+        "tipo_planificacion": "<codigo catalogo>",
         "observaciones": "Reunión de seguimiento",
         "fecha_inicio": "2026-03-01",
         "fecha_fin": "2026-12-31",
@@ -266,8 +262,8 @@ Ejemplo de respuesta API (orientativo):
 Mensaje orientativo compuesto (locale `es`, proyecto):
 
 > No se puede eliminar el proyecto «Marketing 2026». Prepare las siguientes planificaciones antes de reintentar:
-> • Proyecto «Marketing 2026» · Item «Campaña Q1» · Semanal · «Reunión de seguimiento» · 01/03/2026–31/12/2026 · 10:00 — Completada
-> • Proyecto «Marketing 2026» · Item «Soporte» · Diario · «Daily standup» · 01/01/2026–30/06/2026 · 09:00 — Completada; 2 ocurrencias gestionadas
+> • Proyecto «{proyecto}» · Item «{item}» · {tipo_planificacion} · «{observaciones}» · {fecha_inicio}–{fecha_fin} · {hora} — Completada
+> • Proyecto «{proyecto}» · Item «{item}» · {tipo_planificacion} · «{observaciones}» · … — Completada; N ocurrencias gestionadas
 
 La plantilla i18n vive en Presentacion (ZC-6); Negocio emite codigo + `bloqueos` con `identificable_por_usuario`.
 

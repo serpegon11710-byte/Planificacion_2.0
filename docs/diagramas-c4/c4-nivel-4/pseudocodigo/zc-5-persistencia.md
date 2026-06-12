@@ -164,16 +164,16 @@ FUNCION bloqueosDePlanificacion(planificacion):
   )
 
 FUNCION construirIdentificablePorUsuario(planificacion, proyecto, item):
-  // Ver planificaciones.md — IdentificablePorUsuario
-  SI planificacion.es_periodica:
-    RETORNAR { proyecto_nombre, item_nombre, naturaleza: PERIODICA,
-      subtipo: planificacion.tipo.codigo, observaciones,
-      fecha_inicio, fecha_fin, hora }
-  SI planificacion.sin_planificar:
-    RETORNAR { proyecto_nombre, item_nombre, naturaleza: SIN_PLANIFICAR,
-      tipo: "SinPlanificar", observaciones }
-  RETORNAR { proyecto_nombre, item_nombre, naturaleza: PUNTUAL,
-    tipo: "Puntual", observaciones, fecha, hora }
+  codigo = planificacion.tipo_planificacion.codigo
+  campos_id = registro_patrones.camposConRol(codigo, "identificable_usuario")
+  RETORNAR {
+    proyecto_nombre: proyecto.nombre,
+    item_nombre: item.nombre,
+    tipo_planificacion: codigo,
+    valores: campos_id.map(id -> { id, valor: planificacion.valorDe(id) }),
+    naturaleza: registro_patrones.naturalezaDe(codigo)
+  }
+  // Plantillas de texto: planificaciones.md — IdentificablePorUsuario
 ```
 
 ```

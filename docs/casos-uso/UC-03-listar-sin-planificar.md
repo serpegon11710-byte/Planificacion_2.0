@@ -39,7 +39,7 @@ flowchart TD
 ## Reglas de Negocio
 
 ### RN-3.1: Filtro exclusivo por tipo
-Solo deben recuperarse planificaciones Sin planificar: filas en `PlanificacionesPuntuales` con `sin_planificar = true` (tipo catálogo `SinPlanificar`).
+Solo deben recuperarse planificaciones Sin planificar: filas en `Planificaciones` con `fecha_inicio IS NULL` y `fecha_fin IS NULL` (naturaleza inferida; ver FAQ-110).
 
 ### RN-3.2: Consulta sin ocurrencias dinámicas
 Este caso de uso no calcula ocurrencias dinámicas; solo lista planificaciones del tipo indicado.
@@ -57,7 +57,7 @@ Este caso de uso no calcula ocurrencias dinámicas; solo lista planificaciones d
 | Zona critica N4 | Rol |
 |-----------------|-----|
 | [ZC-3](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-3-planificacion-temporal.md) | `listarSinPlanificar` |
-| [ZC-5](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | Query `PlanificacionesPuntuales` con `sin_planificar = true` |
+| [ZC-5](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | Query `Planificaciones` con fechas NULL |
 ---
 
 **Última revisión:** 2026-06-10

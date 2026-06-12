@@ -6,7 +6,7 @@
 
 ## Propósito
 
-Este documento define el comportamiento común de las ocurrencias derivadas de planificaciones, incluyendo su cálculo, estado y reglas de modificación.
+Este documento define el comportamiento común de las ocurrencias derivadas de planificaciones, incluyendo cálculo dinámico, materialización, visibilidad y reglas de modificación.
 
 ---
 
@@ -14,75 +14,86 @@ Este documento define el comportamiento común de las ocurrencias derivadas de p
 
 Una ocurrencia es una instancia concreta en fecha/hora de una planificación.
 
-- Las ocurrencias no se crean físicamente por defecto al crear la planificación.
-- Se calculan dinámicamente a partir de la configuración de la planificación.
-- Solo se materializan cuando el usuario modifica una ocurrencia específica.
+- Las ocurrencias **naturales** se calculan dinámicamente (no se persisten por defecto).
+- Solo las **periódicas** materializan filas en `OcurrenciasMaterializadas` al interactuar el usuario.
+- Las **puntuales** exponen una única ocurrencia dinámica; UC-02.2 modifica `Planificaciones`.
 
 ---
 
-## Casos por Tipo de Planificación
+## Comportamiento por naturaleza
 
-### Puntual
-- Una planificación puntual tiene una única ocurrencia.
-- Esa ocurrencia coincide con la planificación base.
-- Modificar la ocurrencia implica modificar directamente la planificación.
-
-### Periódica
-- Una planificación periódica genera múltiples ocurrencias según su configuración.
-- Las ocurrencias se calculan dinámicamente y pueden materializarse al modificarse individualmente.
-
-### Sin planificar
-
-- Una planificación de tipo «Sin planificar» no genera ocurrencias.
-- Persistencia: `PlanificacionesPuntuales` con `sin_planificar = true` (ver [planificaciones.md](planificaciones.md)).
+| Naturaleza | Listado |
+|------------|---------|
+| **Sin planificar** | Lista vacía |
+| **Puntual** | Un elemento dinámico con datos de `Planificaciones` (`fecha_inicio`, `hora`, `observaciones`, `estado`) |
+| **Periódica** | Mezcla de ocurrencias dinámicas (motor según `PlanificacionPeriodo`) y materializadas en BD |
 
 ---
 
 ## Estados de Ocurrencia
 
-- **Pendiente**: ocurrencia no completada.
-- **Completada**: ocurrencia marcada como realizada.
-- **Expirada**: ocurrencia pendiente cuya fecha/hora ya pasó (estado calculado).
+- **Pendiente** / **Completada** / **Expirada** (calculada si Pendiente y fecha pasada).
 
-El estado efectivo de una ocurrencia se resuelve así:
+Resolución (RO-7):
 
-1. Si la ocurrencia tiene estado propio registrado, se usa ese estado.
-2. Si no tiene estado propio, se usa el estado de la planificación asociada.
-3. Si el estado resultante es Pendiente y la fecha/hora ya pasó, puede visualizarse como Expirada (estado calculado).
+1. Estado propio registrado en materializada, si existe.
+2. Si no, estado de la planificación.
+3. Expirada si Pendiente y fecha/hora ya pasó.
 
 ---
 
 ## Reglas Comunes
 
 ### RO-1: Cálculo dinámico
-Las ocurrencias naturales se obtienen en tiempo de consulta a partir de la planificación base.
+Ocurrencias naturales en tiempo de consulta.
 
 ### RO-2: Materialización por modificación
-Cuando una ocurrencia **periódica** se modifica de forma individual (estado, fecha, hora u observaciones), se registra en `OcurrenciasMaterializadas`. En **puntual**, la modificación individual actualiza la planificación base (UC-02.2); no hay filas materializadas.
+Solo **periódicas** → `OcurrenciasMaterializadas` (FK `planificacion_periodo_id`). Puntuales: mutación directa de `Planificaciones`.
 
 ### RO-3: Precedencia de modificaciones
-Si existe modificación registrada para una fecha original, la modificación prevalece sobre la ocurrencia natural calculada.
+Materializada prevalece sobre natural para la misma `fecha_original`.
 
 ### RO-4: Eliminación individual
-Una ocurrencia puede ocultarse/eliminarse de forma individual sin eliminar la planificación base.
+`eliminada_virtual = true` en periódicas; cuenta para RE-4.
 
 ### RO-5: Cambio de fecha
-Si una ocurrencia cambia de fecha, debe preservarse el vínculo con su fecha original para resolver precedencias correctamente.
+Preservar `fecha_original` al cambiar `fecha_efectiva`.
 
 ### RO-6: Separación fecha/hora
-Fecha y hora se gestionan de forma separada para permitir ajustes parciales de la ocurrencia.
+Ajustes parciales permitidos.
 
 ### RO-7: Resolución de estado
-El estado de una ocurrencia puede estar registrado en la propia ocurrencia o, en su defecto, heredarse del estado de la planificación.
+Herencia desde planificación si NULL en materializada.
+
+### RO-8: Fecha efectiva dentro del rango (periódicas)
+No modificar una ocurrencia si la **fecha efectiva** resultante queda fuera de `[fecha_inicio, fecha_fin]` de la planificación.
+
+### RO-9: Cambio de fechas de la planificación (periódicas)
+Tras acortar el rango, las materializadas fuera de rango **permanecen en BD** pero **no son visibles ni recuperables**. Debe seguir existiendo **al menos una ocurrencia visible** (dinámica o materializada, incluidas eliminaciones virtuales registradas).
+
+### RO-10: `fecha_original` fuera de rango, `fecha_efectiva` dentro
+Ocurrencia materializada **válida y visible** en consultas del rango vigente.
+
+---
+
+## Visibilidad en consulta (periódicas)
+
+Una ocurrencia materializada es **visible** en un rango `[desde, hasta]` si:
+
+- `fecha_efectiva` intersecta el rango de consulta **y** el rango `[fecha_inicio, fecha_fin]` vigente de la planificación, **o**
+- Cumple RO-10 (`fecha_original` fuera del rango vigente pero `fecha_efectiva` dentro).
+
+Las materializadas con `fecha_efectiva` fuera del rango vigente de la planificación: **no visibles** (RO-9).
 
 ---
 
 ## Uso por Casos de Uso
 
-- UC-02 debe usar este documento para visualización y gestión de ocurrencias.
-- Cualquier caso de uso que modifique ocurrencias individuales debe respetar estas reglas.
-- UC-01.4 no gestiona ocurrencias individuales; solo persiste la planificación base.
-- UC-02.4 permite anular modificaciones o restaurar eliminaciones virtuales en planificaciones **periódicas**; es el camino para vaciar `OcurrenciasMaterializadas` antes de eliminar la planificación, el item o el proyecto (RE-4).
+- UC-02: visualización y gestión según naturaleza.
+- UC-02.2: puntuales — actualizar `Planificaciones`.
+- UC-02.3 / UC-02.4: periódicas — materialización y gestión por planificación.
+- UC-01.4: solo planificación base; no ocurrencias individuales.
+- UC-02.4: vaciar materializadas antes de eliminar planificación / item / proyecto (RE-4).
 
 ---
 
@@ -92,18 +103,17 @@ Tabla `OcurrenciasMaterializadas` — ver [modelo-entidad-relacion.md](modelo-en
 
 | Campo | Obligatorio | Notas |
 |-------|-------------|-------|
-| `planificacion_periodica_id` | Sí | FK → `PlanificacionesPeriodicas` **solo periódicas** |
-| `fecha_original` | Sí | Clave de precedencia (RO-5) |
-| `fecha_efectiva` | Sí | Fecha mostrada / efectiva |
+| `planificacion_periodo_id` | Sí | FK → `PlanificacionPeriodo` |
+| `fecha_original` | Sí | RO-5 |
+| `fecha_efectiva` | Sí | Visibilidad RO-8, RO-9, RO-10 |
 | `hora` | Sí | UTC |
-| `observaciones` | Nullable | NULL = hereda; se persiste al editar |
-| `estado` | Nullable | NULL = hereda; se persiste al interactuar |
+| `observaciones` | Nullable | Herencia FAQ-004 |
+| `estado` | Nullable | Herencia FAQ-004 |
 | `eliminada_virtual` | Sí | RO-4 |
-
-Las ocurrencias **naturales** no se persisten; solo las **materializadas** por interacción del usuario (RO-2).
 
 ---
 
 ## Referencias
 
-- Completado por ocurrencia vs `InstanciaPlanificacion`: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-003).
+- [planificaciones.md](planificaciones.md)
+- [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-003, FAQ-004)

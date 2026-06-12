@@ -9,9 +9,9 @@
 
 | Caso de uso | Rol en esta zona |
 |-------------|------------------|
-| [UC-01.4](../../casos-uso/UC-01.4-gestion-planificacion.md) | Crear/editar planificacion; cambios de tipo (RT-*) |
+| [UC-01.4](../../casos-uso/UC-01.4-gestion-planificacion.md) | Crear/editar planificacion; cambios de naturaleza (RT-*) |
 | [UC-01.5](../../casos-uso/UC-01.5-captura-datos-planificacion.md) | Validacion de captura sin persistir |
-| [UC-03](../../casos-uso/UC-03-listar-sin-planificar.md) | Listado `PlanificacionesPuntuales` con `sin_planificar = true` |
+| [UC-03](../../casos-uso/UC-03-listar-sin-planificar.md) | Listado `Planificaciones` con fechas NULL |
 
 ---
 
@@ -20,41 +20,37 @@
 ```mermaid
 flowchart LR
   Agregado["AgregadoPlanificacion"]
-  Catalogo["CatalogoTipos"]
+  Inferencia["InferenciaNaturaleza"]
   Validador["ValidadorConfiguracion"]
-  CambioTipo["GestorCambioTipo"]
-  VO["DefinicionesTemporales"]
+  CambioTipo["GestorCambioNaturaleza"]
+  Registro["RegistroPatronesSubtipoPeriodico"]
 
+  Agregado --> Inferencia
   Agregado --> Validador
   Agregado --> CambioTipo
-  Catalogo --> Validador
-  VO --> Validador
+  Registro --> Validador
 ```
 
 | Subcomponente | Responsabilidad |
 |---------------|-----------------|
-| `AgregadoPlanificacion` | Entidad raiz; estado Pendiente/Completada |
-| `RegistroPatronesTipoPlanificacion` | Metadato `CampoPatron` por `TipoPlanificacion.codigo` — fuente: [planificaciones.md](../../../entidades/planificaciones.md) |
-| `ValidadorConfiguracion` | RC-1, RC-2, RC-3 iterando campos del registro |
-| `GestorCambioTipo` | RT-1 a RT-5 |
+| `AgregadoPlanificacion` | Fila `Planificaciones` + `PlanificacionPeriodo` opcional |
+| `InferenciaNaturaleza` | Sin planificar / Puntual / Periódica desde datos (FAQ-110) |
+| `RegistroPatronesTipoPlanificacion` | Metadato `CampoPatron` por subtipo periódico — fuente: [planificaciones.md](../../../entidades/planificaciones.md) |
+| `ValidadorConfiguracion` | RC-1, RC-2, RC-3 |
+| `GestorCambioNaturaleza` | RT-1 a RT-5 |
 
 ---
 
-## Registro de patrones (metadata)
-
-Definicion declarativa en entidad Planificaciones. En implementacion: mapa cargado al arranque o tabla de metadatos (Step 11).
+## Inferencia de naturaleza
 
 ```
-TIPO CampoPatron:
-  id, persistencia, tipo_dato, obligatorio, restricciones, roles
-
-INTERFAZ RegistroPatronesTipoPlanificacion:
-  patronesDe(codigo: TipoPlanificacion.codigo) -> Lista<CampoPatron>
-  camposConRol(codigo, rol) -> Lista<CampoPatron>
-  estrategiaMotor(codigo) -> EstrategiaMotorOcurrencias | NULL
+FUNCION inferirNaturaleza(planificacion):
+  SI planificacion.fecha_inicio ES NULL Y planificacion.fecha_fin ES NULL:
+    RETORNAR SIN_PLANIFICAR
+  SI planificacion.periodo ES NULL:
+    RETORNAR PUNTUAL   // fecha_inicio = fecha_fin
+  RETORNAR PERIODICA
 ```
-
-Los tipos actuales del catalogo y sus campos patrón estan tabulados en `planificaciones.md` (seccion «Campos de patrón por TipoPlanificacion»). El codigo **no** duplica esa tabla como `SEGUN Diario / Semanal / …`; la consume el registro.
 
 ---
 
@@ -64,155 +60,122 @@ Los tipos actuales del catalogo y sus campos patrón estan tabulados en `planifi
 
 ```
 FUNCION validarConfiguracion(planificacion):
-  codigo = planificacion.tipo_planificacion.codigo
-  campos = registro_patrones.patronesDe(codigo)
+  naturaleza = inferirNaturaleza(planificacion)
 
-  PARA CADA campo EN campos DONDE "validacion" EN campo.roles:
-    valor = planificacion.valorDe(campo.id)
-    validarCampoPatron(campo, valor, planificacion)
+  validarCamposComunes(planificacion, naturaleza)
 
-  // RC-8 y reglas sin planificar (no son CampoPatron temporal)
-  SI codigo == "SinPlanificar":
+  SI naturaleza == SIN_PLANIFICAR:
     validarSinPlanificar(planificacion)
+    RETORNAR OK
 
-  // RC-2: rango si el tipo declara fecha_inicio y fecha_fin
-  SI planificacion.tiene("fecha_inicio") Y planificacion.tiene("fecha_fin"):
-    SI planificacion.fecha_fin <= planificacion.fecha_inicio:
-      LANZAR ErrorFuncional("RANGO_TEMPORAL_INVALIDO")
-
-  // RC-3: al menos una ocurrencia si el tipo genera ocurrencias
-  SI registro_patrones.estrategiaMotor(codigo) NO ES NULL:
+  SI naturaleza == PUNTUAL:
+    SI planificacion.fecha_inicio != planificacion.fecha_fin:
+      LANZAR ErrorFuncional("PUNTUAL_FECHAS_DEBEN_COINCIDIR")
+    SI planificacion.estado ES NULL:
+      LANZAR ErrorFuncional("ESTADO_OBLIGATORIO")
     SI NOT existeAlMenosUnaOcurrenciaEnRango(planificacion):
       LANZAR ErrorFuncional("CONFIGURACION_SIN_OCURRENCIAS")
+    RETORNAR OK
 
+  // PERIODICA
+  SI planificacion.fecha_fin <= planificacion.fecha_inicio:
+    LANZAR ErrorFuncional("RANGO_TEMPORAL_INVALIDO")
+  SI planificacion.periodo ES NULL:
+    LANZAR ErrorFuncional("PERIODO_OBLIGATORIO")
+  codigo = planificacion.periodo.tipo_planificacion.codigo
+  campos = registro_patrones.patronesDe(codigo)
+  PARA CADA campo EN campos DONDE "validacion" EN campo.roles:
+    validarCampoPatron(campo, planificacion.periodo.valorDe(campo.id), planificacion)
+  SI NOT existeAlMenosUnaOcurrenciaEnRango(planificacion):
+    LANZAR ErrorFuncional("CONFIGURACION_SIN_OCURRENCIAS")
   RETORNAR OK
-
-FUNCION validarCampoPatron(campo, valor, planificacion):
-  SI campo.obligatorio Y valorEsVacio(valor):
-    LANZAR ErrorFuncional("CAMPO_PATRON_OBLIGATORIO", param = campo.id)
-  aplicarRestricciones(campo.restricciones, valor, planificacion)
-  // restricciones: enums, rangos, condicionales (ej. comportamiento_mes_corto si dia_mes > 28)
-```
-
-```
-FUNCION existeAlMenosUnaOcurrenciaEnRango(planificacion):
-  estrategia = registro_patrones.estrategiaMotor(planificacion.tipo_planificacion.codigo)
-  naturales = estrategia.generarNaturalesPendientes(planificacion, rangoCompleto(planificacion), conjunto_vacio())
-  RETORNAR naturales.noEstaVacia()
 ```
 
 ```
 FUNCION validarSinPlanificar(planificacion):
   SI planificacion.observaciones ES NULL O vacio:
-    LANZAR ErrorFuncional("PLANIFICACION_CONFIGURACION_INVALIDA")   // RC-8: obligatorias
+    LANZAR ErrorFuncional("PLANIFICACION_CONFIGURACION_INVALIDA")
   SI puerto_planificacion.existeSinPlanificarConObservaciones(
       planificacion.item_id, planificacion.observaciones, excluir = planificacion.id):
-    LANZAR ErrorFuncional("PLANIFICACION_SIN_PLANIFICAR_OBSERVACIONES_DUPLICADAS")   // RC-8
-  RETORNAR OK
+    LANZAR ErrorFuncional("PLANIFICACION_SIN_PLANIFICAR_OBSERVACIONES_DUPLICADAS")
 ```
 
-### Crear planificacion (UC-01.4)
+### Crear y editar (UC-01.4)
 
 ```
 FUNCION crear(item_id, configuracion_capturada):
   planificacion = nuevaPlanificacionDesde(configuracion_capturada)
   planificacion.item_id = item_id
-  planificacion.estado = PENDIENTE
   validarConfiguracion(planificacion)
-  puerto_planificacion.guardar(planificacion)
-  // RC-4: no gestiona ocurrencias individuales
+  puerto_planificacion.guardar(planificacion)   // Planificaciones + Periodo si aplica
   RETORNAR planificacion
-```
 
-### Editar planificacion con posible cambio de tipo
-
-```
 FUNCION editar(planificacion_id, configuracion_capturada):
   actual = puerto_planificacion.obtener(planificacion_id)
   destino = nuevaPlanificacionDesde(configuracion_capturada)
-
-  SI actual.tipo != destino.tipo:
-    gestor_cambio_tipo.validarTransicion(actual, destino.tipo)
-
+  SI inferirNaturaleza(actual) != inferirNaturaleza(destino):
+    gestor_cambio_naturaleza.validarTransicion(actual, destino)
   actual = aplicarCambios(actual, destino)
   validarConfiguracion(actual)
   puerto_planificacion.guardar(actual)
   RETORNAR actual
 ```
 
-### Cambio de tipo (RT-1 a RT-5)
+### Cambio de naturaleza (RT-1 a RT-5)
 
 ```
-FUNCION validarTransicion(actual, tipo_destino):
-  origen = actual.tipo
+FUNCION validarTransicion(actual, destino):
+  origen = inferirNaturaleza(actual)
+  destino_n = inferirNaturaleza(destino)
+  SI origen == destino_n: RETORNAR OK
 
-  SI origen == tipo_destino:
-    RETORNAR OK
-
-  // RT-4: Puntual <-> Periodica prohibido
-  SI (origen == PUNTUAL Y tipo_destino == PERIODICA) O (origen == PERIODICA Y tipo_destino == PUNTUAL):
+  SI (origen == PUNTUAL Y destino_n == PERIODICA) O (origen == PERIODICA Y destino_n == PUNTUAL):
     LANZAR ErrorFuncional("CAMBIO_TIPO_PUNTUAL_PERIODICA_NO_PERMITIDO")
 
-  // RT-5: tipo_planificacion_id inmutable en filas periodicas
-  SI origen == PERIODICA Y tipo_destino == PERIODICA Y actual.tipo_planificacion_id != destino.tipo_planificacion_id:
-    LANZAR ErrorFuncional("CAMBIO_TIPO_PERIODICO_NO_PERMITIDO")
+  SI origen == PERIODICA Y destino_n == PERIODICA:
+    SI actual.periodo.tipo_planificacion_id != destino.periodo.tipo_planificacion_id:
+      LANZAR ErrorFuncional("CAMBIO_SUBTIPO_PERIODICO_NO_PERMITIDO")
 
-  // RT-1: Sin planificar -> Puntual | Periodica
-  SI origen == SIN_PLANIFICAR:
-    RETORNAR OK   // parametros destino validados en validarConfiguracion
-
-  // RT-2: Puntual -> Sin planificar solo si Pendiente
-  SI origen == PUNTUAL Y tipo_destino == SIN_PLANIFICAR:
+  SI origen == PUNTUAL Y destino_n == SIN_PLANIFICAR:
     SI actual.estado != PENDIENTE:
       LANZAR ErrorFuncional("PUNTUAL_COMPLETADA_NO_PUEDE_A_SIN_PLANIFICAR")
-    RETORNAR OK
 
-  // RT-3: Periodica -> Sin planificar
-  SI origen == PERIODICA Y tipo_destino == SIN_PLANIFICAR:
+  SI origen == PERIODICA Y destino_n == SIN_PLANIFICAR:
     SI actual.estado != PENDIENTE:
       LANZAR ErrorFuncional("PERIODICA_COMPLETADA_NO_PUEDE_A_SIN_PLANIFICAR")
-    fisicas = puerto_ocurrencia.buscarTodasMaterializadas(actual.id)
-    SI fisicas.contieneModificacion() O fisicas.contieneEliminacion():
+    SI puerto_ocurrencia.contarPorPeriodo(actual.periodo.id) > 0:
       LANZAR ErrorFuncional("PERIODICA_CON_OCURRENCIAS_FISICAS_NO_PUEDE_A_SIN_PLANIFICAR")
-    RETORNAR OK
+```
 
-  LANZAR ErrorFuncional("CAMBIO_TIPO_NO_PERMITIDO")
+```
+FUNCION aplicarCambioNaturaleza(actual, destino):
+  origen = inferirNaturaleza(actual)
+  destino_n = inferirNaturaleza(destino)
+
+  // Sin planificar <-> Puntual: misma fila Planificaciones
+  SI (origen == SIN_PLANIFICAR Y destino_n == PUNTUAL) O (origen == PUNTUAL Y destino_n == SIN_PLANIFICAR):
+    RETORNAR puerto_planificacion.actualizar(actual.id, destino)
+
+  SI origen == SIN_PLANIFICAR Y destino_n == PERIODICA:
+    RETORNAR puerto_planificacion.actualizarYCrearPeriodo(actual.id, destino)
+
+  SI origen == PERIODICA Y destino_n == SIN_PLANIFICAR:
+    RETORNAR puerto_planificacion.eliminarPeriodoYActualizar(actual.id, destino)
 ```
 
 ### Lectura Sin planificar (UC-03)
 
 ```
 FUNCION listarSinPlanificar(filtros):
-  RETORNAR puerto_planificacion.buscarPuntuales(sin_planificar=true, filtros)
-```
-
-### Persistencia en cambio de tipo (FAQ-105)
-
-```
-FUNCION aplicarCambioTipo(actual, destino):
-  origen = actual.tipo
-  tipo_destino = destino.tipo
-
-  // Sin planificar <-> Puntual: misma tabla PlanificacionesPuntuales
-  SI (origen == SIN_PLANIFICAR Y tipo_destino == PUNTUAL) O (origen == PUNTUAL Y tipo_destino == SIN_PLANIFICAR):
-    RETORNAR puerto_planificacion.actualizarPuntual(actual.id, destino)
-
-  // Sin planificar -> Periodica: anular puntual; crear periodica (sin impacto en ocurrencias)
-  SI origen == SIN_PLANIFICAR Y tipo_destino ES PERIODICA:
-    puerto_planificacion.anularPuntual(actual.id)
-    RETORNAR puerto_planificacion.crearPeriodica(desde(destino))
-
-  // Periodica -> Sin planificar: precondiciones RT-3; anular periodica; crear puntual sin_planificar
-  SI origen == PERIODICA Y tipo_destino == SIN_PLANIFICAR:
-    puerto_planificacion.anularPeriodica(actual.id)
-    RETORNAR puerto_planificacion.crearPuntual(sin_planificar=true, desde(destino))
+  RETORNAR puerto_planificacion.buscarSinPlanificar(filtros)
+  // WHERE fecha_inicio IS NULL AND fecha_fin IS NULL
 ```
 
 ---
 
 ## Notas
 
-- UC-01.5 delega la validacion de captura a `ValidadorConfiguracion`; no persiste (RC-4).
-- La comprobacion RT-3 consulta ocurrencias fisicas via puerto de ZC-5.
+- UC-01.5 delega validacion a `ValidadorConfiguracion`; no persiste (RC-4).
+- RT-3 consulta ocurrencias via `planificacion_periodo_id` (ZC-5).
 
 Proyeccion al stack en [implementacion/](../implementacion/).

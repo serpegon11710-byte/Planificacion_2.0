@@ -160,24 +160,9 @@ Asi quien implementa una ZC ve de inmediato el origen funcional; quien lee un UC
 
 **Origen:** Step 10 / decision de modelo de datos.
 
-**Resolucion (2026-06-12):** **Dos tablas:**
+**Estado:** Resolucion inicial (dos tablas puntuales/periodicas) **supersedida por FAQ-110** (tabla unica `Planificaciones` + `PlanificacionPeriodo` 1:1). Conservada como historial.
 
-- `PlanificacionesPeriodicas`
-- `PlanificacionesPuntuales` (incluye Puntual y Sin planificar)
-
-**Sin planificar** no tiene tabla propia: flag booleano `sin_planificar` en `PlanificacionesPuntuales`.
-
-**Cambios de tipo:**
-
-| Transicion | Operacion |
-|------------|-----------|
-| Sin planificar ↔ Puntual | Misma tabla; mutar flag y fecha/hora |
-| Sin planificar → Periodica | Anular puntual; crear periodica. Sin impacto en ocurrencias |
-| Periodica → Sin planificar | Anular periodica; crear puntual con `sin_planificar = true`. Precondicion: sin ocurrencias materializadas (RT-3) |
-
-Detalle funcional en `docs/entidades/planificaciones.md`.
-
-**Entregable Step 10:** tablas y relaciones en `docs/entidades/modelo-entidad-relacion.md`. **Completado (2026-06-12).**
+**Entregable vigente:** `docs/entidades/modelo-entidad-relacion.md` (FAQ-110).
 
 ---
 
@@ -221,16 +206,22 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 ### FAQ-109 — Vista unificada, dias semana y ocurrencias solo periódicas
 
-**Origen:** Revision del ER (Step 10); campos comunes de planificacion y relacion Item → Planificacion.
+**Estado:** **Supersedida por FAQ-110** (2026-06-12). Conservada como historial de la iteracion intermedia (dos tablas + vista).
+
+---
+
+### FAQ-110 — Tabla unica Planificaciones + PlanificacionPeriodo 1:1
+
+**Origen:** Revision del ER; simplificar duplicacion de campos comunes y escalabilidad.
 
 **Resolucion (2026-06-12):**
 
-1. **No hay tabla fisica `Planificacion` de instancias.** Los campos comunes (`observaciones`, `hora`, `estado`, `anulada`) viven en `PlanificacionesPuntuales` y `PlanificacionesPeriodicas`. La lectura unificada Item → Planificacion se expone con la vista **`V_Planificacion`** (`id`, `item_id`, `codigo`, `periodica`, campos comunes, `fechas` como varchar: una fecha si Puntual, rango `inicio..fin` si Periodica).
-2. **`TipoPlanificacion`** sigue siendo solo catalogo (`id`, `codigo`, `periodica`); no duplica campos de negocio.
-3. **`OcurrenciasMaterializadas`** solo referencia **`planificacion_periodica_id`**. Puntuales y Sin planificar no materializan filas (UC-02.2 muta la fila puntual). RE-4 aplica solo a periódicas.
-4. **Dias de la semana (Semanal):** columna `dias_semana` con letras **LMXJVSD** (Lunes → Domingo), p. ej. `MX` o `LMXJVSD`. Se elimina la tabla auxiliar `PlanificacionesPeriodicasDiasSemana` y la ambiguedad de numeros 0/1 o inicio de semana.
+1. **Una tabla `Planificaciones`** con campos comunes: `item_id`, `fecha_inicio`, `fecha_fin`, `hora`, `observaciones`, `estado`. Sin flags: la naturaleza se infiere (Sin planificar = fechas NULL; Puntual = inicio = fin sin periodo; Periódica = existe `PlanificacionPeriodo` y fin > inicio).
+2. **`PlanificacionPeriodo`** 1:1 opcional: solo periódicas. Subtipo (`Diario`/`Semanal`/`Mensual`) y campos de patron (`dias_semana` LMXJVSD, etc.) viven aqui. `TipoPlanificacion` es catalogo solo de subtipos periódicos.
+3. **Ocurrencias:** Sin planificar → lista vacia; Puntual → una dinamica; Periódica → dinamicas + `OcurrenciasMaterializadas` (FK `planificacion_periodo_id`). Restricciones RO-8 a RO-10 (rango, visibilidad tras cambio de fechas).
+4. Se eliminan `PlanificacionesPuntuales`, `PlanificacionesPeriodicas`, `V_Planificacion` y flags `sin_planificar`.
 
-**Entregable Step 10:** `docs/entidades/modelo-entidad-relacion.md`, pseudocodigo ZC-5 (vista SQL orientativa). **Completado (2026-06-12).**
+**Entregable Step 10:** `docs/entidades/modelo-entidad-relacion.md`, `planificaciones.md`, pseudocodigo ZC-1/3/5. **Completado (2026-06-12).**
 
 ---
 
@@ -298,12 +289,12 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108 |
 | `entidades/ocurrencias.md` | FAQ-003, 004 |
 | `entidades/proyectos.md`, `items.md` | FAQ-005 |
-| `entidades/planificaciones.md` | FAQ-001, 105, 106, 107, 109 |
+| `entidades/planificaciones.md` | FAQ-001, 105, 106, 107, 110 |
 | `revision-principios-solid.md` | FAQ-005, 009 |
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
 | Step 11 | FAQ-007, 101, 102 |
 | Step 12 | N4 implementacion por stack |
-| Step 10 | FAQ-002, 004, 105, 106, 108, 109 |
+| Step 10 | FAQ-002, 004, 105, 106, 108, 110 |
 
 ---
 
@@ -319,3 +310,4 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | 2026-06-12 | Step 8b: diagrama N3 Front-End (FAQ-103) |
 | 2026-06-12 | Renumeracion plan: Step 11 -> Step 11; ER (10) antes que stack; Step 12 N4 implementacion |
 | 2026-06-12 | FAQ-109: V_Planificacion, dias_semana LMXJVSD, ocurrencias solo periódicas |
+| 2026-06-12 | FAQ-110: tabla unica Planificaciones + PlanificacionPeriodo; supersede FAQ-109 |

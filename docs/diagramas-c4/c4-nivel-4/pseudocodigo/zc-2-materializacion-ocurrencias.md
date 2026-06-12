@@ -53,7 +53,7 @@ flowchart TD
 FUNCION mutarOcurrencia(planificacion_id, fecha_original, cambios):
   planificacion = puerto_planificacion.obtener(planificacion_id)
 
-  SEGUN planificacion.tipo:
+  SEGUN inferirNaturaleza(planificacion):
     PUNTUAL:
       RETORNAR mutador_puntual.aplicar(planificacion, cambios)
     PERIODICA:
@@ -85,7 +85,8 @@ FUNCION aplicar(planificacion, cambios):
 
 ```
 FUNCION aplicar(planificacion, fecha_original, cambios):
-  registro_existente = puerto_ocurrencia.buscarPorFechaOriginal(planificacion.id, fecha_original)
+  periodo_id = planificacion.periodo.id
+  registro_existente = puerto_ocurrencia.buscarPorFechaOriginal(periodo_id, fecha_original)
 
   SI registro_existente ES NULL:
     registro = materializador.crearDesdeNatural(planificacion, fecha_original)  // RO-2
@@ -93,6 +94,8 @@ FUNCION aplicar(planificacion, fecha_original, cambios):
     registro = registro_existente
 
   SI cambios.contiene("fecha") Y cambios.fecha != fecha_original:
+    SI cambios.fecha NO ESTA EN [planificacion.fecha_inicio, planificacion.fecha_fin]:
+      LANZAR ErrorFuncional("OCURRENCIA_FECHA_FUERA_DE_RANGO")   // RO-8
     registro.fecha_original = fecha_original      // RO-5: preservar vinculo
     registro.fecha_efectiva = cambios.fecha
   SI cambios.contiene("hora"):
@@ -113,7 +116,7 @@ FUNCION aplicar(planificacion, fecha_original, cambios):
 
 ```
 FUNCION eliminarIndividual(planificacion, fecha_original):
-  registro = puerto_ocurrencia.buscarPorFechaOriginal(planificacion.id, fecha_original)
+  registro = puerto_ocurrencia.buscarPorFechaOriginal(planificacion.periodo.id, fecha_original)
 
   SI registro ES NULL:
     registro = materializador.crearDesdeNatural(planificacion, fecha_original)
@@ -151,7 +154,7 @@ FUNCION anularModificacion(planificacion_id, fecha_original):
 
 ```
 FUNCION completar(planificacion, fecha_original_opcional):
-  SI planificacion.tipo == PUNTUAL:
+  SI inferirNaturaleza(planificacion) == PUNTUAL:
     planificacion.estado = COMPLETADA
     puerto_planificacion.guardar(planificacion)
   SINO:
@@ -167,7 +170,7 @@ FUNCION reabrir(planificacion, fecha_original_opcional):
 FUNCION crearDesdeNatural(planificacion, fecha_original):
   natural = motor_calculo.obtenerNatural(planificacion, fecha_original)  // ZC-1
   RETORNAR RegistroOcurrencia {
-    planificacion_id: planificacion.id,
+    planificacion_periodo_id: planificacion.periodo.id,
     fecha_original: fecha_original,
     fecha_efectiva: natural.fecha_efectiva,
     hora: natural.hora,
@@ -184,7 +187,7 @@ FUNCION crearDesdeNatural(planificacion, fecha_original):
 
 ```
 INTERFAZ PuertoOcurrenciaMaterializada:
-  buscarPorFechaOriginal(planificacion_id, fecha_original) -> RegistroOcurrencia | NULL
+  buscarPorFechaOriginal(planificacion_periodo_id, fecha_original) -> RegistroOcurrencia | NULL
   guardar(registro) -> RegistroOcurrencia
   eliminar(registro_id) -> VOID
 ```

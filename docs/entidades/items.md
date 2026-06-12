@@ -48,7 +48,7 @@ Tabla `Items` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
 Relaciones:
 
 - **Proyecto 1:N Item**
-- **Item 1:N Planificación** (tablas `PlanificacionesPuntuales` y `PlanificacionesPeriodicas`; ver [planificaciones.md](planificaciones.md))
+- **Item 1:N Planificación** (tabla `Planificaciones`; periódicas con `PlanificacionPeriodo` 1:1; ver [planificaciones.md](planificaciones.md))
 
 ---
 
@@ -86,7 +86,7 @@ Valores por defecto de la planificación automática:
 
 | Campo | Valor inicial |
 |-------|---------------|
-| Tipo | Sin planificar (`sin_planificar = true` en `PlanificacionesPuntuales`) |
+| Tipo | Sin planificar (`fecha_inicio` y `fecha_fin` NULL en `Planificaciones`) |
 | `observaciones` | Nombre del item |
 | Estado | Pendiente |
 

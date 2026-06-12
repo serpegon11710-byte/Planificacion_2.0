@@ -8,9 +8,9 @@
 
 | Caso de uso | Rol en esta zona |
 |-------------|------------------|
-| UC-01.* | Repositorios Proyecto, Item, Planificacion (puntual/periodica) |
+| UC-01.* | Repositorios Proyecto, Item, Planificacion, PlanificacionPeriodo |
 | UC-02.* | Repositorio Ocurrencia; consulta en rango (ZC-1) |
-| [UC-03](../../casos-uso/UC-03-listar-sin-planificar.md) | Query puntuales `sin_planificar = true` |
+| [UC-03](../../casos-uso/UC-03-listar-sin-planificar.md) | Query `Planificaciones` con fechas NULL |
 
 ---
 
@@ -93,10 +93,10 @@ INTERFAZ PuertoPlanificacion:
   buscarPorTipo(tipo, filtros) -> Lista<Planificacion>
 
 INTERFAZ PuertoOcurrenciaMaterializada:
-  buscarPorPlanificacionEnRango(planificacion_id, desde, hasta) -> Lista<RegistroOcurrencia>
-  buscarTodasMaterializadas(planificacion_id) -> Lista<RegistroOcurrencia>
-  contarPorPlanificacionPeriodica(planificacion_periodica_id) -> Entero   // RE-4: solo periódicas; cualquier fila, modificada o eliminada_virtual
-  buscarPorFechaOriginal(planificacion_id, fecha_original) -> RegistroOcurrencia | NULL
+  buscarPorPeriodoEnRango(planificacion_periodo_id, desde, hasta, rango_planificacion) -> Lista<RegistroOcurrencia>
+  buscarTodasMaterializadasPorPeriodo(planificacion_periodo_id) -> Lista<RegistroOcurrencia>
+  contarPorPeriodo(planificacion_periodo_id) -> Entero   // RE-4: cualquier fila, modificada o eliminada_virtual
+  buscarPorFechaOriginal(planificacion_periodo_id, fecha_original) -> RegistroOcurrencia | NULL
   guardar(registro) -> RegistroOcurrencia
   eliminar(registro_id) -> VOID
 
@@ -132,11 +132,11 @@ CLASE AdaptadorBase:
 ### Consulta ocurrencias en rango (soporte ZC-1)
 
 ```
-FUNCION buscarPorPlanificacionEnRango(planificacion_id, desde, hasta):
-  // Logica de consulta: registros cuya fecha_efectiva o fecha_original intersecta el rango
+FUNCION buscarPorPeriodoEnRango(planificacion_periodo_id, desde, hasta, rango_planificacion):
+  // RO-9, RO-10: visibilidad segun fecha_efectiva y rango vigente de la planificacion
   RETORNAR almacen.buscar(
     tabla = ocurrencias_materializadas,
-    filtro = planificacion_id Y rangoIntersecta(desde, hasta)
+    filtro = planificacion_periodo_id Y esVisibleEnConsulta(desde, hasta, rango_planificacion)
   ).map(mapearARegistroOcurrencia)
 ```
 
@@ -150,8 +150,8 @@ FUNCION bloqueosDePlanificacion(planificacion):
   SI planificacion.estado == Completada:
     motivos.agregar(COMPLETADA)
   cantidad = 0
-  SI planificacion.periodica == true:
-    cantidad = adaptador_ocurrencia.contarPorPlanificacionPeriodica(planificacion.id)
+  SI planificacion.periodo NO ES NULL:
+    cantidad = adaptador_ocurrencia.contarPorPeriodo(planificacion.periodo.id)
   SI cantidad > 0:
     motivos.agregar(OCURRENCIAS_MATERIALIZADAS)
   SI motivos.estaVacio():
@@ -166,16 +166,18 @@ FUNCION bloqueosDePlanificacion(planificacion):
   )
 
 FUNCION construirIdentificablePorUsuario(planificacion, proyecto, item):
-  codigo = planificacion.tipo_planificacion.codigo
-  campos_id = registro_patrones.camposConRol(codigo, "identificable_usuario")
+  naturaleza = inferirNaturaleza(planificacion)
+  etiqueta = naturaleza == PERIODICA ? planificacion.periodo.tipo_planificacion.codigo : naturaleza
   RETORNAR {
     proyecto_nombre: proyecto.nombre,
     item_nombre: item.nombre,
-    tipo_planificacion: codigo,
-    valores: campos_id.map(id -> { id, valor: planificacion.valorDe(id) }),
-    naturaleza: registro_patrones.naturalezaDe(codigo)
+    naturaleza: etiqueta,
+    observaciones: planificacion.observaciones,
+    fecha_inicio: planificacion.fecha_inicio,
+    fecha_fin: planificacion.fecha_fin,
+    hora: planificacion.hora
   }
-  // Plantillas de texto: planificaciones.md — IdentificablePorUsuario
+  // Plantillas: planificaciones.md — IdentificablePorUsuario
 ```
 
 ```
@@ -208,9 +210,10 @@ FUNCION validarEliminacionPlanificacion(planificacion_id, es_cascada_desde_item_
   SI planificacion.estado == Completada:
     LANZAR ErrorFuncional("PLANIFICACION_COMPLETADA_NO_ELIMINABLE")   // RE-3
 
-  SI planificacion.periodica == true:
-    SI adaptador_ocurrencia.contarPorPlanificacionPeriodica(planificacion_id) > 0:
-      LANZAR ErrorFuncional("PLANIFICACION_CON_OCURRENCIAS_NO_ELIMINABLE")   // RE-4; solo periódicas
+  periodo = adaptador_planificacion.obtenerPeriodo(planificacion_id)
+  SI periodo NO ES NULL:
+    SI adaptador_ocurrencia.contarPorPeriodo(periodo.id) > 0:
+      LANZAR ErrorFuncional("PLANIFICACION_CON_OCURRENCIAS_NO_ELIMINABLE")   // RE-4
 ```
 
 RE-3 y RE-4 evitan borrados masivos accidentales: bloquean la eliminacion de cada planificacion (incluida la cascada) y, por tanto, **bloquean** UC-01.2 y UC-01.3 hasta que el usuario revierta con UC-01.4 (estado Pendiente) y UC-02.4 (sin ocurrencias materializadas).
@@ -219,7 +222,8 @@ RE-3 y RE-4 evitan borrados masivos accidentales: bloquean la eliminacion de cad
 FUNCION eliminarDirecta(planificacion_id):
   ejecutarEnTransaccion(tx):
     validarEliminacionPlanificacion(planificacion_id, es_cascada = false)
-    almacen.eliminar(tabla = planificacion_de(planificacion_id), id = planificacion_id, tx)
+    almacen.eliminar(tabla = planificaciones, id = planificacion_id, tx)
+    // FK CASCADE: planificacion_periodo, ocurrencias si RE-4 cumplida
 ```
 
 ### Cascada eliminacion proyecto e item (UC-01.2, UC-01.3)
@@ -285,45 +289,8 @@ La capa de negocio solo recibe `ErrorFuncional` (con `codigo`) o `ErrorTecnico`;
 Al definir el stack, esta zona concentra:
 
 - Libreria ORM / driver SQL concreto
-- Esquema de tablas e indices
-- Vista `V_Planificacion` (UNION puntuales + periódicas; columnas comunes y `fechas` como varchar)
-- Consultas SQL optimizadas para rango de ocurrencias
+- Esquema: `Planificaciones`, `PlanificacionPeriodo`, `TipoPlanificacion`, `OcurrenciasMaterializadas`
+- Consultas SQL optimizadas para rango de ocurrencias (RO-9, RO-10)
 - Implementacion real de `PuertoConexion`
-
-### Vista `V_Planificacion` (orientativa)
-
-```sql
-CREATE VIEW V_Planificacion AS
-SELECT
-  pp.id,
-  pp.item_id,
-  tp.codigo,
-  tp.periodica,
-  pp.observaciones,
-  pp.hora,
-  pp.estado,
-  pp.anulada,
-  CASE
-    WHEN pp.sin_planificar THEN NULL
-    ELSE CAST(pp.fecha AS varchar)
-  END AS fechas,
-  'Puntual' AS origen_tabla
-FROM PlanificacionesPuntuales pp
-JOIN TipoPlanificacion tp ON tp.id = pp.tipo_planificacion_id
-UNION ALL
-SELECT
-  pr.id,
-  pr.item_id,
-  tp.codigo,
-  tp.periodica,
-  pr.observaciones,
-  pr.hora,
-  pr.estado,
-  pr.anulada,
-  CAST(pr.fecha_inicio AS varchar) || '..' || CAST(pr.fecha_fin AS varchar) AS fechas,
-  'Periodica' AS origen_tabla
-FROM PlanificacionesPeriodicas pr
-JOIN TipoPlanificacion tp ON tp.id = pr.tipo_planificacion_id;
-```
 
 Deriva de este documento; ver [implementacion/](../implementacion/).

@@ -143,7 +143,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Archivo principal: `docs/entidades/modelo-entidad-relacion.md`
 - Basarse en [dudas-y-resoluciones.md](dudas-y-resoluciones.md) y entidades en `docs/entidades/`.
 - Entregables (FAQ):
-  - **FAQ-105 / 106 / 108 / 109:** ERD con `Proyectos`, `Items`, `TipoPlanificacion`, `PlanificacionesPuntuales`, `PlanificacionesPeriodicas`, vista `V_Planificacion`; `dias_semana` LMXJVSD; ocurrencias solo periódicas (sustituye borrador `DefinicionFechaHora`)
+  - **FAQ-105 / 106 / 108 / 110:** ERD con `Proyectos`, `Items`, `Planificaciones`, `PlanificacionPeriodo`, `TipoPlanificacion` (subtipos periódicos), `OcurrenciasMaterializadas`; naturaleza inferida sin flags (sustituye borrador `DefinicionFechaHora`)
   - **FAQ-004:** tabla `OcurrenciasMaterializadas`; alinear seccion de persistencia en `ocurrencias.md`
   - **FAQ-002:** columnas fecha/hora en UTC en el ER; nota en `internacionalizacion.md` (almacenamiento UTC vs formateo en UI)
 - Diagrama Mermaid ERD, atributos clave y restricciones (UNIQUE, FK, CHECK segun reglas RP-*, RI-*, RT-*)
@@ -233,7 +233,7 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 
 Resumen de estado (2026-06-12):
 
-- **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-109 (decisiones cerradas; ER en Step 10).
+- **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-110 (decisiones cerradas; ER en Step 10).
 - **Postergadas a Step 11:** FAQ-007 (detalle archivo N4), FAQ-101, FAQ-102.
 - **Entregables pendientes:** Step 11–12 (stack + N4 implementacion).
 

@@ -86,7 +86,7 @@ Valores por defecto de la planificación automática:
 
 | Campo | Valor inicial |
 |-------|---------------|
-| Tipo | Sin planificar (`sin_planificar = true`) |
+| Tipo | Sin planificar (fechas NULL en `Planificaciones`) |
 | `observaciones` | Nombre del item |
 | Estado | Pendiente |
 

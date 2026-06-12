@@ -153,6 +153,12 @@ Accede al listado de planificaciones "No Planificado" para:
 
 ---
 
+## Preguntas frecuentes
+
+Consulta [FAQ.md](FAQ.md) si tienes dudas sobre cómo usar el sistema.
+
+---
+
 ## Documentación Técnica
 
 Para información sobre arquitectura, diseño e implementación, consulta la [carpeta docs/](docs/).
@@ -160,4 +166,4 @@ Para información sobre arquitectura, diseño e implementación, consulta la [ca
 ---
 
 **Versión:** 2.0  
-**Última actualización:** 2026-06-10
+**Última actualización:** 2026-06-12

@@ -1,4 +1,4 @@
-﻿# Granularidad final de modulos de negocio
+# Granularidad final de modulos de negocio
 
 Este documento fija la granularidad de modulos de negocio para Planificacion 2.0, sin acoplarse a tecnologias concretas.
 
@@ -25,7 +25,7 @@ Definir limites funcionales claros entre modulos de dominio para:
 |--------|-------------------|-------------------|
 | Proyecto | Proyecto | Identidad, nombre, descripcion, estado habilitado |
 | Item | Item | Identidad, nombre, descripcion, referencia a proyecto |
-| Planificacion | Planificacion | Tipo, estado, observaciones, definicion temporal |
+| Planificacion | Planificacion | Tipo, estado, observaciones, definicion temporal, IdentificablePorUsuario |
 | Ocurrencia | Ocurrencia materializada | Estado operativo, fecha/hora efectiva, modificaciones individuales |
 
 Notas de agregado:
@@ -177,4 +177,4 @@ Esta granularidad se considera base de referencia para los siguientes pasos de a
 
 - transacciones y limites de consistencia,
 - politicas de errores y validaciones por capa,
-- y Step 9c (seleccion de stack tecnologico).
+- y Step 11 (seleccion de stack tecnologico).

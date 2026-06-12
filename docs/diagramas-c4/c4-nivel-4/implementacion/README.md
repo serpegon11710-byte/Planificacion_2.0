@@ -1,22 +1,22 @@
-# N4 — Implementacion (por stack)
+﻿# N4 — Implementacion (por stack)
 
 Vista derivada del [N4 pseudocodigo canonico](../pseudocodigo/). Documenta como se materializa cada zona critica en un stack tecnologico concreto.
 
 ## Estado
 
-**Pendiente (Step 9c).** Se creara cuando el stack este definido. Ver FAQ-007, FAQ-101 y FAQ-102 en [dudas-y-resoluciones.md](../../../planificacion/dudas-y-resoluciones.md).
+**Pendiente (Step 11).** Se creara cuando el stack este definido. Ver FAQ-007, FAQ-101 y FAQ-102 en [dudas-y-resoluciones.md](../../../planificacion/dudas-y-resoluciones.md).
 
 ## Politica de stacks historicos (FAQ-007)
 
 **Principio acordado:** conservar carpetas `{stack}/` al cambiar de stack; no mezclar implementaciones.
 
-**Pendiente Step 9c:** redactar la politica de archivo detallada (cuando retener, como nombrar, si se mueven a subcarpeta `archivo/`, etc.).
+**Pendiente Step 11:** redactar la politica de archivo detallada (cuando retener, como nombrar, si se mueven a subcarpeta `archivo/`, etc.).
 
 ## Un C4 nivel 4 por stack
 
 Se requiere **un conjunto completo de documentacion C4 nivel 4 por cada stack** adoptado. Si el stack cambia, se crea (o regenera) una carpeta `{stack}/` nueva a partir del [pseudocodigo canonico](../pseudocodigo/); el canonico no se modifica salvo que cambie la logica de negocio.
 
-Los stacks anteriores se conservan como referencia historica (FAQ-007); la politica de archivo se cierra en Step 9c.
+Los stacks anteriores se conservan como referencia historica (FAQ-007); la politica de archivo se cierra en Step 11.
 
 ## Estructura prevista
 

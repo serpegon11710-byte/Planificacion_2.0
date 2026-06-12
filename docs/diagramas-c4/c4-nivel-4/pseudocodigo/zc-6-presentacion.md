@@ -143,9 +143,32 @@ FUNCION mostrarError(codigo, parametros = {}):
 
 FUNCION manejarRespuestaApi(respuesta):
   SI respuesta.es_error_funcional:
-    mostrarError(respuesta.codigo, respuesta.parametros)
+    SI respuesta.codigo EN ("ELIMINACION_PROYECTO_BLOQUEADA", "ELIMINACION_ITEM_BLOQUEADA"):
+      mostrarBloqueosEliminacion(respuesta.codigo, respuesta.bloqueos)   // RE-5
+    SINO:
+      mostrarError(respuesta.codigo, respuesta.parametros)
   SI respuesta.es_error_tecnico:
     mostrarError("ERROR_GENERICO")
+
+FUNCION mostrarBloqueosEliminacion(codigo, bloqueos):
+  // RE-5: listar TODAS las planificaciones impeditivas via IdentificablePorUsuario
+  encabezado = mensajes.resolver(codigo + ".titulo", idioma_actual)
+  lineas = []
+  PARA CADA b EN bloqueos:
+    id_texto = formatearIdentificablePorUsuario(b.identificable_por_usuario)
+    motivo_texto = unirMotivos(b.motivos, b.cantidad_ocurrencias_materializadas)
+    lineas.agregar(id_texto + " — " + motivo_texto)
+  ui.mostrarDialogoLista(encabezado, lineas)
+
+FUNCION formatearIdentificablePorUsuario(id):
+  // planificaciones.md — IdentificablePorUsuario
+  SEGUN id.naturaleza:
+    PERIODICA:
+      RETORNAR proyecto + item + subtipo + observaciones + rango_fechas + hora (locale)
+    PUNTUAL:
+      RETORNAR proyecto + item + tipo + observaciones + fecha + hora (locale)
+    SIN_PLANIFICAR:
+      RETORNAR proyecto + item + tipo + observaciones
 ```
 
 ---

@@ -1,8 +1,8 @@
-# Diagramas C4
+﻿# Diagramas C4
 
 Parte del **Step 8** del plan de documentacion. Visualiza la estructura del software Planificacion 2.0 e integra con arquitectura (Step 9a).
 
-Dudas abiertas: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (Step 9c, stack).
+Dudas abiertas: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (Step 11, stack).
 
 ## Estructura por nivel
 

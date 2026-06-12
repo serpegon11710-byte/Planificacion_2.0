@@ -1,10 +1,10 @@
-# Revision global de principios SOLID
+﻿# Revision global de principios SOLID
 
 Este documento audita el cumplimiento de los principios SOLID en **toda** la documentacion del proyecto Planificacion 2.0, no solo en la carpeta de arquitectura.
 
 ## Objetivo
 
-Verificar coherencia de diseno a nivel global como parte del Step 9b, antes del Step 9c (stack tecnologico), identificando cumplimientos, desviaciones justificadas y deuda documental a corregir.
+Verificar coherencia de diseno a nivel global como parte del Step 9b, antes del Step 11 (stack tecnologico), identificando cumplimientos, desviaciones justificadas y deuda documental a corregir.
 
 ## Alcance revisado
 
@@ -221,7 +221,7 @@ Las flechas indican referencia/trazabilidad, no acoplamiento de implementacion.
 
 ## Deuda documental detectada (no bloqueante)
 
-Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, FAQ-102, FAQ-007 — Step 9c).
+Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, FAQ-102, FAQ-007 — Step 11).
 
 ---
 
@@ -240,4 +240,4 @@ Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resolu
 
 **Ultima revision:** 2026-06-12 (post-integracion C4 con arquitectura)
 
-La documentacion global del proyecto cumple SOLID de forma coherente. Las desviaciones detectadas son menores y no bloquean la seleccion de stack tecnologico (Step 9c). La revision debe repetirse al anadir nuevos casos de uso, entidades, modulos de arquitectura o zonas criticas N4.
+La documentacion global del proyecto cumple SOLID de forma coherente. Las desviaciones detectadas son menores y no bloquean la seleccion de stack tecnologico (Step 11). La revision debe repetirse al anadir nuevos casos de uso, entidades, modulos de arquitectura o zonas criticas N4.

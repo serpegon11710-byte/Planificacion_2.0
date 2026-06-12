@@ -76,7 +76,7 @@ FUNCION validarConfiguracion(planificacion):
     PERIODICA:
       validarPeriodica(planificacion.definicion, planificacion.subtipo)
     SIN_PLANIFICAR:
-      validarSinPlanificar(planificacion.definicion)
+      validarSinPlanificar(planificacion.definicion, planificacion.item_id, planificacion.id)
     OTRO:
       LANZAR ErrorFuncional("TIPO_DESCONOCIDO")
 ```
@@ -127,8 +127,11 @@ FUNCION existeAlMenosUnaOcurrenciaEnRango(def, subtipo):
 ```
 
 ```
-FUNCION validarSinPlanificar(def):
-  // Solo observaciones opcionales; sin fechas
+FUNCION validarSinPlanificar(def, item_id, planificacion_id = NULL):
+  SI def.observaciones ES NULL O vacio:
+    LANZAR ErrorFuncional("PLANIFICACION_CONFIGURACION_INVALIDA")   // RC-8: obligatorias
+  SI puerto_planificacion.existeSinPlanificarConObservaciones(item_id, def.observaciones, excluir = planificacion_id):
+    LANZAR ErrorFuncional("PLANIFICACION_SIN_PLANIFICAR_OBSERVACIONES_DUPLICADAS")   // RC-8
   RETORNAR OK
 ```
 

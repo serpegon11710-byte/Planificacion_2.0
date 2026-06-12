@@ -1,8 +1,8 @@
-# Punto de partida para el analisis de arquitectura
+﻿# Punto de partida para el analisis de arquitectura
 
 ## Estado actual
 
-- Se acuerda no fijar stack tecnologico por ahora (Step 9c pendiente).
+- Se acuerda no fijar stack tecnologico por ahora (Step 11 pendiente).
 
 ## Objetivo de esta fase
 
@@ -39,13 +39,13 @@ Definir una arquitectura generica, independiente del stack, para alinear decisio
 
 ## Decisiones pendientes (sin stack)
 
-Ver FAQ-007, FAQ-101 y FAQ-102 en [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (Step 9c).
+Ver FAQ-007, FAQ-101 y FAQ-102 en [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (Step 11).
 
 [x] Definir contratos minimos de puertos e interfaces.
 [x] Definir granularidad final de modulos de negocio.
 [x] Definir transacciones y limites de consistencia.
 [x] Definir politicas de errores y validaciones por capa.
-[ ] Step 9c: stack, motor BBDD, politica N4 historico (FAQ-007, 101, 102).
+[ ] Step 11: stack, motor BBDD, politica N4 historico (FAQ-007, 101, 102).
 
 ## Documentos de soporte de arquitectura
 
@@ -62,9 +62,9 @@ Visualizacion documentada en Step 8 del plan. Indice: `docs/diagramas-c4/README.
 |-------|--------|-----------|
 | N1–N3 | Cerrado | Contexto, contenedores y componentes Back-End + Front-End (`.mmd`) |
 | N4 canonico | Cerrado | Pseudocodigo por zona critica (`c4-nivel-4/pseudocodigo/`) |
-| N4 implementacion | Pendiente (Step 9c) | Proyeccion al stack (`c4-nivel-4/implementacion/`) |
+| N4 implementacion | Pendiente (Step 11) | Proyeccion al stack (`c4-nivel-4/implementacion/`) |
 
-Los diagramas C4 (Step 8) complementan los documentos de arquitectura (Step 9a); el N4 canonico es independiente del stack y la capa de implementacion se genera al cerrar Step 9c.
+Los diagramas C4 (Step 8) complementan los documentos de arquitectura (Step 9a); el N4 canonico es independiente del stack y la capa de implementacion se genera al cerrar Step 11.
 
 ## Politicas transversales
 

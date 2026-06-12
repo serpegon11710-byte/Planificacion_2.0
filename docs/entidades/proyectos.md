@@ -44,16 +44,16 @@ La edición de un proyecto **no modifica** los items ni planificaciones existent
 
 ## Modelo de persistencia (orientativo)
 
-Tabla `Proyectos` (detalle en Step 10):
+Tabla `Proyectos` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
 
 | Campo | Tipo orientativo | Restricción |
 |-------|------------------|-------------|
 | `id` | PK | |
 | `nombre` | texto | UNIQUE global |
 | `descripcion` | texto | nullable |
-| `fecha_creacion` | timestamp | UTC |
+| `fecha_creacion` | timestamptz | UTC |
 
-Relación: **Proyecto 1:N Item**.
+Relación: **Proyecto 1:N Item** (`ON DELETE CASCADE`, RE-1).
 
 ---
 
@@ -112,7 +112,11 @@ El item creado en RP-2 recibe una planificación **Sin planificar** en la misma 
 
 ### RP-4: Eliminación en cascada
 
-Al eliminar un proyecto se eliminan en cascada:
+**RE-3 y RE-4 bloquean esta operación** mientras alguna planificación del proyecto esté Completada o tenga ocurrencias materializadas. El usuario debe revertir manualmente con UC-01.4 y UC-02.4; solo entonces puede eliminarse el proyecto.
+
+**RE-5:** si el borrado se rechaza, el aviso debe listar **inequívocamente** cada planificación bloqueante mediante su **`IdentificablePorUsuario`** + motivo. Ver UC-01.2 FA-4, RN-2.6 y `ELIMINACION_PROYECTO_BLOQUEADA`.
+
+Cuando se cumple la precondición, al eliminar un proyecto se borran en cascada:
 
 - Todos los **items** del proyecto
 - Todas las **planificaciones** de esos items (puntuales y periódicas)

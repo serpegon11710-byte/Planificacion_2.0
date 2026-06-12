@@ -6,6 +6,8 @@ Registro centralizado de preguntas abiertas, decisiones tomadas y cambios de nom
 
 Los documentos funcionales (`entidades/`, `arquitectura/`, etc.) deben **referenciar este FAQ** en lugar de mantener dudas duplicadas. Las resoluciones aqui prevalecen sobre borradores antiguos del plan (p. ej. `DefinicionFechaHora`, `InstanciaPlanificacion`).
 
+**FAQ de uso del producto** (por qué no puedo borrar, cómo preparar planificaciones antes de eliminar): [FAQ.md](../../FAQ.md) en la raíz del repositorio. Este archivo (`dudas-y-resoluciones.md`) es solo para decisiones de diseño.
+
 ---
 
 ## Leyenda
@@ -13,7 +15,7 @@ Los documentos funcionales (`entidades/`, `arquitectura/`, etc.) deben **referen
 | Estado | Significado |
 |--------|-------------|
 | **Resuelta** | Decision acordada; el detalle documental puede quedar como entregable del Step indicado en cada FAQ |
-| **Abierta** | Requiere decision; ver Step 9c o Step 10 segun el FAQ |
+| **Abierta** | Requiere decision; ver Step 11 o Step 10 segun el FAQ |
 | **Supersedida** | Duda historica; ver resolucion y nota de nomenclatura |
 
 ---
@@ -46,7 +48,7 @@ Los documentos funcionales (`entidades/`, `arquitectura/`, etc.) deben **referen
 
 **Resolucion (2026-06-12):** Persistir y comparar fechas/horas en **UTC**. Formateo a locale del usuario en presentacion (i18n).
 
-**Entregable Step 10:** tipos UTC en el ER (`modelo-entidad-relacion.md`) y nota en `internacionalizacion.md` (almacenamiento vs visualizacion).
+**Entregable Step 10:** tipos UTC en el ER (`docs/entidades/modelo-entidad-relacion.md`) y nota en `internacionalizacion.md` (almacenamiento vs visualizacion). **Completado (2026-06-12).**
 
 ---
 
@@ -95,7 +97,7 @@ Relacionado con FAQ-003 (estado vacio = hereda).
 | `completada` / estado | Nullable | NULL = hereda; usuario ve el estado de la planificacion; se persiste al interactuar |
 | Eliminacion virtual | Si (flag/tipo) | RO-4 |
 
-**Entregable Step 10:** tabla `OcurrenciasMaterializadas` en `modelo-entidad-relacion.md`; seccion de persistencia en `ocurrencias.md` alineada al ER.
+**Entregable Step 10:** tabla `OcurrenciasMaterializadas` en `modelo-entidad-relacion.md`; seccion de persistencia en `ocurrencias.md` alineada al ER. **Completado (2026-06-12).**
 
 ---
 
@@ -175,7 +177,7 @@ Asi quien implementa una ZC ve de inmediato el origen funcional; quien lee un UC
 
 Detalle funcional en `docs/entidades/planificaciones.md`.
 
-**Entregable Step 10:** tablas y relaciones en `modelo-entidad-relacion.md`.
+**Entregable Step 10:** tablas y relaciones en `docs/entidades/modelo-entidad-relacion.md`. **Completado (2026-06-12).**
 
 ---
 
@@ -195,7 +197,7 @@ Detalle funcional en `docs/entidades/planificaciones.md`.
 
 Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `Diario`, no filas de catalogo.
 
-**Entregable Step 10:** tabla `TipoPlanificacion` en `modelo-entidad-relacion.md`.
+**Entregable Step 10:** tabla `TipoPlanificacion` en `docs/entidades/modelo-entidad-relacion.md`. **Completado (2026-06-12).**
 
 ---
 
@@ -213,7 +215,7 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 **Origen:** `planificacion-inicial.md` (Step 10 y «Decisiones tomadas»).
 
-**Resolucion (2026-06-12):** Sustituir `DefinicionFechaHora` por el modelo FAQ-105 / FAQ-106. **Entregable Step 10:** `modelo-entidad-relacion.md`.
+**Resolucion (2026-06-12):** Sustituir `DefinicionFechaHora` por el modelo FAQ-105 / FAQ-106. **Entregable Step 10:** `docs/entidades/modelo-entidad-relacion.md`. **Completado (2026-06-12).**
 
 ---
 
@@ -227,7 +229,7 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 ---
 
-## Abiertas (postergadas a Step 9c)
+## Abiertas (postergadas a Step 11)
 
 ### FAQ-007 — N4 implementacion al cambiar de stack
 
@@ -235,23 +237,23 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 **Principio acordado (2026-06-12):** **Conservar** carpetas `{stack}/` como historico al cambiar de stack; no mezclar implementaciones en la misma carpeta.
 
-**Entregable Step 9c:** politica de archivo detallada en `implementacion/README.md` (cuando se cierre la seleccion de stack).
+**Entregable Step 11:** politica de archivo detallada en `implementacion/README.md` (cuando se cierre la seleccion de stack).
 
 ---
 
 ### FAQ-101 — Motor de base de datos
 
-**Origen:** Step 9c.
+**Origen:** Step 11.
 
-**Estado:** **Postergada** — entregable Step 9c.
+**Estado:** **Postergada** — entregable Step 11.
 
 ---
 
 ### FAQ-102 — Stack de aplicacion
 
-**Origen:** Step 9c.
+**Origen:** Step 11.
 
-**Estado:** **Postergada** — entregable Step 9c.
+**Estado:** **Postergada** — entregable Step 11.
 
 ---
 
@@ -259,8 +261,9 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 | Step | FAQ / contenido | Artefactos |
 |------|-----------------|------------|
-| **9c** | FAQ-007, 101, 102 | Stack, motor BBDD, politica N4 historico, `implementacion/{stack}/` |
-| **10** | FAQ-002, 004, 105, 106, 108 | `modelo-entidad-relacion.md`; UTC en ER + `internacionalizacion.md`; ocurrencias materializadas; tablas planificacion y catalogo |
+| **10** | FAQ-002, 004, 105, 106, 108 | `docs/entidades/modelo-entidad-relacion.md`; UTC en ER + `internacionalizacion.md`; ocurrencias materializadas |
+| **11** | FAQ-007, 101, 102 | Stack, motor BBDD, politica N4 historico |
+| **12** | — | N4 `implementacion/{stack}/` (proyeccion del canonico) |
 
 Los Steps 7b, 8b y 8c ya estan cerrados. Las FAQ 001, 003, 006, 008, 009, 103, 104, 107 no tienen entregable pendiente fuera de lo ya documentado.
 
@@ -268,7 +271,7 @@ Los Steps 7b, 8b y 8c ya estan cerrados. Las FAQ 001, 003, 006, 008, 009, 103, 1
 
 ## Pendientes de ejecutar
 
-_Ninguno fuera de Steps 9c y 10 (2026-06-12)._
+_Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 
 ---
 
@@ -277,12 +280,14 @@ _Ninguno fuera de Steps 9c y 10 (2026-06-12)._
 | Documento | IDs FAQ |
 |-----------|---------|
 | `planificacion-inicial.md` | FAQ-001, 002, 003, 108 |
+| `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108 |
 | `entidades/ocurrencias.md` | FAQ-003, 004 |
 | `entidades/proyectos.md`, `items.md` | FAQ-005 |
 | `entidades/planificaciones.md` | FAQ-001, 105, 106, 107 |
 | `revision-principios-solid.md` | FAQ-005, 009 |
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
-| Step 9c | FAQ-007, 101, 102 |
+| Step 11 | FAQ-007, 101, 102 |
+| Step 12 | N4 implementacion por stack |
 | Step 10 | FAQ-002, 004, 105, 106, 108 |
 
 ---
@@ -297,4 +302,4 @@ _Ninguno fuera de Steps 9c y 10 (2026-06-12)._
 | 2026-06-12 | FAQ-104 a FAQ-108 resueltas; trazabilidad distribuida; modelo dos tablas; Sin planificar |
 | 2026-06-12 | Step 7b: entidades proyectos.md e items.md (FAQ-005) |
 | 2026-06-12 | Step 8b: diagrama N3 Front-End (FAQ-103) |
-| 2026-06-12 | Limpieza FAQ: entregables Step 9c/10; FAQ-007 a 9c; FAQ-001 cerrada |
+| 2026-06-12 | Renumeracion plan: Step 11 -> Step 11; ER (10) antes que stack; Step 12 N4 implementacion |

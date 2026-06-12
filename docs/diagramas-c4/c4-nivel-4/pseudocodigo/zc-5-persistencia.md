@@ -84,13 +84,18 @@ INTERFAZ PuertoPlanificacion:
   crear(item_id, configuracion) -> Planificacion
   obtener(id) -> Planificacion
   guardar(planificacion) -> Planificacion
-  eliminar(planificacion_id) -> VOID
+  eliminarDirecta(planificacion_id) -> VOID          // UC-01.4; valida RE-3, RE-4, RN-4.2
+  contarPorItem(item_id) -> Entero
+  listarPorItem(item_id) -> Lista<Planificacion>
+  listarBloqueosEliminacionProyecto(proyecto_id) -> Lista<BloqueoEliminacionPlanificacion>
+  listarBloqueosEliminacionItem(item_id) -> Lista<BloqueoEliminacionPlanificacion>
   buscarPlanificadasEnRango(desde, hasta, filtros) -> Lista<Planificacion>
   buscarPorTipo(tipo, filtros) -> Lista<Planificacion>
 
 INTERFAZ PuertoOcurrenciaMaterializada:
   buscarPorPlanificacionEnRango(planificacion_id, desde, hasta) -> Lista<RegistroOcurrencia>
   buscarTodasMaterializadas(planificacion_id) -> Lista<RegistroOcurrencia>
+  contarPorPlanificacion(planificacion_id) -> Entero   // RE-4: cualquier fila, modificada o eliminada_virtual
   buscarPorFechaOriginal(planificacion_id, fecha_original) -> RegistroOcurrencia | NULL
   guardar(registro) -> RegistroOcurrencia
   eliminar(registro_id) -> VOID
@@ -135,26 +140,120 @@ FUNCION buscarPorPlanificacionEnRango(planificacion_id, desde, hasta):
   ).map(mapearARegistroOcurrencia)
 ```
 
-### Cascada eliminacion proyecto
+### Deteccion de bloqueos (RE-3, RE-4, RE-5)
+
+Reglas: [modelo-entidad-relacion.md](../../../entidades/modelo-entidad-relacion.md). Payload: [errores-validaciones-capas.md](../../../arquitectura/errores-validaciones-capas.md).
+
+```
+FUNCION bloqueosDePlanificacion(planificacion):
+  motivos = []
+  SI planificacion.estado == Completada:
+    motivos.agregar(COMPLETADA)
+  cantidad = adaptador_ocurrencia.contarPorPlanificacion(planificacion.id)
+  SI cantidad > 0:
+    motivos.agregar(OCURRENCIAS_MATERIALIZADAS)
+  SI motivos.estaVacio():
+    RETORNAR NULL
+  item = adaptador_item.obtener(planificacion.item_id)
+  proyecto = adaptador_proyecto.obtener(item.proyecto_id)
+  RETORNAR BloqueoEliminacionPlanificacion(
+    planificacion_id = planificacion.id,
+    identificable_por_usuario = construirIdentificablePorUsuario(planificacion, proyecto, item),
+    motivos = motivos,
+    cantidad_ocurrencias_materializadas = cantidad SI cantidad > 0 SINO NULL
+  )
+
+FUNCION construirIdentificablePorUsuario(planificacion, proyecto, item):
+  // Ver planificaciones.md — IdentificablePorUsuario
+  SI planificacion.es_periodica:
+    RETORNAR { proyecto_nombre, item_nombre, naturaleza: PERIODICA,
+      subtipo: planificacion.tipo.codigo, observaciones,
+      fecha_inicio, fecha_fin, hora }
+  SI planificacion.sin_planificar:
+    RETORNAR { proyecto_nombre, item_nombre, naturaleza: SIN_PLANIFICAR,
+      tipo: "SinPlanificar", observaciones }
+  RETORNAR { proyecto_nombre, item_nombre, naturaleza: PUNTUAL,
+    tipo: "Puntual", observaciones, fecha, hora }
+```
+
+```
+FUNCION listarBloqueosEliminacionItem(item_id):
+  bloqueos = []
+  PARA CADA planificacion EN listarPorItem(item_id):
+    b = bloqueosDePlanificacion(planificacion)
+    SI b NO ES NULL: bloqueos.agregar(b)
+  RETORNAR bloqueos
+
+FUNCION listarBloqueosEliminacionProyecto(proyecto_id):
+  bloqueos = []
+  PARA CADA item EN adaptador_item.listarPorProyecto(proyecto_id):
+    bloqueos.agregarTodos(listarBloqueosEliminacionItem(item.id))
+  RETORNAR bloqueos
+```
+
+UC-01.2 y UC-01.3 invocan estas funciones **antes** de la transaccion. Si `bloqueos` no esta vacio, lanzar `ELIMINACION_PROYECTO_BLOQUEADA` o `ELIMINACION_ITEM_BLOQUEADA` con el array completo (RE-5: sin omitir entradas).
+
+### Eliminacion de planificacion (RE-3, RE-4, RN-4.2)
+
+```
+FUNCION validarEliminacionPlanificacion(planificacion_id, es_cascada_desde_item_o_proyecto = false):
+  planificacion = obtener(planificacion_id)
+
+  SI NO es_cascada_desde_item_o_proyecto:
+    SI adaptador_planificacion.contarPorItem(planificacion.item_id) <= 1:
+      LANZAR ErrorFuncional("PLANIFICACION_ULTIMA_NO_ELIMINABLE")   // RN-4.2; solo UC-01.4
+
+  SI planificacion.estado == Completada:
+    LANZAR ErrorFuncional("PLANIFICACION_COMPLETADA_NO_ELIMINABLE")   // RE-3
+
+  SI adaptador_ocurrencia.contarPorPlanificacion(planificacion_id) > 0:
+    LANZAR ErrorFuncional("PLANIFICACION_CON_OCURRENCIAS_NO_ELIMINABLE")   // RE-4
+```
+
+RE-3 y RE-4 evitan borrados masivos accidentales: bloquean la eliminacion de cada planificacion (incluida la cascada) y, por tanto, **bloquean** UC-01.2 y UC-01.3 hasta que el usuario revierta con UC-01.4 (estado Pendiente) y UC-02.4 (sin ocurrencias materializadas).
+
+```
+FUNCION eliminarDirecta(planificacion_id):
+  ejecutarEnTransaccion(tx):
+    validarEliminacionPlanificacion(planificacion_id, es_cascada = false)
+    almacen.eliminar(tabla = planificacion_de(planificacion_id), id = planificacion_id, tx)
+```
+
+### Cascada eliminacion proyecto e item (UC-01.2, UC-01.3)
+
+```
+FUNCION eliminarPlanificacionEnCascada(planificacion_id, tx):
+  validarEliminacionPlanificacion(planificacion_id, es_cascada = true)
+  almacen.eliminar(tabla = planificacion_de(planificacion_id), id = planificacion_id, tx)
+  // FK CASCADE: dias semana; ocurrencias solo si RE-4 ya cumplida (conteo = 0)
+```
+
+```
+FUNCION eliminarEnCascadaItem(item_id, tx):
+  planificaciones = adaptador_planificacion.listarPorItem(item_id)
+  PARA CADA planificacion EN planificaciones:
+    eliminarPlanificacionEnCascada(planificacion.id, tx)
+
+  almacen.eliminar(tabla = items, id = item_id, tx)
+```
 
 ```
 FUNCION eliminarEnCascada(proyecto_id):
-  items = adaptador_item.listarPorProyecto(proyecto_id)
-  PARA CADA item EN items:
-    adaptador_item.eliminarEnCascada(item.id)   // planificaciones + ocurrencias
+  ejecutarEnTransaccion(tx):
+    items = adaptador_item.listarPorProyecto(proyecto_id)
+    PARA CADA item EN items:
+      eliminarEnCascadaItem(item.id, tx)
 
-  almacen.eliminar(tabla = proyectos, id = proyecto_id)
+    almacen.eliminar(tabla = proyectos, id = proyecto_id, tx)
 ```
 
 ```
 FUNCION eliminarEnCascada(item_id):
-  planificaciones = adaptador_planificacion.listarPorItem(item_id)
-  PARA CADA planificacion EN planificaciones:
-    adaptador_ocurrencia.eliminarPorPlanificacion(planificacion.id)
-    adaptador_planificacion.eliminar(planificacion.id)
-
-  almacen.eliminar(tabla = items, id = item_id)
+  ejecutarEnTransaccion(tx):
+    eliminarEnCascadaItem(item_id, tx)
 ```
+
+La validacion en cascada reutiliza `bloqueosDePlanificacion`; el aviso al usuario en UC-01.2/UC-01.3 usa el listado agregado (RE-5), no errores sueltos por planificacion.
 
 ---
 

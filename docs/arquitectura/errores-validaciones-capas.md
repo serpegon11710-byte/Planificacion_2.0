@@ -1,4 +1,4 @@
-﻿# Politicas de errores y validaciones por capa
+# Politicas de errores y validaciones por capa
 
 Este documento define como se clasifican, validan y propagan los errores en Planificacion 2.0, respetando la arquitectura por capas y los contratos acordados.
 
@@ -105,7 +105,7 @@ Validaciones propias:
 
 - Coherencia de operaciones multi-modulo (wizard, creacion automatica).
 - Verificacion de existencia de recursos referenciados antes de orquestar (proyectoId, itemId, planificacionId).
-- Comprobacion previa a eliminacion en cascada segun RC-T2.
+- Comprobacion previa a eliminacion en cascada segun RC-T2 (minimos) y RC-T3 (RE-3, RE-4 en cada planificacion del ambito).
 
 No valida en Aplicacion:
 
@@ -131,7 +131,7 @@ Validaciones por modulo:
 |--------|-----------------|--------|
 | Proyecto | Unicidad de nombre (RN-2.1) | UC-01.2 |
 | Item | Unicidad de nombre por proyecto (RN-3.1); minimo un item (RN-3.3) | UC-01.3 |
-| Planificacion | Minimo una planificacion por item (RN-3.4); reglas de persistencia (RN-4.*); catalogo RC-* y cambios de tipo RT-* | UC-01.4, entidades/planificaciones.md |
+| Planificacion | Minimo una planificacion por item (RN-3.4); reglas de persistencia (RN-4.*); catalogo RC-* (incl. RC-8 unicidad Sin planificar); cambios de tipo RT-*; `IdentificablePorUsuario` | UC-01.4, entidades/planificaciones.md |
 | Ocurrencia | Transiciones de estado; materializacion (RO-*); tipo puntual vs periodico (RN-2.2.3, RN-2.3.*) | UC-02.*, entidades/ocurrencias.md |
 
 Comportamiento ante error:
@@ -169,7 +169,12 @@ Codigos acordados alineados con casos de uso y entidades existentes. La columna 
 | `ITEM_ULTIMO_NO_ELIMINABLE` | No se puede eliminar el ultimo item del proyecto. Para eliminar este item, debe eliminar el proyecto completo. | Item | RN-3.3 |
 | `PLANIFICACION_NO_ENCONTRADA` | La planificacion solicitada no existe. | Planificacion | — |
 | `PLANIFICACION_ULTIMA_NO_ELIMINABLE` | No se puede eliminar la ultima planificacion del item. | Planificacion | RN-3.4 / RN-4.2 |
+| `PLANIFICACION_COMPLETADA_NO_ELIMINABLE` | No se puede eliminar una planificacion completada. Editelo y cambie el estado a Pendiente. | Planificacion | RE-3, RN-4.3 |
+| `PLANIFICACION_CON_OCURRENCIAS_NO_ELIMINABLE` | No se puede eliminar: hay ocurrencias gestionadas. Anulelas o restaurelas en la gestion por planificacion. | Planificacion | RE-4, RN-4.4 |
+| `ELIMINACION_PROYECTO_BLOQUEADA` | No se puede eliminar el proyecto. Las planificaciones listadas deben prepararse antes. | Proyecto | RE-3, RE-4, RE-5; ver payload |
+| `ELIMINACION_ITEM_BLOQUEADA` | No se puede eliminar el item. Las planificaciones listadas deben prepararse antes. | Item | RE-3, RE-4, RE-5; ver payload |
 | `PLANIFICACION_CONFIGURACION_INVALIDA` | La configuracion de planificacion no es valida para el tipo seleccionado. | Planificacion | RC-1, RC-2, RC-3 |
+| `PLANIFICACION_SIN_PLANIFICAR_OBSERVACIONES_DUPLICADAS` | Ya existe una planificacion Sin planificar con esas observaciones en este item. | Planificacion | RC-8 |
 | `PLANIFICACION_CAMBIO_TIPO_NO_PERMITIDO` | No se permite el cambio de tipo de planificacion solicitado. | Planificacion | RT-4, RT-5 |
 | `PLANIFICACION_A_SIN_PLANIFICAR_BLOQUEADA` | No se puede cambiar a Sin planificar: existen ocurrencias modificadas o la planificacion esta completada. | Planificacion | RT-2, RT-3 |
 | `OCURRENCIA_NO_ENCONTRADA` | La ocurrencia solicitada no existe. | Ocurrencia | — |
@@ -177,6 +182,94 @@ Codigos acordados alineados con casos de uso y entidades existentes. La columna 
 | `RANGO_TEMPORAL_INVALIDO` | Debe indicar un rango de fechas valido para la consulta. | Planificacion / Ocurrencia | RN-2.1.1 |
 | `ENTRADA_INVALIDA` | La solicitud contiene datos invalidos o incompletos. | API / Aplicacion | — |
 | `ERROR_INTERNO` | Ha ocurrido un error inesperado. Intente de nuevo mas tarde. | Aplicacion | — |
+
+### Payload — bloqueos al eliminar proyecto o item (RE-5)
+
+Los codigos `ELIMINACION_PROYECTO_BLOQUEADA` y `ELIMINACION_ITEM_BLOQUEADA` incluyen un array `bloqueos` con **todas** las planificaciones que impiden el borrado. La capa de Negocio/Aplicacion lo construye antes de iniciar la transaccion de cascada (ZC-5 `listarBloqueosEliminacion*`).
+
+```
+ESTRUCTURA IdentificablePorUsuario:
+  proyecto_nombre: Texto
+  item_nombre: Texto
+  naturaleza: PERIODICA | PUNTUAL | SIN_PLANIFICAR
+  // Periódica (naturaleza = PERIODICA)
+  subtipo: Texto | NULL              // Diario | Semanal | Mensual
+  observaciones: Texto
+  fecha_inicio, fecha_fin: Fecha | NULL
+  hora: Hora | NULL
+  // Puntual (naturaleza = PUNTUAL)
+  tipo: Texto | NULL                 // Puntual
+  fecha: Fecha | NULL
+  // Sin planificar (naturaleza = SIN_PLANIFICAR)
+  tipo: Texto | NULL                 // SinPlanificar
+
+Fuente canonica de composicion: [planificaciones.md](../entidades/planificaciones.md) — seccion IdentificablePorUsuario.
+
+ESTRUCTURA BloqueoEliminacionPlanificacion:
+  planificacion_id: Entero
+  identificable_por_usuario: IdentificablePorUsuario
+  motivos: Lista<MotivoBloqueo>      // al menos uno
+  cantidad_ocurrencias_materializadas: Entero | NULL   // obligatorio si motivos contiene OCURRENCIAS_MATERIALIZADAS
+
+ENUM MotivoBloqueo:
+  COMPLETADA                  // RE-3
+  OCURRENCIAS_MATERIALIZADAS  // RE-4
+```
+
+Ejemplo de respuesta API (orientativo):
+
+```json
+{
+  "codigo": "ELIMINACION_PROYECTO_BLOQUEADA",
+  "bloqueos": [
+    {
+      "planificacion_id": 12,
+      "identificable_por_usuario": {
+        "proyecto_nombre": "Marketing 2026",
+        "item_nombre": "Campaña Q1",
+        "naturaleza": "PERIODICA",
+        "subtipo": "Semanal",
+        "observaciones": "Reunión de seguimiento",
+        "fecha_inicio": "2026-03-01",
+        "fecha_fin": "2026-12-31",
+        "hora": "10:00:00"
+      },
+      "motivos": ["COMPLETADA"],
+      "cantidad_ocurrencias_materializadas": null
+    },
+    {
+      "planificacion_id": 18,
+      "identificable_por_usuario": {
+        "proyecto_nombre": "Marketing 2026",
+        "item_nombre": "Soporte",
+        "naturaleza": "PERIODICA",
+        "subtipo": "Diario",
+        "observaciones": "Daily standup",
+        "fecha_inicio": "2026-01-01",
+        "fecha_fin": "2026-06-30",
+        "hora": "09:00:00"
+      },
+      "motivos": ["COMPLETADA", "OCURRENCIAS_MATERIALIZADAS"],
+      "cantidad_ocurrencias_materializadas": 2
+    }
+  ]
+}
+```
+
+**Requisitos de presentacion (RE-5):**
+
+1. El mensaje visible **no** puede limitarse a «hay planificaciones que impiden el borrado» sin listar cuales.
+2. Cada linea o fila debe mostrar el **`IdentificablePorUsuario`** completo de la planificacion bloqueante (sin ambiguedad).
+3. Debe indicarse el **motivo** de bloqueo por entrada (Completada, ocurrencias gestionadas, o ambos).
+4. Presentacion formatea `identificable_por_usuario` segun naturaleza (ZC-6 `formatearIdentificablePorUsuario`).
+
+Mensaje orientativo compuesto (locale `es`, proyecto):
+
+> No se puede eliminar el proyecto «Marketing 2026». Prepare las siguientes planificaciones antes de reintentar:
+> • Proyecto «Marketing 2026» · Item «Campaña Q1» · Semanal · «Reunión de seguimiento» · 01/03/2026–31/12/2026 · 10:00 — Completada
+> • Proyecto «Marketing 2026» · Item «Soporte» · Diario · «Daily standup» · 01/01/2026–30/06/2026 · 09:00 — Completada; 2 ocurrencias gestionadas
+
+La plantilla i18n vive en Presentacion (ZC-6); Negocio emite codigo + `bloqueos` con `identificable_por_usuario`.
 
 ## Flujo de propagacion
 
@@ -224,8 +317,8 @@ Principio: la capa de Negocio siempre tiene la ultima palabra; la validacion en 
 | Caso de uso | Capa principal de validacion | Errores tipicos |
 |-------------|------------------------------|-----------------|
 | UC-01.1 Wizard | Presentacion + Aplicacion + Negocio | `PROYECTO_NOMBRE_DUPLICADO`, `PLANIFICACION_CONFIGURACION_INVALIDA` |
-| UC-01.2 Gestion proyecto | Negocio | `PROYECTO_NOMBRE_DUPLICADO`, cascada sin error si valida |
-| UC-01.3 Gestion item | Negocio | `ITEM_NOMBRE_DUPLICADO`, `ITEM_ULTIMO_NO_ELIMINABLE` |
+| UC-01.2 Gestion proyecto | Negocio | `PROYECTO_NOMBRE_DUPLICADO`, `ELIMINACION_PROYECTO_BLOQUEADA` (payload RE-5) |
+| UC-01.3 Gestion item | Negocio | `ITEM_NOMBRE_DUPLICADO`, `ITEM_ULTIMO_NO_ELIMINABLE`, `ELIMINACION_ITEM_BLOQUEADA` (payload RE-5) |
 | UC-01.4 Gestion planificacion | Presentacion (via UC-01.5) + Negocio | `PLANIFICACION_ULTIMA_NO_ELIMINABLE`, RT-* |
 | UC-01.5 Captura datos | Presentacion | `PLANIFICACION_CONFIGURACION_INVALIDA`, campos obligatorios |
 | UC-02.1 Visualizacion | API + Negocio | `RANGO_TEMPORAL_INVALIDO` |
@@ -243,4 +336,4 @@ Quedan definidas las politicas de errores y validaciones para:
 
 Los mensajes orientativos de este documento alimentan el catalogo i18n del locale `es` (ver `docs/politicas-transversales/internacionalizacion.md`).
 
-Este documento es base para el Step 9c (stack tecnologico), cierre del Step 9 de arquitectura.
+Este documento es base para el Step 11 (stack tecnologico), cierre del Step 9 de arquitectura.

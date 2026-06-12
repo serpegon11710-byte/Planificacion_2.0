@@ -67,7 +67,7 @@ Planificación sin fecha ni hora asignada. En la UI y documentación funcional s
 
 **Configuración requerida:**
 
-- Observaciones (opcional)
+- Observaciones (**obligatorias**; únicas por item — RC-8)
 
 No genera ocurrencias.
 
@@ -91,7 +91,9 @@ Los subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuración de la
 
 ## Modelo de persistencia (ER)
 
-Dos tablas hijas por naturaleza temporal (FAQ-105). Campos comunes (item, observaciones, estado, tipo_id, etc.) en cada tabla o en cabecera compartida según diseño final del Step 10.
+Definición canónica: [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
+
+Dos tablas hijas por naturaleza temporal (FAQ-105). Campos comunes (`item_id`, `tipo_planificacion_id`, `observaciones`, `estado`, `anulada`) en cada tabla.
 
 ### `PlanificacionesPuntuales`
 
@@ -139,6 +141,33 @@ Este estado puede ser utilizado por las ocurrencias cuando una ocurrencia no ten
 
 ---
 
+## IdentificablePorUsuario
+
+Característica de la entidad Planificación: conjunto de atributos que permiten al usuario **distinguir sin ambigüedad** una planificación concreta dentro del proyecto. Se usa en listados, mensajes de error (RE-5), avisos de bloqueo al eliminar item/proyecto y cualquier UI que deba referirse a «cuál» planificación.
+
+La identificación **siempre** incluye el **proyecto** y el **item** de pertenencia (resueltos a nombre visible en la capa de presentación).
+
+| Naturaleza | Componentes de `IdentificablePorUsuario` |
+|------------|------------------------------------------|
+| **Periódica** | Proyecto + Item + **Subtipo** (`Diario` \| `Semanal` \| `Mensual`) + Observaciones + Fecha inicio + Fecha fin + Hora |
+| **Puntual** | Proyecto + Item + **Tipo** (`Puntual`) + Observaciones + Fecha + Hora |
+| **Sin planificar** | Proyecto + Item + **Tipo** (`Sin planificar`) + Observaciones |
+
+Notas:
+
+- **Subtipo** en periódica es el código de catálogo `Diario`, `Semanal` o `Mensual`, no el flag `periodica` de `TipoPlanificacion`.
+- **Tipo** en puntual y sin planificar es el código de catálogo `Puntual` o `SinPlanificar`.
+- Fechas y hora se muestran en el **locale** del usuario; en persistencia están en UTC (FAQ-002).
+- La capa de negocio expone `construirIdentificablePorUsuario(planificacion) -> IdentificablePorUsuario`; Presentación formatea el texto visible a partir de esa estructura (ZC-6).
+
+Ejemplo de texto formateado (orientativo):
+
+- Periódica: `Proyecto «Marketing» · Item «Q1» · Semanal · «Reunión seguimiento» · 01/03/2026–31/12/2026 · 10:00`
+- Puntual: `Proyecto «Marketing» · Item «Q1» · Puntual · «Entrega informe» · 15/06/2026 · 18:00`
+- Sin planificar: `Proyecto «Marketing» · Item «Q1» · Sin planificar · «Backlog diseño»`
+
+---
+
 ## Reglas Comunes de Configuración
 
 ### RC-1: Aplicación de reglas por tipo
@@ -155,11 +184,34 @@ La configuración debe ser válida y permitir generar al menos una ocurrencia pa
 
 ### RC-4: Mantenimiento planificaciones
 
-La creación/modificación de planificaciones no gestiona ocurrencias individuales; solo persiste la planificación base.
+La creación/modificación de planificaciones no gestiona ocurrencias individuales; solo persiste la planificación base. **Excepción:** UC-01.4 permite editar el **estado** de la planificación (Pendiente ↔ Completada) como parte de la configuración.
 
 ### RC-5: Evolución del catálogo
 
 Nuevos tipos o variantes deben incorporarse en este documento y en `TipoPlanificacion`, y luego ser consumidos por los casos de uso.
+
+### RC-6: Eliminación de planificación restringida
+
+**Propósito:** evitar borrados masivos accidentales de planificaciones Completadas o de historial de ocurrencias gestionadas. RE-3 y RE-4 bloquean **cualquier** borrado de planificación en esas condiciones, lo que a su vez **bloquea** la eliminación del item o proyecto que la contiene.
+
+No se puede eliminar una planificación — ni en UC-01.4 ni como paso de cascada al eliminar item o proyecto — si:
+
+1. **`estado = Completada`** (RE-3) — el usuario debe editarla manualmente en UC-01.4 y pasarla a Pendiente.
+2. **Existen ocurrencias materializadas** vinculadas (RE-4), ya sean modificadas o con `eliminada_virtual = true` — el usuario debe anular o restaurar cada registro en UC-02.4 hasta vaciar la planificación.
+
+Solo cuando todas las planificaciones del ámbito cumplen RE-3 y RE-4 puede completarse la eliminación del item (RI-5) o del proyecto (RP-4).
+
+### RC-7: Aviso al bloquear borrado de item o proyecto (RE-5)
+
+Si UC-01.2 o UC-01.3 rechazan el borrado, el sistema debe mostrar **todas** las planificaciones bloqueantes usando su **`IdentificablePorUsuario`** más el motivo de bloqueo. Códigos `ELIMINACION_PROYECTO_BLOQUEADA` / `ELIMINACION_ITEM_BLOQUEADA` — ver [errores-validaciones-capas.md](../arquitectura/errores-validaciones-capas.md).
+
+### RC-8: Unicidad de observaciones en Sin planificar
+
+Las **observaciones** de las planificaciones **Sin planificar** del mismo item deben ser **únicas** dentro de ese item (`UNIQUE (item_id, observaciones)` con `sin_planificar = true`).
+
+- Aplica en creación y edición (UC-01.4 / UC-01.5).
+- Las observaciones son obligatorias en Sin planificar para garantizar identificación y unicidad (la creación automática de item usa el nombre del item).
+- Código de error orientativo: `PLANIFICACION_SIN_PLANIFICAR_OBSERVACIONES_DUPLICADAS`.
 
 ---
 

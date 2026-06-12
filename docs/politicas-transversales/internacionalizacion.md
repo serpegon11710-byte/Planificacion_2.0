@@ -20,7 +20,9 @@ Separar textos orientados al usuario de la logica de dominio, permitiendo traduc
 
 **Decision:** persistencia y comparaciones en **UTC**; la UI formatea segun locale del usuario.
 
-**Entregable Step 10:** nota operativa en este documento (alineada al ER) al cerrar `modelo-entidad-relacion.md`. Hasta entonces, ver [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002).
+**Almacenamiento:** columnas `date`, `time` y `timestamptz` del ER en UTC — ver [modelo-entidad-relacion.md](../entidades/modelo-entidad-relacion.md).
+
+**Presentacion:** `calendar.*`, formatos `DD/MM/YYYY`, `HH:mm` segun locale activo (`es` por defecto).
 
 ## Donde SI aplica i18n
 
@@ -129,9 +131,9 @@ locales/
     ...
 ```
 
-## Criterio para stack tecnologico (Step 9c)
+## Criterio para stack tecnologico (Step 11)
 
-Al elegir tecnologias en el Step 9c del plan de documentacion, valorar soporte de i18n en Front-End, interpolacion de parametros y formateo de fecha/hora por locale.
+Al elegir tecnologias en el Step 11 del plan de documentacion, valorar soporte de i18n en Front-End, interpolacion de parametros y formateo de fecha/hora por locale.
 
 ## Resultado
 

@@ -1,6 +1,6 @@
 # Entidad: Ocurrencias
 
-**Última actualización:** 2026-06-10
+**Última actualización:** 2026-06-12
 
 ---
 
@@ -82,10 +82,28 @@ El estado de una ocurrencia puede estar registrado en la propia ocurrencia o, en
 - UC-02 debe usar este documento para visualización y gestión de ocurrencias.
 - Cualquier caso de uso que modifique ocurrencias individuales debe respetar estas reglas.
 - UC-01.4 no gestiona ocurrencias individuales; solo persiste la planificación base.
+- UC-02.4 permite anular modificaciones o restaurar eliminaciones virtuales; es el camino obligatorio para vaciar ocurrencias materializadas antes de poder eliminar la planificación, el item o el proyecto (RE-4 en [modelo-entidad-relacion.md](modelo-entidad-relacion.md)).
+
+---
+
+## Modelo de persistencia (ER)
+
+Tabla `OcurrenciasMaterializadas` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
+
+| Campo | Obligatorio | Notas |
+|-------|-------------|-------|
+| `planificacion_puntual_id` / `planificacion_periodica_id` | Uno de dos (XOR) | FK a la planificación de origen |
+| `fecha_original` | Sí | Clave de precedencia (RO-5) |
+| `fecha_efectiva` | Sí | Fecha mostrada / efectiva |
+| `hora` | Sí | UTC |
+| `observaciones` | Nullable | NULL = hereda; se persiste al editar |
+| `estado` | Nullable | NULL = hereda; se persiste al interactuar |
+| `eliminada_virtual` | Sí | RO-4 |
+
+Las ocurrencias **naturales** no se persisten; solo las **materializadas** por interacción del usuario (RO-2).
 
 ---
 
 ## Referencias
 
 - Completado por ocurrencia vs `InstanciaPlanificacion`: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-003).
-- Tabla ER de ocurrencias materializadas: FAQ-004 (detalle de persistencia — **entregable Step 10**).

@@ -42,8 +42,7 @@ erDiagram
     }
 
     PlanificacionPeriodo {
-        bigint id PK
-        bigint planificacion_id FK
+        bigint planificacion_id PK
         smallint tipo_periodo_id FK
         varchar variante_diaria
         varchar dias_semana
@@ -52,8 +51,8 @@ erDiagram
     }
 
     OcurrenciasMaterializadas {
-        bigint id PK
-        bigint planificacion_periodo_id FK
+        bigint ocurrencia_id PK
+        bigint planificacion_id FK
         date fecha_original
         date fecha_efectiva
         time hora

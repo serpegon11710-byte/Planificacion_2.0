@@ -3,7 +3,7 @@
 **Última actualización:** 2026-06-12 (`TipoPeriodo` catálogo de visibilidad de campos)  
 **Step:** 10
 
-Modelo lógico de persistencia para Planificacion 2.0. **Jerarquía de clases de dominio:** [modelo-clases-planificacion.md](modelo-clases-planificacion.md). Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105, 106, 107, 110, 111, 112, 113) y entidades en esta carpeta.
+Modelo lógico de persistencia para Planificacion 2.0. **Jerarquía de clases de dominio:** [modelo-clases-planificacion.md](modelo-clases-planificacion.md). Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105, 106, 107, 110, 111, 112, 113, 114) y entidades en esta carpeta.
 
 **Notas transversales:**
 
@@ -62,8 +62,7 @@ erDiagram
     }
 
     PlanificacionPeriodo {
-        bigint id PK
-        bigint planificacion_id FK
+        bigint planificacion_id PK
         smallint tipo_periodo_id FK
         varchar variante_diaria
         varchar dias_semana
@@ -72,8 +71,8 @@ erDiagram
     }
 
     OcurrenciasMaterializadas {
-        bigint id PK
-        bigint planificacion_periodo_id FK
+        bigint ocurrencia_id PK
+        bigint planificacion_id FK
         date fecha_original
         date fecha_efectiva
         time hora
@@ -87,8 +86,9 @@ erDiagram
 
 | Entidad en el diagrama | Rol |
 |------------------------|-----|
-| `PlanificacionPeriodo` | Valores del patrón (`variante_diaria`, `dias_semana`, …) — 1:1 con `Planificaciones` |
-| `TipoPeriodo` | Catálogo: `codigo` + columnas `visibilidad_*` que indican qué campos de `PlanificacionPeriodo` aplican |
+| `PlanificacionPeriodo` | Valores del patrón — **PK = `planificacion_id`** (1:1, sin `id` propio) |
+| `TipoPeriodo` | Catálogo: `codigo` + columnas `visibilidad_*` |
+| `OcurrenciasMaterializadas` | FK **`planificacion_id`** (misma clave que el periodo); PK fila **`ocurrencia_id`** |
 
 No existe `TipoPlanificacion` (supersedido por FAQ-111). La relación `TipoPeriodo → PlanificacionPeriodo` enlaza metadatos de visibilidad con la fila de patrón concreta vía `tipo_periodo_id`.
 
@@ -136,12 +136,11 @@ Detalle y diagrama: [modelo-clases-planificacion.md](modelo-clases-planificacion
 
 ## Tabla `PlanificacionPeriodo` (definición del patrón)
 
-Relación **1:1** con `Planificaciones`. Solo existe cuando la planificación es **periódica** (lado opcional: una planificación puntual o sin planificar no tiene periodo).
+Relación **1:1** con `Planificaciones`. **PK = `planificacion_id`** (FK → `Planificaciones.id`); no tiene `id` propio (FAQ-114). Solo existe en planificaciones periódicas.
 
 | Columna | Obligatorio | Notas |
 |---------|-------------|-------|
-| `id` | PK | |
-| `planificacion_id` | FK UNIQUE → Planificaciones | Una planificación tiene como máximo un periodo |
+| `planificacion_id` | PK, FK | Identidad de la fila = identidad de la planificación periódica |
 | `tipo_periodo_id` | FK → TipoPeriodo | Referencia al catálogo |
 | `variante_diaria` | Si visible en catálogo | FAQ-001: `TODOS`, `LUN_VIE`, `FIN_SEMANA` |
 | `dias_semana` | Si visible en catálogo | Letras **LMXJVSD**; p. ej. `MX`, `LMXJVSD` |
@@ -187,7 +186,7 @@ Comportamiento por naturaleza — detalle en [ocurrencias.md](ocurrencias.md):
 | **Puntual** | Una ocurrencia **dinámica** que refleja los datos de `Planificaciones` |
 | **Periódica** | Una o varias ocurrencias **dinámicas** y/o **materializadas** en `OcurrenciasMaterializadas` |
 
-Solo las **periódicas** persisten filas en `OcurrenciasMaterializadas` (FK `planificacion_periodo_id`). Las puntuales no materializan: UC-02.2 actualiza `Planificaciones`. RE-4 aplica solo a periódicas con registros materializados.
+Solo las **periódicas** persisten filas en `OcurrenciasMaterializadas` (FK **`planificacion_id`** → `PlanificacionPeriodo`). Las puntuales no materializan: UC-02.2 actualiza `Planificaciones`. RE-4 aplica solo a periódicas con registros materializados.
 
 ### Restricciones periódicas (visibilidad y rango)
 
@@ -224,6 +223,74 @@ Listar cada planificación bloqueante con **`IdentificablePorUsuario`** — ver 
 
 ---
 
+## Orden físico e índices de acceso (FAQ-113)
+
+La **PK surrogate** (`id`) en cada tabla sigue siendo necesaria para FK, joins y APIs, pero **no define por sí sola** el orden físico de almacenamiento ni el patrón de lectura principal. El orden físico (cluster / índice agrupado) se fija según las reglas siguientes; la sintaxis concreta (`CLUSTER`, `INCLUDE`, `NULLS FIRST`, etc.) se elige en Step 11 según motor de BBDD.
+
+### Principio
+
+| Concepto | Uso |
+|----------|-----|
+| `id` (PK) | Identidad estable, FK, ORM — **excepción:** `PlanificacionPeriodo` usa `planificacion_id` como PK (FAQ-114) |
+| **Orden físico** | Localidad de lecturas habituales (listados por proyecto, item, rango de fechas) |
+| **Índices adicionales** | Unicidad de negocio y búsquedas por nombre |
+
+### `Proyectos`
+
+| Aspecto | Definición |
+|---------|------------|
+| Orden físico | Por `id` (orden de inserción / secuencia) |
+| Índice adicional | `UNIQUE (nombre)` — RP-1; búsqueda y validación por nombre |
+
+### `Items`
+
+| Aspecto | Definición |
+|---------|------------|
+| Orden físico | `(proyecto_id, id)` — todos los items de un proyecto contiguos; `id` desempata |
+| Índice adicional | `UNIQUE (proyecto_id, nombre)` — RI-1 |
+
+### `Planificaciones`
+
+| Aspecto | Definición |
+|---------|------------|
+| Orden físico | `(item_id, fecha_inicio, hora, id)` — ver efectos abajo |
+| Índice adicional | `UNIQUE (item_id, observaciones)` parcial — RC-8: `WHERE fecha_inicio IS NULL` |
+
+**Efectos del orden `(item_id, fecha_inicio, hora id)`:**
+
+1. **Por item:** todas las planificaciones de un mismo item quedan juntas (alineado con RE-2 y listados UC-01.4).
+2. **Sin planificar:** comparten `fecha_inicio IS NULL` y `hora IS NULL` → quedan **agrupadas** al inicio (o al final, según política `NULLS` del motor) del bloque del item, sin mezclarse con fechas concretas.
+3. **Puntuales y periódicas:** el subtipo (puntual vs periódica, Diario/Semanal/Mensual) **no** interviene en el orden físico; lo relevante es **`fecha_inicio`** (cronológico dentro del item). Las puntuales usan una sola fecha (`fecha_inicio = fecha_fin`); las periódicas ordenan por inicio del rango.
+4. **`id` final:** desempate estable cuando dos planificaciones comparten item y `fecha_inicio` (p. ej. varias Sin planificar con distintas observaciones).
+
+### Tablas satélite (FAQ-114)
+
+Las tablas satélite **no comparten** el orden físico de `Planificaciones` (ordenadas por `item_id`, `fecha_inicio`, `hora`). Sí comparten criterio entre sí vía `planificacion_id`.
+
+#### `PlanificacionPeriodo`
+
+| Aspecto | Definición |
+|---------|------------|
+| PK | **`planificacion_id`** (sin `id` propio; 1:1 con `Planificaciones`) |
+| Orden físico | **`planificacion_id`** |
+| Alineación | Coincide con el criterio de `OcurrenciasMaterializadas`; **no** con el orden por item/fecha de `Planificaciones` |
+
+#### `OcurrenciasMaterializadas`
+
+| Aspecto | Definición |
+|---------|------------|
+| PK fila | **`ocurrencia_id`** (identidad de la fila materializada) |
+| FK | **`planificacion_id`** → `PlanificacionPeriodo` (semánticamente: planificación periódica) |
+| Orden físico | **`(planificacion_id, fecha_original, hora, ocurrencia_id)`** |
+| Alineación | Por `planificacion_id` con `PlanificacionPeriodo`; **no** con el orden `(item_id, fecha_inicio, …)` de `Planificaciones` |
+
+**Notas:**
+
+- `fecha_original` + `hora` ordenan ocurrencias de una misma planificación; `ocurrencia_id` desempata.
+- `UNIQUE (planificacion_id, fecha_original)` (RO-3, RO-5) coexiste con el orden físico ampliado por `hora` y `ocurrencia_id`.
+
+---
+
 ## Restricciones e índices
 
 ### `Proyectos`
@@ -231,6 +298,7 @@ Listar cada planificación bloqueante con **`IdentificablePorUsuario`** — ver 
 | Restricción | Regla |
 |-------------|-------|
 | `UNIQUE (nombre)` | RP-1 |
+| Orden físico | FAQ-113: por `id` |
 
 ### `Items`
 
@@ -238,12 +306,14 @@ Listar cada planificación bloqueante con **`IdentificablePorUsuario`** — ver 
 |-------------|-------|
 | `UNIQUE (proyecto_id, nombre)` | RI-1 |
 | `FK proyecto_id → Proyectos ON DELETE CASCADE` | RE-1, RI-6 |
+| Orden físico | FAQ-113: `(proyecto_id, id)` |
 
 ### `Planificaciones`
 
 | Restricción | Regla |
 |-------------|-------|
 | `FK item_id → Items ON DELETE CASCADE` | RE-2 |
+| Orden físico | FAQ-113: `(item_id, fecha_inicio, hora, id)` |
 | Sin planificar | `fecha_inicio IS NULL AND fecha_fin IS NULL AND hora IS NULL AND estado IS NULL` |
 | Sin planificar | `observaciones IS NOT NULL` (RC-8) |
 | Puntual | `fecha_inicio IS NOT NULL AND fecha_inicio = fecha_fin AND hora IS NOT NULL AND estado IS NOT NULL` |
@@ -257,8 +327,9 @@ Listar cada planificación bloqueante con **`IdentificablePorUsuario`** — ver 
 
 | Restricción | Regla |
 |-------------|-------|
-| `UNIQUE (planificacion_id)` | 1:1 |
+| `PK planificacion_id` | 1:1 con `Planificaciones`; FAQ-114 |
 | `FK planificacion_id → Planificaciones ON DELETE CASCADE` | |
+| Orden físico | FAQ-114: `planificacion_id` |
 | `FK tipo_periodo_id` | → `TipoPeriodo` |
 | `CHECK variante_diaria` | Obligatorio si `TipoPeriodo.visibilidad_variante_diaria` |
 | `CHECK dias_semana` | Obligatorio si `visibilidad_dias_semana`; solo `LMXJVSD`, ≥1 letra |
@@ -273,12 +344,14 @@ Listar cada planificación bloqueante con **`IdentificablePorUsuario`** — ver 
 | Visibilidades | Al menos una `true` por fila |
 | `Diario` / `Semanal` / `Mensual` | Filas semilla según tabla anterior |
 
-### `OcurrenciasMaterializadas` (FAQ-004)
+### `OcurrenciasMaterializadas` (FAQ-004, FAQ-114)
 
 | Restricción | Regla |
 |-------------|-------|
-| `FK planificacion_periodo_id NOT NULL` | Solo periódicas |
-| `UNIQUE (planificacion_periodo_id, fecha_original)` | RO-3, RO-5 |
+| `PK ocurrencia_id` | Identidad de fila |
+| `FK planificacion_id NOT NULL` | → `PlanificacionPeriodo`; solo periódicas |
+| Orden físico | FAQ-114: `(planificacion_id, fecha_original, hora, ocurrencia_id)` |
+| `UNIQUE (planificacion_id, fecha_original)` | RO-3, RO-5 |
 | `observaciones`, `estado` NULL | Herencia FAQ-004 |
 | `eliminada_virtual` | RO-4; cuenta para RE-4 |
 

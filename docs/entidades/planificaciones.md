@@ -111,7 +111,7 @@ Almacena **Sin planificar**, **Puntual** y los datos comunes de **Periódica**. 
 
 ### Tabla `PlanificacionPeriodo`
 
-Solo para periódicas. Relación **1:1** (`planificacion_id` UNIQUE). El tipo de periodo vive aquí vía `tipo_periodo_id` (FK → `TipoPeriodo`).
+Solo para periódicas. Relación **1:1** con `Planificaciones`: **PK = `planificacion_id`** (sin `id` propio; FAQ-114). Tipo de periodo vía `tipo_periodo_id` (FK → `TipoPeriodo`).
 
 ### Catálogo `TipoPeriodo` (FAQ-111)
 

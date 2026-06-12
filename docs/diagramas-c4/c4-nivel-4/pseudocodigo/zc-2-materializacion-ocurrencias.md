@@ -85,7 +85,7 @@ FUNCION aplicar(planificacion, cambios):
 
 ```
 FUNCION aplicar(planificacion, fecha_original, cambios):
-  periodo_id = planificacion.periodo.id
+  periodo_id = planificacion.id   // PlanificacionPeriodo.PK = planificacion_id
   registro_existente = puerto_ocurrencia.buscarPorFechaOriginal(periodo_id, fecha_original)
 
   SI registro_existente ES NULL:
@@ -116,7 +116,7 @@ FUNCION aplicar(planificacion, fecha_original, cambios):
 
 ```
 FUNCION eliminarIndividual(planificacion, fecha_original):
-  registro = puerto_ocurrencia.buscarPorFechaOriginal(planificacion.periodo.id, fecha_original)
+  registro = puerto_ocurrencia.buscarPorFechaOriginal(planificacion.id, fecha_original)
 
   SI registro ES NULL:
     registro = materializador.crearDesdeNatural(planificacion, fecha_original)
@@ -135,7 +135,7 @@ FUNCION restaurar(planificacion_id, fecha_original):
   SI registro ES NULL O NOT registro.es_eliminada:
     LANZAR ErrorFuncional("OCURRENCIA_NO_ELIMINADA")
 
-  puerto_ocurrencia.eliminar(registro.id)   // RN-2.4.4: vuelve a ser dinamica
+  puerto_ocurrencia.eliminar(registro.ocurrencia_id)   // RN-2.4.4: vuelve a ser dinamica
 ```
 
 ### Anular modificacion (UC-02.4)
@@ -147,7 +147,7 @@ FUNCION anularModificacion(planificacion_id, fecha_original):
   SI registro ES NULL O registro.es_eliminada:
     LANZAR ErrorFuncional("OCURRENCIA_NO_MODIFICADA")
 
-  puerto_ocurrencia.eliminar(registro.id)
+  puerto_ocurrencia.eliminar(registro.ocurrencia_id)
 ```
 
 ### Transiciones de estado operativo
@@ -170,7 +170,7 @@ FUNCION reabrir(planificacion, fecha_original_opcional):
 FUNCION crearDesdeNatural(planificacion, fecha_original):
   natural = motor_calculo.obtenerNatural(planificacion, fecha_original)  // ZC-1
   RETORNAR RegistroOcurrencia {
-    planificacion_periodo_id: planificacion.periodo.id,
+    planificacion_id: planificacion.id,
     fecha_original: fecha_original,
     fecha_efectiva: natural.fecha_efectiva,
     hora: natural.hora,
@@ -187,9 +187,9 @@ FUNCION crearDesdeNatural(planificacion, fecha_original):
 
 ```
 INTERFAZ PuertoOcurrenciaMaterializada:
-  buscarPorFechaOriginal(planificacion_periodo_id, fecha_original) -> RegistroOcurrencia | NULL
+  buscarPorFechaOriginal(planificacion_id, fecha_original) -> RegistroOcurrencia | NULL
   guardar(registro) -> RegistroOcurrencia
-  eliminar(registro_id) -> VOID
+  eliminar(ocurrencia_id) -> VOID
 ```
 
 Detalle de persistencia en [zc-5-persistencia.md](zc-5-persistencia.md). Proyeccion al stack en [implementacion/](../implementacion/).

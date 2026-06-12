@@ -44,7 +44,7 @@ La edición de un proyecto **no modifica** los items ni planificaciones existent
 
 ## Modelo de persistencia (orientativo)
 
-Tabla `Proyectos` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
+Tabla `Proyectos` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico por `id`; índice `UNIQUE (nombre)` (FAQ-113).
 
 | Campo | Tipo orientativo | Restricción |
 |-------|------------------|-------------|

@@ -207,6 +207,37 @@ Jerarquia canonica en `docs/entidades/modelo-clases-planificacion.md` (+ `.mmd`)
 
 ---
 
+### FAQ-113 — Orden fisico de tablas (cluster) frente a PK `id`
+
+**Origen:** Refinamiento ER; la PK surrogate no basta como criterio de localidad de lectura.
+
+**Resolucion (2026-06-12):**
+
+| Tabla | Orden fisico | Indice adicional de negocio |
+|-------|--------------|----------------------------|
+| `Proyectos` | `id` | `UNIQUE (nombre)` |
+| `Items` | `(proyecto_id, id)` | `UNIQUE (proyecto_id, nombre)` |
+| `Planificaciones` | `(item_id, fecha_inicio, hora, id)` | `UNIQUE (item_id, observaciones)` parcial Sin planificar |
+
+En `Planificaciones`, `fecha_inicio NULL` agrupa Sin planificar por item; puntuales y periodicas se ordenan por fecha y hora, no por subtipo. Sintaxis en Step 11.
+
+**Entregable:** seccion en `modelo-entidad-relacion.md`. **Completado (2026-06-12).**
+
+---
+
+### FAQ-114 — Tablas satelite: PK y orden fisico
+
+**Origen:** Refinamiento ER; `PlanificacionPeriodo` y `OcurrenciasMaterializadas`.
+
+**Resolucion (2026-06-12):**
+
+1. **`PlanificacionPeriodo`:** sin `id` propio; **PK = `planificacion_id`** (1:1). Orden fisico por `planificacion_id`. No coincide con el orden de `Planificaciones` (por item/fecha).
+2. **`OcurrenciasMaterializadas`:** PK fila **`ocurrencia_id`**; FK **`planificacion_id`** (semantica planificacion periodica, misma clave que el periodo). Orden fisico **`(planificacion_id, fecha_original, hora, ocurrencia_id)`**. Alineado con `PlanificacionPeriodo` por `planificacion_id`; no alineado con `Planificaciones`.
+
+**Entregable:** ER + pseudocodigo ZC-1/2/5. **Completado (2026-06-12).**
+
+---
+
 ### FAQ-107 — Nomenclatura «Sin planificar»
 
 **Origen:** FAQ-105 / modelo ER.
@@ -239,7 +270,7 @@ Jerarquia canonica en `docs/entidades/modelo-clases-planificacion.md` (+ `.mmd`)
 
 1. **Una tabla `Planificaciones`** con campos comunes: `item_id`, `fecha_inicio`, `fecha_fin`, `hora`, `observaciones`, `estado`. Sin flags: la naturaleza se infiere (Sin planificar = fechas NULL; Puntual = inicio = fin sin periodo; Periódica = existe `PlanificacionPeriodo` y fin > inicio).
 2. **`PlanificacionPeriodo`** 1:1 opcional: solo periódicas. Valores de patron aqui; visibilidad por tipo en **`TipoPeriodo`** (FAQ-111).
-3. **Ocurrencias:** Sin planificar → lista vacia; Puntual → una dinamica; Periódica → dinamicas + `OcurrenciasMaterializadas` (FK `planificacion_periodo_id`). Restricciones RO-8 a RO-10 (rango, visibilidad tras cambio de fechas).
+3. **Ocurrencias:** Sin planificar → lista vacia; Puntual → una dinamica; Periódica → dinamicas + `OcurrenciasMaterializadas` (FK `planificacion_id`). Restricciones RO-8 a RO-10 (rango, visibilidad tras cambio de fechas).
 4. Se eliminan `PlanificacionesPuntuales`, `PlanificacionesPeriodicas`, `V_Planificacion` y flags `sin_planificar`.
 
 **Entregable Step 10:** `docs/entidades/modelo-entidad-relacion.md`, `planificaciones.md`, pseudocodigo ZC-1/3/5. **Completado (2026-06-12).**
@@ -307,7 +338,7 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | Documento | IDs FAQ |
 |-----------|---------|
 | `planificacion-inicial.md` | FAQ-001, 002, 003, 108 |
-| `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108 |
+| `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108, 113, 114 |
 | `entidades/ocurrencias.md` | FAQ-003, 004 |
 | `entidades/proyectos.md`, `items.md` | FAQ-005 |
 | `entidades/planificaciones.md`, `modelo-clases-planificacion.md` | FAQ-001, 105, 106, 107, 110, 111, 112 |
@@ -315,8 +346,7 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
 | Step 11 | FAQ-007, 101, 102 |
 | Step 12 | N4 implementacion por stack |
-| Step 10 | FAQ-002, 004, 105, 106, 108, 110, 111, 112 |
-
+| Step 10 | FAQ-002, 004, 105, 106, 108, 110, 111, 112, 113, 114 |
 ---
 
 ## Historial del FAQ
@@ -333,3 +363,6 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | 2026-06-12 | FAQ-109: V_Planificacion, dias_semana LMXJVSD, ocurrencias solo periódicas |
 | 2026-06-12 | FAQ-110: tabla unica Planificaciones + PlanificacionPeriodo; supersede FAQ-109 |
 | 2026-06-12 | FAQ-111: TipoPeriodo (visibilidad campos patron); supersede FAQ-106 |
+| 2026-06-12 | FAQ-112: diagrama de clases Planificacion en docs/entidades |
+| 2026-06-12 | FAQ-113: orden fisico cluster (item, fechas) vs PK id |
+| 2026-06-12 | FAQ-114: satelites PK planificacion_id; ocurrencias (planificacion_id, fecha_original, hora, ocurrencia_id) |

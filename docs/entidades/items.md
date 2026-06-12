@@ -36,7 +36,7 @@ La edición de un item **no modifica** las planificaciones existentes; solo actu
 
 ## Modelo de persistencia (orientativo)
 
-Tabla `Items` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
+Tabla `Items` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico `(proyecto_id, id)`; índice `UNIQUE (proyecto_id, nombre)` (FAQ-113).
 
 | Campo | Tipo orientativo | Restricción |
 |-------|------------------|-------------|
@@ -48,7 +48,7 @@ Tabla `Items` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
 Relaciones:
 
 - **Proyecto 1:N Item**
-- **Item 1:N Planificación** (tabla `Planificaciones`; periódicas con `PlanificacionPeriodo` 1:1; ver [planificaciones.md](planificaciones.md))
+- **Item 1:N Planificación** (tabla `Planificaciones`; orden físico `(item_id, fecha_inicio, hora, planificacion_id)` — FAQ-113; clases en [modelo-clases-planificacion.md](modelo-clases-planificacion.md); ver [planificaciones.md](planificaciones.md))
 
 ---
 

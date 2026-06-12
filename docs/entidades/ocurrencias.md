@@ -50,7 +50,7 @@ Resolución (RO-7):
 Ocurrencias naturales en tiempo de consulta.
 
 ### RO-2: Materialización por modificación
-Solo **periódicas** → `OcurrenciasMaterializadas` (FK `planificacion_periodo_id`). Puntuales: mutación directa de `Planificaciones`.
+Solo **periódicas** → `OcurrenciasMaterializadas` (FK **`planificacion_id`** → `PlanificacionPeriodo`). Puntuales: mutación directa de `Planificaciones`.
 
 ### RO-3: Precedencia de modificaciones
 Materializada prevalece sobre natural para la misma `fecha_original`.
@@ -105,10 +105,11 @@ Tabla `OcurrenciasMaterializadas` — ver [modelo-entidad-relacion.md](modelo-en
 
 | Campo | Obligatorio | Notas |
 |-------|-------------|-------|
-| `planificacion_periodo_id` | Sí | FK → `PlanificacionPeriodo` |
-| `fecha_original` | Sí | RO-5 |
+| `ocurrencia_id` | PK | Identidad de fila (FAQ-114) |
+| `planificacion_id` | Sí | FK → `PlanificacionPeriodo` (`PK = planificacion_id`) |
+| `fecha_original` | Sí | RO-5; parte del orden físico |
 | `fecha_efectiva` | Sí | Visibilidad RO-8, RO-9, RO-10 |
-| `hora` | Sí | UTC |
+| `hora` | Sí | UTC; parte del orden físico |
 | `observaciones` | Nullable | Herencia FAQ-004 |
 | `estado` | Nullable | Herencia FAQ-004 |
 | `eliminada_virtual` | Sí | RO-4 |

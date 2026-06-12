@@ -108,8 +108,8 @@ FUNCION componer(planificacion, desde, hasta):
 
   // PERIODICA — RO-9, RO-10
   rango_plan = [planificacion.fecha_inicio, planificacion.fecha_fin]
-  materializadas = puerto_ocurrencia.buscarPorPeriodoEnRango(
-    planificacion.periodo.id, desde, hasta, rango_plan
+  materializadas = puerto_ocurrencia.buscarPorPlanificacionEnRango(
+    planificacion.id, desde, hasta, rango_plan
   )
   fechas_ocupadas = conjunto(materializadas.map(m => m.fecha_original))
 
@@ -223,7 +223,7 @@ FUNCION resolver(ocurrencia_vista, planificacion):
 FUNCION listarOcurrenciasFisicas(planificacion_id):
   planificacion = puerto_planificacion.obtener(planificacion_id)
   SI planificacion.periodo ES NULL: RETORNAR { modificadas: [], eliminadas: [] }
-  registros = puerto_ocurrencia.buscarTodasMaterializadasPorPeriodo(planificacion.periodo.id)
+  registros = puerto_ocurrencia.buscarTodasMaterializadasPorPlanificacion(planificacion.id)
   modificadas = registros DONDE NOT es_eliminada
   eliminadas  = registros DONDE es_eliminada
   RETORNAR { modificadas, eliminadas }
@@ -235,8 +235,8 @@ FUNCION listarOcurrenciasFisicas(planificacion_id):
 
 ```
 INTERFAZ PuertoOcurrenciaMaterializada:
-  buscarPorPeriodoEnRango(planificacion_periodo_id, desde, hasta, rango_planificacion) -> Lista<RegistroOcurrencia>
-  buscarTodasMaterializadasPorPeriodo(planificacion_periodo_id) -> Lista<RegistroOcurrencia>
+  buscarPorPlanificacionEnRango(planificacion_id, desde, hasta, rango_planificacion) -> Lista<RegistroOcurrencia>
+  buscarTodasMaterializadasPorPlanificacion(planificacion_id) -> Lista<RegistroOcurrencia>
 ```
 
 En implementacion SQL, la lectura del paso 1 puede resolverse en una unica consulta indexada por `planificacion_id` y fechas; la generacion de naturales pendientes equivale a recorrer el patron omitiendo claves ya presentes (candidato a procedimiento almacenado cuando exista stack).

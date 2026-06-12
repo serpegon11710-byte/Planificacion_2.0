@@ -165,7 +165,7 @@ FUNCION validarTransicion(actual, destino):
   SI origen == PERIODICA Y destino_n == SIN_PLANIFICAR:
     SI actual.estado != PENDIENTE:
       LANZAR ErrorFuncional("PERIODICA_COMPLETADA_NO_PUEDE_A_SIN_PLANIFICAR")
-    SI puerto_ocurrencia.contarPorPeriodo(actual.periodo.id) > 0:
+    SI puerto_ocurrencia.contarPorPlanificacion(actual.id) > 0:
       LANZAR ErrorFuncional("PERIODICA_CON_OCURRENCIAS_FISICAS_NO_PUEDE_A_SIN_PLANIFICAR")
 ```
 
@@ -198,6 +198,6 @@ FUNCION listarSinPlanificar(filtros):
 ## Notas
 
 - UC-01.5 delega validacion a `ValidadorConfiguracion`; no persiste (RC-4).
-- RT-3 consulta ocurrencias via `planificacion_periodo_id` (ZC-5).
+- RT-3 consulta ocurrencias via `planificacion_id` (ZC-5; FK = PK de `PlanificacionPeriodo`).
 
 Proyeccion al stack en [implementacion/](../implementacion/).

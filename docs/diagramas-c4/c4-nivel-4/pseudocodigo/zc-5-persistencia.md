@@ -93,12 +93,12 @@ INTERFAZ PuertoPlanificacion:
   buscarPorTipo(tipo, filtros) -> Lista<Planificacion>
 
 INTERFAZ PuertoOcurrenciaMaterializada:
-  buscarPorPeriodoEnRango(planificacion_periodo_id, desde, hasta, rango_planificacion) -> Lista<RegistroOcurrencia>
-  buscarTodasMaterializadasPorPeriodo(planificacion_periodo_id) -> Lista<RegistroOcurrencia>
-  contarPorPeriodo(planificacion_periodo_id) -> Entero   // RE-4: cualquier fila, modificada o eliminada_virtual
-  buscarPorFechaOriginal(planificacion_periodo_id, fecha_original) -> RegistroOcurrencia | NULL
+  buscarPorPlanificacionEnRango(planificacion_id, desde, hasta, rango_planificacion) -> Lista<RegistroOcurrencia>
+  buscarTodasMaterializadasPorPlanificacion(planificacion_id) -> Lista<RegistroOcurrencia>
+  contarPorPlanificacion(planificacion_id) -> Entero   // RE-4; solo periódicas
+  buscarPorFechaOriginal(planificacion_id, fecha_original) -> RegistroOcurrencia | NULL
   guardar(registro) -> RegistroOcurrencia
-  eliminar(registro_id) -> VOID
+  eliminar(ocurrencia_id) -> VOID
 
 INTERFAZ PuertoConexion:
   iniciarTransaccion() -> Transaccion
@@ -132,11 +132,11 @@ CLASE AdaptadorBase:
 ### Consulta ocurrencias en rango (soporte ZC-1)
 
 ```
-FUNCION buscarPorPeriodoEnRango(planificacion_periodo_id, desde, hasta, rango_planificacion):
-  // RO-9, RO-10: visibilidad segun fecha_efectiva y rango vigente de la planificacion
+FUNCION buscarPorPlanificacionEnRango(planificacion_id, desde, hasta, rango_planificacion):
+  // RO-9, RO-10; orden fisico (planificacion_id, fecha_original, hora, ocurrencia_id)
   RETORNAR almacen.buscar(
     tabla = ocurrencias_materializadas,
-    filtro = planificacion_periodo_id Y esVisibleEnConsulta(desde, hasta, rango_planificacion)
+    filtro = planificacion_id Y esVisibleEnConsulta(desde, hasta, rango_planificacion)
   ).map(mapearARegistroOcurrencia)
 ```
 
@@ -151,7 +151,7 @@ FUNCION bloqueosDePlanificacion(planificacion):
     motivos.agregar(COMPLETADA)
   cantidad = 0
   SI planificacion.periodo NO ES NULL:
-    cantidad = adaptador_ocurrencia.contarPorPeriodo(planificacion.periodo.id)
+    cantidad = adaptador_ocurrencia.contarPorPlanificacion(planificacion.id)
   SI cantidad > 0:
     motivos.agregar(OCURRENCIAS_MATERIALIZADAS)
   SI motivos.estaVacio():
@@ -212,7 +212,7 @@ FUNCION validarEliminacionPlanificacion(planificacion_id, es_cascada_desde_item_
 
   periodo = adaptador_planificacion.obtenerPeriodo(planificacion_id)
   SI periodo NO ES NULL:
-    SI adaptador_ocurrencia.contarPorPeriodo(periodo.id) > 0:
+    SI adaptador_ocurrencia.contarPorPlanificacion(planificacion_id) > 0:
       LANZAR ErrorFuncional("PLANIFICACION_CON_OCURRENCIAS_NO_ELIMINABLE")   // RE-4
 ```
 

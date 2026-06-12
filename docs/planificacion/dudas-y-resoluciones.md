@@ -107,7 +107,7 @@ Relacionado con FAQ-003 (estado vacio = hereda).
 
 **Resolucion:** **Si**, crear `proyectos.md` e `items.md` **antes** del Step 10 (ER).
 
-**Estado de ejecucion:** **Pendiente** — registrado en el plan como Step 7b (ver `planificacion-inicial.md`).
+**Estado de ejecucion:** **Completado** (2026-06-12) — `docs/entidades/proyectos.md`, `docs/entidades/items.md`.
 
 ---
 
@@ -253,7 +253,6 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 | ID | Accion | Registro en plan |
 |----|--------|------------------|
-| FAQ-005 | `docs/entidades/proyectos.md`, `items.md` | Step 7b |
 | FAQ-103 | `c4-nivel-3/c4-nivel-3-componentes-frontend.mmd` | Step 8b |
 
 ---
@@ -264,6 +263,7 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 |-----------|---------|
 | `planificacion-inicial.md` | FAQ-001, 002, 003, 108 |
 | `entidades/ocurrencias.md` | FAQ-003, 004 |
+| `entidades/proyectos.md`, `items.md` | FAQ-005 |
 | `entidades/planificaciones.md` | FAQ-001, 105, 106, 107 |
 | `revision-principios-solid.md` | FAQ-005, 009 |
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
@@ -279,3 +279,4 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 | 2026-06-12 | Anadidas FAQ-105 a FAQ-108 (modelo ER, tablas por tipo, nomenclatura Sin planificar) |
 | 2026-06-12 | FAQ-004: aclarada semantica herencia (NULL en BD, valor visible heredado, persistencia al interactuar) |
 | 2026-06-12 | FAQ-104 a FAQ-108 resueltas; trazabilidad distribuida; modelo dos tablas; Sin planificar |
+| 2026-06-12 | Step 7b: entidades proyectos.md e items.md (FAQ-005) |

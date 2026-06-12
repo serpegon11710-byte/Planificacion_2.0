@@ -198,6 +198,7 @@ No se permite modificar el subtipo de una planificación **Periódica** (Diaria,
 - UC-01.5 debe usar este documento para captura y validación, sin redefinir tipos internamente.
 - UC-01.4 debe persistir la configuración resultante sin redefinir el catálogo.
 - UC-03 lista planificaciones con `sin_planificar = true` (tipo Sin planificar).
+- UC-01.2 y UC-01.3 deben referenciar [proyectos.md](proyectos.md) e [items.md](items.md) para reglas de unicidad y efectos automáticos.
 - Cualquier otro caso de uso que opere con planificaciones debe referenciar este catálogo común.
 
 ---

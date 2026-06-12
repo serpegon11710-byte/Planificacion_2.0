@@ -216,7 +216,7 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 Resumen de estado (2026-06-12):
 
 - **Resueltas:** FAQ-001 a FAQ-009, FAQ-104 a FAQ-108 (ver FAQ).
-- **Pendientes de ejecutar:** Step 7b (Proyecto/Item), Step 8b (N3 Front-End).
+- **Pendientes de ejecutar:** Step 8b (N3 Front-End).
 - **Postergadas:** FAQ-101, FAQ-102 (Step 9c).
 
 ## Próximos Pasos
@@ -225,7 +225,7 @@ Resumen de estado (2026-06-12):
 [x] 2. Ejecutar Fase 1: Crear estructura base y README
 [x] 3. Ejecutar Fase 2: Documentar casos de uso
 [x] 4. Ejecutar Fase 3: Documentar modelos funcionales del dominio (Step 7)
-[ ] 5. Ejecutar Step 7b: Documentar entidades Proyecto e Item (FAQ-005)
+[x] 5. Ejecutar Step 7b: Documentar entidades Proyecto e Item (FAQ-005)
 [x] 6. Ejecutar Fase 4 parcial: Diagramas C4 N1–N4 canonico (Step 8)
 [x] 7. Ejecutar Step 8c: Trazabilidad UC ↔ C4 distribuida (FAQ-104)
 [ ] 8. Ejecutar Step 8b: Diagrama C4 N3 Front-End (FAQ-103)

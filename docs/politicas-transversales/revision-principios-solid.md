@@ -1,4 +1,4 @@
-﻿# Revision global de principios SOLID
+# Revision global de principios SOLID
 
 Este documento audita el cumplimiento de los principios SOLID en **toda** la documentacion del proyecto Planificacion 2.0, no solo en la carpeta de arquitectura.
 
@@ -13,7 +13,7 @@ Verificar coherencia de diseno a nivel global como parte del Step 9b, antes del 
 | Raiz | `README.md` |
 | Planificacion | `docs/planificacion/planificacion-inicial.md` |
 | Casos de uso | `docs/casos-uso/README.md`, UC-01.*, UC-02.*, UC-03 |
-| Entidades | `docs/entidades/planificaciones.md`, `docs/entidades/ocurrencias.md` |
+| Entidades | `docs/entidades/planificaciones.md`, `ocurrencias.md`, `proyectos.md`, `items.md` |
 | Politicas transversales | `docs/politicas-transversales/` |
 | Arquitectura | `docs/arquitectura/README.md` y todos sus documentos de soporte |
 | Diagramas C4 | `docs/diagramas-c4/` (N1–N3, N4 canonico en `c4-nivel-4/pseudocodigo/`) |
@@ -60,6 +60,8 @@ Verificar coherencia de diseno a nivel global como parte del Step 9b, antes del 
 |-----------|----------------------|--------|
 | `planificaciones.md` | Catalogo de tipos y reglas de configuracion/cambio | Cumple |
 | `ocurrencias.md` | Comportamiento de ocurrencias (calculo, estado, materializacion) | Cumple |
+| `proyectos.md` | Reglas de proyecto, unicidad, efectos automaticos y cascada | Cumple |
+| `items.md` | Reglas de item, unicidad por proyecto, planificacion inicial | Cumple |
 
 Separar planificaciones y ocurrencias en dos ficheros respeta SRP: cada uno cambia por razones distintas.
 
@@ -219,7 +221,7 @@ Las flechas indican referencia/trazabilidad, no acoplamiento de implementacion.
 
 ## Deuda documental detectada (no bloqueante)
 
-Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-005, FAQ-109).
+Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, FAQ-102 — Step 9c).
 
 ---
 

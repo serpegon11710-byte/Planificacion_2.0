@@ -49,6 +49,7 @@ Este caso de uso no calcula ocurrencias dinámicas; solo lista planificaciones d
 ## Casos Relacionados
 
 - Referencia de tipo: [docs/entidades/planificaciones.md](../entidades/planificaciones.md)
+- Proyecto / item (filtro): [proyectos.md](../entidades/proyectos.md), [items.md](../entidades/items.md)
 
 
 ## Trazabilidad C4

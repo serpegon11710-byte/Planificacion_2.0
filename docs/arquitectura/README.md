@@ -1,4 +1,4 @@
-﻿# Punto de partida para el analisis de arquitectura
+# Punto de partida para el analisis de arquitectura
 
 ## Estado actual
 
@@ -60,7 +60,7 @@ Visualizacion documentada en Step 8 del plan. Indice: `docs/diagramas-c4/README.
 
 | Nivel | Estado | Contenido |
 |-------|--------|-----------|
-| N1–N3 | Cerrado | Contexto, contenedores y componentes (`.mmd`) |
+| N1–N3 | Cerrado | Contexto, contenedores y componentes Back-End + Front-End (`.mmd`) |
 | N4 canonico | Cerrado | Pseudocodigo por zona critica (`c4-nivel-4/pseudocodigo/`) |
 | N4 implementacion | Pendiente (Step 9c) | Proyeccion al stack (`c4-nivel-4/implementacion/`) |
 

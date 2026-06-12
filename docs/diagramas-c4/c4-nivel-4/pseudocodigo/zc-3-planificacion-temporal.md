@@ -41,15 +41,26 @@ flowchart LR
 
 ---
 
-## Inferencia de naturaleza
+## Inferencia de clase concreta
+
+Jerarquia: [modelo-clases-planificacion.md](../../../entidades/modelo-clases-planificacion.md).
 
 ```
-FUNCION inferirNaturaleza(planificacion):
+FUNCION inferirClase(planificacion):
   SI planificacion.fecha_inicio ES NULL Y planificacion.fecha_fin ES NULL:
-    RETORNAR SIN_PLANIFICAR
+    RETORNAR PlanificacionSinPlanificar
   SI planificacion.periodo ES NULL:
-    RETORNAR PUNTUAL   // fecha_inicio = fecha_fin
-  RETORNAR PERIODICA
+    RETORNAR PlanificacionPuntual
+  SEGUN planificacion.periodo.tipo_periodo.codigo:
+    "Diario":   RETORNAR PlanificacionDiaria
+    "Semanal":  RETORNAR PlanificacionSemanal
+    "Mensual":  RETORNAR PlanificacionMensual
+
+FUNCION inferirNaturaleza(planificacion):
+  clase = inferirClase(planificacion)
+  SI clase ES PlanificacionSinPlanificar: RETORNAR SIN_PLANIFICAR
+  SI clase ES PlanificacionPuntual: RETORNAR PUNTUAL
+  RETORNAR PERIODICA   // PlanificacionDiaria | Semanal | Mensual
 ```
 
 ---
@@ -142,9 +153,10 @@ FUNCION validarTransicion(actual, destino):
   SI (origen == PUNTUAL Y destino_n == PERIODICA) O (origen == PERIODICA Y destino_n == PUNTUAL):
     LANZAR ErrorFuncional("CAMBIO_TIPO_PUNTUAL_PERIODICA_NO_PERMITIDO")
 
+  // RT-5: Diario <-> Semanal <-> Mensual solo via Sin planificar (RT-3 + RT-1)
   SI origen == PERIODICA Y destino_n == PERIODICA:
     SI actual.periodo.tipo_periodo_id != destino.periodo.tipo_periodo_id:
-      LANZAR ErrorFuncional("CAMBIO_TIPO_PERIODO_NO_PERMITIDO")
+      LANZAR ErrorFuncional("CAMBIO_TIPO_PERIODO_NO_PERMITIDO")   // mismo criterio que RT-4
 
   SI origen == PUNTUAL Y destino_n == SIN_PLANIFICAR:
     SI actual.estado != PENDIENTE:

@@ -1,0 +1,56 @@
+classDiagram
+    direction TB
+
+    class Planificacion {
+        <<abstract>>
+        +item_id: ItemId
+        +fecha_inicio: Fecha?
+        +fecha_fin: Fecha?
+        +hora: Hora?
+        +observaciones: Texto
+        +estado: EstadoPlanificacion?
+        +listarOcurrencias(rango)* Lista~Ocurrencia~
+        +validar()*
+    }
+
+    class PlanificacionSinPlanificar {
+        fechas y hora vacías
+        observaciones obligatorias
+        estado siempre NULL
+        +listarOcurrencias() vacía
+    }
+
+    class PlanificacionPuntual {
+        fecha_inicio = fecha_fin
+        +listarOcurrencias() una dinámica
+    }
+
+    class PlanificacionPeriodica {
+        <<abstract>>
+        +periodo: DatosPeriodo
+        +listarOcurrencias(rango) dinámicas y materializadas
+        +generarNaturales(rango)* Lista~Ocurrencia~
+    }
+
+    class PlanificacionDiaria {
+        +variante_diaria: VarianteDiaria
+        +generarNaturales(rango)
+    }
+
+    class PlanificacionSemanal {
+        +dias_semana: Texto LMXJVSD
+        +generarNaturales(rango)
+    }
+
+    class PlanificacionMensual {
+        +dia_mes: Entero
+        +comportamiento_mes_corto: ComportamientoMesCorto?
+        +generarNaturales(rango)
+    }
+
+    Planificacion <|-- PlanificacionSinPlanificar
+    Planificacion <|-- PlanificacionPuntual
+    Planificacion <|-- PlanificacionPeriodica
+    PlanificacionPeriodica <|-- PlanificacionDiaria
+    PlanificacionPeriodica <|-- PlanificacionSemanal
+    PlanificacionPeriodica <|-- PlanificacionMensual

@@ -20,13 +20,15 @@ Una ocurrencia es una instancia concreta en fecha/hora de una planificación.
 
 ---
 
-## Comportamiento por naturaleza
+## Comportamiento por clase de planificación
 
-| Naturaleza | Listado |
-|------------|---------|
-| **Sin planificar** | Lista vacía |
-| **Puntual** | Un elemento dinámico con datos de `Planificaciones` (`fecha_inicio`, `hora`, `observaciones`, `estado`) |
-| **Periódica** | Mezcla de ocurrencias dinámicas (motor según `PlanificacionPeriodo`) y materializadas en BD |
+Jerarquía: [modelo-clases-planificacion.md](modelo-clases-planificacion.md).
+
+| Clase | `listarOcurrencias` |
+|-------|---------------------|
+| `PlanificacionSinPlanificar` | Lista vacía |
+| `PlanificacionPuntual` | Un elemento dinámico con datos de `Planificaciones` |
+| `PlanificacionDiaria` / `PlanificacionSemanal` / `PlanificacionMensual` | Dinámicas (`generarNaturales`) ∪ materializadas en BD |
 
 ---
 
@@ -115,5 +117,5 @@ Tabla `OcurrenciasMaterializadas` — ver [modelo-entidad-relacion.md](modelo-en
 
 ## Referencias
 
-- [planificaciones.md](planificaciones.md)
+- [modelo-clases-planificacion.md](modelo-clases-planificacion.md), [planificaciones.md](planificaciones.md)
 - [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-003, FAQ-004)

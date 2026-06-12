@@ -3,13 +3,13 @@
 **Última actualización:** 2026-06-12 (`TipoPeriodo` catálogo de visibilidad de campos)  
 **Step:** 10
 
-Modelo lógico de persistencia para Planificacion 2.0. Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105, 106, 107, 110, 111) y entidades en esta carpeta.
+Modelo lógico de persistencia para Planificacion 2.0. **Jerarquía de clases de dominio:** [modelo-clases-planificacion.md](modelo-clases-planificacion.md). Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105, 106, 107, 110, 111, 112, 113) y entidades en esta carpeta.
 
 **Notas transversales:**
 
 - Fechas y horas en **UTC** (FAQ-002). El formateo a locale es responsabilidad de la capa de presentación.
 - Tipos físicos concretos (`TIMESTAMPTZ`, etc.) se fijan en Step 11 al elegir motor de BBDD.
-- La **naturaleza** de una planificación (Sin planificar, Puntual, Periódica) se **infiere** de los datos; no hay flags ni columnas discriminadoras.
+- La **clase concreta** de dominio (`PlanificacionSinPlanificar`, `PlanificacionPuntual`, `PlanificacionDiaria`, …) se **infiere** de los datos; no hay flags ni columnas discriminadoras en BD.
 
 ---
 
@@ -122,15 +122,15 @@ Una fila por planificación del item. Campos comunes a todas las especializacion
 | `observaciones` | Condicional | Obligatorias en Sin planificar (RC-8); opcionales en el resto |
 | `estado` | Condicional | `Pendiente` \| `Completada`; **siempre `NULL` en Sin planificar** |
 
-### Naturaleza inferida (sin flags)
+### Clase de dominio inferida (sin flags)
 
-| Naturaleza | Condición en persistencia |
-|------------|---------------------------|
-| **Sin planificar** | `fecha_inicio` y `fecha_fin` son `NULL` |
-| **Puntual** | `fecha_inicio` tiene valor, **no** existe fila en `PlanificacionPeriodo`, `fecha_inicio = fecha_fin` |
-| **Periódica** | Existe fila en `PlanificacionPeriodo`, `fecha_fin > fecha_inicio` |
+| Clase concreta | Condición en persistencia |
+|----------------|---------------------------|
+| `PlanificacionSinPlanificar` | `fecha_inicio` y `fecha_fin` son `NULL` |
+| `PlanificacionPuntual` | `fecha_inicio` tiene valor, **no** existe `PlanificacionPeriodo`, `fecha_inicio = fecha_fin` |
+| `PlanificacionDiaria` / `Semanal` / `Mensual` | Existe `PlanificacionPeriodo`, `fecha_fin > fecha_inicio`; subclase según `TipoPeriodo.codigo` |
 
-El **tipo de periodo** (`Diario`, `Semanal`, `Mensual`) viene de `PlanificacionPeriodo.tipo_periodo_id` → `TipoPeriodo.codigo`, no de la tabla común.
+Detalle y diagrama: [modelo-clases-planificacion.md](modelo-clases-planificacion.md).
 
 ---
 
@@ -286,5 +286,5 @@ Listar cada planificación bloqueante con **`IdentificablePorUsuario`** — ver 
 
 ## Referencias
 
-- [planificaciones.md](planificaciones.md), [proyectos.md](proyectos.md), [items.md](items.md), [ocurrencias.md](ocurrencias.md)
+- [modelo-clases-planificacion.md](modelo-clases-planificacion.md), [planificaciones.md](planificaciones.md), [proyectos.md](proyectos.md), [items.md](items.md), [ocurrencias.md](ocurrencias.md)
 - [internacionalizacion.md](../politicas-transversales/internacionalizacion.md)

@@ -8,7 +8,9 @@
 
 Este documento define la entidad abstracta **Planificación**, sus especializaciones de dominio, el modelo de persistencia (ER) y las reglas de configuración. Cualquier caso de uso que capture, valide o persista planificaciones debe referenciar este documento como fuente única.
 
-Decisiones de modelo: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-105, FAQ-106, FAQ-107, FAQ-110, FAQ-111).
+**Jerarquía de clases (dominio):** [modelo-clases-planificacion.md](modelo-clases-planificacion.md) — diagrama y mapeo persistencia ↔ clase.
+
+Decisiones de modelo: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-105, FAQ-106, FAQ-107, FAQ-110, FAQ-111, FAQ-112).
 
 ---
 
@@ -24,7 +26,17 @@ Lo que define a toda planificación:
 | `observaciones` | Texto libre; obligatorias en Sin planificar |
 | `estado` | `Pendiente` \| `Completada`; vacío en Sin planificar |
 
-La clase de dominio es **abstracta**. La naturaleza concreta se deduce de los datos persistidos (sin flags).
+La clase de dominio es **abstracta**. La clase concreta se instancia vía factory desde persistencia (sin flags en BD) — ver [modelo-clases-planificacion.md](modelo-clases-planificacion.md).
+
+```text
+Planificacion (abstracta)
+├── PlanificacionSinPlanificar
+├── PlanificacionPuntual
+└── PlanificacionPeriodica (abstracta)
+    ├── PlanificacionDiaria
+    ├── PlanificacionSemanal
+    └── PlanificacionMensual
+```
 
 ---
 
@@ -50,7 +62,7 @@ La clase de dominio es **abstracta**. La naturaleza concreta se deduce de los da
 | Periodo | **No** existe fila en `PlanificacionPeriodo` |
 | Ocurrencias | Una sola ocurrencia **dinámica** que refleja los datos de la planificación |
 
-### `PlanificacionPeriodica` (abstracta en dominio)
+### `PlanificacionPeriodica` (abstracta)
 
 | Característica | Regla |
 |----------------|-------|
@@ -60,19 +72,32 @@ La clase de dominio es **abstracta**. La naturaleza concreta se deduce de los da
 | Periodo | Existe fila **1:1** en `PlanificacionPeriodo` |
 | Ocurrencias | Una o varias, dinámicas y/o materializadas |
 
-Segunda especialización por **subtipo** (algoritmo de ocurrencias naturales):
+No se instancia directamente. Segunda especialización por clase concreta (cada una con su `generarNaturales` en ZC-1):
 
-| Tipo de periodo (`TipoPeriodo.codigo`) | Configuración en `PlanificacionPeriodo` |
-|--------------------------------------|----------------------------------------|
-| **Diario** | `variante_diaria`: Todos los días \| Lunes a Viernes \| Fin de semana (FAQ-001) |
-| **Semanal** | `dias_semana`: letras **L M X J V S D** (p. ej. `MX`, `LMXJVSD`) |
-| **Mensual** | `dia_mes` (1–31); `comportamiento_mes_corto` si `dia_mes > 28` |
+#### `PlanificacionDiaria` (`TipoPeriodo.codigo = Diario`)
+
+| Campo de patrón | Regla |
+|-----------------|-------|
+| `variante_diaria` | FAQ-001: Todos los días \| Lunes a Viernes \| Fin de semana |
+
+#### `PlanificacionSemanal` (`TipoPeriodo.codigo = Semanal`)
+
+| Campo de patrón | Regla |
+|-----------------|-------|
+| `dias_semana` | Letras **L M X J V S D** (p. ej. `MX`, `LMXJVSD`) |
+
+#### `PlanificacionMensual` (`TipoPeriodo.codigo = Mensual`)
+
+| Campo de patrón | Regla |
+|-----------------|-------|
+| `dia_mes` | 1–31 |
+| `comportamiento_mes_corto` | Obligatorio si `dia_mes > 28` |
 
 ---
 
 ## Modelo de persistencia (ER)
 
-Definición canónica: [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
+Definición canónica: [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico de filas por item y `fecha_inicio`: FAQ-113.
 
 ```
 Items 1──N Planificaciones
@@ -144,23 +169,25 @@ flowchart LR
   Cat -->|codigo| M
 ```
 
-1. **Naturaleza:** `inferirNaturaleza(planificacion)` desde fechas y presencia de periodo.
+1. **Clase concreta:** `inferirClase(planificacion)` — ver [modelo-clases-planificacion.md](modelo-clases-planificacion.md).
 2. **Captura / validación periódica:** cargar `TipoPeriodo` por `tipo_periodo_id`; mostrar y validar solo columnas con visibilidad `true`.
-3. **Motor:** estrategia por `TipoPeriodo.codigo`.
+3. **Motor:** polimorfismo en `PlanificacionDiaria` / `PlanificacionSemanal` / `PlanificacionMensual` (`generarNaturales`).
 
 ---
 
 ## Modelo de dominio (código)
 
-| Clase | Persistencia |
-|-------|--------------|
+Diagrama y factory: **[modelo-clases-planificacion.md](modelo-clases-planificacion.md)**.
+
+| Clase concreta | Persistencia |
+|----------------|--------------|
 | `PlanificacionSinPlanificar` | `Planificaciones` (fechas NULL, sin periodo) |
 | `PlanificacionPuntual` | `Planificaciones` (inicio = fin, sin periodo) |
-| `PlanificacionPeriodicaDiaria` | `Planificaciones` + `PlanificacionPeriodo` |
-| `PlanificacionPeriodicaSemanal` | `Planificaciones` + `PlanificacionPeriodo` |
-| `PlanificacionPeriodicaMensual` | `Planificaciones` + `PlanificacionPeriodo` |
+| `PlanificacionDiaria` | `Planificaciones` + `PlanificacionPeriodo` (`Diario`) |
+| `PlanificacionSemanal` | `Planificaciones` + `PlanificacionPeriodo` (`Semanal`) |
+| `PlanificacionMensual` | `Planificaciones` + `PlanificacionPeriodo` (`Mensual`) |
 
-Factory / mapper: `Planificacion.desdePersistencia(fila, periodo_opcional)`.
+`Planificacion` y `PlanificacionPeriodica` son **abstractas**; no se persisten como tipos distintos.
 
 ---
 
@@ -212,6 +239,7 @@ UC-01.4 persiste configuración base; no gestiona ocurrencias individuales salvo
 
 ### RC-5: Evolución del catálogo
 
+Nuevo tipo de periodo: fila en `TipoPeriodo`, nueva subclase de `PlanificacionPeriodica` (p. ej. `PlanificacionQuincenal`), columnas en ER, `generarNaturales` en ZC-1.
 
 ### RC-6: Eliminación restringida (RE-3, RE-4)
 
@@ -248,9 +276,9 @@ Precondiciones: `estado = Pendiente`; sin ocurrencias materializadas. **Eliminar
 
 No permitido directamente (solo vía Sin planificar).
 
-### RT-5: Cambio de tipo de periodo
+### RT-5: Cambio entre tipos de periodo (Diario ↔ Semanal ↔ Mensual)
 
-No se permite modificar `tipo_periodo_id` de un `PlanificacionPeriodo` existente.
+No permitido directamente (solo vía Sin planificar): la planificación periódica debe pasar primero por **RT-3** (→ Sin planificar, sin ocurrencias materializadas) y luego por **RT-1** (→ Periódica con el nuevo `tipo_periodo_id`). No se puede modificar `tipo_periodo_id` de un `PlanificacionPeriodo` existente in situ.
 
 ---
 
@@ -265,9 +293,10 @@ No se permite modificar `tipo_periodo_id` de un `PlanificacionPeriodo` existente
 
 ## Trazabilidad C4
 
-| Zona | Rol |
-|------|-----|
-| [ZC-3](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-3-planificacion-temporal.md) | Validación, RT-*, inferencia de naturaleza |
+| Artefacto / zona | Rol |
+|------------------|-----|
+| [modelo-clases-planificacion.md](modelo-clases-planificacion.md) | Jerarquía de clases e `inferirClase` |
+| [ZC-3](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-3-planificacion-temporal.md) | Validación, RT-*, `inferirClase` |
 | [ZC-1](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-1-consulta-ocurrencias.md) | Motor por subtipo periódico |
 | [ZC-5](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | `Planificaciones`, `PlanificacionPeriodo` |
 | [ZC-6](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-6-presentacion.md) | Formulario UC-01.5 |

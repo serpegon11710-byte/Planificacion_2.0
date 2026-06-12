@@ -191,6 +191,22 @@ Asi quien implementa una ZC ve de inmediato el origen funcional; quien lee un UC
 
 ---
 
+### FAQ-112 — Diagrama de clases de Planificacion
+
+**Origen:** Alineacion dominio / persistencia / pseudocodigo.
+
+**Resolucion (2026-06-12):**
+
+Jerarquia canonica en `docs/entidades/modelo-clases-planificacion.md` (+ `.mmd`):
+
+- `Planificacion` (abstracta) → `PlanificacionSinPlanificar`, `PlanificacionPuntual`, `PlanificacionPeriodica` (abstracta) → `PlanificacionDiaria`, `PlanificacionSemanal`, `PlanificacionMensual`.
+- Factory `inferirClase` / `Planificacion.desdePersistencia` enlaza ER con clases concretas.
+- Nombres `PlanificacionPeriodicaDiaria` etc. quedan **obsoletos**; usar subclases directas de `PlanificacionPeriodica`.
+
+**Entregable:** trazabilidad en `planificaciones.md`, `ocurrencias.md`, ZC-1, ZC-3. **Completado (2026-06-12).**
+
+---
+
 ### FAQ-107 — Nomenclatura «Sin planificar»
 
 **Origen:** FAQ-105 / modelo ER.
@@ -294,12 +310,12 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108 |
 | `entidades/ocurrencias.md` | FAQ-003, 004 |
 | `entidades/proyectos.md`, `items.md` | FAQ-005 |
-| `entidades/planificaciones.md` | FAQ-001, 105, 106, 107, 110, 111 |
+| `entidades/planificaciones.md`, `modelo-clases-planificacion.md` | FAQ-001, 105, 106, 107, 110, 111, 112 |
 | `revision-principios-solid.md` | FAQ-005, 009 |
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
 | Step 11 | FAQ-007, 101, 102 |
 | Step 12 | N4 implementacion por stack |
-| Step 10 | FAQ-002, 004, 105, 106, 108, 110, 111 |
+| Step 10 | FAQ-002, 004, 105, 106, 108, 110, 111, 112 |
 
 ---
 

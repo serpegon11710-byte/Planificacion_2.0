@@ -83,6 +83,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 **Step 7: Documentar modelos funcionales** (*depends on 3-6*)
 - Archivos:
   - `docs/entidades/planificaciones.md`
+  - `docs/entidades/modelo-clases-planificacion.md` (jerarquía de clases; FAQ-112)
   - `docs/entidades/ocurrencias.md`
 - Definir estructura funcional del dominio y trazabilidad con casos de uso.
 
@@ -195,6 +196,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/politicas-transversales/internacionalizacion.md` | Politica transversal de i18n |
 | `docs/planificacion/dudas-y-resoluciones.md` | FAQ centralizado de dudas, resoluciones y nomenclatura |
 | `docs/entidades/modelo-entidad-relacion.md` | Diagrama ERD Mermaid (Step 10) |
+| `docs/entidades/modelo-clases-planificacion.md` | Diagrama de clases dominio (FAQ-112) |
 
 ## Verificación
 
@@ -233,7 +235,7 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 
 Resumen de estado (2026-06-12):
 
-- **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-111 (decisiones cerradas; ER en Step 10).
+- **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-112 (decisiones cerradas; ER en Step 10).
 - **Postergadas a Step 11:** FAQ-007 (detalle archivo N4), FAQ-101, FAQ-102.
 - **Entregables pendientes:** Step 11–12 (stack + N4 implementacion).
 

@@ -3,6 +3,7 @@
 **Componente N3:** `Ocurrencia`, `Planificacion` (lectura)  
 **Prioridad:** Alta  
 **Reglas:** `docs/entidades/ocurrencias.md` (RO-1, RO-3, RO-7)  
+**Clases:** `docs/entidades/modelo-clases-planificacion.md` (`generarNaturales` por subclase periódica)  
 **Casos de uso:** UC-02.1, UC-02.3 (lectura previa), UC-02.4
 
 ## Trazabilidad (FAQ-104)
@@ -180,16 +181,17 @@ FUNCION generarPeriodicaPendiente(planificacion, desde, hasta, fechas_ocupadas):
 
 ```
 FUNCION coincideConPatron(planificacion, fecha):
+  // Delegacion polimorfica: PlanificacionDiaria | Semanal | Mensual — modelo-clases-planificacion.md
   periodo = planificacion.periodo
-  SEGUN periodo.tipo_periodo.codigo:
-    "Diario":
+  SEGUN inferirClase(planificacion):
+    PlanificacionDiaria:
       SEGUN periodo.variante_diaria:
         TODOS: RETORNAR VERDADERO
         LUN_VIE: RETORNAR fecha.esLaboral()
         FIN_SEMANA: RETORNAR fecha.esFinDeSemana()
-    "Semanal":
+    PlanificacionSemanal:
       RETORNAR fecha.letraDiaSemana() CONTENIDA_EN periodo.dias_semana
-    "Mensual":
+    PlanificacionMensual:
       dia_objetivo = periodo.dia_mes
       SI fecha.dia == dia_objetivo: RETORNAR VERDADERO
       SI dia_objetivo > 28 Y fecha.esUltimoDiaDelMes() Y periodo.comportamiento_mes_corto == ULTIMO_DIA_MES:

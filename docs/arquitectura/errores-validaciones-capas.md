@@ -1,4 +1,4 @@
-# Politicas de errores y validaciones por capa
+﻿# Politicas de errores y validaciones por capa
 
 Este documento define como se clasifican, validan y propagan los errores en Planificacion 2.0, respetando la arquitectura por capas y los contratos acordados.
 
@@ -171,7 +171,7 @@ Codigos acordados alineados con casos de uso y entidades existentes. La columna 
 | `PLANIFICACION_ULTIMA_NO_ELIMINABLE` | No se puede eliminar la ultima planificacion del item. | Planificacion | RN-3.4 / RN-4.2 |
 | `PLANIFICACION_CONFIGURACION_INVALIDA` | La configuracion de planificacion no es valida para el tipo seleccionado. | Planificacion | RC-1, RC-2, RC-3 |
 | `PLANIFICACION_CAMBIO_TIPO_NO_PERMITIDO` | No se permite el cambio de tipo de planificacion solicitado. | Planificacion | RT-4, RT-5 |
-| `PLANIFICACION_A_NO_PLANIFICADO_BLOQUEADA` | No se puede cambiar a No planificado: existen ocurrencias modificadas o la planificacion esta completada. | Planificacion | RT-2, RT-3 |
+| `PLANIFICACION_A_SIN_PLANIFICAR_BLOQUEADA` | No se puede cambiar a Sin planificar: existen ocurrencias modificadas o la planificacion esta completada. | Planificacion | RT-2, RT-3 |
 | `OCURRENCIA_NO_ENCONTRADA` | La ocurrencia solicitada no existe. | Ocurrencia | — |
 | `OCURRENCIA_TIPO_NO_SOPORTADO` | Esta operacion no aplica al tipo de planificacion indicado. | Ocurrencia | RN-2.2.3 |
 | `RANGO_TEMPORAL_INVALIDO` | Debe indicar un rango de fechas valido para la consulta. | Planificacion / Ocurrencia | RN-2.1.1 |
@@ -230,7 +230,7 @@ Principio: la capa de Negocio siempre tiene la ultima palabra; la validacion en 
 | UC-01.5 Captura datos | Presentacion | `PLANIFICACION_CONFIGURACION_INVALIDA`, campos obligatorios |
 | UC-02.1 Visualizacion | API + Negocio | `RANGO_TEMPORAL_INVALIDO` |
 | UC-02.2 / UC-02.3 / UC-02.4 | Negocio + Ocurrencia | `OCURRENCIA_TIPO_NO_SOPORTADO`, RO-* |
-| UC-03 Listar no planificado | Aplicacion (solo lectura) | `ENTRADA_INVALIDA` en filtros |
+| UC-03 Listar Sin planificar | Aplicacion (solo lectura) | `ENTRADA_INVALIDA` en filtros |
 
 ## Resultado
 
@@ -243,4 +243,4 @@ Quedan definidas las politicas de errores y validaciones para:
 
 Los mensajes orientativos de este documento alimentan el catalogo i18n del locale `es` (ver `docs/politicas-transversales/internacionalizacion.md`).
 
-Este documento es base para el Step 8c (stack tecnologico), cierre del Step 8 de arquitectura.
+Este documento es base para el Step 9c (stack tecnologico), cierre del Step 9 de arquitectura.

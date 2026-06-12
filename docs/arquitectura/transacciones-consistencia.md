@@ -1,4 +1,4 @@
-# Transacciones y limites de consistencia
+﻿# Transacciones y limites de consistencia
 
 Este documento define los limites transaccionales y de consistencia de Planificacion 2.0, alineado con la granularidad de modulos y los casos de uso existentes.
 
@@ -21,9 +21,9 @@ Establecer cuando una operacion debe ser atomica, que datos deben mantenerse con
 | Operacion | Modulos involucrados | Alcance transaccional |
 |-----------|---------------------|----------------------|
 | UC-01.1 Confirmar wizard | Proyecto + Item + Planificacion | Crear los tres agregados o ninguno |
-| UC-01.2 Crear proyecto | Proyecto + Item + Planificacion | Crear proyecto, item automatico y planificacion "No planificado" |
+| UC-01.2 Crear proyecto | Proyecto + Item + Planificacion | Crear proyecto, item automatico y planificacion "Sin planificar" |
 | UC-01.2 Eliminar proyecto | Proyecto + Item + Planificacion + Ocurrencia | Eliminar en cascada todo el arbol del proyecto |
-| UC-01.3 Crear item | Item + Planificacion | Crear item y planificacion "No planificado" automatica |
+| UC-01.3 Crear item | Item + Planificacion | Crear item y planificacion "Sin planificar" automatica |
 | UC-01.3 Eliminar item | Item + Planificacion + Ocurrencia | Eliminar item, sus planificaciones y ocurrencias materializadas |
 | UC-01.4 Crear/editar planificacion | Planificacion | Una planificacion y su definicion temporal |
 | UC-01.4 Eliminar planificacion | Planificacion + Ocurrencia | Eliminar planificacion y ocurrencias materializadas asociadas |
@@ -34,7 +34,7 @@ Establecer cuando una operacion debe ser atomica, que datos deben mantenerse con
 ### Operaciones de solo lectura (sin transaccion de escritura)
 
 - UC-02.1 Visualizacion de ocurrencias en rango.
-- UC-03 Listado de planificaciones "No planificado".
+- UC-03 Listado de planificaciones "Sin planificar".
 - Consultas de listado y detalle de Proyecto, Item y Planificacion.
 
 ## Reglas de consistencia entre agregados
@@ -66,7 +66,7 @@ Toda cascada se ejecuta dentro de una unica transaccion.
 
 ### RC-T4: Creacion automatica acoplada
 
-Al crear Proyecto (UC-01.2) o Item (UC-01.3), la planificacion "No planificado" automatica se crea en la misma transaccion. No puede quedar un Proyecto/Item sin su planificacion inicial.
+Al crear Proyecto (UC-01.2) o Item (UC-01.3), la planificacion "Sin planificar" automatica se crea en la misma transaccion. No puede quedar un Proyecto/Item sin su planificacion inicial.
 
 ### RC-T5: Ocurrencias calculadas vs materializadas
 
@@ -78,7 +78,7 @@ Consistencia: no se requiere transaccion entre el calculo y la lectura de materi
 
 ### RC-T6: Cambio de tipo de planificacion
 
-Los cambios de tipo (reglas RT-1 a RT-5 en `docs/entidades/planificaciones.md`) se aplican dentro de una unica transaccion sobre el agregado Planificacion. Si el cambio implica invalidar ocurrencias materializadas (por ejemplo, pasar a "No planificado" con ocurrencias explicitas), la validacion falla antes de persistir.
+Los cambios de tipo (reglas RT-1 a RT-5 en `docs/entidades/planificaciones.md`) se aplican dentro de una unica transaccion sobre el agregado Planificacion. Si el cambio implica invalidar ocurrencias materializadas (por ejemplo, pasar a "Sin planificar" con ocurrencias explicitas), la validacion falla antes de persistir.
 
 ## Limites de consistencia por capa
 

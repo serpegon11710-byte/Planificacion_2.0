@@ -14,8 +14,8 @@ Centralizar criterios globales de calidad e implementacion que no pertenecen a:
 
 | Archivo | Alcance | Step del plan |
 |---------|---------|---------------|
-| [revision-principios-solid.md](revision-principios-solid.md) | Cumplimiento SOLID en toda la documentacion | 8b |
-| [internacionalizacion.md](internacionalizacion.md) | Politica de i18n en implementacion | 8b |
+| [revision-principios-solid.md](revision-principios-solid.md) | Cumplimiento SOLID en toda la documentacion | 9b |
+| [internacionalizacion.md](internacionalizacion.md) | Politica de i18n en implementacion | 9b |
 
 ## Criterio de inclusion
 

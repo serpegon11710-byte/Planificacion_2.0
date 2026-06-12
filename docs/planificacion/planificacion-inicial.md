@@ -5,7 +5,7 @@
 
 ## Resumen Ejecutivo
 
-Crear la documentacion fundamental del proyecto Planificacion 2.0, incluyendo README principal, casos de uso, modelos funcionales, arquitectura logica y, como cierre de arquitectura, seleccion de stack tecnologico antes de definir el modelo entidad-relacion. El proyecto gestiona planificaciones de proyectos con definiciones de tiempo puntuales, periodicas (diarias, semanales, mensuales) y de tipo "No planificado".
+Crear la documentacion fundamental del proyecto Planificacion 2.0, incluyendo README principal, casos de uso, modelos funcionales, diagramas C4, arquitectura logica y, como cierre de arquitectura, seleccion de stack tecnologico antes de definir el modelo entidad-relacion. El proyecto gestiona planificaciones de proyectos con definiciones de tiempo puntuales, periodicas (diarias, semanales, mensuales) y de tipo "Sin planificar".
 
 ## Arquitectura de Componentes
 
@@ -13,7 +13,7 @@ Crear la documentacion fundamental del proyecto Planificacion 2.0, incluyendo RE
 - **Proyecto**: Contenedor principal identificado por nombre
   - **Item**: Subdivisión de proyecto
     - **Planificación**: Tarea con definición temporal y estado
-      - **Definición Fecha/Hora**: Especificación temporal (Puntual, Periódica, No planificado)
+      - **Definición Fecha/Hora**: Especificación temporal (Puntual, Periódica, Sin planificar)
 
 ### Estados de Planificación
 - **Pendiente**: No completada y dentro de plazo
@@ -34,7 +34,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - **Semanal**: Mismo día cada semana
 - **Mensual**: Mismo día cada mes
 
-#### 3. No planificado
+#### 3. Sin planificar
 - Sin fecha asignada (backlog)
 
 ## Plan de Implementación
@@ -43,7 +43,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 **Step 1: Crear README.md principal**
 - Documento raíz que define el proyecto, sus objetivos, arquitectura de datos, y componentes principales (Proyecto → Items → Planificaciones)
 - Incluir sección de arquitectura con descripción de componentes
-- Documentar tipos de planificación (Puntual, Periódica con subtipos, No planificado)
+- Documentar tipos de planificación (Puntual, Periódica con subtipos, Sin planificar)
 - Añadir estado de planificaciones (Completada, Pendiente, Expirada)
 - Incluir referencia a la carpeta docs/
 
@@ -58,7 +58,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Archivo: `docs/casos-uso/UC-01-mantenimiento-proyecto.md`
 - Incluir: actores, precondiciones, flujo principal, flujos alternativos
 - Diagrama Mermaid de secuencia mostrando interacción usuario → sistema
-- Cubrir escenarios de los diferentes tipos de planificación (Puntual, Periódica diaria/semanal/mensual, No planificado)
+- Cubrir escenarios de los diferentes tipos de planificación (Puntual, Periódica diaria/semanal/mensual, Sin planificar)
 
 **Step 4: Generar caso de uso: Gestión de ocurrencias** (*depends on 2*)
 - Archivo: `docs/casos-uso/UC-02-gestion-ocurrencias.md`
@@ -67,10 +67,10 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Considerar cómo mostrar planificaciones periódicas expandidas en el calendario
 - Incluir diferenciación visual de estados (pendiente, completada, expirada)
 
-**Step 5: Generar caso de uso: Listar planificaciones de tipo "No planificado"** (*depends on 2*)
-- Archivo: `docs/casos-uso/UC-03-listar-no-planificado.md`
+**Step 5: Generar caso de uso: Listar planificaciones de tipo "Sin planificar"** (*depends on 2*)
+- Archivo: `docs/casos-uso/UC-03-listar-sin-planificar.md`
 - Incluir: actores, precondiciones, flujo principal
-- Diagrama Mermaid de flujo mostrando filtrado de planificaciones tipo "No planificado"
+- Diagrama Mermaid de flujo mostrando filtrado de planificaciones tipo "Sin planificar"
 - Considerar acciones disponibles desde el listado (editar, convertir a planificada)
 
 **Step 6: Crear índice de casos de uso** (*depends on 3, 4, 5*)
@@ -85,10 +85,36 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - `docs/entidades/ocurrencias.md`
 - Definir estructura funcional del dominio y trazabilidad con casos de uso.
 
-### Fase 4: Definicion de arquitectura
-**Step 8: Definir arquitectura** (*depends on 7*)
+**Step 7b: Documentar entidades Proyecto e Item** (*depends on 3-6*; FAQ-005)
+- Archivos:
+  - `docs/entidades/proyectos.md`
+  - `docs/entidades/items.md`
+- Alcance: reglas de unicidad, CRUD funcional, efectos automaticos (item/planificacion al crear proyecto o item).
 
-**Step 8a: Arquitectura logica y contratos** (*depends on 7*)
+### Fase 4: Diagramas C4
+**Step 8: Documentar diagramas C4 (Niveles 1-4)** (*depends on 3-7*; integrado con arquitectura en Step 9a)
+- Carpeta: `docs/diagramas-c4/`
+- Archivo indice: `docs/diagramas-c4/README.md`
+- Diagramas (Mermaid C4):
+  - `docs/diagramas-c4/c4-nivel-1/c4-nivel-1-contexto.mmd` (N1 cerrado)
+  - `docs/diagramas-c4/c4-nivel-2/c4-nivel-2-contenedores.mmd` (N2 cerrado)
+  - `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes.mmd` (N3 cerrado)
+  - N4 canonico: `docs/diagramas-c4/c4-nivel-4/pseudocodigo/` + `zonas-criticas-n4.md` (cerrado)
+  - N4 implementacion por stack: `docs/diagramas-c4/c4-nivel-4/implementacion/` (pendiente hasta Step 9c)
+- Incorporar trazabilidad entre diagramas C4 y casos de uso UC-01, UC-02, UC-03 (ver FAQ-104 en [dudas-y-resoluciones.md](dudas-y-resoluciones.md))
+
+**Step 8b: Diagrama C4 N3 — Front-End** (*depends on 8*; FAQ-103)
+- Fichero: `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes-frontend.mmd`
+- Zoom de componentes UI (complementa N4 ZC-6).
+
+**Step 8c: Trazabilidad casos de uso ↔ C4** (*depends on 8*; FAQ-104)
+- Trazabilidad **distribuida**: cada ZC N4 en `pseudocodigo/zc-*.md` documenta los UCs que la justifican; cada UC referencia las ZC afectadas.
+- Sin fichero central.
+
+### Fase 5: Definicion de arquitectura
+**Step 9: Definir arquitectura** (*depends on 7, 8*)
+
+**Step 9a: Arquitectura logica y contratos** (*depends on 7, 8*)
 - Archivo principal: `docs/arquitectura/README.md`
 - Archivos de soporte:
   - `docs/arquitectura/contratos-minimos.md`
@@ -100,8 +126,9 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - Granularidad final de modulos de negocio
   - Transacciones y limites de consistencia
   - Politicas de errores y validaciones por capa
+  - Referencia cruzada con diagramas C4 (Step 8)
 
-**Step 8b: Verificacion transversal pre-stack** (*depends on 8a*)
+**Step 9b: Verificacion transversal pre-stack** (*depends on 9a*)
 - Carpeta: `docs/politicas-transversales/`
 - Archivos:
   - `docs/politicas-transversales/revision-principios-solid.md`
@@ -110,22 +137,19 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - Revision SOLID en toda la documentacion del proyecto
   - Politica de i18n para la implementacion
 
-**Step 8c: Stack tecnologico (cierre de arquitectura)** (*depends on 8a, 8b*)
-- Resultado: criterios y seleccion tecnologica alineada con arquitectura.
+**Step 9c: Stack tecnologico (cierre de arquitectura)** (*depends on 9a, 9b*)
+- Resultado: criterios y seleccion tecnologica alineada con arquitectura y diagramas C4.
 
-### Fase 5: Modelo de Datos (ER)
-**Step 9: Generar diagrama entidad-relación** (*depends on 8*)
+### Fase 6: Modelo de Datos (ER)
+**Step 10: Generar diagrama entidad-relación** (*depends on 9*)
 - Archivo: `docs/modelo-entidad-relacion.md`
-- Diagrama Mermaid ERD mostrando entidades:
-  - **Proyecto** (id, nombre, fecha_creacion)
-  - **Item** (id, proyecto_id, nombre, descripcion)
-  - **Planificacion** (id, item_id, observaciones, estado, fecha_completado)
-  - **DefinicionFechaHora** (id, planificacion_id, tipo, fecha_hora, fecha_inicio, fecha_fin, periodo, dias_semana, hora)
-- Relaciones: 
-  - Proyecto 1:N Item
-  - Item 1:N Planificacion
-  - Planificacion 1:1 DefinicionFechaHora
-- Incluir descripción de atributos clave y restricciones
+- Basarse en [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (FAQ-004 a FAQ-108) y [planificaciones.md](../entidades/planificaciones.md).
+- Entidades principales (orientativo; detalle en FAQ-105/106/108):
+  - **Proyecto**, **Item**
+  - **TipoPlanificacion** (catalogo: Puntual, SinPlanificar, Diario, Semanal, Mensual)
+  - **PlanificacionesPuntuales** (`sin_planificar`, fecha, hora)
+  - **PlanificacionesPeriodicas** (fecha_inicio, fecha_fin, hora, patron)
+  - **Ocurrencias** materializadas (FAQ-004)
 
 ## Archivos a Crear
 
@@ -134,18 +158,24 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `README.md` | Documentación principal del proyecto |
 | `docs/casos-uso/UC-01-mantenimiento-proyecto.md` | Caso de uso #1 con diagrama de secuencia |
 | `docs/casos-uso/UC-02-gestion-ocurrencias.md` | Caso de uso #2 con diagrama de casos y subcasos |
-| `docs/casos-uso/UC-03-listar-no-planificado.md` | Caso de uso #3 con diagrama de flujo |
+| `docs/casos-uso/UC-03-listar-sin-planificar.md` | Caso de uso #3 con diagrama de flujo |
 | `docs/casos-uso/README.md` | Índice de casos de uso |
 | `docs/entidades/planificaciones.md` | Modelo funcional de planificaciones |
 | `docs/entidades/ocurrencias.md` | Modelo funcional de ocurrencias |
+| `docs/entidades/proyectos.md` | Modelo funcional de proyectos (Step 7b) |
+| `docs/entidades/items.md` | Modelo funcional de items (Step 7b) |
 | `docs/arquitectura/README.md` | Base de arquitectura logica |
 | `docs/arquitectura/contratos-minimos.md` | Contratos logicos minimos de arquitectura |
 | `docs/arquitectura/granularidad-modulos-negocio.md` | Granularidad final de modulos de negocio |
 | `docs/arquitectura/transacciones-consistencia.md` | Transacciones y limites de consistencia |
 | `docs/arquitectura/errores-validaciones-capas.md` | Politicas de errores y validaciones por capa |
+| `docs/diagramas-c4/README.md` | Indice de diagramas C4 (N1–N4) |
+| `docs/diagramas-c4/c4-nivel-4/zonas-criticas-n4.md` | Zonas criticas y alcance del N4 |
+| `docs/diagramas-c4/c4-nivel-4/pseudocodigo/` | N4 canonico por zona critica (ZC-1 a ZC-6) |
 | `docs/politicas-transversales/README.md` | Indice de politicas transversales |
 | `docs/politicas-transversales/revision-principios-solid.md` | Revision global de cumplimiento SOLID |
 | `docs/politicas-transversales/internacionalizacion.md` | Politica transversal de i18n |
+| `docs/planificacion/dudas-y-resoluciones.md` | FAQ centralizado de dudas, resoluciones y nomenclatura |
 | `docs/modelo-entidad-relacion.md` | Diagrama ERD con modelo de datos |
 
 ## Verificación
@@ -154,11 +184,12 @@ Con fecha inicio, fecha fin y periodo de repetición:
 2. ✓ Los 3 casos de uso incluyen diagramas Mermaid que se renderizan correctamente
 3. ✓ Los casos de uso estan documentados y trazables
 4. ✓ Los modelos funcionales del dominio estan documentados y trazables con casos de uso
-5. ✓ La arquitectura se documenta en su propio README y sus archivos de soporte
-6. ✓ El stack tecnologico se define al cierre de arquitectura
-7. ✓ El diagrama entidad-relacion representa todas las entidades y relaciones descritas
-8. ✓ La estructura de carpetas docs/ facilita la organizacion y escalabilidad futura
-9. ✓ Todos los tipos de planificacion estan cubiertos (Puntual, Diaria, Semanal, Mensual, No planificado)
+5. ✓ Los diagramas C4 estan documentados (Step 8) e integrados con arquitectura (Step 9a)
+6. ✓ La arquitectura logica se documenta en su README y archivos de soporte (Step 9a)
+7. ✓ El stack tecnologico se define al cierre de arquitectura (Step 9c)
+8. ✓ El diagrama entidad-relacion representa todas las entidades y relaciones descritas
+9. ✓ La estructura de carpetas docs/ facilita la organizacion y escalabilidad futura
+10. ✓ Todos los tipos de planificacion estan cubiertos (Puntual, Diaria, Semanal, Mensual, Sin planificar)
 
 ## Decisiones Tomadas
 
@@ -173,38 +204,37 @@ Se utilizará formato estándar con secciones: Actores, Precondiciones, Flujo Pr
 - Diagramas de flujo para visualización/consultas
 
 ### Modelo de Datos
-Se propone separar DefinicionFechaHora como entidad independiente para permitir flexibilidad en tipos de planificación.
+Modelo ER segun FAQ-105/106/108: dos tablas de planificacion + catalogo de tipos. Ver [dudas-y-resoluciones.md](dudas-y-resoluciones.md) y [planificaciones.md](../entidades/planificaciones.md).
 
 ### Estados de Planificación
 Se consideran 3 estados (Pendiente, Completada, Expirada) donde "Expirada" se calcula dinámicamente según fecha actual vs. fecha planificada.
 
-## Consideraciones Pendientes
+## Dudas y resoluciones
 
-### 1. Nivel de detalle en periodos diarios
-**Pregunta:** ¿Los periodos "De Lunes a Viernes" y "Fin de semana" deben modelarse como atributos separados o como una lista de días de la semana?
+Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centralizan en **[dudas-y-resoluciones.md](dudas-y-resoluciones.md)** (FAQ).
 
-**Recomendación:** Usar una lista flexible (días_semana: [1,2,3,4,5] para L-V) para mayor extensibilidad.
+Resumen de estado (2026-06-12):
 
-### 2. Gestión de zona horaria
-**Pregunta:** ¿Las fechas/horas deben considerar zonas horarias o se asume una única zona horaria para todo el sistema?
-
-**Recomendación:** Definir esto ahora para el modelo de datos.
-
-### 3. Completado de planificaciones periódicas
-**Pregunta:** ¿Se marca como completada una instancia específica de una planificación periódica o la planificación completa?
-
-**Recomendación:** Aclarar si se necesita una entidad adicional "InstanciaPlanificacion" para trackear ocurrencias individuales.
+- **Resueltas:** FAQ-001 a FAQ-009, FAQ-104 a FAQ-108 (ver FAQ).
+- **Pendientes de ejecutar:** Step 7b (Proyecto/Item), Step 8b (N3 Front-End).
+- **Postergadas:** FAQ-101, FAQ-102 (Step 9c).
 
 ## Próximos Pasos
 
 [x] 1. Revisar y aprobar este plan
 [x] 2. Ejecutar Fase 1: Crear estructura base y README
 [x] 3. Ejecutar Fase 2: Documentar casos de uso
-[ ] 4. Ejecutar Fase 3: Documentar modelos funcionales del dominio
-[ ] 5. Ejecutar Fase 4: Definir arquitectura (pasos 8a, 8b, 8c)
-[ ] 6. Ejecutar Fase 5: Crear modelo entidad-relacion (paso 9)
-[ ] 7. Validar toda la documentacion
-[ ] 8. Proceder con la implementacion tecnica
+[x] 4. Ejecutar Fase 3: Documentar modelos funcionales del dominio (Step 7)
+[ ] 5. Ejecutar Step 7b: Documentar entidades Proyecto e Item (FAQ-005)
+[x] 6. Ejecutar Fase 4 parcial: Diagramas C4 N1–N4 canonico (Step 8)
+[x] 7. Ejecutar Step 8c: Trazabilidad UC ↔ C4 distribuida (FAQ-104)
+[ ] 8. Ejecutar Step 8b: Diagrama C4 N3 Front-End (FAQ-103)
+[x] 9. Ejecutar Fase 5 parcial: Arquitectura logica y verificacion transversal (Steps 9a, 9b)
+[ ] 10. Ejecutar Step 9c: Definir stack tecnologico (FAQ-101, FAQ-102)
+[ ] 11. Completar N4 implementacion por stack (depende de 9c)
+[ ] 12. Ejecutar Fase 6: Crear modelo entidad-relacion (Step 10)
+[ ] 13. Validar toda la documentacion
+[ ] 14. Proceder con la implementacion tecnica
 
 ## Historial
 2026-06-10 - Paso 1 Completado
@@ -215,6 +245,9 @@ Se consideran 3 estados (Pendiente, Completada, Expirada) donde "Expirada" se ca
 2026-06-11 - Arquitectura: granularidad final de modulos de negocio definida
 2026-06-12 - Arquitectura: granularidad completada (agregados, sub-UCs, orquestacion) y transacciones definidas
 2026-06-12 - Arquitectura: politicas de errores y validaciones por capa definidas
-2026-06-12 - Verificacion transversal: revision SOLID global e i18n reubicados en docs/ (fuera de arquitectura)
-2026-06-12 - Plan: Step 8 unificado con sub-pasos 8a, 8b y 8c; Step 9 renumerado (antes 10)
-2026-06-12 - Politicas transversales centralizadas en docs/politicas-transversales/
+2026-06-12 - Verificacion transversal: revision SOLID global e i18n reubicados en docs/politicas-transversales/
+2026-06-12 - Plan: Step 9 unificado con sub-pasos 9a, 9b y 9c; Step 10 renumerado (ER)
+2026-06-12 - Diagramas C4 (Step 8) e integracion con arquitectura (Step 9a); N4 canonico cerrado
+2026-06-12 - Plan corregido: indices duplicados resueltos — Step 7 modelos funcionales, Step 8 diagramas C4 (ambos pasos conservados)
+2026-06-12 - Revision SOLID actualizada incluyendo docs/diagramas-c4/
+2026-06-12 - FAQ actualizado con resoluciones del equipo; Steps 7b, 8b, 8c registrados

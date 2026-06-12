@@ -1,4 +1,4 @@
-# Granularidad final de modulos de negocio
+﻿# Granularidad final de modulos de negocio
 
 Este documento fija la granularidad de modulos de negocio para Planificacion 2.0, sin acoplarse a tecnologias concretas.
 
@@ -30,9 +30,9 @@ Definir limites funcionales claros entre modulos de dominio para:
 
 Notas de agregado:
 
-- La definicion temporal (puntual, periodica, no planificado) forma parte del agregado Planificacion, no de un modulo independiente.
+- La definicion temporal (puntual, periodica, Sin planificar) forma parte del agregado Planificacion, no de un modulo independiente.
 - Las ocurrencias naturales (calculadas) no pertenecen al agregado; solo las ocurrencias materializadas por modificacion individual.
-- "No planificado" es un tipo de Planificacion, no un modulo de negocio.
+- "Sin planificar" es un tipo de Planificacion, no un modulo de negocio.
 
 ## Elementos fuera de modulos de negocio
 
@@ -93,7 +93,7 @@ Incluye:
 
 - Entidad Planificacion.
 - Value objects de definicion temporal.
-- Casos de uso: crear, editar, eliminar, listar no planificado, consultar por item.
+- Casos de uso: crear, editar, eliminar, listar Sin planificar, consultar por item.
 
 Expone:
 
@@ -154,14 +154,14 @@ Regla:
 | UC-02.2 Gestion puntual individual | Planificacion | Ocurrencia | Transaccion unica (ocurrencia = planificacion) |
 | UC-02.3 Gestion periodica individual | Ocurrencia | Planificacion | Transaccion unica al materializar |
 | UC-02.4 Gestion por planificacion | Ocurrencia | Planificacion | Transaccion unica por operacion |
-| UC-03 Listar no planificado | Planificacion | Item (filtro opcional) | Solo lectura |
+| UC-03 Listar Sin planificar | Planificacion | Item (filtro opcional) | Solo lectura |
 
 ## Flujos de creacion automatica
 
 Reglas de negocio que cruzan modulos pero mantienen responsabilidad clara:
 
 - **UC-01.2 crear proyecto:** Proyecto crea el agregado; Item y Planificacion se crean como efecto colateral obligatorio en la misma unidad transaccional.
-- **UC-01.3 crear item:** Item crea el agregado; Planificacion "No planificado" se crea como efecto colateral obligatorio en la misma unidad transaccional.
+- **UC-01.3 crear item:** Item crea el agregado; Planificacion "Sin planificar" se crea como efecto colateral obligatorio en la misma unidad transaccional.
 - **UC-01.1 wizard:** el orquestador invoca Proyecto, Item y Planificacion al confirmar; si falla cualquier paso, no persiste nada.
 
 ## Resultado
@@ -177,4 +177,4 @@ Esta granularidad se considera base de referencia para los siguientes pasos de a
 
 - transacciones y limites de consistencia,
 - politicas de errores y validaciones por capa,
-- y Step 8c (seleccion de stack tecnologico).
+- y Step 9c (seleccion de stack tecnologico).

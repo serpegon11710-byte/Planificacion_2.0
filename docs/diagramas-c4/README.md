@@ -1,6 +1,8 @@
 # Diagramas C4
 
-Trabajo en paralelo al plan principal de documentacion. Visualiza la estructura del software Planificacion 2.0.
+Parte del **Step 8** del plan de documentacion. Visualiza la estructura del software Planificacion 2.0 e integra con arquitectura (Step 9a).
+
+Dudas abiertas (trazabilidad UC, N3 Front-End, etc.): [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
 
 ## Estructura por nivel
 
@@ -33,7 +35,7 @@ Un unico diagrama: componentes del Back-End, Capa de Persistencia y referencia a
 
 Las zonas criticas estan definidas en [zonas-criticas-n4.md](c4-nivel-4/zonas-criticas-n4.md).
 
-El N4 canonico es **pseudocodigo independiente del stack** en [pseudocodigo/](c4-nivel-4/pseudocodigo/). Cuando el stack este definido (Step 8c), se creara [implementacion/](c4-nivel-4/implementacion/) como proyeccion del canonico.
+El N4 canonico es **pseudocodigo independiente del stack** en [pseudocodigo/](c4-nivel-4/pseudocodigo/). Cada fichero `zc-*.md` incluye **trazabilidad con casos de uso** (FAQ-104); los UCs referencian las zonas criticas afectadas.
 
 ## Visualizacion
 

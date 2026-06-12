@@ -1,10 +1,10 @@
-# Revision global de principios SOLID
+﻿# Revision global de principios SOLID
 
 Este documento audita el cumplimiento de los principios SOLID en **toda** la documentacion del proyecto Planificacion 2.0, no solo en la carpeta de arquitectura.
 
 ## Objetivo
 
-Verificar coherencia de diseno a nivel global como parte del Step 8b, antes del Step 8c (stack tecnologico), identificando cumplimientos, desviaciones justificadas y deuda documental a corregir.
+Verificar coherencia de diseno a nivel global como parte del Step 9b, antes del Step 9c (stack tecnologico), identificando cumplimientos, desviaciones justificadas y deuda documental a corregir.
 
 ## Alcance revisado
 
@@ -16,6 +16,7 @@ Verificar coherencia de diseno a nivel global como parte del Step 8b, antes del 
 | Entidades | `docs/entidades/planificaciones.md`, `docs/entidades/ocurrencias.md` |
 | Politicas transversales | `docs/politicas-transversales/` |
 | Arquitectura | `docs/arquitectura/README.md` y todos sus documentos de soporte |
+| Diagramas C4 | `docs/diagramas-c4/` (N1–N3, N4 canonico en `c4-nivel-4/pseudocodigo/`) |
 
 ## Resumen global
 
@@ -51,7 +52,7 @@ Verificar coherencia de diseno a nivel global como parte del Step 8b, antes del 
 | UC-01.5 | Captura y validacion sin persistir | Cumple |
 | UC-02 (padre) | Vision de gestion de ocurrencias | Cumple |
 | UC-02.1 a UC-02.4 | Operaciones acotadas por tipo/contexto | Cumple |
-| UC-03 | Listado no planificado | Cumple |
+| UC-03 | Listado Sin planificar | Cumple |
 
 ### Entidades
 
@@ -66,6 +67,19 @@ Separar planificaciones y ocurrencias en dos ficheros respeta SRP: cada uno camb
 
 - Capas, modulos y orquestadores con responsabilidad explicita (`granularidad-modulos-negocio.md`, `errores-validaciones-capas.md`).
 - **Ajuste aplicado:** consulta de ocurrencias extraida a `OcurrenciaQueryPort` (no mezclada con CRUD de Planificacion).
+
+### Diagramas C4 (N4 pseudocodigo)
+
+| Zona / componente | Responsabilidad unica | Estado |
+|-------------------|----------------------|--------|
+| ZC-1 `CompositorOcurrenciasEnRango` | Composicion fisicas + naturales pendientes | Cumple |
+| ZC-2 `EnrutadorPorTipoPlanificacion` | Desvio puntual vs periodico | Cumple |
+| ZC-3 `ValidadorConfiguracion` / `GestorCambioTipo` | Validacion y cambio de tipo separados | Cumple |
+| ZC-4 Coordinadores por flujo (wizard, proyecto, item) | Orquestacion acotada por UC | Cumple |
+| ZC-5 Puertos por agregado | Persistencia segregada | Cumple |
+| ZC-6 `ModuloCapturaPlanificacion` / `ModuloVistaCalendario` | UI separada de persistencia | Cumple |
+
+El N4 canonico no mezcla capas: negocio no referencia SQL ni frameworks.
 
 ---
 
@@ -84,6 +98,11 @@ Separar planificaciones y ocurrencias en dos ficheros respeta SRP: cada uno camb
 
 - Puertos de persistencia y servicios de aplicacion permiten nuevas implementaciones sin alterar Negocio.
 - Codigos de error estables: nuevos codigos se anaden al catalogo sin romper consumidores.
+
+### Diagramas C4
+
+- **N4 canonico** cerrado a extension de logica; **N4 implementacion** abierto por stack sin redefinir reglas (OCP).
+- Nuevas zonas criticas o subcomponentes se anaden en pseudocodigo; la capa `{stack}/` se regenera, no se mezclan stacks.
 
 ### Criterio global de implementacion
 
@@ -109,6 +128,7 @@ Separar planificaciones y ocurrencias en dos ficheros respeta SRP: cada uno camb
 
 - Contract tests sobre puertos antes de integrar motor SQL.
 - Tests de UC-01.5 independientes de UC-01.1 y UC-01.4 (ya documentado como ventaja).
+- Sustitucion de adaptadores de persistencia (ZC-5) sin alterar ZC-1 a ZC-4.
 
 ---
 
@@ -124,6 +144,7 @@ Separar planificaciones y ocurrencias en dos ficheros respeta SRP: cada uno camb
 
 - Un repositorio por agregado; servicios de aplicacion acotados al modulo.
 - `OcurrenciaApplicationService` limitado a completar/reabrir; lecturas de calendario via `OcurrenciaQueryPort`.
+- ZC-6 validacion local es espejo UX de RC-*; la validacion definitiva permanece en ZC-3 (Back-End).
 
 ### Ajuste aplicado
 
@@ -148,6 +169,7 @@ Los casos de uso referencian el catalogo comun; no redefinen tipos ni reglas RC-
 - Negocio depende de puertos, no de infraestructura.
 - Presentacion depende de API/contratos, no de BBDD.
 - Persistencia implementa puertos definidos por capas superiores.
+- N4 pseudocodigo (ZC-5) define contratos; N4 implementacion traduce sin invertir dependencias.
 
 ### Diagrama de dependencias documentales
 
@@ -159,6 +181,7 @@ flowchart TD
     ENT[entidades]
     POL[politicas-transversales]
     ARCH[arquitectura]
+    C4[diagramas-c4]
 
     README --> UC
     README --> ENT
@@ -170,6 +193,10 @@ flowchart TD
     ARCH --> ENT
     ARCH --> UC
     ARCH --> POL
+    ARCH --> C4
+    C4 --> ENT
+    C4 --> UC
+    C4 --> ARCH
 ```
 
 Las flechas indican referencia/trazabilidad, no acoplamiento de implementacion.
@@ -186,14 +213,13 @@ Las flechas indican referencia/trazabilidad, no acoplamiento de implementacion.
 | entidades | ✓ | ✓ | ✓ | ✓ | ✓ |
 | politicas-transversales | ✓ | ✓ | — | ✓ | ✓ |
 | arquitectura | ✓ | ✓ | ✓ | ✓ | ✓ |
+| diagramas-c4 (N4 canonico) | ✓ | ✓ | ✓ | ✓ | ✓ |
 
 ---
 
 ## Deuda documental detectada (no bloqueante)
 
-| Item | Area | Accion recomendada |
-|------|------|-------------------|
-| Mensajes de error en espanol embebidos en flujos alternativos de UCs | casos-uso | Mantener como referencia UX; en implementacion usar codigos + i18n (`internacionalizacion.md`) |
+Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-005, FAQ-109).
 
 ---
 
@@ -203,9 +229,13 @@ Las flechas indican referencia/trazabilidad, no acoplamiento de implementacion.
 2. Separacion `codigo` / mensaje i18n en politica de errores (Negocio no emite literales de UI).
 3. Correccion de jerarquia de dependencias entre entidades en `docs/arquitectura/README.md`.
 4. Eliminacion de regla duplicada RN-5.5 en UC-01.5 (renumeracion de RN-5.6).
+5. Diagramas C4 (Step 8) integrados con arquitectura (Step 9a); N4 canonico en pseudocodigo alineado con contratos de arquitectura.
+6. Composicion de ocurrencias en ZC-1: lectura fisica previa + generacion incremental (evita doble calculo; coherente con SRP en consultas de rango amplio).
 
 ---
 
 ## Resultado
 
-La documentacion global del proyecto cumple SOLID de forma coherente. Las desviaciones detectadas son menores y no bloquean la seleccion de stack tecnologico. La revision debe repetirse al anadir nuevos casos de uso, entidades o modulos de arquitectura.
+**Ultima revision:** 2026-06-12 (post-integracion C4 con arquitectura)
+
+La documentacion global del proyecto cumple SOLID de forma coherente. Las desviaciones detectadas son menores y no bloquean la seleccion de stack tecnologico (Step 9c). La revision debe repetirse al anadir nuevos casos de uso, entidades, modulos de arquitectura o zonas criticas N4.

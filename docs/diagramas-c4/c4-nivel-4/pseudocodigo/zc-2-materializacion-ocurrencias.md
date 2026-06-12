@@ -5,6 +5,14 @@
 **Reglas:** `docs/entidades/ocurrencias.md` (RO-2, RO-4, RO-5, RO-6, RO-7)  
 **Casos de uso:** UC-02.2, UC-02.3, UC-02.4
 
+## Trazabilidad (FAQ-104)
+
+| Caso de uso | Rol en esta zona |
+|-------------|------------------|
+| [UC-02.2](../../casos-uso/UC-02.2-gestion-individual-planificacion-puntual.md) | Puntual: mutacion directa sobre planificacion |
+| [UC-02.3](../../casos-uso/UC-02.3-gestion-individual-ocurrencias-periodicas.md) | Materializacion y mutacion individual |
+| [UC-02.4](../../casos-uso/UC-02.4-gestion-ocurrencias-por-planificacion.md) | Gestion masiva de fisicas por planificacion |
+
 ---
 
 ## Estructura logica
@@ -50,7 +58,7 @@ FUNCION mutarOcurrencia(planificacion_id, fecha_original, cambios):
       RETORNAR mutador_puntual.aplicar(planificacion, cambios)
     PERIODICA:
       RETORNAR mutador_periodico.aplicar(planificacion, fecha_original, cambios)
-    NO_PLANIFICADO:
+    SIN_PLANIFICAR:
       LANZAR ErrorFuncional("TIPO_SIN_OCURRENCIAS")
 ```
 

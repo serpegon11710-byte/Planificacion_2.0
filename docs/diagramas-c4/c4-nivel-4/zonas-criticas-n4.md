@@ -9,9 +9,11 @@ El N4 se documenta en dos capas:
 | Capa | Ubicacion | Rol |
 |------|-----------|-----|
 | **Canonico** | [pseudocodigo/](pseudocodigo/) | Estructura logica + pseudocodigo; independiente del stack |
-| **Implementacion** | [implementacion/](implementacion/) | Proyeccion al stack concreto; pendiente hasta definir Step 8c |
+| **Implementacion** | [implementacion/](implementacion/) | Proyeccion al stack concreto; pendiente hasta definir Step 9c |
 
 El pseudocodigo es la fuente de verdad funcional. Si cambia el stack, se regenera la capa de implementacion a partir del mismo canonico, sin redefinir las zonas criticas ni las reglas de negocio.
+
+**Trazabilidad (FAQ-104):** cada ZC N4 documenta los casos de uso que la justifican; cada UC referencia las ZC afectadas. No hay fichero central de correspondencias.
 
 ## Criterios de seleccion
 
@@ -80,9 +82,9 @@ No se diagraman en N4 los agregados con CRUD directo y reglas simples si el N3 y
 | Contenedor | Back-End |
 | Prioridad | Alta |
 
-**Motivo:** multiples tipos y subtipos (puntual, periodica diaria/semanal/mensual, no planificado), reglas de configuracion (RC-*) y restricciones de cambio de tipo (RT-*).
+**Motivo:** multiples tipos y subtipos (puntual, periodica diaria/semanal/mensual, Sin planificar), reglas de configuracion (RC-*) y restricciones de cambio de tipo (RT-*).
 
-**Casos de uso:** UC-01.4, UC-01.5 (validacion), UC-03 (lectura no planificado).
+**Casos de uso:** UC-01.4, UC-01.5 (validacion), UC-03 (lectura Sin planificar).
 
 **Alcance N4:**
 

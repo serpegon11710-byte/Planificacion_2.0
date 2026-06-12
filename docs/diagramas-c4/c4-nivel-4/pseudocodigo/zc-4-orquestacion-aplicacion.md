@@ -4,6 +4,14 @@
 **Prioridad:** Media-alta  
 **Casos de uso:** UC-01.1, UC-01.2, UC-01.3
 
+## Trazabilidad (FAQ-104)
+
+| Caso de uso | Rol en esta zona |
+|-------------|------------------|
+| [UC-01.1](../../casos-uso/UC-01.1-wizard-creacion-proyecto.md) | Wizard atomico: confirmar o cancelar sin persistir |
+| [UC-01.2](../../casos-uso/UC-01.2-gestion-proyecto.md) | Creacion proyecto + item + planificacion Sin planificar |
+| [UC-01.3](../../casos-uso/UC-01.3-gestion-item.md) | Creacion item + planificacion Sin planificar |
+
 ---
 
 ## Estructura logica
@@ -103,7 +111,7 @@ FUNCION crearProyectoConAcoplamiento(datos_proyecto):
     })
 
     planificacion = agregado_planificacion.crear(item.id,
-      definicionNoPlanificadoPorDefecto()
+      definicionSinPlanificarPorDefecto()
     )
   CONFIRMAR transaccion
 
@@ -120,7 +128,7 @@ FUNCION crearItemConPlanificacion(proyecto_id, datos_item):
   INICIAR transaccion:
     item = agregado_item.crear(proyecto_id, datos_item)
     planificacion = agregado_planificacion.crear(item.id,
-      definicionNoPlanificadoPorDefecto()
+      definicionSinPlanificarPorDefecto()
     )
   CONFIRMAR transaccion
 
@@ -167,8 +175,8 @@ FUNCION ejecutarAtomico(bloque):
 ### Planificacion por defecto
 
 ```
-FUNCION definicionNoPlanificadoPorDefecto():
-  RETORNAR { tipo: NO_PLANIFICADO, definicion: { observaciones: NULL } }
+FUNCION definicionSinPlanificarPorDefecto():
+  RETORNAR { tipo: SIN_PLANIFICAR, definicion: { observaciones: NULL } }
 ```
 
 ---

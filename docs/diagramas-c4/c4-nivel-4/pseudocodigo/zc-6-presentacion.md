@@ -4,6 +4,14 @@
 **Prioridad:** Media (opcional en primera iteracion)  
 **Casos de uso:** UC-01.1, UC-01.4 (via UC-01.5), UC-02.1
 
+## Trazabilidad (FAQ-104)
+
+| Caso de uso | Rol en esta zona |
+|-------------|------------------|
+| [UC-01.1](../../casos-uso/UC-01.1-wizard-creacion-proyecto.md) | Formulario wizard integrado |
+| [UC-01.5](../../casos-uso/UC-01.5-captura-datos-planificacion.md) | Componente captura reutilizable |
+| [UC-02.1](../../casos-uso/UC-02.1-visualizacion-ocurrencias.md) | Vista calendario y filtros de rango |
+
 ---
 
 ## Estructura logica
@@ -73,7 +81,7 @@ FUNCION camposPorTipo(tipo):
   SEGUN tipo:
     PUNTUAL:     RETORNAR [fecha, hora, observaciones]
     PERIODICA:   RETORNAR [fecha_inicio, fecha_fin, hora, subtipo, campos_subtipo, observaciones]
-    NO_PLANIFICADO: RETORNAR [observaciones]
+    SIN_PLANIFICAR: RETORNAR [observaciones]
 ```
 
 ```

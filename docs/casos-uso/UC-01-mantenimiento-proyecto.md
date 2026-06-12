@@ -1,4 +1,4 @@
-# UC-01: Mantenimiento de Proyecto
+﻿# UC-01: Mantenimiento de Proyecto
 
 **ID:** UC-01  
 **Nombre:** Mantenimiento de Proyecto  
@@ -68,7 +68,7 @@ graph TB
 
 **Características:**
 - Al crear un proyecto, se crea automáticamente un item con el mismo nombre (sin pasar por UC-01.3)
-- Al crear el item automático, se crea una planificación "No planificado" (sin pasar por UC-01.4)
+- Al crear el item automático, se crea una planificación "Sin planificar" (sin pasar por UC-01.4)
 - Permite editar nombre y descripción de proyectos existentes
 
 **Flujo:** Proyecto → Creación automática directa en BD (Item + Planificación)
@@ -79,7 +79,7 @@ graph TB
 **Descripción:** Gestión manual de items dentro de un proyecto, permitiendo crear nuevos items o modificar existentes.
 
 **Características:**
-- Al crear un item, se crea automáticamente una planificación "No planificado" (sin pasar por UC-01.4)
+- Al crear un item, se crea automáticamente una planificación "Sin planificar" (sin pasar por UC-01.4)
 - Validación de nombres únicos dentro del proyecto
 - Permite editar nombre y descripción de items existentes
 - Permite eliminar items (con confirmación)
@@ -107,7 +107,7 @@ graph TB
 - Solo captura y valida, no guarda
 - Devuelve datos estructurados al invocador
 - Puede pre-llenar con datos previos para edición
-- Tipos: Puntual, Periódica (Diaria/Semanal/Mensual), No planificado
+- Tipos: Puntual, Periódica (Diaria/Semanal/Mensual), Sin planificar
 
 **Responsabilidad:** Interfaz de captura de datos consistente.
 
@@ -142,7 +142,7 @@ flowchart LR
 - **UC-01.1 (Wizard)** invoca **UC-01.5** para capturar configuración de planificación, luego crea todo junto (atómico)
 - **UC-01.4 (Gestión)** invoca **UC-01.5** para capturar/editar datos, luego persiste en BD
 - **UC-01.2 (Gestión Proyecto)** crea automáticamente Item + Planificación SIN pasar por UC-01.3, UC-01.4 o UC-01.5
-- **UC-01.3 (Gestión Item)** crea automáticamente Planificación "No planificado" SIN pasar por UC-01.4 o UC-01.5
+- **UC-01.3 (Gestión Item)** crea automáticamente Planificación "Sin planificar" SIN pasar por UC-01.4 o UC-01.5
 - **UC-01.5 (Captura Datos)** es reutilizado por UC-01.1 y UC-01.4, garantiza interfaz consistente
 
 ---
@@ -173,14 +173,14 @@ UC-01.2: Gestión Proyecto
      └─ Creación automática en BD:
         ├─ Proyecto
         ├─ Item (nombre = nombre proyecto)
-        └─ Planificación "No planificado"
+        └─ Planificación "Sin planificar"
 
 Usuario
   ↓
 UC-01.3: Gestión Item
   └─ Crear Item
      └─ Creación automática en BD:
-        └─ Planificación "No planificado"
+        └─ Planificación "Sin planificar"
 
 Usuario
   ↓
@@ -205,7 +205,7 @@ UC-01.5: Captura Datos Planificación
   ├─ Muestra formulario según tipo:
   │  ├─ Puntual (fecha, hora, observaciones)
   │  ├─ Periódica (inicio, fin, patrón, hora, observaciones)
-  │  └─ No planificado (observaciones)
+  │  └─ Sin planificar (observaciones)
   ├─ Valida datos ingresados
   ├─ NO persiste en BD
   └─ Salida: Objeto con datos validados o null (si cancela)
@@ -238,6 +238,13 @@ UC-01.5: Captura Datos Planificación
 
 Dependen del sub-caso de uso ejecutado. Ver documentos individuales UC-01.1 a UC-01.4.
 
+## Trazabilidad C4
+
+| Zona critica N4 | Rol |
+|-----------------|-----|
+| [ZC-4](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-4-orquestacion-aplicacion.md) | Orquestacion de sub-UCs y creacion automatica |
+| [ZC-5](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | Persistencia transaccional |
+| [ZC-6](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-6-presentacion.md) | Captura UI (UC-01.1, UC-01.5) |
 ---
 
 **Última revisión:** 2026-06-10

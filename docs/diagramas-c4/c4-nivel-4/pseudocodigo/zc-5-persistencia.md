@@ -4,6 +4,14 @@
 **Prioridad:** Media-alta  
 **Casos de uso:** todos UC-01.* y UC-02.* (lectura y escritura)
 
+## Trazabilidad (FAQ-104)
+
+| Caso de uso | Rol en esta zona |
+|-------------|------------------|
+| UC-01.* | Repositorios Proyecto, Item, Planificacion (puntual/periodica) |
+| UC-02.* | Repositorio Ocurrencia; consulta en rango (ZC-1) |
+| [UC-03](../../casos-uso/UC-03-listar-sin-planificar.md) | Query puntuales `sin_planificar = true` |
+
 ---
 
 ## Estructura logica

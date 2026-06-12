@@ -1,6 +1,6 @@
-# Contratos minimos de arquitectura (sin stack)
+﻿# Contratos minimos de arquitectura (sin stack)
 
-Este documento define la especificacion minima de contratos logicos acordada para el Paso 1 de arquitectura.
+Este documento define la especificacion minima de contratos logicos acordada para el Step 9a de arquitectura.
 
 ## 1) Puerto de persistencia (por agregado)
 
@@ -24,7 +24,7 @@ Contrato consumido por Aplicacion/Negocio para CRUD y consultas de agregados sin
   - `delete(planificacionId)`
   - `findById(planificacionId)`
   - `findByItemId(itemId, filtro, paginacion)`
-  - `findNoPlanificado(filtro, paginacion)`
+  - `findSinPlanificar(filtro, paginacion)`
 - `OcurrenciaRepositoryPort`
   - `markCompletada(ocurrenciaId, metadata)`
   - `markPendiente(ocurrenciaId)`
@@ -57,7 +57,7 @@ Orquestan casos de uso y exponen contratos de entrada/salida estables para API/U
   - Entradas: `CrearItemInput`, `ActualizarItemInput`, `EliminarItemInput`, `ListarItemsInput`
   - Salidas: `ItemOutput`, `ListaItemOutput`
 - `PlanificacionApplicationService`
-  - Entradas: `CrearPlanificacionInput`, `ActualizarPlanificacionInput`, `EliminarPlanificacionInput`, `ListarNoPlanificadoInput`, `ListarOcurrenciasInput`
+  - Entradas: `CrearPlanificacionInput`, `ActualizarPlanificacionInput`, `EliminarPlanificacionInput`, `ListarSinPlanificarInput`, `ListarOcurrenciasInput`
   - Salidas: `PlanificacionOutput`, `ListaPlanificacionOutput`, `ListaOcurrenciaOutput`
 - `OcurrenciaApplicationService`
   - Entradas: `CompletarOcurrenciaInput`, `ReabrirOcurrenciaInput`

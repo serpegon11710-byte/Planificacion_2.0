@@ -4,7 +4,7 @@ Vista derivada del [N4 pseudocodigo canonico](../pseudocodigo/). Documenta como 
 
 ## Estado
 
-**Pendiente.** Se creara cuando el stack este definido (Step 8c del plan de arquitectura).
+**Pendiente.** Se creara cuando el stack este definido (Step 9c del plan de arquitectura).
 
 ## Un C4 nivel 4 por stack
 

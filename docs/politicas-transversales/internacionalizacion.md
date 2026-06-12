@@ -1,4 +1,4 @@
-# Politica de internacionalizacion (i18n)
+﻿# Politica de internacionalizacion (i18n)
 
 Politica transversal del proyecto Planificacion 2.0. Aplica a la implementacion de la aplicacion, no a la estructura arquitectonica en si.
 
@@ -58,7 +58,7 @@ Reglas:
 | Logs tecnicos | Idioma del equipo; no expuestos al usuario |
 | Contenido de usuario (nombres, observaciones) | No se traduce |
 | Codigos de error | Claves estables, no texto final |
-| Tipos en BD (`PUNTUAL`, `PERIODICA`, `NO_PLANIFICADO`) | Valores canonicos; la UI traduce al mostrar |
+| Tipos en BD (`PUNTUAL`, `PERIODICA`, `SIN_PLANIFICAR`) | Valores canonicos; la UI traduce al mostrar |
 | Documentacion del proyecto (`docs/`) | Espanol por convencion del proyecto |
 
 ## Relacion con arquitectura
@@ -107,7 +107,7 @@ Listado completo en `docs/arquitectura/errores-validaciones-capas.md`.
 | UC-01.5 | Componente de captura completo |
 | UC-02.1 | Calendario, leyenda de estados |
 | UC-02.2 a UC-02.4 | Acciones sobre ocurrencias |
-| UC-03 | Listado no planificado |
+| UC-03 | Listado Sin planificar |
 
 ## Estructura sugerida de catalogos (implementacion)
 
@@ -123,9 +123,9 @@ locales/
     ...
 ```
 
-## Criterio para stack tecnologico (Step 8c)
+## Criterio para stack tecnologico (Step 9c)
 
-Al elegir tecnologias en el paso 8c del plan de documentacion, valorar soporte de i18n en Front-End, interpolacion de parametros y formateo de fecha/hora por locale.
+Al elegir tecnologias en el Step 9c del plan de documentacion, valorar soporte de i18n en Front-End, interpolacion de parametros y formateo de fecha/hora por locale.
 
 ## Resultado
 

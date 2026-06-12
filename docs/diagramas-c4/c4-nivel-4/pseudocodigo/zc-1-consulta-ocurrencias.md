@@ -180,21 +180,24 @@ FUNCION generarPeriodicaPendiente(planificacion, desde, hasta, fechas_ocupadas):
 
 ```
 FUNCION coincideConPatron(planificacion, fecha):
-  SEGUN planificacion.subtipo_periodica:
-    DIARIA_TODOS:        RETORNAR VERDADERO
-    DIARIA_LUN_VIE:      RETORNAR fecha.esLaboral()
-    DIARIA_FIN_SEMANA:   RETORNAR fecha.esFinDeSemana()
-    SEMANAL:             RETORNAR fecha.letraDiaSemana() CONTENIDA_EN planificacion.dias_semana
-    // dias_semana: substring de L,M,X,J,V,S,D p. ej. "MX" = martes y miércoles
-    MENSUAL:
-      dia_objetivo = planificacion.dia_mes
+  periodo = planificacion.periodo
+  SEGUN periodo.tipo_periodo.codigo:
+    "Diario":
+      SEGUN periodo.variante_diaria:
+        TODOS: RETORNAR VERDADERO
+        LUN_VIE: RETORNAR fecha.esLaboral()
+        FIN_SEMANA: RETORNAR fecha.esFinDeSemana()
+    "Semanal":
+      RETORNAR fecha.letraDiaSemana() CONTENIDA_EN periodo.dias_semana
+    "Mensual":
+      dia_objetivo = periodo.dia_mes
       SI fecha.dia == dia_objetivo: RETORNAR VERDADERO
-      SI dia_objetivo > 28 Y fecha.esUltimoDiaDelMes() Y planificacion.comportamiento_mes_corto == ULTIMO_DIA_MES:
+      SI dia_objetivo > 28 Y fecha.esUltimoDiaDelMes() Y periodo.comportamiento_mes_corto == ULTIMO_DIA_MES:
         RETORNAR VERDADERO
-      SI dia_objetivo > 28 Y fecha.dia == 1 Y planificacion.comportamiento_mes_corto == DIA_1_MES_SIGUIENTE:
+      SI dia_objetivo > 28 Y fecha.dia == 1 Y periodo.comportamiento_mes_corto == DIA_1_MES_SIGUIENTE:
         RETORNAR dia_objetivo > diasEnMes(fecha.mesAnterior())
-      SI dia_objetivo > 28 Y planificacion.comportamiento_mes_corto == OMITIR:
-        RETORNAR FALSO  // mes sin ese dia no genera ocurrencia
+      SI dia_objetivo > 28 Y periodo.comportamiento_mes_corto == OMITIR:
+        RETORNAR FALSO
       RETORNAR FALSO
 ```
 

@@ -168,21 +168,26 @@ Asi quien implementa una ZC ve de inmediato el origen funcional; quien lee un UC
 
 ### FAQ-106 — Tabla catalogo de tipos de planificacion
 
-**Origen:** Step 10 (alternativa a `DefinicionFechaHora` del plan).
+**Estado:** **Supersedida por FAQ-111** (`TipoPeriodo` con visibilidades de campos). Conservada como historial (modelo intermedio `TipoPlanificacion` + `periodica`).
 
-**Resolucion (2026-06-12):** Tabla `TipoPlanificacion` con columna `periodica`:
+---
 
-| Tipo | `periodica` |
-|------|-------------|
-| Puntual | `false` |
-| SinPlanificar | `NULL` |
-| Diario | `true` |
-| Semanal | `true` |
-| Mensual | `true` |
+### FAQ-111 — `TipoPeriodo`: catalogo de visibilidad de campos de patron
 
-Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `Diario`, no filas de catalogo.
+**Origen:** Refinamiento ER; `TipoPlanificacion` no aportaba valor como mero almacen de `codigo` (redundante con el periodo).
 
-**Entregable Step 10:** tabla `TipoPlanificacion` en `docs/entidades/modelo-entidad-relacion.md`. **Completado (2026-06-12).**
+**Resolucion (2026-06-12):**
+
+1. Renombrar **`TipoPlanificacion` → `TipoPeriodo`**.
+2. Rol del catalogo: declarar **que campos de `PlanificacionPeriodo` son visibles/exigibles** por tipo, no duplicar el patron:
+   - `visibilidad_variante_diaria`
+   - `visibilidad_dias_semana`
+   - `visibilidad_dia_mes`
+   - `visibilidad_comportamiento_mes_corto`
+3. `PlanificacionPeriodo.tipo_periodo_id` FK → `TipoPeriodo`. Los **valores** (`variante_diaria`, `dias_semana`, etc.) permanecen en el periodo.
+4. `codigo` en `TipoPeriodo` (`Diario`, `Semanal`, `Mensual`) sigue siendo clave estable para i18n y motor de ocurrencias.
+
+**Entregable:** `modelo-entidad-relacion.md`, `planificaciones.md`, pseudocodigo ZC-3/6. **Completado (2026-06-12).**
 
 ---
 
@@ -217,7 +222,7 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 **Resolucion (2026-06-12):**
 
 1. **Una tabla `Planificaciones`** con campos comunes: `item_id`, `fecha_inicio`, `fecha_fin`, `hora`, `observaciones`, `estado`. Sin flags: la naturaleza se infiere (Sin planificar = fechas NULL; Puntual = inicio = fin sin periodo; Periódica = existe `PlanificacionPeriodo` y fin > inicio).
-2. **`PlanificacionPeriodo`** 1:1 opcional: solo periódicas. Subtipo (`Diario`/`Semanal`/`Mensual`) y campos de patron (`dias_semana` LMXJVSD, etc.) viven aqui. `TipoPlanificacion` es catalogo solo de subtipos periódicos.
+2. **`PlanificacionPeriodo`** 1:1 opcional: solo periódicas. Valores de patron aqui; visibilidad por tipo en **`TipoPeriodo`** (FAQ-111).
 3. **Ocurrencias:** Sin planificar → lista vacia; Puntual → una dinamica; Periódica → dinamicas + `OcurrenciasMaterializadas` (FK `planificacion_periodo_id`). Restricciones RO-8 a RO-10 (rango, visibilidad tras cambio de fechas).
 4. Se eliminan `PlanificacionesPuntuales`, `PlanificacionesPeriodicas`, `V_Planificacion` y flags `sin_planificar`.
 
@@ -289,12 +294,12 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108 |
 | `entidades/ocurrencias.md` | FAQ-003, 004 |
 | `entidades/proyectos.md`, `items.md` | FAQ-005 |
-| `entidades/planificaciones.md` | FAQ-001, 105, 106, 107, 110 |
+| `entidades/planificaciones.md` | FAQ-001, 105, 106, 107, 110, 111 |
 | `revision-principios-solid.md` | FAQ-005, 009 |
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
 | Step 11 | FAQ-007, 101, 102 |
 | Step 12 | N4 implementacion por stack |
-| Step 10 | FAQ-002, 004, 105, 106, 108, 110 |
+| Step 10 | FAQ-002, 004, 105, 106, 108, 110, 111 |
 
 ---
 
@@ -311,3 +316,4 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | 2026-06-12 | Renumeracion plan: Step 11 -> Step 11; ER (10) antes que stack; Step 12 N4 implementacion |
 | 2026-06-12 | FAQ-109: V_Planificacion, dias_semana LMXJVSD, ocurrencias solo periódicas |
 | 2026-06-12 | FAQ-110: tabla unica Planificaciones + PlanificacionPeriodo; supersede FAQ-109 |
+| 2026-06-12 | FAQ-111: TipoPeriodo (visibilidad campos patron); supersede FAQ-106 |

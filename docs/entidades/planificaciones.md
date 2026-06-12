@@ -8,7 +8,7 @@
 
 Este documento define la entidad abstracta **Planificación**, sus especializaciones de dominio, el modelo de persistencia (ER) y las reglas de configuración. Cualquier caso de uso que capture, valide o persista planificaciones debe referenciar este documento como fuente única.
 
-Decisiones de modelo: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-105, FAQ-106, FAQ-107, FAQ-110).
+Decisiones de modelo: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-105, FAQ-106, FAQ-107, FAQ-110, FAQ-111).
 
 ---
 
@@ -62,7 +62,7 @@ La clase de dominio es **abstracta**. La naturaleza concreta se deduce de los da
 
 Segunda especialización por **subtipo** (algoritmo de ocurrencias naturales):
 
-| Subtipo (`TipoPlanificacion.codigo`) | Configuración en `PlanificacionPeriodo` |
+| Tipo de periodo (`TipoPeriodo.codigo`) | Configuración en `PlanificacionPeriodo` |
 |--------------------------------------|----------------------------------------|
 | **Diario** | `variante_diaria`: Todos los días \| Lunes a Viernes \| Fin de semana (FAQ-001) |
 | **Semanal** | `dias_semana`: letras **L M X J V S D** (p. ej. `MX`, `LMXJVSD`) |
@@ -86,61 +86,67 @@ Almacena **Sin planificar**, **Puntual** y los datos comunes de **Periódica**. 
 
 ### Tabla `PlanificacionPeriodo`
 
-Solo para periódicas. Relación **1:1** (`planificacion_id` UNIQUE). El subtipo (`Diario` / `Semanal` / `Mensual`) vive aquí vía `tipo_planificacion_id`.
+Solo para periódicas. Relación **1:1** (`planificacion_id` UNIQUE). El tipo de periodo vive aquí vía `tipo_periodo_id` (FK → `TipoPeriodo`).
 
-### Catálogo `TipoPlanificacion`
+### Catálogo `TipoPeriodo` (FAQ-111)
 
-Solo subtipos periódicos (`Diario`, `Semanal`, `Mensual`). Puntual y Sin planificar no son filas de catálogo.
+No es un mero duplicado del `codigo` en el periodo: registra **qué campos de patrón son visibles y exigibles** por tipo (`visibilidad_variante_diaria`, `visibilidad_dias_semana`, `visibilidad_dia_mes`, `visibilidad_comportamiento_mes_corto`). Los **valores** del patrón siguen en `PlanificacionPeriodo`.
+
+| `codigo` | Campos visibles |
+|----------|-----------------|
+| `Diario` | `variante_diaria` |
+| `Semanal` | `dias_semana` |
+| `Mensual` | `dia_mes`, `comportamiento_mes_corto` (este último obligatorio si `dia_mes > 28`) |
+
+Puntual y Sin planificar no tienen fila en `TipoPeriodo`.
 
 ---
 
-## Campos de patrón por subtipo periódico
-
-La configuración se describe de forma **declarativa** en un **registro de patrones** (ZC-3 `RegistroPatronesTipoPlanificacion`). Los campos comunes de `Planificaciones` no se repiten por subtipo.
+## Metadatos de captura y validación
 
 ### Campos comunes (`Planificaciones`)
 
-| `id` | `persistencia` | `tipo_dato` | Obligatorio según naturaleza | `roles` |
-|------|----------------|-------------|------------------------------|---------|
-| `fecha_inicio` | `fecha_inicio` | fecha | Puntual, Periódica | captura, validacion, identificable_usuario, motor_ocurrencias |
-| `fecha_fin` | `fecha_fin` | fecha | Puntual (= inicio), Periódica | captura, validacion, identificable_usuario, motor_ocurrencias |
-| `hora` | `hora` | hora | Puntual, Periódica | captura, validacion, identificable_usuario, motor_ocurrencias |
-| `observaciones` | `observaciones` | texto | Sin planificar (sí); resto opcional | captura, validacion, identificable_usuario |
-| `estado` | `estado` | enum | Puntual, Periódica | persistencia (UC-01.4) |
+Definidos en este documento y validados por naturaleza inferida (ZC-3):
 
-### Campos patrón en `PlanificacionPeriodo`
+| Campo | Puntual / Periódica | Sin planificar |
+|-------|---------------------|----------------|
+| `fecha_inicio`, `fecha_fin` | sí | no (NULL) |
+| `hora` | sí | no |
+| `observaciones` | opcional | obligatorias (RC-8) |
+| `estado` | obligatorio | NULL |
 
-| `TipoPlanificacion.codigo` | `id` | `persistencia` | `tipo_dato` | `obligatorio` | `roles` |
-|----------------------------|------|----------------|-------------|---------------|---------|
-| `Diario` | `variante_diaria` | `variante_diaria` | enum | sí | captura, validacion, motor_ocurrencias |
-| `Semanal` | `dias_semana` | `dias_semana` | texto | sí (≥1 letra) | captura, validacion, motor_ocurrencias |
-| `Mensual` | `dia_mes` | `dia_mes` | entero | sí | captura, validacion, motor_ocurrencias |
-| `Mensual` | `comportamiento_mes_corto` | `comportamiento_mes_corto` | enum | condicional | captura, validacion, motor_ocurrencias |
+### Campos de patrón (`PlanificacionPeriodo`)
 
-Al añadir un subtipo periódico (RC-5): fila en `TipoPlanificacion`, campos patrón aquí, actualizar ER y estrategia en ZC-1.
+Visibilidad y obligatoriedad según fila de **`TipoPeriodo`** enlazada por `tipo_periodo_id`:
 
-### Cómo se implementa sin enums cerrados en código
+| Campo en periodo | Columna de visibilidad en `TipoPeriodo` |
+|------------------|----------------------------------------|
+| `variante_diaria` | `visibilidad_variante_diaria` |
+| `dias_semana` | `visibilidad_dias_semana` |
+| `dia_mes` | `visibilidad_dia_mes` |
+| `comportamiento_mes_corto` | `visibilidad_comportamiento_mes_corto` |
+
+Al añadir un tipo de periodo (RC-5): fila en `TipoPeriodo` con sus visibilidades, estrategia de motor en ZC-1, CHECK en ER.
+
+### Flujo metadata-driven
 
 ```mermaid
 flowchart LR
-  Doc["planificaciones.md"]
-  Reg["RegistroPatronesTipoPlanificacion"]
-  V["ValidadorConfiguracion"]
-  C["Captura UC-01.5"]
+  Cat["TipoPeriodo BD"]
+  Per["PlanificacionPeriodo"]
+  V["ValidadorConfiguracion ZC-3"]
+  C["Captura UC-01.5 ZC-6"]
   M["Motor ocurrencias ZC-1"]
-  Id["IdentificablePorUsuario"]
 
-  Doc --> Reg
-  Reg --> V
-  Reg --> C
-  Reg --> Id
-  Reg -->|estrategia por codigo| M
+  Cat -->|visibilidades| V
+  Cat -->|visibilidades| C
+  Per --> V
+  Cat -->|codigo| M
 ```
 
-1. **Naturaleza:** `inferirNaturaleza(planificacion)` desde fechas y presencia de `PlanificacionPeriodo`.
-2. **Validación:** campos comunes + patrones del subtipo si es periódica.
-3. **Captura:** UC-01.5 elige naturaleza primero; luego campos del registro.
-4. **Motor:** estrategia por `PlanificacionPeriodo.tipo_planificacion.codigo`.
+1. **Naturaleza:** `inferirNaturaleza(planificacion)` desde fechas y presencia de periodo.
+2. **Captura / validación periódica:** cargar `TipoPeriodo` por `tipo_periodo_id`; mostrar y validar solo columnas con visibilidad `true`.
+3. **Motor:** estrategia por `TipoPeriodo.codigo`.
 
 ---
 
@@ -173,13 +179,13 @@ Siempre incluye **proyecto** e **item** (nombre visible).
 
 | Naturaleza | Campos |
 |------------|--------|
-| **Periódica** | proyecto + item + subtipo (`Diario`/`Semanal`/`Mensual`) + observaciones + fecha_inicio + fecha_fin + hora |
+| **Periódica** | proyecto + item + `tipo_periodo` (`TipoPeriodo.codigo`) + observaciones + fecha_inicio + fecha_fin + hora |
 | **Puntual** | proyecto + item + «Puntual» + observaciones + fecha_inicio + hora |
 | **Sin planificar** | proyecto + item + «Sin planificar» + observaciones |
 
 Plantillas orientativas:
 
-- Periódica: `Proyecto «{proyecto}» · Item «{item}» · {subtipo} · «{observaciones}» · {fecha_inicio}–{fecha_fin} · {hora}`
+- Periódica: `Proyecto «{proyecto}» · Item «{item}» · {tipo_periodo} · «{observaciones}» · {fecha_inicio}–{fecha_fin} · {hora}`
 - Puntual: `Proyecto «{proyecto}» · Item «{item}» · Puntual · «{observaciones}» · {fecha_inicio} · {hora}`
 - Sin planificar: `Proyecto «{proyecto}» · Item «{item}» · Sin planificar · «{observaciones}»`
 
@@ -206,7 +212,6 @@ UC-01.4 persiste configuración base; no gestiona ocurrencias individuales salvo
 
 ### RC-5: Evolución del catálogo
 
-Nuevo subtipo periódico: `TipoPlanificacion`, campos patrón, ER, registro y estrategia ZC-1.
 
 ### RC-6: Eliminación restringida (RE-3, RE-4)
 
@@ -243,9 +248,9 @@ Precondiciones: `estado = Pendiente`; sin ocurrencias materializadas. **Eliminar
 
 No permitido directamente (solo vía Sin planificar).
 
-### RT-5: Cambio de subtipo periódico
+### RT-5: Cambio de tipo de periodo
 
-No se permite modificar `tipo_planificacion_id` de un `PlanificacionPeriodo` existente.
+No se permite modificar `tipo_periodo_id` de un `PlanificacionPeriodo` existente.
 
 ---
 

@@ -1,4 +1,4 @@
-﻿# Revision global de principios SOLID
+# Revision global de principios SOLID
 
 Este documento audita el cumplimiento de los principios SOLID en **toda** la documentacion del proyecto Planificacion 2.0, no solo en la carpeta de arquitectura.
 
@@ -75,7 +75,7 @@ Separar planificaciones y ocurrencias en dos ficheros respeta SRP: cada uno camb
 | Zona / componente | Responsabilidad unica | Estado |
 |-------------------|----------------------|--------|
 | ZC-1 `CompositorOcurrenciasEnRango` | Composicion fisicas + naturales pendientes | Cumple |
-| ZC-2 `EnrutadorPorTipoPlanificacion` | Desvio puntual vs periodico | Cumple |
+| ZC-2 `EnrutadorPorNaturaleza` | Desvio puntual vs periodico | Cumple |
 | ZC-3 `ValidadorConfiguracion` / `GestorCambioTipo` | Validacion y cambio de tipo separados | Cumple |
 | ZC-4 Coordinadores por flujo (wizard, proyecto, item) | Orquestacion acotada por UC | Cumple |
 | ZC-5 Puertos por agregado | Persistencia segregada | Cumple |

@@ -46,24 +46,32 @@ flowchart TD
 ```
 ESTADO CapturaPlanificacion:
   paso: SELECCION_TIPO | CONFIGURACION | VALIDACION
-  tipo_seleccionado: TipoPlanificacion | NULL
+  naturaleza_seleccionada: SIN_PLANIFICAR | PUNTUAL | PERIODICA | NULL
+  tipo_periodo_seleccionado: TipoPeriodo | NULL   // solo si PERIODICA
   datos_formulario: Mapa<Campo, Valor>
   datos_previos: Configuracion | NULL   // modo edicion
 
 FUNCION iniciar(datos_previos = NULL):
   estado = nuevo CapturaPlanificacion(datos_previos = datos_previos)
   SI datos_previos:
-    estado.tipo_seleccionado = datos_previos.tipo
+    estado.naturaleza_seleccionada = datos_previos.naturaleza
+    estado.tipo_periodo_seleccionado = datos_previos.periodo?.tipo_periodo
     estado.datos_formulario = prellenar(datos_previos)
   RETORNAR estado
 
-FUNCION seleccionarTipo(estado, tipo):
-  estado.tipo_seleccionado = tipo
-  estado.datos_formulario = camposPorTipo(tipo)   // catálogo ZC-3
+FUNCION seleccionarNaturaleza(estado, naturaleza):
+  estado.naturaleza_seleccionada = naturaleza
+  estado.tipo_periodo_seleccionado = NULL
+  estado.datos_formulario = camposComunesPorNaturaleza(naturaleza)
   estado.paso = CONFIGURACION
 
+FUNCION seleccionarTipoPeriodo(estado, tipo_periodo):
+  // Tras elegir PERIODICA: campos de patron segun visibilidades de TipoPeriodo (FAQ-111)
+  estado.tipo_periodo_seleccionado = tipo_periodo
+  estado.datos_formulario.agregarTodos(camposVisiblesDelPeriodo(tipo_periodo))
+
 FUNCION confirmar(estado):
-  config = construirConfiguracion(estado.tipo_seleccionado, estado.datos_formulario)
+  config = construirConfiguracion(estado.naturaleza_seleccionada, estado.tipo_periodo_seleccionado, estado.datos_formulario)
   // Validacion local previa (UX); validacion definitiva en Back-End ZC-3
   errores = validarLocal(config)
   SI errores.noEstaVacio():
@@ -77,10 +85,13 @@ FUNCION cancelar(estado):
 ```
 
 ```
-FUNCION camposPorTipo(codigo_tipo_planificacion):
-  // Metadato desde planificaciones.md via RegistroPatronesTipoPlanificacion (ZC-3)
-  campos = registro_patrones.camposConRol(codigo_tipo_planificacion, "captura")
-  RETORNAR campos.map(aDescriptorFormulario)   // id, tipo_dato, obligatorio, etiqueta i18n
+FUNCION camposVisiblesDelPeriodo(tipo_periodo):
+  campos = []
+  SI tipo_periodo.visibilidad_variante_diaria: campos.agregar(descriptor("variante_diaria"))
+  SI tipo_periodo.visibilidad_dias_semana: campos.agregar(descriptor("dias_semana"))
+  SI tipo_periodo.visibilidad_dia_mes: campos.agregar(descriptor("dia_mes"))
+  SI tipo_periodo.visibilidad_comportamiento_mes_corto: campos.agregar(descriptor("comportamiento_mes_corto"))
+  RETORNAR campos   // etiquetas i18n por id de columna
 ```
 
 ```
@@ -161,7 +172,7 @@ FUNCION mostrarBloqueosEliminacion(codigo, bloqueos):
 
 FUNCION formatearIdentificablePorUsuario(id):
   // planificaciones.md — IdentificablePorUsuario
-  etiqueta_tipo = mensajes.resolverTipoPlanificacion(id.tipo_planificacion, idioma_actual)
+  etiqueta_tipo = mensajes.resolverTipoPeriodo(id.tipo_periodo, idioma_actual)   // periódica; i18n desde TipoPeriodo.codigo
   SEGUN id.naturaleza:
     PERIODICA:
       RETORNAR proyecto + item + etiqueta_tipo + observaciones + rango_fechas + hora (locale)

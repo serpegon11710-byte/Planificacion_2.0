@@ -1,9 +1,9 @@
 # Modelo entidad-relación (ER)
 
-**Última actualización:** 2026-06-12 (tabla única `Planificaciones`, `PlanificacionPeriodo` 1:1)  
+**Última actualización:** 2026-06-12 (`TipoPeriodo` catálogo de visibilidad de campos)  
 **Step:** 10
 
-Modelo lógico de persistencia para Planificacion 2.0. Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105, 106, 107, 110) y entidades en esta carpeta.
+Modelo lógico de persistencia para Planificacion 2.0. Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105, 106, 107, 110, 111) y entidades en esta carpeta.
 
 **Notas transversales:**
 
@@ -24,7 +24,7 @@ erDiagram
 
     Planificaciones ||--o| PlanificacionPeriodo : periodo
 
-    TipoPlanificacion ||--o{ PlanificacionPeriodo : subtipo
+    TipoPeriodo ||--o{ PlanificacionPeriodo : tipo
 
     PlanificacionPeriodo ||--o{ OcurrenciasMaterializadas : ocurrencias
 
@@ -52,15 +52,19 @@ erDiagram
         varchar estado
     }
 
-    TipoPlanificacion {
+    TipoPeriodo {
         smallint id PK
         varchar codigo
+        boolean visibilidad_variante_diaria
+        boolean visibilidad_dias_semana
+        boolean visibilidad_dia_mes
+        boolean visibilidad_comportamiento_mes_corto
     }
 
     PlanificacionPeriodo {
         bigint id PK
         bigint planificacion_id FK
-        smallint tipo_planificacion_id FK
+        smallint tipo_periodo_id FK
         varchar variante_diaria
         varchar dias_semana
         smallint dia_mes
@@ -79,6 +83,15 @@ erDiagram
     }
 ```
 
+**Entidades del bloque periódico (todas en el diagrama):**
+
+| Entidad en el diagrama | Rol |
+|------------------------|-----|
+| `PlanificacionPeriodo` | Valores del patrón (`variante_diaria`, `dias_semana`, …) — 1:1 con `Planificaciones` |
+| `TipoPeriodo` | Catálogo: `codigo` + columnas `visibilidad_*` que indican qué campos de `PlanificacionPeriodo` aplican |
+
+No existe `TipoPlanificacion` (supersedido por FAQ-111). La relación `TipoPeriodo → PlanificacionPeriodo` enlaza metadatos de visibilidad con la fila de patrón concreta vía `tipo_periodo_id`.
+
 Semántica (UNIQUE, CHECK, UTC, CASCADE): ver restricciones más abajo.
 
 ---
@@ -89,7 +102,7 @@ Semántica (UNIQUE, CHECK, UTC, CASCADE): ver restricciones más abajo.
 Proyectos 1──N Items
 Items 1──N Planificaciones                              (RE-2)
 Planificaciones 1──0..1 PlanificacionPeriodo            (solo periódicas)
-TipoPlanificacion 1──N PlanificacionPeriodo             (subtipos Diario / Semanal / Mensual)
+TipoPeriodo 1──N PlanificacionPeriodo                   (catálogo + visibilidad de campos)
 PlanificacionPeriodo 1──N OcurrenciasMaterializadas     (opcional; solo materializadas)
 ```
 
@@ -117,7 +130,7 @@ Una fila por planificación del item. Campos comunes a todas las especializacion
 | **Puntual** | `fecha_inicio` tiene valor, **no** existe fila en `PlanificacionPeriodo`, `fecha_inicio = fecha_fin` |
 | **Periódica** | Existe fila en `PlanificacionPeriodo`, `fecha_fin > fecha_inicio` |
 
-El **subtipo** usable de una periódica (`Diario`, `Semanal`, `Mensual`) viene de `PlanificacionPeriodo.tipo_planificacion_id`, no de la tabla común.
+El **tipo de periodo** (`Diario`, `Semanal`, `Mensual`) viene de `PlanificacionPeriodo.tipo_periodo_id` → `TipoPeriodo.codigo`, no de la tabla común.
 
 ---
 
@@ -129,27 +142,38 @@ Relación **1:1** con `Planificaciones`. Solo existe cuando la planificación es
 |---------|-------------|-------|
 | `id` | PK | |
 | `planificacion_id` | FK UNIQUE → Planificaciones | Una planificación tiene como máximo un periodo |
-| `tipo_planificacion_id` | FK → TipoPlanificacion | `Diario`, `Semanal` o `Mensual` |
-| `variante_diaria` | Si Diario | FAQ-001: `TODOS`, `LUN_VIE`, `FIN_SEMANA` |
-| `dias_semana` | Si Semanal | Letras **LMXJVSD** (Lunes → Domingo); p. ej. `MX`, `LMXJVSD` |
-| `dia_mes` | Si Mensual | 1–31 |
-| `comportamiento_mes_corto` | Condicional | Si `dia_mes > 28` y Mensual |
+| `tipo_periodo_id` | FK → TipoPeriodo | Referencia al catálogo |
+| `variante_diaria` | Si visible en catálogo | FAQ-001: `TODOS`, `LUN_VIE`, `FIN_SEMANA` |
+| `dias_semana` | Si visible en catálogo | Letras **LMXJVSD**; p. ej. `MX`, `LMXJVSD` |
+| `dia_mes` | Si visible en catálogo | 1–31 |
+| `comportamiento_mes_corto` | Si visible en catálogo | Obligatorio si `dia_mes > 28` y Mensual |
 
-Sustituye la dispersión de campos de patrón en tablas separadas y la antigua tabla auxiliar de días de semana numéricos.
+Los valores concretos del patrón viven en esta fila; **qué columnas aplican** lo define `TipoPeriodo` (FAQ-111).
 
 ---
 
-## Catálogo `TipoPlanificacion` (FAQ-106, FAQ-110)
+## Catálogo `TipoPeriodo` (FAQ-111)
 
-Tabla de referencia **solo para subtipos periódicos**:
+Tabla de referencia para **tipos de periodo** periódicos. No sustituye almacenar el patrón en `PlanificacionPeriodo` (ahí van los valores). Su rol es declarar **qué campos de patrón son visibles y exigibles** según el tipo, para captura (UC-01.5), validación (ZC-3) y motor de ocurrencias (ZC-1).
 
-| `codigo` | Uso |
-|----------|-----|
-| `Diario` | Patrón diario en `PlanificacionPeriodo` |
-| `Semanal` | Patrón semanal (`dias_semana`) |
-| `Mensual` | Patrón mensual (`dia_mes`, etc.) |
+| Columna | Uso |
+|---------|-----|
+| `id` | PK |
+| `codigo` | Clave estable e i18n: `Diario`, `Semanal`, `Mensual` |
+| `visibilidad_variante_diaria` | Muestra / valida `variante_diaria` |
+| `visibilidad_dias_semana` | Muestra / valida `dias_semana` |
+| `visibilidad_dia_mes` | Muestra / valida `dia_mes` |
+| `visibilidad_comportamiento_mes_corto` | Muestra / valida `comportamiento_mes_corto` |
 
-`Puntual` y `SinPlanificar` **no** son filas de catálogo: su naturaleza se deduce de `Planificaciones` (fechas y presencia/ausencia de periodo).
+**Datos semilla:**
+
+| `codigo` | `vis_var_diaria` | `vis_dias_sem` | `vis_dia_mes` | `vis_comp_mes` |
+|----------|------------------|----------------|---------------|----------------|
+| `Diario` | sí | no | no | no |
+| `Semanal` | no | sí | no | no |
+| `Mensual` | no | no | sí | sí |
+
+`Puntual` y `Sin planificar` **no** son filas de `TipoPeriodo`: su naturaleza se infiere de `Planificaciones` sin periodo.
 
 ---
 
@@ -235,11 +259,19 @@ Listar cada planificación bloqueante con **`IdentificablePorUsuario`** — ver 
 |-------------|-------|
 | `UNIQUE (planificacion_id)` | 1:1 |
 | `FK planificacion_id → Planificaciones ON DELETE CASCADE` | |
-| `FK tipo_planificacion_id` | Solo `Diario`, `Semanal`, `Mensual` |
-| `CHECK variante_diaria` | Obligatorio si `codigo = Diario` |
-| `CHECK dias_semana` | Obligatorio si `codigo = Semanal`; solo `LMXJVSD`, ≥1 letra |
-| `CHECK dia_mes` | Obligatorio si `codigo = Mensual`; 1–31 |
-| `CHECK comportamiento_mes_corto` | Si `dia_mes > 28` y Mensual |
+| `FK tipo_periodo_id` | → `TipoPeriodo` |
+| `CHECK variante_diaria` | Obligatorio si `TipoPeriodo.visibilidad_variante_diaria` |
+| `CHECK dias_semana` | Obligatorio si `visibilidad_dias_semana`; solo `LMXJVSD`, ≥1 letra |
+| `CHECK dia_mes` | Obligatorio si `visibilidad_dia_mes`; 1–31 |
+| `CHECK comportamiento_mes_corto` | Si `visibilidad_comportamiento_mes_corto` y `dia_mes > 28` |
+
+### `TipoPeriodo`
+
+| Restricción | Regla |
+|-------------|-------|
+| `UNIQUE (codigo)` | Catálogo cerrado en v1 |
+| Visibilidades | Al menos una `true` por fila |
+| `Diario` / `Semanal` / `Mensual` | Filas semilla según tabla anterior |
 
 ### `OcurrenciasMaterializadas` (FAQ-004)
 

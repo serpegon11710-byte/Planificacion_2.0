@@ -4,7 +4,7 @@ erDiagram
 
     Planificaciones ||--o| PlanificacionPeriodo : periodo
 
-    TipoPlanificacion ||--o{ PlanificacionPeriodo : subtipo
+    TipoPeriodo ||--o{ PlanificacionPeriodo : tipo
 
     PlanificacionPeriodo ||--o{ OcurrenciasMaterializadas : ocurrencias
 
@@ -32,15 +32,19 @@ erDiagram
         varchar estado
     }
 
-    TipoPlanificacion {
+    TipoPeriodo {
         smallint id PK
         varchar codigo
+        boolean visibilidad_variante_diaria
+        boolean visibilidad_dias_semana
+        boolean visibilidad_dia_mes
+        boolean visibilidad_comportamiento_mes_corto
     }
 
     PlanificacionPeriodo {
         bigint id PK
         bigint planificacion_id FK
-        smallint tipo_planificacion_id FK
+        smallint tipo_periodo_id FK
         varchar variante_diaria
         varchar dias_semana
         smallint dia_mes

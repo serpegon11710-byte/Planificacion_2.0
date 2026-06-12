@@ -167,7 +167,7 @@ FUNCION bloqueosDePlanificacion(planificacion):
 
 FUNCION construirIdentificablePorUsuario(planificacion, proyecto, item):
   naturaleza = inferirNaturaleza(planificacion)
-  etiqueta = naturaleza == PERIODICA ? planificacion.periodo.tipo_planificacion.codigo : naturaleza
+  etiqueta = naturaleza == PERIODICA ? planificacion.periodo.tipo_periodo.codigo : naturaleza
   RETORNAR {
     proyecto_nombre: proyecto.nombre,
     item_nombre: item.nombre,
@@ -289,7 +289,7 @@ La capa de negocio solo recibe `ErrorFuncional` (con `codigo`) o `ErrorTecnico`;
 Al definir el stack, esta zona concentra:
 
 - Libreria ORM / driver SQL concreto
-- Esquema: `Planificaciones`, `PlanificacionPeriodo`, `TipoPlanificacion`, `OcurrenciasMaterializadas`
+- Esquema: `Planificaciones`, `PlanificacionPeriodo`, `TipoPeriodo`, `OcurrenciasMaterializadas`
 - Consultas SQL optimizadas para rango de ocurrencias (RO-9, RO-10)
 - Implementacion real de `PuertoConexion`
 

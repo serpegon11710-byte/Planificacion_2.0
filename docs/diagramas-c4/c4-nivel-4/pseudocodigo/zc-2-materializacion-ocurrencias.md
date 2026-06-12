@@ -20,7 +20,7 @@
 ```mermaid
 flowchart TD
   API["PuntoEntradaOcurrencia"]
-  Router["EnrutadorPorTipoPlanificacion"]
+  Router["EnrutadorPorNaturaleza"]
   Puntual["MutadorPuntual"]
   Periodico["MutadorPeriodico"]
   Mat["MaterializadorOcurrencia"]
@@ -37,7 +37,7 @@ flowchart TD
 
 | Subcomponente | Responsabilidad |
 |---------------|-----------------|
-| `EnrutadorPorTipoPlanificacion` | Desvia puntual (UC-02.2) vs periodico (UC-02.3) |
+| `EnrutadorPorNaturaleza` | Desvia puntual (UC-02.2) vs periodico (UC-02.3) via `inferirNaturaleza` |
 | `MutadorPuntual` | Actualiza planificacion base; sin materializacion (RN-2.2.2) |
 | `MutadorPeriodico` | Modifica, elimina o restaura ocurrencia individual |
 | `MaterializadorOcurrencia` | Crea/actualiza registro fisico bajo modificacion (RO-2) |

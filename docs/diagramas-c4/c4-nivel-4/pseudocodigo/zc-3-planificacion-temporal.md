@@ -35,7 +35,7 @@ flowchart LR
 |---------------|-----------------|
 | `AgregadoPlanificacion` | Fila `Planificaciones` + `PlanificacionPeriodo` opcional |
 | `InferenciaNaturaleza` | Sin planificar / Puntual / Periódica desde datos (FAQ-110) |
-| `RegistroPatronesTipoPlanificacion` | Metadato `CampoPatron` por subtipo periódico — fuente: [planificaciones.md](../../../entidades/planificaciones.md) |
+| `CatalogoTipoPeriodo` | Visibilidad de campos de patron desde tabla `TipoPeriodo` (FAQ-111) |
 | `ValidadorConfiguracion` | RC-1, RC-2, RC-3 |
 | `GestorCambioNaturaleza` | RT-1 a RT-5 |
 
@@ -82,10 +82,8 @@ FUNCION validarConfiguracion(planificacion):
     LANZAR ErrorFuncional("RANGO_TEMPORAL_INVALIDO")
   SI planificacion.periodo ES NULL:
     LANZAR ErrorFuncional("PERIODO_OBLIGATORIO")
-  codigo = planificacion.periodo.tipo_planificacion.codigo
-  campos = registro_patrones.patronesDe(codigo)
-  PARA CADA campo EN campos DONDE "validacion" EN campo.roles:
-    validarCampoPatron(campo, planificacion.periodo.valorDe(campo.id), planificacion)
+  tipo_periodo = catalogo_tipo_periodo.obtener(planificacion.periodo.tipo_periodo_id)
+  validarCamposVisiblesDelPeriodo(planificacion.periodo, tipo_periodo)
   SI NOT existeAlMenosUnaOcurrenciaEnRango(planificacion):
     LANZAR ErrorFuncional("CONFIGURACION_SIN_OCURRENCIAS")
   RETORNAR OK
@@ -98,6 +96,18 @@ FUNCION validarSinPlanificar(planificacion):
   SI puerto_planificacion.existeSinPlanificarConObservaciones(
       planificacion.item_id, planificacion.observaciones, excluir = planificacion.id):
     LANZAR ErrorFuncional("PLANIFICACION_SIN_PLANIFICAR_OBSERVACIONES_DUPLICADAS")
+```
+
+```
+FUNCION validarCamposVisiblesDelPeriodo(periodo, tipo_periodo):
+  SI tipo_periodo.visibilidad_variante_diaria:
+    validarObligatorio(periodo.variante_diaria, "variante_diaria")
+  SI tipo_periodo.visibilidad_dias_semana:
+    validarDiasSemana(periodo.dias_semana)   // LMXJVSD, >=1 letra
+  SI tipo_periodo.visibilidad_dia_mes:
+    validarRango(periodo.dia_mes, 1, 31)
+  SI tipo_periodo.visibilidad_comportamiento_mes_corto Y periodo.dia_mes > 28:
+    validarObligatorio(periodo.comportamiento_mes_corto, "comportamiento_mes_corto")
 ```
 
 ### Crear y editar (UC-01.4)
@@ -133,8 +143,8 @@ FUNCION validarTransicion(actual, destino):
     LANZAR ErrorFuncional("CAMBIO_TIPO_PUNTUAL_PERIODICA_NO_PERMITIDO")
 
   SI origen == PERIODICA Y destino_n == PERIODICA:
-    SI actual.periodo.tipo_planificacion_id != destino.periodo.tipo_planificacion_id:
-      LANZAR ErrorFuncional("CAMBIO_SUBTIPO_PERIODICO_NO_PERMITIDO")
+    SI actual.periodo.tipo_periodo_id != destino.periodo.tipo_periodo_id:
+      LANZAR ErrorFuncional("CAMBIO_TIPO_PERIODO_NO_PERMITIDO")
 
   SI origen == PUNTUAL Y destino_n == SIN_PLANIFICAR:
     SI actual.estado != PENDIENTE:

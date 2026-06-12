@@ -192,7 +192,7 @@ ESTRUCTURA IdentificablePorUsuario:
   proyecto_nombre: Texto               // nombre visible del proyecto
   item_nombre: Texto                   // nombre visible del item
   naturaleza: PERIODICA | PUNTUAL | SIN_PLANIFICAR
-  tipo_planificacion: Texto            // TipoPlanificacion.codigo (FK); sin enum cerrado en contrato
+  tipo_periodo: Texto | NULL           // TipoPeriodo.codigo si PERIODICA; NULL en PUNTUAL / SIN_PLANIFICAR
   observaciones: Texto
   fecha_inicio: Fecha | NULL           // solo PERIODICA
   fecha_fin: Fecha | NULL
@@ -224,7 +224,7 @@ Ejemplo de respuesta API (orientativo):
         "proyecto_nombre": "Marketing 2026",
         "item_nombre": "Campaña Q1",
         "naturaleza": "PERIODICA",
-        "tipo_planificacion": "<codigo catalogo>",
+        "tipo_periodo": "Semanal",
         "observaciones": "Reunión de seguimiento",
         "fecha_inicio": "2026-03-01",
         "fecha_fin": "2026-12-31",
@@ -239,7 +239,7 @@ Ejemplo de respuesta API (orientativo):
         "proyecto_nombre": "Marketing 2026",
         "item_nombre": "Soporte",
         "naturaleza": "PERIODICA",
-        "subtipo": "Diario",
+        "tipo_periodo": "Diario",
         "observaciones": "Daily standup",
         "fecha_inicio": "2026-01-01",
         "fecha_fin": "2026-06-30",
@@ -262,8 +262,8 @@ Ejemplo de respuesta API (orientativo):
 Mensaje orientativo compuesto (locale `es`, proyecto):
 
 > No se puede eliminar el proyecto «Marketing 2026». Prepare las siguientes planificaciones antes de reintentar:
-> • Proyecto «{proyecto}» · Item «{item}» · {tipo_planificacion} · «{observaciones}» · {fecha_inicio}–{fecha_fin} · {hora} — Completada
-> • Proyecto «{proyecto}» · Item «{item}» · {tipo_planificacion} · «{observaciones}» · … — Completada; N ocurrencias gestionadas
+> • Proyecto «{proyecto}» · Item «{item}» · {tipo_periodo} · «{observaciones}» · {fecha_inicio}–{fecha_fin} · {hora} — Completada
+> • Proyecto «{proyecto}» · Item «{item}» · {tipo_periodo} · «{observaciones}» · … — Completada; N ocurrencias gestionadas
 
 La plantilla i18n vive en Presentacion (ZC-6); Negocio emite codigo + `bloqueos` con `identificable_por_usuario`.
 

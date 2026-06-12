@@ -95,7 +95,7 @@ INTERFAZ PuertoPlanificacion:
 INTERFAZ PuertoOcurrenciaMaterializada:
   buscarPorPlanificacionEnRango(planificacion_id, desde, hasta) -> Lista<RegistroOcurrencia>
   buscarTodasMaterializadas(planificacion_id) -> Lista<RegistroOcurrencia>
-  contarPorPlanificacion(planificacion_id) -> Entero   // RE-4: cualquier fila, modificada o eliminada_virtual
+  contarPorPlanificacionPeriodica(planificacion_periodica_id) -> Entero   // RE-4: solo periódicas; cualquier fila, modificada o eliminada_virtual
   buscarPorFechaOriginal(planificacion_id, fecha_original) -> RegistroOcurrencia | NULL
   guardar(registro) -> RegistroOcurrencia
   eliminar(registro_id) -> VOID
@@ -149,7 +149,9 @@ FUNCION bloqueosDePlanificacion(planificacion):
   motivos = []
   SI planificacion.estado == Completada:
     motivos.agregar(COMPLETADA)
-  cantidad = adaptador_ocurrencia.contarPorPlanificacion(planificacion.id)
+  cantidad = 0
+  SI planificacion.periodica == true:
+    cantidad = adaptador_ocurrencia.contarPorPlanificacionPeriodica(planificacion.id)
   SI cantidad > 0:
     motivos.agregar(OCURRENCIAS_MATERIALIZADAS)
   SI motivos.estaVacio():
@@ -206,8 +208,9 @@ FUNCION validarEliminacionPlanificacion(planificacion_id, es_cascada_desde_item_
   SI planificacion.estado == Completada:
     LANZAR ErrorFuncional("PLANIFICACION_COMPLETADA_NO_ELIMINABLE")   // RE-3
 
-  SI adaptador_ocurrencia.contarPorPlanificacion(planificacion_id) > 0:
-    LANZAR ErrorFuncional("PLANIFICACION_CON_OCURRENCIAS_NO_ELIMINABLE")   // RE-4
+  SI planificacion.periodica == true:
+    SI adaptador_ocurrencia.contarPorPlanificacionPeriodica(planificacion_id) > 0:
+      LANZAR ErrorFuncional("PLANIFICACION_CON_OCURRENCIAS_NO_ELIMINABLE")   // RE-4; solo periódicas
 ```
 
 RE-3 y RE-4 evitan borrados masivos accidentales: bloquean la eliminacion de cada planificacion (incluida la cascada) y, por tanto, **bloquean** UC-01.2 y UC-01.3 hasta que el usuario revierta con UC-01.4 (estado Pendiente) y UC-02.4 (sin ocurrencias materializadas).
@@ -283,7 +286,44 @@ Al definir el stack, esta zona concentra:
 
 - Libreria ORM / driver SQL concreto
 - Esquema de tablas e indices
+- Vista `V_Planificacion` (UNION puntuales + periódicas; columnas comunes y `fechas` como varchar)
 - Consultas SQL optimizadas para rango de ocurrencias
 - Implementacion real de `PuertoConexion`
+
+### Vista `V_Planificacion` (orientativa)
+
+```sql
+CREATE VIEW V_Planificacion AS
+SELECT
+  pp.id,
+  pp.item_id,
+  tp.codigo,
+  tp.periodica,
+  pp.observaciones,
+  pp.hora,
+  pp.estado,
+  pp.anulada,
+  CASE
+    WHEN pp.sin_planificar THEN NULL
+    ELSE CAST(pp.fecha AS varchar)
+  END AS fechas,
+  'Puntual' AS origen_tabla
+FROM PlanificacionesPuntuales pp
+JOIN TipoPlanificacion tp ON tp.id = pp.tipo_planificacion_id
+UNION ALL
+SELECT
+  pr.id,
+  pr.item_id,
+  tp.codigo,
+  tp.periodica,
+  pr.observaciones,
+  pr.hora,
+  pr.estado,
+  pr.anulada,
+  CAST(pr.fecha_inicio AS varchar) || '..' || CAST(pr.fecha_fin AS varchar) AS fechas,
+  'Periodica' AS origen_tabla
+FROM PlanificacionesPeriodicas pr
+JOIN TipoPlanificacion tp ON tp.id = pr.tipo_planificacion_id;
+```
 
 Deriva de este documento; ver [implementacion/](../implementacion/).

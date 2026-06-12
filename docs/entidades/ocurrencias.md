@@ -58,7 +58,7 @@ El estado efectivo de una ocurrencia se resuelve así:
 Las ocurrencias naturales se obtienen en tiempo de consulta a partir de la planificación base.
 
 ### RO-2: Materialización por modificación
-Cuando una ocurrencia se modifica de forma individual (estado, fecha, hora u observaciones), se registra una modificación persistida. Para observaciones y estado, si el usuario no ha interactuado con el campo, no hay valor propio en la ocurrencia: en pantalla ve el valor de la planificación; al interactuar, se persiste lo que indicó (ver FAQ-004).
+Cuando una ocurrencia **periódica** se modifica de forma individual (estado, fecha, hora u observaciones), se registra en `OcurrenciasMaterializadas`. En **puntual**, la modificación individual actualiza la planificación base (UC-02.2); no hay filas materializadas.
 
 ### RO-3: Precedencia de modificaciones
 Si existe modificación registrada para una fecha original, la modificación prevalece sobre la ocurrencia natural calculada.
@@ -82,7 +82,7 @@ El estado de una ocurrencia puede estar registrado en la propia ocurrencia o, en
 - UC-02 debe usar este documento para visualización y gestión de ocurrencias.
 - Cualquier caso de uso que modifique ocurrencias individuales debe respetar estas reglas.
 - UC-01.4 no gestiona ocurrencias individuales; solo persiste la planificación base.
-- UC-02.4 permite anular modificaciones o restaurar eliminaciones virtuales; es el camino obligatorio para vaciar ocurrencias materializadas antes de poder eliminar la planificación, el item o el proyecto (RE-4 en [modelo-entidad-relacion.md](modelo-entidad-relacion.md)).
+- UC-02.4 permite anular modificaciones o restaurar eliminaciones virtuales en planificaciones **periódicas**; es el camino para vaciar `OcurrenciasMaterializadas` antes de eliminar la planificación, el item o el proyecto (RE-4).
 
 ---
 
@@ -92,7 +92,7 @@ Tabla `OcurrenciasMaterializadas` — ver [modelo-entidad-relacion.md](modelo-en
 
 | Campo | Obligatorio | Notas |
 |-------|-------------|-------|
-| `planificacion_puntual_id` / `planificacion_periodica_id` | Uno de dos (XOR) | FK a la planificación de origen |
+| `planificacion_periodica_id` | Sí | FK → `PlanificacionesPeriodicas` **solo periódicas** |
 | `fecha_original` | Sí | Clave de precedencia (RO-5) |
 | `fecha_efectiva` | Sí | Fecha mostrada / efectiva |
 | `hora` | Sí | UTC |

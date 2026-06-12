@@ -219,6 +219,21 @@ Subtipos diarios (`TODOS`, `LUN_VIE`, `FIN_SEMANA`) son configuracion de filas `
 
 ---
 
+### FAQ-109 — Vista unificada, dias semana y ocurrencias solo periódicas
+
+**Origen:** Revision del ER (Step 10); campos comunes de planificacion y relacion Item → Planificacion.
+
+**Resolucion (2026-06-12):**
+
+1. **No hay tabla fisica `Planificacion` de instancias.** Los campos comunes (`observaciones`, `hora`, `estado`, `anulada`) viven en `PlanificacionesPuntuales` y `PlanificacionesPeriodicas`. La lectura unificada Item → Planificacion se expone con la vista **`V_Planificacion`** (`id`, `item_id`, `codigo`, `periodica`, campos comunes, `fechas` como varchar: una fecha si Puntual, rango `inicio..fin` si Periodica).
+2. **`TipoPlanificacion`** sigue siendo solo catalogo (`id`, `codigo`, `periodica`); no duplica campos de negocio.
+3. **`OcurrenciasMaterializadas`** solo referencia **`planificacion_periodica_id`**. Puntuales y Sin planificar no materializan filas (UC-02.2 muta la fila puntual). RE-4 aplica solo a periódicas.
+4. **Dias de la semana (Semanal):** columna `dias_semana` con letras **LMXJVSD** (Lunes → Domingo), p. ej. `MX` o `LMXJVSD`. Se elimina la tabla auxiliar `PlanificacionesPeriodicasDiasSemana` y la ambiguedad de numeros 0/1 o inicio de semana.
+
+**Entregable Step 10:** `docs/entidades/modelo-entidad-relacion.md`, pseudocodigo ZC-5 (vista SQL orientativa). **Completado (2026-06-12).**
+
+---
+
 ### FAQ-103 — Diagrama C4 N3 para Front-End
 
 **Origen:** Step 8.
@@ -283,12 +298,12 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108 |
 | `entidades/ocurrencias.md` | FAQ-003, 004 |
 | `entidades/proyectos.md`, `items.md` | FAQ-005 |
-| `entidades/planificaciones.md` | FAQ-001, 105, 106, 107 |
+| `entidades/planificaciones.md` | FAQ-001, 105, 106, 107, 109 |
 | `revision-principios-solid.md` | FAQ-005, 009 |
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
 | Step 11 | FAQ-007, 101, 102 |
 | Step 12 | N4 implementacion por stack |
-| Step 10 | FAQ-002, 004, 105, 106, 108 |
+| Step 10 | FAQ-002, 004, 105, 106, 108, 109 |
 
 ---
 
@@ -303,3 +318,4 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | 2026-06-12 | Step 7b: entidades proyectos.md e items.md (FAQ-005) |
 | 2026-06-12 | Step 8b: diagrama N3 Front-End (FAQ-103) |
 | 2026-06-12 | Renumeracion plan: Step 11 -> Step 11; ER (10) antes que stack; Step 12 N4 implementacion |
+| 2026-06-12 | FAQ-109: V_Planificacion, dias_semana LMXJVSD, ocurrencias solo periódicas |

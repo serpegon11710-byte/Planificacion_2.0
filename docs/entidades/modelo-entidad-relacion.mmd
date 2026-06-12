@@ -1,13 +1,11 @@
 erDiagram
     Proyectos ||--o{ Items : contiene
-    Items ||--o{ PlanificacionesPuntuales : contiene
-    Items ||--o{ PlanificacionesPeriodicas : contiene
+    Items ||--o{ PlanificacionesPuntuales : planifica
+    Items ||--o{ PlanificacionesPeriodicas : planifica
 
-    TipoPlanificacion ||--o{ PlanificacionesPuntuales : clasifica
-    TipoPlanificacion ||--o{ PlanificacionesPeriodicas : clasifica
+    TipoPlanificacion ||--o{ PlanificacionesPuntuales : tipo
+    TipoPlanificacion ||--o{ PlanificacionesPeriodicas : tipo
 
-    PlanificacionesPeriodicas ||--o{ PlanificacionesPeriodicasDiasSemana : dias
-    PlanificacionesPuntuales ||--o{ OcurrenciasMaterializadas : ocurrencias
     PlanificacionesPeriodicas ||--o{ OcurrenciasMaterializadas : ocurrencias
 
     Proyectos {
@@ -50,6 +48,7 @@ erDiagram
         date fecha_fin
         time hora
         varchar variante_diaria
+        varchar dias_semana
         smallint dia_mes
         varchar comportamiento_mes_corto
         text observaciones
@@ -57,14 +56,8 @@ erDiagram
         boolean anulada
     }
 
-    PlanificacionesPeriodicasDiasSemana {
-        bigint planificacion_periodica_id FK
-        smallint dia_semana
-    }
-
     OcurrenciasMaterializadas {
         bigint id PK
-        bigint planificacion_puntual_id FK
         bigint planificacion_periodica_id FK
         date fecha_original
         date fecha_efectiva

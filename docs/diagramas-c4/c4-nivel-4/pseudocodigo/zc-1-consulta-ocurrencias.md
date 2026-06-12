@@ -169,7 +169,8 @@ FUNCION coincideConPatron(planificacion, fecha):
     DIARIA_TODOS:        RETORNAR VERDADERO
     DIARIA_LUN_VIE:      RETORNAR fecha.esLaboral()
     DIARIA_FIN_SEMANA:   RETORNAR fecha.esFinDeSemana()
-    SEMANAL:             RETORNAR fecha.diaSemana EN planificacion.dias_semana
+    SEMANAL:             RETORNAR fecha.letraDiaSemana() CONTENIDA_EN planificacion.dias_semana
+    // dias_semana: substring de L,M,X,J,V,S,D p. ej. "MX" = martes y miércoles
     MENSUAL:
       dia_objetivo = planificacion.dia_mes
       SI fecha.dia == dia_objetivo: RETORNAR VERDADERO

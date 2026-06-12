@@ -8,7 +8,7 @@
 
 Este documento define el catálogo común de tipos de planificación, sus reglas de configuración, el modelo de persistencia (ER) y las clases de dominio. Cualquier caso de uso que necesite capturar, validar o persistir planificaciones debe referenciar este documento como fuente única.
 
-Decisiones de modelo físico y nomenclatura: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-105, FAQ-106, FAQ-107).
+Decisiones de modelo físico y nomenclatura: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-105, FAQ-106, FAQ-107, FAQ-109).
 
 ---
 
@@ -49,7 +49,7 @@ Subtipo **prefijado (enum)**, no lista libre (FAQ-001):
 
 **b) Semanal**
 
-- **Lista** de uno o más días de la semana (p. ej. martes y jueves en la misma planificación)
+- **Días de la semana** como cadena de letras **L M X J V S D** (Lunes → Domingo), p. ej. `MX` (martes y miércoles) o `LMXJVSD` (todos). Persistencia: columna `dias_semana` en `PlanificacionesPeriodicas` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
 
 **c) Mensual**
 
@@ -75,9 +75,11 @@ No genera ocurrencias.
 
 ## Catálogo de tipos (persistencia)
 
-Tabla de referencia `TipoPlanificacion` (FAQ-106). El campo `periodica` distingue el almacenamiento y el motor de ocurrencias:
+Tabla de referencia **`TipoPlanificacion`** (FAQ-106): solo metadatos de tipo (`id`, `codigo`, `periodica`). **No** almacena instancias ni campos comunes de negocio.
 
-| Tipo (`codigo`) | `periodica` | Tabla destino |
+Las **instancias** viven en `PlanificacionesPuntuales` o `PlanificacionesPeriodicas`. La **vista** `V_Planificacion` unifica lectura Item → Planificación (`id`, `item_id`, `codigo`, `periodica`, `observaciones`, `hora`, `estado`, `anulada`, `fechas` como texto). Ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
+
+| Tipo (`codigo`) | `periodica` | Tabla instancia |
 |-----------------|-------------|---------------|
 | `Puntual` | `false` | `PlanificacionesPuntuales` (`sin_planificar = false`) |
 | `SinPlanificar` | `NULL` | `PlanificacionesPuntuales` (`sin_planificar = true`) |
@@ -148,7 +150,7 @@ Campos patrón **específicos** por `codigo` (además de la base periódica):
 | `TipoPlanificacion.codigo` | `id` | `persistencia` | `tipo_dato` | `obligatorio` | `restricciones` | `roles` |
 |----------------------------|------|----------------|-------------|---------------|-----------------|---------|
 | `Diario` | `variante_diaria` | `variante_diaria` | enum | sí | FAQ-001: `TODOS`, `LUN_VIE`, `FIN_SEMANA` | captura, validacion, motor_ocurrencias |
-| `Semanal` | `dias_semana` | `PlanificacionesPeriodicasDiasSemana` | conjunto | sí (≥1) | días 1–7 | captura, validacion, motor_ocurrencias |
+| `Semanal` | `dias_semana` | `dias_semana` | texto | sí (≥1 letra) | Alfabeto LMXJVSD; ver ER | captura, validacion, motor_ocurrencias |
 | `Mensual` | `dia_mes` | `dia_mes` | entero | sí | 1–31 | captura, validacion, motor_ocurrencias |
 | `Mensual` | `comportamiento_mes_corto` | `comportamiento_mes_corto` | enum | condicional | obligatorio si `dia_mes > 28` | captura, validacion, motor_ocurrencias |
 
@@ -186,7 +188,24 @@ flowchart LR
 
 Definición canónica: [modelo-entidad-relacion.md](modelo-entidad-relacion.md).
 
-Dos tablas hijas por naturaleza temporal (FAQ-105). Campos comunes (`item_id`, `tipo_planificacion_id`, `observaciones`, `estado`, `anulada`) en cada tabla.
+Dos tablas de instancia (FAQ-105) más catálogo y vista de lectura.
+
+### Vista `V_Planificacion` (Item → Planificación)
+
+Expone por fila: `id`, `item_id`, `codigo`, `periodica`, `observaciones`, `hora`, `estado`, `anulada`, `fechas` (varchar: una fecha si Puntual, rango `inicio..fin` si Periódica, `NULL` si Sin planificar). Escritura siempre en tablas hijas.
+
+### Campos comunes en tablas de instancia
+
+Presentes en **ambas** tablas hijas (y en la vista):
+
+| Campo | Notas |
+|-------|-------|
+| `item_id` | FK → Item |
+| `tipo_planificacion_id` | FK → catálogo |
+| `observaciones` | RC-8 obligatorias en Sin planificar |
+| `hora` | UTC; NULL en Sin planificar |
+| `estado` | Pendiente \| Completada |
+| `anulada` | Historial RT-1 / RT-3 |
 
 ### `PlanificacionesPuntuales`
 
@@ -203,9 +222,13 @@ Un mismo registro puntual puede pasar de **Sin planificar** a **Puntual** (y vic
 | Campo | Obligatorio | Notas |
 |-------|-------------|-------|
 | `fecha_inicio`, `fecha_fin`, `hora` | Si | UTC |
-| Patrón según tipo | Si | Enum diario, lista días semanal, día mes + comportamiento mensual |
+| `variante_diaria` | Si tipo Diario | FAQ-001 |
+| `dias_semana` | Si tipo Semanal | Letras LMXJVSD; p. ej. `LJ` = lunes y jueves |
+| `dia_mes`, `comportamiento_mes_corto` | Si tipo Mensual | Según RC / ER |
 
-ZC-1 y flujos de ocurrencias operan sobre filas periódicas y puntuales con `sin_planificar = false`. UC-03 consulta puntuales con `sin_planificar = true`.
+Única tabla con **`OcurrenciasMaterializadas`** (RE-4). Puntual no materializa ocurrencias: UC-02.2 modifica la fila puntual.
+
+ZC-1 opera sobre periódicas y puntuales con `sin_planificar = false`. UC-03 consulta puntuales con `sin_planificar = true`.
 
 ---
 
@@ -291,7 +314,7 @@ Nuevos tipos deben: (1) añadir fila en `TipoPlanificacion`, (2) documentar **ca
 No se puede eliminar una planificación — ni en UC-01.4 ni como paso de cascada al eliminar item o proyecto — si:
 
 1. **`estado = Completada`** (RE-3) — el usuario debe editarla manualmente en UC-01.4 y pasarla a Pendiente.
-2. **Existen ocurrencias materializadas** vinculadas (RE-4), ya sean modificadas o con `eliminada_virtual = true` — el usuario debe anular o restaurar cada registro en UC-02.4 hasta vaciar la planificación.
+2. **Existen ocurrencias materializadas** vinculadas (RE-4) — **solo planificaciones periódicas**; el usuario debe anular o restaurar cada registro en UC-02.4 hasta vaciar la planificación.
 
 Solo cuando todas las planificaciones del ámbito cumplen RE-3 y RE-4 puede completarse la eliminación del item (RI-5) o del proyecto (RP-4).
 

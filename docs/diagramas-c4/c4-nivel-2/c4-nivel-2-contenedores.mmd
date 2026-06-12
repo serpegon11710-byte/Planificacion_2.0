@@ -1,0 +1,18 @@
+C4Container
+title Planificacion 2.0 - C4 Nivel 2 (Contenedores)
+
+Person(usuario, "Usuario", "Gestiona proyectos, planificaciones y ocurrencias")
+
+System_Boundary(s1, "Planificacion 2.0") {
+  Container(frontend, "Front-End", "Aplicacion Web en navegador", "Interfaz web para UC-01, UC-02 y UC-03")
+  Container(backend, "Back-End", "API en servidor de aplicaciones", "Expone operaciones y coordina el flujo de negocio")
+  Container(persistencia, "Capa de Persistencia", "Servicio de persistencia", "Contiene la logica de persistencia desacoplada del motor de BBDD")
+  ContainerDb(db, "BBDD", "Motor relacional", "Almacenamiento fisico de datos")
+}
+
+Rel(usuario, frontend, "Usa", "HTTPS")
+Rel(frontend, backend, "Consume", "JSON/HTTPS")
+Rel(backend, persistencia, "Solicita operaciones de persistencia")
+Rel(persistencia, db, "Lee y escribe", "SQL")
+
+UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")

@@ -173,7 +173,7 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 - [ ] ZC canónicas en [pseudocodigo/](../diagramas-c4/c4-nivel-4/pseudocodigo/)
 - [ ] N4 implementación por componente en [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/)
 - [ ] Granularidad de módulos en [granularidad-modulos-negocio.md](../arquitectura/granularidad-modulos-negocio.md)
-- [ ] Guías por componente en [docs/implementacion/](../implementacion/) (Step 12b cuando aplique)
+- [x] Guías por componente en [docs/implementacion/](../implementacion/) (Step 12b)
 - [ ] Árbol de código acordado en [implementacion/README.md](../../implementacion/README.md)
 
 ### Plan y stack

@@ -96,8 +96,12 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 
 ---
 
-## Referencias
+## Referencias cruzadas
 
-- Contratos: [`contratos-minimos.md`](../../arquitectura/contratos-minimos.md)
-- Errores por capa: [`errores-validaciones-capas.md`](../../arquitectura/errores-validaciones-capas.md)
-- i18n (resolución en FE): [`internacionalizacion.md`](../../politicas-transversales/internacionalizacion.md)
+| Bloque | Enlaces |
+|--------|---------|
+| Arquitectura | [contratos-minimos.md](../../arquitectura/contratos-minimos.md), [errores-validaciones-capas.md](../../arquitectura/errores-validaciones-capas.md) |
+| Políticas | [internacionalizacion.md](../../politicas-transversales/internacionalizacion.md), [desacoplamiento-componentes-contratos.md](../../politicas-transversales/desacoplamiento-componentes-contratos.md) |
+| Pseudocódigo | — (tipos derivados de contratos API) |
+| N4 Step 12a | — (sin carpeta N4; contrato en arquitectura) |
+| Código | [`implementacion/shared/typescript/`](../../../implementacion/shared/typescript/) |

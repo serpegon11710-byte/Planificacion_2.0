@@ -168,7 +168,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Carpetas: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/`
 - Proyeccion ZC-1 a ZC-6; enlaces al pseudocodigo. Indice: [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md).
 
-**Step 12b: Practicas de implementacion por componente** (*depends on 11, 12a*) — **Pendiente**
+**Step 12b: Practicas de implementacion por componente** (*depends on 11, 12a*) — **Completado (2026-06-12)**
 - Redactar contenido en `docs/implementacion/{front-end,back-end,persistencia,shared,bbdd}/` (convenciones de capas, tests, errores, dependencias).
 - Agnostico de tecnologia en la redaccion; enlaces al codigo en `implementacion/` y a N4 del Step 12a.
 
@@ -218,7 +218,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/politicas-transversales/desambiguacion-implementacion.md` | Tres rutas «implementacion» (FAQ-102) |
 | `docs/politicas-transversales/desacoplamiento-componentes-contratos.md` | Restricciones de desacoplamiento por contratos (FAQ-102) |
 | `docs/diagramas-c4/c4-nivel-4/implementacion/` | N4 por componente y tecnologia (Step 12a) |
-| `docs/implementacion/` | Guias de implementacion por componente (plantillas Step 11; contenido Step 12b) |
+| `docs/implementacion/` | Guias de implementacion por componente (Step 12b — **cerrado**) |
 | `implementacion/` | Esqueleto de codigo por componente y tecnologia (Step 11) |
 
 ## Verificación
@@ -259,8 +259,8 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 Resumen de estado (2026-06-12):
 
 - **Resueltas:** FAQ-000 a FAQ-007 (grupo 0), FAQ-100 a FAQ-102 (grupo 1), FAQ-200 a FAQ-201 (grupo 2), FAQ-300 a FAQ-311 (grupo 3).
-- **Steps cerrados:** 1–11, 12a (N4 implementacion por componente).
-- **Pendientes (orden de prioridad):** Step 12b, Step 13, Step 14. Ver [Decisiones (entregables por step)](dudas-y-resoluciones.md#decisiones-entregables-por-step).
+- **Steps cerrados:** 1–11, 12a, **12b** (guias `docs/implementacion/`).
+- **Pendientes (orden de prioridad):** Step 13, Step 14. Ver [Decisiones (entregables por step)](dudas-y-resoluciones.md#decisiones-entregables-por-step).
 
 ## Próximos Pasos
 
@@ -276,7 +276,7 @@ Resumen de estado (2026-06-12):
 [x] 10. Ejecutar Step 10: Crear modelo entidad-relacion (ER)
 [x] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-100, FAQ-101, FAQ-102)
 [x] 12a. Ejecutar Step 12a: N4 implementacion por componente (`{componente}/{tecnologia}/`)
-[ ] 12b. Ejecutar Step 12b: Practicas en `docs/implementacion/{componente}/`
+[x] 12b. Ejecutar Step 12b: Practicas en `docs/implementacion/{componente}/`
 [ ] 13. Ejecutar Step 13: Validar toda la documentacion
 [ ] 14. Ejecutar Step 14: Bootstrap monorepo y proyectos en `implementacion/`
 
@@ -298,4 +298,4 @@ Resumen de estado (2026-06-12):
 2026-06-12 - Step 10 completado: modelo ER en docs/entidades/modelo-entidad-relacion.md
 2026-06-12 - Step 11 completado: stack NestJS+React+TS+PostgreSQL; FAQ-100/101/102; implementacion/ y docs/implementacion/
 2026-06-12 - Step 12a completado: N4 implementacion por componente (react-typescript, nestjs-typescript, typescript, postgresql)
-2026-06-12 - Renumeracion Steps 12a/12b y FAQ por grupos FAQ-Gnn
+2026-06-12 - Step 12b completado: guias agnosticas por componente en docs/implementacion/

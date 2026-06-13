@@ -431,7 +431,7 @@ Los Steps 7b, 8b y 8c ya estan cerrados.
 
 | Step | Estado | Descripcion | Artefactos |
 |------|--------|-------------|------------|
-| **12b** | Pendiente | Guías agnósticas por componente | `docs/implementacion/{componente}/` |
+| **12b** | Cerrado | Guías agnósticas por componente | `docs/implementacion/{componente}/` |
 | **13** | Pendiente | Validación documental global | checklist [vista-general.md](vista-general.md) §6 |
 | **14** | Pendiente | Bootstrap monorepo | `implementacion/` (Nest, Vite, migraciones) |
 
@@ -460,7 +460,7 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | Step 10 | FAQ-001, 003, 300, 301, 303, 305, 306, 307, 308, 309, **310**, **311** |
 | Step 11 | FAQ-100, 101, 102 (**cerrado**) |
 | Step 12a | N4 implementacion por componente — **cerrado** |
-| Step 12b | Practicas `docs/implementacion/` |
+| Step 12b | Practicas `docs/implementacion/` — **cerrado** |
 | Step 13 | Validacion documental |
 | Step 14 | Bootstrap codigo |
 
@@ -490,4 +490,4 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | 2026-06-12 | Step 12 cerrado: N4 implementacion por componente (ZC-1 a ZC-6) |
 | 2026-06-12 | vista-general.md: capas, contratos externo/interno, bootstrap, checklist pre-implementacion |
 | 2026-06-12 | **Renumeracion FAQ por grupos FAQ-Gnn** (0 dominio, 1 stack, 2 C4, 3 ER). Steps 12→12a/12b; tabla Decisiones sin Opciones A/B/C. Migracion IDs: 001→000, 002→001, …, 116→311; 007 stack→102; ver grupos arriba |
-| 2026-06-12 | Step 12 renombrado a **12a** (N4 cerrado); pendientes 12b, 13, 14 |
+| 2026-06-12 | Step 12b cerrado: guias agnosticas por componente en docs/implementacion/ |

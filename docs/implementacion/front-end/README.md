@@ -113,9 +113,15 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 
 ---
 
-## Referencias
+## Referencias cruzadas
 
-- Casos de uso: [`docs/casos-uso/`](../../casos-uso/)
-- i18n global: [`internacionalizacion.md`](../../politicas-transversales/internacionalizacion.md)
-- Contratos API: [`contratos-minimos.md`](../../arquitectura/contratos-minimos.md)
-- N4 presentación: [`zc-6-presentacion.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-6-presentacion.md)
+| Bloque | Enlaces |
+|--------|---------|
+| Arquitectura | [contratos-minimos.md](../../arquitectura/contratos-minimos.md), [errores-validaciones-capas.md](../../arquitectura/errores-validaciones-capas.md) |
+| Entidades | [planificaciones.md](../../entidades/planificaciones.md), [ocurrencias.md](../../entidades/ocurrencias.md) |
+| Casos de uso | [docs/casos-uso/](../../casos-uso/) |
+| Políticas | [internacionalizacion.md](../../politicas-transversales/internacionalizacion.md) |
+| Pseudocódigo | [zc-6-presentacion.md](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-6-presentacion.md) |
+| N4 Step 12a | [react-typescript/zc-6-presentacion.md](../../diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/zc-6-presentacion.md) |
+| Código | [`implementacion/front-end/react-typescript/`](../../../implementacion/front-end/react-typescript/) |
+| Shared | [shared/README.md](../shared/README.md) |

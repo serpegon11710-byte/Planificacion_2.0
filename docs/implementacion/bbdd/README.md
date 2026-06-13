@@ -106,8 +106,13 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 
 ---
 
-## Referencias
+## Referencias cruzadas
 
-- Modelo ER: [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md)
-- Stack motor: FAQ-100 en [`analisis-inicial.md`](../../stack-tecnologico/analisis-inicial.md); activo en [`historial-stack.md`](../../stack-tecnologico/historial-stack.md)
-- Migraciones en código: `implementacion/bbdd/postgresql/migrations/`
+| Bloque | Enlaces |
+|--------|---------|
+| Entidades / ER | [modelo-entidad-relacion.md](../../entidades/modelo-entidad-relacion.md), [planificaciones.md](../../entidades/planificaciones.md) |
+| Stack | [analisis-inicial.md](../../stack-tecnologico/analisis-inicial.md) (FAQ-100), [historial-stack.md](../../stack-tecnologico/historial-stack.md) |
+| Persistencia (consumidor) | [persistencia/README.md](../persistencia/README.md) |
+| Pseudocódigo | [zc-5-persistencia.md](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) |
+| N4 Step 12a | [postgresql/zc-5-persistencia-esquema.md](../../diagramas-c4/c4-nivel-4/implementacion/bbdd/postgresql/zc-5-persistencia-esquema.md) |
+| Código | [`implementacion/bbdd/postgresql/migrations/`](../../../implementacion/bbdd/postgresql/migrations/) |

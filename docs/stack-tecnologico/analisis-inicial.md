@@ -455,7 +455,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 ## 9. Próximos pasos (sin implementación)
 
 1. **Step 12a:** ~~Proyectar N4 canónico~~ **Completado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/).
-2. **Step 12b:** Redactar prácticas en `docs/implementacion/{componente}/`.
+2. **Step 12b:** ~~Redactar prácticas~~ **Completado** — [docs/implementacion/](../implementacion/).
 3. **Step 13:** Validar coherencia documental tras fijar stack.
 4. **Step 14:** Bootstrap del monorepo en `implementacion/` (fuera de alcance de este análisis).
 

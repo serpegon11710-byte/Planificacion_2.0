@@ -8,44 +8,35 @@ Prácticas y convenciones para implementar cada **contenedor lógico** de Planif
 > **Tres rutas llamadas «implementación»:** leer [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md) antes de añadir documentación o código en otra ubicación.  
 > **Desacoplamiento por contratos:** [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) — restricciones para cambiar tecnología en un componente sin arrastrar al resto.
 
-**Estado:** plantillas README por componente (Step 11). Contenido de prácticas pendiente — **Step 12b**. Ver [planificacion-inicial.md](../planificacion/planificacion-inicial.md).
+**Estado:** **Completado (Step 12b, 2026-06-12).** Cada guía incluye responsabilidades, mapeo UC/ZC, dependencias, tests/errores y referencias cruzadas.
 
 ---
 
 ## Componentes
 
-| Componente | Guía | Contenedor C4 | Código |
-|------------|------|---------------|--------|
-| Front-End | [front-end/README.md](front-end/README.md) | SPA, UC-01/02/03 | `implementacion/front-end/react-typescript/` |
-| Back-End | [back-end/README.md](back-end/README.md) | API REST, dominio, aplicación | `implementacion/back-end/nestjs-typescript/` |
-| Persistencia | [persistencia/README.md](persistencia/README.md) | Adaptadores, repos, conexión | `implementacion/persistencia/typescript/` |
-| Shared | [shared/README.md](shared/README.md) | Contratos compartidos FE/BE | `implementacion/shared/typescript/` |
-| BBDD | [bbdd/README.md](bbdd/README.md) | Esquema, migraciones, seeds | `implementacion/bbdd/postgresql/` |
+| Componente | Guía | ZC | Código | N4 Step 12a |
+|------------|------|-----|--------|-------------|
+| Front-End | [front-end/README.md](front-end/README.md) | ZC-6 | `implementacion/front-end/react-typescript/` | [react-typescript/](../diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/) |
+| Back-End | [back-end/README.md](back-end/README.md) | ZC-1 … ZC-4 | `implementacion/back-end/nestjs-typescript/` | [nestjs-typescript/](../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/) |
+| Persistencia | [persistencia/README.md](persistencia/README.md) | ZC-5 | `implementacion/persistencia/typescript/` | [typescript/](../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/) |
+| Shared | [shared/README.md](shared/README.md) | — | `implementacion/shared/typescript/` | — (contratos en arquitectura) |
+| BBDD | [bbdd/README.md](bbdd/README.md) | ZC-5 (esquema) | `implementacion/bbdd/postgresql/` | [postgresql/](../diagramas-c4/c4-nivel-4/implementacion/bbdd/postgresql/) |
 
 ---
 
-## Qué documentar aquí (por componente)
+## Estructura de cada guía
 
-- Responsabilidades y límites de la capa.
-- Mapeo a casos de uso y zonas críticas N4 (ZC-*).
-- Reglas de dependencia (qué puede importar qué).
-- Convenciones de pruebas y manejo de errores **propias del componente**.
-- Enlaces a `docs/arquitectura/`, entidades y pseudocódigo canónico.
-
-## Qué no documentar aquí
-
-- Reglas de negocio del dominio → `docs/entidades/`, `docs/casos-uso/`.
-- Estructura arquitectónica global → `docs/arquitectura/`.
-- Mapeo detallado clase-a-clase del stack → `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/`.
-- Políticas que aplican a todo el proyecto → `docs/politicas-transversales/`.
+1. Responsabilidades y límites  
+2. Mapeo a casos de uso y zonas críticas  
+3. Reglas de dependencia  
+4. Convenciones de tests y errores  
+5. Referencias cruzadas (arquitectura, entidades, pseudocódigo, N4, código)
 
 ---
 
 ## Relación con N4 y stack
 
 - Pseudocódigo canónico: [`docs/diagramas-c4/c4-nivel-4/pseudocodigo/`](../diagramas-c4/c4-nivel-4/pseudocodigo/).
-- Proyección N4 por componente: [`docs/diagramas-c4/c4-nivel-4/implementacion/`](../diagramas-c4/c4-nivel-4/implementacion/).
+- Proyección N4 por componente (Step 12a): [`docs/diagramas-c4/c4-nivel-4/implementacion/`](../diagramas-c4/c4-nivel-4/implementacion/).
 - Desacoplamiento por contratos: [`desacoplamiento-componentes-contratos.md`](../politicas-transversales/desacoplamiento-componentes-contratos.md).
-- Decisión de stack (análisis): [`analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md).
-- Stack activo e historial: [`historial-stack.md`](../stack-tecnologico/historial-stack.md).
-- Cambio de tecnología: [`cambio-tecnologia-componente.md`](../stack-tecnologico/cambio-tecnologia-componente.md).
+- Stack activo: [`historial-stack.md`](../stack-tecnologico/historial-stack.md).

@@ -120,9 +120,12 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 
 ---
 
-## Referencias
+## Referencias cruzadas
 
-- Arquitectura: [`docs/arquitectura/`](../../arquitectura/)
-- Granularidad: [`granularidad-modulos-negocio.md`](../../arquitectura/granularidad-modulos-negocio.md)
-- Transacciones: [`transacciones-consistencia.md`](../../arquitectura/transacciones-consistencia.md)
-- Pseudocódigo: [`docs/diagramas-c4/c4-nivel-4/pseudocodigo/`](../../diagramas-c4/c4-nivel-4/pseudocodigo/)
+| Bloque | Enlaces |
+|--------|---------|
+| Arquitectura | [README](../../arquitectura/README.md), [contratos-minimos.md](../../arquitectura/contratos-minimos.md), [granularidad-modulos-negocio.md](../../arquitectura/granularidad-modulos-negocio.md), [transacciones-consistencia.md](../../arquitectura/transacciones-consistencia.md), [errores-validaciones-capas.md](../../arquitectura/errores-validaciones-capas.md) |
+| Entidades | [proyectos.md](../../entidades/proyectos.md), [items.md](../../entidades/items.md), [planificaciones.md](../../entidades/planificaciones.md), [ocurrencias.md](../../entidades/ocurrencias.md), [modelo-entidad-relacion.md](../../entidades/modelo-entidad-relacion.md) |
+| Pseudocódigo | [zc-1](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-1-consulta-ocurrencias.md) … [zc-4](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-4-orquestacion-aplicacion.md) |
+| N4 Step 12a | [nestjs-typescript/](../../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/) |
+| Código | [`implementacion/back-end/nestjs-typescript/`](../../../implementacion/back-end/nestjs-typescript/) |

@@ -111,8 +111,14 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 
 ---
 
-## Referencias
+## Referencias cruzadas
 
-- ER: [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md)
-- FAQ-311 (bloqueos): [`dudas-y-resoluciones.md`](../../planificacion/dudas-y-resoluciones.md)
-- Pseudocódigo ZC-5: [`zc-5-persistencia.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md)
+| Bloque | Enlaces |
+|--------|---------|
+| Arquitectura | [contratos-minimos.md](../../arquitectura/contratos-minimos.md) §1–2, [transacciones-consistencia.md](../../arquitectura/transacciones-consistencia.md) |
+| Entidades | [modelo-entidad-relacion.md](../../entidades/modelo-entidad-relacion.md), [planificaciones.md](../../entidades/planificaciones.md), [ocurrencias.md](../../entidades/ocurrencias.md) |
+| FAQ | [FAQ-311](../../planificacion/dudas-y-resoluciones.md) (borrado RE-4) |
+| Pseudocódigo | [zc-5-persistencia.md](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) |
+| N4 Step 12a | [typescript/zc-5-persistencia.md](../../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/zc-5-persistencia.md) |
+| Código | [`implementacion/persistencia/typescript/`](../../../implementacion/persistencia/typescript/) |
+| BBDD (esquema) | [bbdd/README.md](../bbdd/README.md) |

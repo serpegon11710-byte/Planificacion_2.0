@@ -13,13 +13,23 @@
 | Documento | Propósito |
 |-----------|-----------|
 | [vista-general.md](vista-general.md) | Capas, contratos, checklist pre-implementación |
-| [dudas-y-resoluciones.md](dudas-y-resoluciones.md) | FAQ de diseño (FAQ-103: tickets) |
+| [dudas-y-resoluciones.md](dudas-y-resoluciones.md) | FAQ de diseño (Ticket 000, Pasos 1–13); FAQ-103: modelo `docs/` vs `backlog/` |
 | [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md) | Flujo de trabajo por tickets |
 | [protocolo_TODOs.md](protocolo_TODOs.md) | Commits (un commit por subticket) |
 
 ---
 
-## Roadmap de épicas
+## Qué documento usar
+
+| Necesitas… | Lee… |
+|------------|------|
+| Decisiones de diseño, FAQ por tema | [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (historico hasta **Ticket 000 — Paso 13**) |
+| Pasos 1–13 del plan documental, tabla paso ↔ FAQ | [000-planificacion-inicial/README.md](000-planificacion-inicial/README.md) |
+| Roadmap tickets 001+, ticket activo | **Este README** (sección Épicas) |
+| Detalle de una épica (alcance, subtickets) | `00N-nombre/README.md` |
+| Protocolo de ejecución y commits | [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md), [protocolo_TODOs.md](protocolo_TODOs.md) |
+
+---
 
 ```mermaid
 flowchart LR

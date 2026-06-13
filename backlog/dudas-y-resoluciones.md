@@ -2,9 +2,11 @@
 
 Registro centralizado de preguntas abiertas, decisiones tomadas y cambios de nomenclatura del proyecto Planificacion 2.0.
 
-**Ultima actualizacion:** 2026-06-12
+**Ultima actualizacion:** 2026-06-13
 
-Los documentos funcionales (`entidades/`, `arquitectura/`, etc.) deben **referenciar este FAQ** en lugar de mantener dudas duplicadas. Las resoluciones aqui prevalecen sobre borradores antiguos del plan (p. ej. `DefinicionFechaHora`, `InstanciaPlanificacion`).
+Los documentos funcionales (`docs/entidades/`, `docs/arquitectura/`, etc.) deben **referenciar este FAQ** en lugar de mantener dudas duplicadas. Las resoluciones aqui prevalecen sobre borradores antiguos del plan (p. ej. `DefinicionFechaHora`, `InstanciaPlanificacion`).
+
+**Alcance:** decisiones de **diseno** vinculadas al **[Ticket 000 — Pasos 1–13](000-planificacion-inicial/README.md)**. El historico FAQ **termina en el Paso 13**. Roadmap de implementacion (tickets 001+), estados y subtickets: **[backlog/README.md](README.md)** — no se duplican aqui.
 
 **FAQ de uso del producto** (por qué no puedo borrar, cómo preparar planificaciones antes de eliminar): [FAQ.md](../../FAQ.md) en la raíz del repositorio. Este archivo (`dudas-y-resoluciones.md`) es solo para decisiones de diseño.
 
@@ -14,8 +16,8 @@ Los documentos funcionales (`entidades/`, `arquitectura/`, etc.) deben **referen
 
 | Estado | Significado |
 |--------|-------------|
-| **Resuelta** | Decision acordada; el detalle documental puede quedar como entregable del Step indicado en cada FAQ |
-| **Abierta** | Requiere decision; ver Step indicado en cada FAQ |
+| **Resuelta** | Decision acordada; el detalle documental puede quedar como entregable del **Ticket 000 — Paso** indicado en cada FAQ |
+| **Abierta** | Requiere decision; ver **Ticket 000 — Paso** indicado en cada FAQ |
 | **Supersedida** | Duda historica; ver resolucion y nota de nomenclatura |
 
 ---
@@ -29,7 +31,7 @@ Formato: **`FAQ-Gnn`** — `G` = grupo (0–9), `nn` = secuencia dentro del grup
 - Si no encaja en ningun grupo existente, se abre un **grupo nuevo** (siguiente `G`) con `FAQ-G00`.
 - Las FAQ **Supersedida** conservan entrada e ID; solo se actualizan referencias cruzadas al ID vigente.
 
-| Grupo | Prefijo | Ambito | Step tipico |
+| Grupo | Prefijo | Ambito | Ticket 000 — Paso tipico |
 |-------|---------|--------|-------------|
 | **0** | FAQ-0xx | Dominio funcional / plan inicial | 1–9 |
 | **1** | FAQ-1xx | Stack e implementacion (politicas N4, motor, stack app) | 11 |
@@ -68,7 +70,7 @@ Formato: **`FAQ-Gnn`** — `G` = grupo (0–9), `nn` = secuencia dentro del grup
 
 **Resolucion (2026-06-12):** Persistir y comparar fechas/horas en **UTC**. Formateo a locale del usuario en presentacion (i18n).
 
-**Entregable Step 10:** tipos UTC en el ER (`docs/entidades/modelo-entidad-relacion.md`) y nota en `internacionalizacion.md` (almacenamiento vs visualizacion). **Completado (2026-06-12).**
+**Entregable Ticket 000 — Paso 10:** tipos UTC en el ER (`docs/entidades/modelo-entidad-relacion.md`) y nota en `internacionalizacion.md` (almacenamiento vs visualizacion). **Completado (2026-06-12).**
 
 ---
 
@@ -91,11 +93,11 @@ Formato: **`FAQ-Gnn`** — `G` = grupo (0–9), `nn` = secuencia dentro del grup
 
 ### FAQ-003 — Ocurrencias materializadas en el ER
 
-**Origen:** Step 10 / modelo de datos.
+**Origen:** Ticket 000 — Paso 10 / modelo de datos.
 
 **Pregunta:** ¿Incluir tabla de ocurrencias materializadas en el diagrama ER?
 
-**Resolucion (2026-06-12):** **Si**, en Step 10.
+**Resolucion (2026-06-12):** **Si**, en Ticket 000 — Paso 10.
 
 **Semantica de herencia** (observaciones, estado / completada):
 
@@ -117,7 +119,7 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 | `completada` / estado | Nullable | NULL = hereda; usuario ve el estado de la planificacion; se persiste al interactuar |
 | Eliminacion virtual | Si (flag/tipo) | RO-4 |
 
-**Entregable Step 10:** tabla `OcurrenciasMaterializadas` en `modelo-entidad-relacion.md`; seccion de persistencia en `ocurrencias.md` alineada al ER. **Completado (2026-06-12).**
+**Entregable Ticket 000 — Paso 10:** tabla `OcurrenciasMaterializadas` en `modelo-entidad-relacion.md`; seccion de persistencia en `ocurrencias.md` alineada al ER. **Completado (2026-06-12).**
 
 ---
 
@@ -127,7 +129,7 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 
 **Pregunta:** ¿Documentar Proyecto e Item en `docs/entidades/`?
 
-**Resolucion:** **Si**, crear `proyectos.md` e `items.md` **antes** del Step 10 (ER).
+**Resolucion:** **Si**, crear `proyectos.md` e `items.md` **antes** del Ticket 000 — Paso 10 (ER).
 
 **Estado de ejecucion:** **Completado** (2026-06-12) — `docs/entidades/proyectos.md`, `docs/entidades/items.md`.
 
@@ -135,7 +137,7 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 
 ### FAQ-005 — Idiomas (i18n)
 
-**Origen:** Step 9b / `internacionalizacion.md`.
+**Origen:** Ticket 000 — Paso 9b / `internacionalizacion.md`.
 
 **Pregunta:** ¿Que locales en la primera implementacion?
 
@@ -165,17 +167,17 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 
 ### FAQ-100 — Motor de base de datos
 
-**Origen:** Step 11.
+**Origen:** Ticket 000 — Paso 11.
 
 **Resolucion (2026-06-12):** **PostgreSQL 16** como motor unico en v1. Motivos: soporte nativo de restricciones del ER (UNIQUE parcial, CHECK, TIMESTAMPTZ, cascadas FK), alineacion con FAQ-308/309/311 y portabilidad del SQL documentado.
 
-**Entregable Step 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../docs/stack-tecnologico/analisis-inicial.md) (seccion 5 y 8). Codigo: `implementacion/bbdd/postgresql/`. **Completado (2026-06-12).**
+**Entregable Ticket 000 — Paso 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../docs/stack-tecnologico/analisis-inicial.md) (seccion 5 y 8). Codigo: `implementacion/bbdd/postgresql/`. **Completado (2026-06-12).**
 
 ---
 
 ### FAQ-101 — Stack de aplicacion
 
-**Origen:** Step 11.
+**Origen:** Ticket 000 — Paso 11.
 
 **Resolucion (2026-06-12):**
 
@@ -187,7 +189,7 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 | Shared | TypeScript (DTOs, codigos de error, tipos de contrato) |
 | Monorepo | **pnpm workspaces** (recomendado) |
 
-**Entregable Step 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../docs/stack-tecnologico/analisis-inicial.md), esqueleto [`implementacion/`](../../implementacion/), guias [`docs/implementacion/`](../implementacion/). **Completado (2026-06-12).**
+**Entregable Ticket 000 — Paso 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../docs/stack-tecnologico/analisis-inicial.md), esqueleto [`implementacion/`](../../implementacion/), guias [`docs/implementacion/`](../implementacion/). **Completado (2026-06-12).**
 
 ---
 
@@ -203,45 +205,35 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 4. **Politica de archivo (v1):** al sustituir una tecnologia, **renombrar** la carpeta saliente a `{tecnologia} (obsoleto)` en codigo y N4; crear carpeta de la tecnologia entrante sin sufijo. Procedimiento: [cambio-tecnologia-componente.md](../docs/stack-tecnologico/cambio-tecnologia-componente.md). Historial: [historial-stack.md](../docs/stack-tecnologico/historial-stack.md). **Excepcion:** coexistencia paralela (p. ej. PostgreSQL + MySQL en BBDD) — varias carpetas activas sin `(obsoleto)`; ver mismo documento § Excepciones.
 5. **Contratos:** API, puertos, ER y codigos de error son la frontera entre componentes; versionar cambios breaking. Matriz de compatibilidad en [historial-stack.md](../docs/stack-tecnologico/historial-stack.md) y README del componente.
 
-**Entregable Step 11:** [desambiguacion-implementacion.md](../docs/politicas-transversales/desambiguacion-implementacion.md), [desacoplamiento-componentes-contratos.md](../docs/politicas-transversales/desacoplamiento-componentes-contratos.md), [historial-stack.md](../docs/stack-tecnologico/historial-stack.md), [cambio-tecnologia-componente.md](../docs/stack-tecnologico/cambio-tecnologia-componente.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../docs/diagramas-c4/c4-nivel-4/implementacion/README.md). Proyeccion N4 concreta: **Step 12a**. **Completado (2026-06-12).**
+**Entregable Ticket 000 — Paso 11:** [desambiguacion-implementacion.md](../docs/politicas-transversales/desambiguacion-implementacion.md), [desacoplamiento-componentes-contratos.md](../docs/politicas-transversales/desacoplamiento-componentes-contratos.md), [historial-stack.md](../docs/stack-tecnologico/historial-stack.md), [cambio-tecnologia-componente.md](../docs/stack-tecnologico/cambio-tecnologia-componente.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../docs/diagramas-c4/c4-nivel-4/implementacion/README.md). Proyeccion N4 concreta: **Ticket 000 — Paso 12a**. **Completado (2026-06-12).**
 
 ---
 
 ### FAQ-103 — Gestion del trabajo por tickets y carpeta backlog
 
-**Origen:** Cierre Step 13; transicion a implementacion (ex Step 14).
+**Origen:** Cierre **Ticket 000 — Paso 13**; transicion a implementacion.
 
 **Resolucion (2026-06-12):**
 
-1. **Separacion de carpetas:**
-   - **`docs/`** — documentacion de producto (dominio, arquitectura, C4, entidades, casos de uso).
-   - **`backlog/`** (raiz del repo) — gestion del trabajo: tickets, protocolos, referencia transversal de ejecucion.
+1. **Donde va cada cosa:**
+
+| Ubicacion | Contenido |
+|-----------|-----------|
+| **`docs/`** | Producto: dominio, arquitectura, C4, entidades, casos de uso |
+| **`backlog/`** (raiz) | Gestion del trabajo: indice tickets 001+, protocolos, vista-general, **este FAQ** |
+| **`backlog/000-planificacion-inicial/`** | Historico Ticket 000 (Pasos 1–13, tabla pasos↔FAQ) |
+| **`backlog/00N-…/`** (N ≥ 1) | Epica de implementacion; detalle en cada `README.md` |
+| **`implementacion/`** | Codigo fuente |
 
 2. **Referencias comunes en raiz de `backlog/`** (no son tickets): [vista-general.md](vista-general.md), [dudas-y-resoluciones.md](dudas-y-resoluciones.md), [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md), [protocolo_TODOs.md](protocolo_TODOs.md).
 
-3. **Ticket 000 — planificacion-inicial** (`backlog/000-planificacion-inicial/`):
-   - Alcance: Steps 1–13 del plan historico (documentacion y validacion).
-   - **Estado: cerrado** en Step 13 (validacion documental).
-   - No admite subtickets de codigo.
+3. **Ticket 000** (`backlog/000-planificacion-inicial/`): Pasos 1–13; **cerrado** en Paso 13. Tabla pasos ↔ FAQ: [000-planificacion-inicial/README.md](000-planificacion-inicial/README.md). No admite subtickets de codigo.
 
-4. **Ticket 001 — bootstrap** (`backlog/001-bootstrap/`):
-   - Alcance: andamiaje ejecutable (ex Step 14): monorepo, Nest, Vite, migraciones, shared, DI.
-   - **Sin logica de negocio** (UC-01/02/03, reglas RT/RO).
-   - Subtickets: `T-001-xx` (prefijo ligado a la epica `001`).
+4. **Tickets 001+** (bootstrap, UC, …): indice y roadmap en **[backlog/README.md](README.md)**. Convencion subtickets `T-NNN-xx`.
 
-5. **Tickets 002–008 — implementacion UC** (roadmap en [README.md](README.md)):
-   - **002** Proyecto + Item (UC-01.2, UC-01.3)
-   - **003** Planificacion + captura + Sin planificar (UC-01.4, UC-01.5, UC-03, ZC-3)
-   - **004** Wizard UC-01.1 (ZC-4)
-   - **005** Consulta ocurrencias / calendario (UC-02.1, ZC-1)
-   - **006** Gestion puntual individual (UC-02.2)
-   - **007** Gestion periodica + materializacion (UC-02.3, ZC-2)
-   - **008** Gestion por planificacion (UC-02.4)
-   - Subtickets: `T-NNN-xx` por epica.
+5. **FAQ vs backlog:** este archivo registra **decisiones de diseno** (Ticket 000, Pasos 1–13). **No** duplicar aqui el listado ni el estado de tickets 001+.
 
-6. **Trazabilidad:** el plan por fases en `planificacion-inicial.md` permanece como referencia historica del Ticket 000; el trabajo activo pasa al indice [README.md](README.md).
-
-**Entregable:** estructura `backlog/`; FAQ-103; Ticket 001 documentado. Ver [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md).
+**Entregable:** estructura `backlog/`; ver [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md).
 
 ---
 
@@ -249,17 +241,17 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 
 ### FAQ-200 — Diagrama C4 N3 para Front-End
 
-**Origen:** Step 8.
+**Origen:** Ticket 000 — Paso 8.
 
 **Resolucion (2026-06-12):** **Si**, crear un **segundo diagrama N3** de componentes Front-End (ademas del N3 Back-End/Persistencia existente).
 
-**Estado de ejecucion:** **Completado** — `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes-frontend.mmd` (Step 8b).
+**Estado de ejecucion:** **Completado** — `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes-frontend.mmd` (Ticket 000 — Paso 8b).
 
 ---
 
 ### FAQ-201 — Trazabilidad C4 ↔ casos de uso
 
-**Origen:** Step 8 (`planificacion-inicial.md`).
+**Origen:** Ticket 000 — Paso 8 (`planificacion-inicial.md`).
 
 **Resolucion (2026-06-12):** Trazabilidad **distribuida**, no fichero central:
 
@@ -268,7 +260,7 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 
 Asi quien implementa una ZC ve de inmediato el origen funcional; quien lee un UC sabe donde buscar el detalle arquitectonico.
 
-**Estado de ejecucion:** Reflejado en ZC N4 y UCs (Step 8c).
+**Estado de ejecucion:** Reflejado en ZC N4 y UCs (Ticket 000 — Paso 8c).
 
 ---
 
@@ -276,7 +268,7 @@ Asi quien implementa una ZC ve de inmediato el origen funcional; quien lee un UC
 
 ### FAQ-300 — Modelo fisico de planificaciones: una tabla o varias
 
-**Origen:** Step 10 / decision de modelo de datos.
+**Origen:** Ticket 000 — Paso 10 / decision de modelo de datos.
 
 **Estado:** Resolucion inicial (dos tablas puntuales/periodicas) **supersedida por FAQ-305** (tabla unica `Planificaciones` + `PlanificacionPeriodo` 1:1). Conservada como historial.
 
@@ -302,9 +294,9 @@ Asi quien implementa una ZC ve de inmediato el origen funcional; quien lee un UC
 
 ### FAQ-303 — Borrador ER del plan: `DefinicionFechaHora`
 
-**Origen:** `planificacion-inicial.md` (Step 10 y «Decisiones tomadas»).
+**Origen:** `planificacion-inicial.md` (Ticket 000 — Paso 10 y «Decisiones tomadas»).
 
-**Resolucion (2026-06-12):** Sustituir `DefinicionFechaHora` por el modelo FAQ-300 / FAQ-301. **Entregable Step 10:** `docs/entidades/modelo-entidad-relacion.md`. **Completado (2026-06-12).**
+**Resolucion (2026-06-12):** Sustituir `DefinicionFechaHora` por el modelo FAQ-300 / FAQ-301. **Entregable Ticket 000 — Paso 10:** `docs/entidades/modelo-entidad-relacion.md`. **Completado (2026-06-12).**
 
 ---
 
@@ -325,7 +317,7 @@ Asi quien implementa una ZC ve de inmediato el origen funcional; quien lee un UC
 3. **Ocurrencias:** Sin planificar → lista vacia; Puntual → una dinamica; Periódica → dinamicas + `OcurrenciasMaterializadas` (FK `planificacion_id`). Restricciones RO-8 a RO-10 (rango, visibilidad tras cambio de fechas).
 4. Se eliminan `PlanificacionesPuntuales`, `PlanificacionesPeriodicas`, `V_Planificacion` y flags `sin_planificar`.
 
-**Entregable Step 10:** `docs/entidades/modelo-entidad-relacion.md`, `planificaciones.md`, pseudocodigo ZC-1/3/5. **Completado (2026-06-12).**
+**Entregable Ticket 000 — Paso 10:** `docs/entidades/modelo-entidad-relacion.md`, `planificaciones.md`, pseudocodigo ZC-1/3/5. **Completado (2026-06-12).**
 
 ---
 
@@ -376,7 +368,7 @@ Jerarquia canonica en `docs/entidades/modelo-clases-planificacion.md` (+ `.mmd`)
 | `Items` | `(proyecto_id, item_id)` | `UNIQUE (proyecto_id, nombre)` |
 | `Planificaciones` | `(item_id, fecha_inicio, hora, planificacion_id)` | `UNIQUE (item_id, observaciones)` parcial Sin planificar |
 
-En `Planificaciones`, `fecha_inicio NULL` agrupa Sin planificar por item; puntuales y periodicas se ordenan por fecha y hora, no por subtipo. Sintaxis en Step 11.
+En `Planificaciones`, `fecha_inicio NULL` agrupa Sin planificar por item; puntuales y periodicas se ordenan por fecha y hora, no por subtipo. Sintaxis en Ticket 000 — Paso 11.
 
 **Entregable:** seccion en `modelo-entidad-relacion.md`. **Completado (2026-06-12).** Actualizado por FAQ-310 (nombres PK).
 
@@ -443,37 +435,13 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 5. **Lectura calendario (UC-02.1):** con borrado acotado a un solo `planificacion_id`, el conflicto con lecturas de otras planificaciones es **extremadamente improbable** en READ COMMITTED locking. Bucle por planificacion o lectura batch del alumno: ambos son viables; el riesgo venia del DELETE multi-`planificacion_id`, no del shape del SELECT.
 
-**Entregable:** trazabilidad en `modelo-entidad-relacion.md` (RE-4), `ocurrencias.md`, UC-02.4. Implementacion concreta (aislamiento, RCSI, lotes) en **Step 11** (FAQ-100).
+**Entregable:** trazabilidad en `modelo-entidad-relacion.md` (RE-4), `ocurrencias.md`, UC-02.4. Implementacion concreta (aislamiento, RCSI, lotes) en **Ticket 000 — Paso 11** (FAQ-100).
 
 ---
 
 ## Abiertas
 
-_Ninguna (2026-06-12). FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11._
-
----
-
-## Decisiones (entregables por step) {#decisiones-entregables-por-step}
-
-### Steps cerrados (1–11, 12a, 12b, 13)
-
-| Step | Estado | Descripcion | Artefactos / FAQ |
-|------|--------|-------------|------------------|
-| **10** | Cerrado | Modelo ER | FAQ-001, 003, 300–311; `modelo-entidad-relacion.md`; entidades; pseudocodigo |
-| **11** | Cerrado | Stack tecnologico | FAQ-100, 101, 102; `analisis-inicial.md`; `implementacion/`; `docs/implementacion/`; desambiguacion |
-| **12a** | Cerrado | N4 por componente | `c4-nivel-4/implementacion/{componente}/{tecnologia}/` (incl. shared) |
-| **12b** | Cerrado | Guías agnósticas por componente | `docs/implementacion/{componente}/` |
-| **13** | Cerrado | Validación documental global | [validacion-documental-step13.md](validacion-documental-step13.md); checklist [vista-general.md](vista-general.md) §6 |
-
-Los Steps 7b, 8b y 8c ya estan cerrados.
-
-### Steps pendientes
-
-| Step | Estado | Descripcion | Artefactos |
-|------|--------|-------------|------------|
-| **14** | Pendiente | Bootstrap monorepo | `implementacion/` (Nest, Vite, migraciones) |
-
-Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8).
+_Ninguna (2026-06-12). FAQ-100, FAQ-101 y FAQ-102 cerradas en Ticket 000 — Paso 11._
 
 ---
 
@@ -481,33 +449,23 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 
 | Documento | IDs FAQ |
 |-----------|---------|
-| `planificacion-inicial.md` | FAQ-000, 001, 002, 303; Steps 11–14 |
-| `planificacion/vista-general.md` | Capas, contratos externo/interno, bootstrap |
-| `entidades/modelo-entidad-relacion.md` | FAQ-001, 003, 300, 301, 303, 308, 309, **310**, **311** |
-| `entidades/ocurrencias.md` | FAQ-002, 003, **311** |
-| `entidades/proyectos.md`, `items.md` | FAQ-004, **310** |
-| `entidades/planificaciones.md`, `modelo-clases-planificacion.md` | FAQ-000, 300, 301, 302, 305, 306, 307, **310**, **311** |
-| `casos-uso/UC-02.4` | **311** (borrado masivo RE-4) |
-| `revision-principios-solid.md` | FAQ-004, 007 |
-| `diagramas-c4/` | FAQ-200, 201, 102, 303 |
+| `000-planificacion-inicial/planificacion-inicial.md` | FAQ-000, 001, 002, 303; **Pasos 1–13** → [README Ticket 000](000-planificacion-inicial/README.md) |
+| `backlog/vista-general.md` | Capas, contratos externo/interno, bootstrap |
+| `docs/entidades/modelo-entidad-relacion.md` | FAQ-001, 003, 300, 301, 303, 308, 309, **310**, **311** |
+| `docs/entidades/ocurrencias.md` | FAQ-002, 003, **311** |
+| `docs/entidades/proyectos.md`, `items.md` | FAQ-004, **310** |
+| `docs/entidades/planificaciones.md`, `modelo-clases-planificacion.md` | FAQ-000, 300, 301, 302, 305, 306, 307, **310**, **311** |
+| `docs/casos-uso/UC-02.4` | **311** (borrado masivo RE-4) |
+| `docs/politicas-transversales/revision-principios-solid.md` | FAQ-004, 007 |
+| `docs/diagramas-c4/` | FAQ-200, 201, 102, 303 |
 | `docs/stack-tecnologico/analisis-inicial.md` | FAQ-100, 101 |
 | `implementacion/` (raiz), `docs/implementacion/` | FAQ-102, 101 |
-| `politicas-transversales/desambiguacion-implementacion.md` | FAQ-102 |
+| `docs/politicas-transversales/desambiguacion-implementacion.md` | FAQ-102 |
 | `docs/stack-tecnologico/historial-stack.md` | FAQ-102 |
 | `docs/stack-tecnologico/cambio-tecnologia-componente.md` | FAQ-102 |
-| Step 10 | FAQ-001, 003, 300, 301, 303, 305, 306, 307, 308, 309, **310**, **311** |
-| Step 11 | FAQ-100, 101, 102 (**cerrado**) |
-| Step 12a | N4 implementacion por componente — **cerrado** |
-| Step 12b | Practicas `docs/implementacion/` — **cerrado** |
-| Step 13 | Validacion documental — **cerrado** (re-validado 2026-06-12) |
-| Ticket 001 | Bootstrap codigo |
-| Ticket 002 | Proyecto e Item (UC-01.2, UC-01.3) |
-| Ticket 003 | Planificacion (UC-01.4, UC-01.5, UC-03) |
-| Ticket 004 | Wizard UC-01.1 |
-| Ticket 005 | Consulta ocurrencias UC-02.1 |
-| Ticket 006 | Gestion puntual UC-02.2 |
-| Ticket 007 | Gestion periodica UC-02.3 |
-| Ticket 008 | Gestion por planificacion UC-02.4 |
+
+**Trazabilidad Ticket 000 — Paso ↔ FAQ:** [000-planificacion-inicial/README.md](000-planificacion-inicial/README.md).  
+**Tickets de implementacion (001+):** [README.md](README.md).
 
 ---
 
@@ -539,9 +497,9 @@ Referencia de migración (IDs pre-renumeración → vigentes). Solo para trazabi
 | 2026-06-12 | Anadidas [FAQ-300](#faq-300--modelo-fisico-de-planificaciones-una-tabla-o-varias) a [FAQ-303](#faq-303--borrador-er-del-plan-definicionfechahora) (modelo ER, tablas por tipo, nomenclatura Sin planificar) |
 | 2026-06-12 | [FAQ-004](#faq-004--entidades-proyecto-e-item): aclarada semantica herencia (NULL en BD, valor visible heredado, persistencia al interactuar) |
 | 2026-06-12 | [FAQ-201](#faq-201--trazabilidad-c4--casos-de-uso) resuelta; trazabilidad distribuida; [FAQ-300](#faq-300--modelo-fisico-de-planificaciones-una-tabla-o-varias) modelo dos tablas; [FAQ-302](#faq-302--nomenclatura-sin-planificar) Sin planificar |
-| 2026-06-12 | Step 7b: entidades proyectos.md e items.md ([FAQ-004](#faq-004--entidades-proyecto-e-item)) |
-| 2026-06-12 | Step 8b: diagrama N3 Front-End ([FAQ-200](#faq-200--diagrama-c4-n3-para-front-end)) |
-| 2026-06-12 | Renumeracion plan: ER (Step 10) antes que stack (Step 11); Step 12 N4 implementacion |
+| 2026-06-12 | Ticket 000 — Paso 7b: entidades proyectos.md e items.md ([FAQ-004](#faq-004--entidades-proyecto-e-item)) |
+| 2026-06-12 | Ticket 000 — Paso 8b: diagrama N3 Front-End ([FAQ-200](#faq-200--diagrama-c4-n3-para-front-end)) |
+| 2026-06-12 | Renumeracion plan: ER (Ticket 000 — Paso 10) antes que stack (Ticket 000 — Paso 11); Ticket 000 — Paso 12 N4 implementacion |
 | 2026-06-12 | [FAQ-304](#faq-304--vista-unificada-dias-semana-y-ocurrencias-solo-periódicas): V_Planificacion, dias_semana LMXJVSD, ocurrencias solo periodicas |
 | 2026-06-12 | [FAQ-305](#faq-305--tabla-unica-planificaciones--planificacionperiodo-11): tabla unica Planificaciones + PlanificacionPeriodo; supersedida [FAQ-304](#faq-304--vista-unificada-dias-semana-y-ocurrencias-solo-periódicas) |
 | 2026-06-12 | [FAQ-306](#faq-306--tipoperiodo-catalogo-de-visibilidad-de-campos-de-patron): TipoPeriodo (visibilidad campos patron) |
@@ -550,10 +508,10 @@ Referencia de migración (IDs pre-renumeración → vigentes). Solo para trazabi
 | 2026-06-12 | [FAQ-309](#faq-309--tablas-satelite-pk-y-orden-fisico): satelites PK planificacion_id; ocurrencias (planificacion_id, fecha_original, hora, ocurrencia_id) |
 | 2026-06-12 | [FAQ-310](#faq-310--convencion-de-nombres-pk-tabla_id): PK {tabla}_id; excepcion PlanificacionPeriodo |
 | 2026-06-12 | [FAQ-311](#faq-311--bloqueos-en-borrado-masivo-de-ocurrenciasmaterializadas-re-4): bloqueos borrado masivo OcurrenciasMaterializadas; RE-4 acotado a una planificacion |
-| 2026-06-12 | Step 11 cerrado: [FAQ-100](#faq-100--motor-de-base-de-datos), [FAQ-101](#faq-101--stack-de-aplicacion), [FAQ-102](#faq-102--n4-implementacion-al-cambiar-de-tecnologia-en-un-componente); stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |
+| 2026-06-12 | Ticket 000 — Paso 11 cerrado: [FAQ-100](#faq-100--motor-de-base-de-datos), [FAQ-101](#faq-101--stack-de-aplicacion), [FAQ-102](#faq-102--n4-implementacion-al-cambiar-de-tecnologia-en-un-componente); stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |
 | 2026-06-12 | [FAQ-102](#faq-102--n4-implementacion-al-cambiar-de-tecnologia-en-un-componente) actualizada: N4 por componente/tecnologia; politica desacoplamiento-componentes-contratos |
-| 2026-06-12 | Step 12a cerrado: N4 implementacion por componente (ZC-1 a ZC-6) |
+| 2026-06-12 | Ticket 000 — Paso 12a cerrado: N4 implementacion por componente (ZC-1 a ZC-6) |
 | 2026-06-12 | [vista-general.md](vista-general.md): capas, contratos externo/interno, bootstrap, checklist pre-implementacion |
-| 2026-06-12 | **Renumeracion FAQ por grupos FAQ-Gnn** (0 dominio, 1 stack, 2 C4, 3 ER). Steps 12→12a/12b; tabla Decisiones sin Opciones A/B/C. Ver mapa legacy arriba |
-| 2026-06-12 | Step 12b cerrado: guias agnosticas por componente en docs/implementacion/ |
-| 2026-06-12 | Step 13 re-validado: historial FAQ con IDs vigentes; N4 shared/typescript/; informe actualizado |
+| 2026-06-12 | **Renumeracion FAQ por grupos FAQ-Gnn** (0 dominio, 1 stack, 2 C4, 3 ER). Pasos 12→12a/12b; trazabilidad paso↔FAQ en [Ticket 000 README](000-planificacion-inicial/README.md) |
+| 2026-06-12 | Ticket 000 — Paso 12b cerrado: guias agnosticas por componente en docs/implementacion/ |
+| 2026-06-12 | Ticket 000 — Paso 13 re-validado: historial FAQ con IDs vigentes; N4 shared/typescript/; informe actualizado |

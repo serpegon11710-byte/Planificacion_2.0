@@ -93,8 +93,8 @@ Una frase.
 
 | Situación | Acción |
 |-----------|--------|
-| Duda de diseño / contrato / ER | Nueva o actualización en [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (FAQ) |
-| Tarea ejecutable acotada | Subticket en la épica correspondiente |
+| Duda de diseño / contrato / ER | [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (Ticket 000, Pasos 1–13) |
+| Tarea ejecutable acotada | Subticket en la épica ([README.md](README.md)) |
 | Cambio breaking de contrato API/DTO | FAQ + actualizar N4 shared + historial-stack |
 
 No cerrar un subticket si queda una FAQ **abierta** que lo bloquea.

@@ -1,5 +1,7 @@
 ﻿# Plan de Documentación Inicial - Planificacion 2.0
 
+> **Ticket 000 — Planificación inicial.** Los pasos numerados en este documento son **Pasos 1–13 del Ticket 000**. Índice paso ↔ FAQ: [README.md](README.md). Tras el Paso 13, la implementación continúa en tickets **001+** ([backlog/README.md](../README.md)).
+
 **Fecha:** 2026-06-10  
 **Vista general (capas, contratos, bootstrap):** [vista-general.md](../vista-general.md) — lectura recomendada antes de implementar código.
 

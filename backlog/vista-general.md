@@ -129,8 +129,8 @@ Los contratos de diseño interno **no sustituyen** a los externos: definen la **
 | 4 | Arquitectura + **contratos externos** | ¿Qué se expone en cada frontera? |
 | 5 | N4 canónico | ¿Cómo funciona por dentro (lógica)? |
 | 6 | N4 implementación + **contratos internos** | ¿Cómo se nombra y organiza en el stack? |
-| 7 | Step 12b (guías componente) | ¿Qué convenciones agnósticas aplican? |
-| 8 | Step 13 (validación) | ¿Todo es coherente? |
+| 7 | Ticket 000 — Paso 12b (guías componente) | ¿Qué convenciones agnósticas aplican? |
+| 8 | Ticket 000 — Paso 13 (validación) | ¿Todo es coherente? |
 | 9 | Ticket 001 (bootstrap) | ¿Arranca el andamiaje sin negocio? |
 | 10 | Implementación UC-* | ¿Reglas de negocio en código? |
 

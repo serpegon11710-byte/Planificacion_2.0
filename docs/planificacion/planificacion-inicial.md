@@ -207,9 +207,10 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/politicas-transversales/README.md` | Indice de politicas transversales |
 | `docs/politicas-transversales/revision-principios-solid.md` | Revision global de cumplimiento SOLID |
 | `docs/politicas-transversales/internacionalizacion.md` | Politica transversal de i18n |
-| `docs/planificacion/planificacion-inicial.md` | Plan por fases y steps |
-| `docs/planificacion/vista-general.md` | Capas, contratos (externo/interno), bootstrap, checklist pre-implementacion |
-| `docs/planificacion/dudas-y-resoluciones.md` | FAQ centralizado de dudas, resoluciones y nomenclatura |
+| `docs/planificacion/planificacion-inicial.md` | Plan por fases y steps (→ `backlog/000-planificacion-inicial/`) |
+| `backlog/vista-general.md` | Capas, contratos (externo/interno), checklist pre-implementacion |
+| `backlog/dudas-y-resoluciones.md` | FAQ centralizado (FAQ-103: tickets y backlog) |
+| `backlog/README.md` | Indice de tickets y epica activa |
 | `docs/entidades/modelo-entidad-relacion.md` | Diagrama ERD Mermaid (Step 10) |
 | `docs/entidades/modelo-clases-planificacion.md` | Diagrama de clases dominio (FAQ-307) |
 | `docs/stack-tecnologico/analisis-inicial.md` | Analisis y seleccion de stack (Step 11) |
@@ -259,9 +260,10 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 
 Resumen de estado (2026-06-12):
 
-- **Resueltas:** FAQ-000 a FAQ-007 (grupo 0), FAQ-100 a FAQ-102 (grupo 1), FAQ-200 a FAQ-201 (grupo 2), FAQ-300 a FAQ-311 (grupo 3).
-- **Steps cerrados:** 1–11, 12a, **12b**, **13** (validacion documental; re-validado).
-- **Pendientes (orden de prioridad):** Step 14. Ver [Decisiones (entregables por step)](dudas-y-resoluciones.md#decisiones-entregables-por-step).
+- **Resueltas:** FAQ-000 a FAQ-007 (grupo 0), FAQ-100 a FAQ-103 (grupo 1), FAQ-200 a FAQ-201 (grupo 2), FAQ-300 a FAQ-311 (grupo 3).
+- **Ticket 000 (planificacion-inicial):** **cerrado** — Steps 1–13; ver [validacion-documental-step13.md](validacion-documental-step13.md).
+- **Ticket 001 (bootstrap):** **pendiente** — ver [001-bootstrap/README.md](../../backlog/001-bootstrap/README.md) (FAQ-103).
+- **Gestion del trabajo:** indice en [backlog/README.md](../../backlog/README.md).
 
 ## Próximos Pasos
 

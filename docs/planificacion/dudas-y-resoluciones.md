@@ -207,6 +207,34 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 
 ---
 
+### FAQ-103 — Gestion del trabajo por tickets y carpeta backlog
+
+**Origen:** Cierre Step 13; transicion a implementacion (ex Step 14).
+
+**Resolucion (2026-06-12):**
+
+1. **Separacion de carpetas:**
+   - **`docs/`** — documentacion de producto (dominio, arquitectura, C4, entidades, casos de uso).
+   - **`backlog/`** (raiz del repo) — gestion del trabajo: tickets, protocolos, referencia transversal de ejecucion.
+
+2. **Referencias comunes en raiz de `backlog/`** (no son tickets): [vista-general.md](vista-general.md), [dudas-y-resoluciones.md](dudas-y-resoluciones.md), [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md), [protocolo_TODOs.md](protocolo_TODOs.md).
+
+3. **Ticket 000 — planificacion-inicial** (`backlog/000-planificacion-inicial/`):
+   - Alcance: Steps 1–13 del plan historico (documentacion y validacion).
+   - **Estado: cerrado** en Step 13 (validacion documental).
+   - No admite subtickets de codigo.
+
+4. **Ticket 001 — bootstrap** (`backlog/001-bootstrap/`):
+   - Alcance: andamiaje ejecutable (ex Step 14): monorepo, Nest, Vite, migraciones, shared, DI.
+   - **Sin logica de negocio** (UC-01/02/03, reglas RT/RO).
+   - Subtickets: `T-001-xx` (prefijo ligado a la epica `001`).
+
+5. **Trazabilidad:** el plan por fases en `planificacion-inicial.md` permanece como referencia historica del Ticket 000; el trabajo activo pasa al indice [backlog/README.md](../../backlog/README.md).
+
+**Entregable:** estructura `backlog/`; FAQ-103; Ticket 001 documentado. Ver [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md).
+
+---
+
 ## Grupo 2 — Diagramas C4 {#grupo-2-diagramas-c4}
 
 ### FAQ-200 — Diagrama C4 N3 para Front-End

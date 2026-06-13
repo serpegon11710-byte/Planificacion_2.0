@@ -43,6 +43,23 @@ Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general
 
 ---
 
+## Mapeo a casos de uso y zonas críticas
+
+Shared no implementa ZC; provee **tipos y códigos** consumidos en los flujos UC.
+
+| UC / ámbito | Artefactos shared típicos |
+|-------------|---------------------------|
+| UC-01.* | DTOs creación/edición proyecto, item, planificación |
+| UC-01.5 | Tipos de captura parcial (wizard) |
+| UC-02.* | DTOs ocurrencia, filtros de rango, estados |
+| UC-02.4 / RE-5 | Payload `bloqueos` y códigos de restricción previa |
+| UC-03 | DTO listado Sin planificar |
+| Transversal | Catálogo `TipoPeriodo` (respuesta API), enum `codigo` error |
+
+Sin pseudocódigo ZC propio. Contrato fuente: [`contratos-minimos.md`](../../arquitectura/contratos-minimos.md). Código: [`implementacion/shared/typescript/`](../../../implementacion/shared/typescript/).
+
+---
+
 ## Referencias
 
 - Contratos: [`contratos-minimos.md`](../../arquitectura/contratos-minimos.md)

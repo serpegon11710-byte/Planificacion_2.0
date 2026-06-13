@@ -45,6 +45,26 @@ Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general
 
 ---
 
+## Mapeo a casos de uso y zonas críticas
+
+| UC / sub-UC | ZC | Rol en Front-End |
+|-------------|-----|------------------|
+| UC-01.1 (wizard) | ZC-6 | Flujo guiado creación proyecto/item/planificación |
+| UC-01.2–UC-01.4 (gestión) | ZC-6 | Formularios mantenimiento y edición |
+| UC-01.5 (captura datos) | ZC-6 | Componente reutilizable; validación UI; sin persistir |
+| UC-02.1 (calendario) | ZC-6 | Vista mensual/semanal; selección ocurrencia |
+| UC-02.2 / UC-02.3 | ZC-6 | Acciones sobre ocurrencia puntual/periódica |
+| UC-02.4 | ZC-6 | Gestión ocurrencias materializadas; avisos RE-5 |
+| UC-03 (Sin planificar) | ZC-6 | Listado y acciones desde backlog |
+
+| ZC | Pseudocódigo | N4 Step 12a |
+|----|--------------|-------------|
+| ZC-6 | [`zc-6-presentacion.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-6-presentacion.md) | [`react-typescript/zc-6-presentacion.md`](../../diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/zc-6-presentacion.md) |
+
+Casos de uso: [`docs/casos-uso/`](../../casos-uso/).
+
+---
+
 ## Referencias
 
 - Casos de uso: [`docs/casos-uso/`](../../casos-uso/)

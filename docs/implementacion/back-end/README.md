@@ -45,6 +45,28 @@ Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general
 
 ---
 
+## Mapeo a casos de uso y zonas críticas
+
+| UC / sub-UC | ZC | Rol en Back-End |
+|-------------|-----|-----------------|
+| UC-01.* (wizard, CRUD proyecto/item/planificación) | ZC-4 | Orquestación transaccional multi-agregado |
+| UC-02.1 (visualización calendario) | ZC-1 | Consulta ocurrencias en rango |
+| UC-02.2 / UC-02.3 (mutación ocurrencia) | ZC-2 | Materialización y estado individual |
+| UC-02.4 (ocurrencias por planificación) | ZC-2, ZC-5 | Validación RE-4; borrado vía puerto |
+| UC-03 (Sin planificar) | ZC-1 | Listado filtrado |
+| Definición/edición planificación periódica | ZC-3 | Motor temporal e inferencia de naturaleza |
+
+| ZC | Pseudocódigo | N4 Step 12a |
+|----|--------------|-------------|
+| ZC-1 | [`zc-1-consulta-ocurrencias.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-1-consulta-ocurrencias.md) | [`nestjs-typescript/zc-1-consulta-ocurrencias.md`](../../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/zc-1-consulta-ocurrencias.md) |
+| ZC-2 | [`zc-2-materializacion-ocurrencias.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-2-materializacion-ocurrencias.md) | [`zc-2-materializacion-ocurrencias.md`](../../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/zc-2-materializacion-ocurrencias.md) |
+| ZC-3 | [`zc-3-planificacion-temporal.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-3-planificacion-temporal.md) | [`zc-3-planificacion-temporal.md`](../../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/zc-3-planificacion-temporal.md) |
+| ZC-4 | [`zc-4-orquestacion-aplicacion.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-4-orquestacion-aplicacion.md) | [`zc-4-orquestacion-aplicacion.md`](../../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/zc-4-orquestacion-aplicacion.md) |
+
+Sub-UC y orquestación: [`granularidad-modulos-negocio.md`](../../arquitectura/granularidad-modulos-negocio.md).
+
+---
+
 ## Referencias
 
 - Arquitectura: [`docs/arquitectura/`](../../arquitectura/)

@@ -46,6 +46,23 @@ Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general
 
 ---
 
+## Mapeo a casos de uso y zonas críticas
+
+BBDD materializa el **contrato ER**; no mapea UC directamente. Las reglas RT/RI del ER habilitan los UC vía Back-End + Persistencia.
+
+| Ámbito ER | Tablas / restricciones | ZC (esquema) |
+|-----------|------------------------|--------------|
+| Proyectos, Items | `Proyectos`, `Items`, UNIQUE nombre | ZC-5 |
+| Planificaciones | `Planificaciones`, inferencia naturaleza | ZC-5 |
+| Periódicas | `PlanificacionPeriodo`, `TipoPeriodo` | ZC-5 |
+| Ocurrencias | `OcurrenciasMaterializadas`, orden físico FAQ-309 | ZC-5 |
+
+| ZC | Pseudocódigo | N4 Step 12a |
+|----|--------------|-------------|
+| ZC-5 (esquema) | [`zc-5-persistencia.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | [`postgresql/zc-5-persistencia-esquema.md`](../../diagramas-c4/c4-nivel-4/implementacion/bbdd/postgresql/zc-5-persistencia-esquema.md) |
+
+---
+
 ## Referencias
 
 - Modelo ER: [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md)

@@ -47,6 +47,24 @@ Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general
 
 ---
 
+## Mapeo a casos de uso y zonas críticas
+
+La persistencia no expone UC directamente; implementa **puertos** invocados desde ZC-1 a ZC-5 del Back-End.
+
+| Operación (puerto / agregado) | ZC | Notas |
+|------------------------------|-----|-------|
+| Consulta ocurrencias en rango | ZC-5 (ZC-1) | Composición dinámicas + materializadas |
+| CRUD Proyecto, Item, Planificación | ZC-5 | Mappers e inferencia de naturaleza |
+| Materialización / mutación ocurrencias | ZC-5 (ZC-2) | Herencia NULL (FAQ-003) |
+| Transacciones multi-tabla | ZC-5 (ZC-4) | Unit of Work |
+| Borrado masivo RE-4 | ZC-5 | Un `planificacion_id` por TX ([FAQ-311](../../planificacion/dudas-y-resoluciones.md)) |
+
+| ZC | Pseudocódigo | N4 Step 12a |
+|----|--------------|-------------|
+| ZC-5 | [`zc-5-persistencia.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | [`typescript/zc-5-persistencia.md`](../../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/zc-5-persistencia.md) |
+
+---
+
 ## Referencias
 
 - ER: [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md)

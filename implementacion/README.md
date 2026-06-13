@@ -1,14 +1,15 @@
-# Implementación — Código fuente
+﻿# Implementación — Código fuente
 
 **Última actualización:** 2026-06-12
 
 Árbol de **código ejecutable** de Planificacion 2.0, organizado por **componente lógico** (contenedores C4) y **tecnología concreta** en cada subcarpeta.
 
-> **Desambiguación:** este directorio no es `docs/implementacion/` (guías agnósticas) ni `docs/diagramas-c4/.../implementacion/` (N4 por stack). Ver [`desambiguacion-implementacion.md`](../docs/politicas-transversales/desambiguacion-implementacion.md).
+> **Desambiguación:** este directorio no es `docs/implementacion/` (guías agnósticas) ni `docs/diagramas-c4/.../implementacion/` (N4 por stack). Ver [`desambiguacion-implementacion.md`](../docs/politicas-transversales/desambiguacion-implementacion.md).  
+> **Antes de codificar negocio:** [vista-general.md](../docs/planificacion/vista-general.md) §6 (checklist de contratos).
 
 ---
 
-## Stack activo (FAQ-101, FAQ-102)
+## Stack activo (FAQ-100, FAQ-101)
 
 | Capa | Tecnología |
 |------|------------|
@@ -103,4 +104,4 @@ Solo **BBDD** incluye el nombre del motor en su ruta. Persistencia y Back-End no
 
 ---
 
-**Estado:** estructura base creada (Step 11). Bootstrap de proyectos (package.json, Nest, Vite, migraciones) pendiente — **Step 14 (Opción C)**. Ver [planificacion-inicial.md](../docs/planificacion/planificacion-inicial.md).
+**Estado:** estructura base creada (Step 11). Bootstrap de proyectos (package.json, Nest, Vite, migraciones) pendiente — **Step 14**. Ver [planificacion-inicial.md](../docs/planificacion/planificacion-inicial.md).

@@ -1,4 +1,4 @@
-# Cambio de tecnología en un componente
+﻿# Cambio de tecnología en un componente
 
 **Última actualización:** 2026-06-12
 
@@ -11,7 +11,7 @@ Instrucciones para **sustituir** la tecnología de un contenedor (Front-End, Bac
 
 ## Alcance
 
-Aplica a **código** y **documentación N4 de implementación** (Step 12+):
+Aplica a **código** y **documentación N4 de implementación** (Step 12a+):
 
 | Ámbito | Patrón de ruta |
 |--------|----------------|
@@ -98,7 +98,7 @@ docs/.../implementacion/bbdd/
 | Requisito | Detalle |
 |-----------|---------|
 | Registro explícito | Tabla **Coexistencia paralela** en [historial-stack.md](historial-stack.md) |
-| Contrato ER | Mismo modelo lógico; documentar divergencias de dialecto (tipos, índices, FAQ-116, etc.) |
+| Contrato ER | Mismo modelo lógico; documentar divergencias de dialecto (tipos, índices, FAQ-311, etc.) |
 | Persistencia | Adaptadores por motor; Back-End sigue usando **puertos**, no SQL directo |
 | Sin `(obsoleto)` | Ninguna de las carpetas paralelas lleva sufijo `(obsoleto)` mientras sigan activas |
 | Despliegue | Documentar qué motor usa cada entorno (dev/staging/prod) |
@@ -132,6 +132,6 @@ Sin registro en historial, **no** se considera válida la coexistencia de dos ca
 
 | Tema | Ubicación |
 |------|-----------|
-| FAQ-007 | [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) |
+| FAQ-102 | [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) |
 | Desambiguación rutas | [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md) |
 | N4 por componente | [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md) |

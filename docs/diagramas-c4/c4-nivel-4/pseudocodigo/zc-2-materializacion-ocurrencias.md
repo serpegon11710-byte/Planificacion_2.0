@@ -1,11 +1,11 @@
-# ZC-2: Materializacion y mutacion de ocurrencias
+﻿# ZC-2: Materializacion y mutacion de ocurrencias
 
 **Componente N3:** `Ocurrencia`  
 **Prioridad:** Alta  
 **Reglas:** `docs/entidades/ocurrencias.md` (RO-2, RO-4, RO-5, RO-6, RO-7)  
 **Casos de uso:** UC-02.2, UC-02.3, UC-02.4
 
-## Trazabilidad (FAQ-104)
+## Trazabilidad (FAQ-201)
 
 | Caso de uso | Rol en esta zona |
 |-------------|------------------|

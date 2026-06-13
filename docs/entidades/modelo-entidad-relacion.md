@@ -1,15 +1,15 @@
-# Modelo entidad-relación (ER)
+﻿# Modelo entidad-relación (ER)
 
 **Última actualización:** 2026-06-12 (`TipoPeriodo` catálogo de visibilidad de campos)  
 **Step:** 10
 
-Modelo lógico de persistencia para Planificacion 2.0. **Jerarquía de clases de dominio:** [modelo-clases-planificacion.md](modelo-clases-planificacion.md). Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, 004, 105–114, **115**, **116**) y entidades en esta carpeta.
+Modelo lógico de persistencia para Planificacion 2.0. **Jerarquía de clases de dominio:** [modelo-clases-planificacion.md](modelo-clases-planificacion.md). Decisiones de origen: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-001, 003, 300–311) y entidades en esta carpeta.
 
-**Convención PK (FAQ-115):** la clave primaria de cada tabla se nombra **`{entidad}_id`** (`proyecto_id`, `item_id`, `planificacion_id`, `tipo_periodo_id`, `ocurrencia_id`). **Excepción:** `PlanificacionPeriodo` no tiene PK propia; usa **`planificacion_id`** heredada de `Planificaciones` (FAQ-114).
+**Convención PK (FAQ-310):** la clave primaria de cada tabla se nombra **`{entidad}_id`** (`proyecto_id`, `item_id`, `planificacion_id`, `tipo_periodo_id`, `ocurrencia_id`). **Excepción:** `PlanificacionPeriodo` no tiene PK propia; usa **`planificacion_id`** heredada de `Planificaciones` (FAQ-309).
 
 **Notas transversales:**
 
-- Fechas y horas en **UTC** (FAQ-002). El formateo a locale es responsabilidad de la capa de presentación.
+- Fechas y horas en **UTC** (FAQ-001). El formateo a locale es responsabilidad de la capa de presentación.
 - Tipos físicos concretos (`TIMESTAMPTZ`, etc.) se fijan en Step 11 al elegir motor de BBDD.
 - La **clase concreta** de dominio (`PlanificacionSinPlanificar`, `PlanificacionPuntual`, `PlanificacionDiaria`, …) se **infiere** de los datos; no hay flags ni columnas discriminadoras en BD.
 
@@ -92,7 +92,7 @@ erDiagram
 | `TipoPeriodo` | Catálogo: `codigo` + columnas `visibilidad_*` |
 | `OcurrenciasMaterializadas` | FK **`planificacion_id`** (misma clave que el periodo); PK fila **`ocurrencia_id`** |
 
-No existe `TipoPlanificacion` (supersedido por FAQ-111). La relación `TipoPeriodo → PlanificacionPeriodo` enlaza metadatos de visibilidad con la fila de patrón concreta vía `tipo_periodo_id`.
+No existe `TipoPlanificacion` (supersedido por FAQ-306). La relación `TipoPeriodo → PlanificacionPeriodo` enlaza metadatos de visibilidad con la fila de patrón concreta vía `tipo_periodo_id`.
 
 Semántica (UNIQUE, CHECK, UTC, CASCADE): ver restricciones más abajo.
 
@@ -116,7 +116,7 @@ Una fila por planificación del item. Campos comunes a todas las especializacion
 
 | Columna | Obligatorio | Notas |
 |---------|-------------|-------|
-| `planificacion_id` | PK | FAQ-115 |
+| `planificacion_id` | PK | FAQ-310 |
 | `item_id` | FK → `Items.item_id` | Pertenece a un item |
 | `fecha_inicio` | Condicional | `NULL` en Sin planificar |
 | `fecha_fin` | Condicional | `NULL` en Sin planificar |
@@ -138,28 +138,28 @@ Detalle y diagrama: [modelo-clases-planificacion.md](modelo-clases-planificacion
 
 ## Tabla `PlanificacionPeriodo` (definición del patrón)
 
-Relación **1:1** con `Planificaciones`. **PK = `planificacion_id`** (FK → `Planificaciones.planificacion_id`); no tiene PK propia (FAQ-114, FAQ-115).
+Relación **1:1** con `Planificaciones`. **PK = `planificacion_id`** (FK → `Planificaciones.planificacion_id`); no tiene PK propia (FAQ-309, FAQ-310).
 
 | Columna | Obligatorio | Notas |
 |---------|-------------|-------|
 | `planificacion_id` | PK, FK | Identidad de la fila = identidad de la planificación periódica |
 | `tipo_periodo_id` | FK → TipoPeriodo | Referencia al catálogo |
-| `variante_diaria` | Si visible en catálogo | FAQ-001: `TODOS`, `LUN_VIE`, `FIN_SEMANA` |
+| `variante_diaria` | Si visible en catálogo | FAQ-000: `TODOS`, `LUN_VIE`, `FIN_SEMANA` |
 | `dias_semana` | Si visible en catálogo | Letras **LMXJVSD**; p. ej. `MX`, `LMXJVSD` |
 | `dia_mes` | Si visible en catálogo | 1–31 |
 | `comportamiento_mes_corto` | Si visible en catálogo | Obligatorio si `dia_mes > 28` y Mensual |
 
-Los valores concretos del patrón viven en esta fila; **qué columnas aplican** lo define `TipoPeriodo` (FAQ-111).
+Los valores concretos del patrón viven en esta fila; **qué columnas aplican** lo define `TipoPeriodo` (FAQ-306).
 
 ---
 
-## Catálogo `TipoPeriodo` (FAQ-111)
+## Catálogo `TipoPeriodo` (FAQ-306)
 
 Tabla de referencia para **tipos de periodo** periódicos. No sustituye almacenar el patrón en `PlanificacionPeriodo` (ahí van los valores). Su rol es declarar **qué campos de patrón son visibles y exigibles** según el tipo, para captura (UC-01.5), validación (ZC-3) y motor de ocurrencias (ZC-1).
 
 | Columna | Uso |
 |---------|-----|
-| `tipo_periodo_id` | PK | FAQ-115 |
+| `tipo_periodo_id` | PK | FAQ-310 |
 | `codigo` | Clave estable e i18n: `Diario`, `Semanal`, `Mensual` |
 | `visibilidad_variante_diaria` | Muestra / valida `variante_diaria` |
 | `visibilidad_dias_semana` | Muestra / valida `dias_semana` |
@@ -210,7 +210,7 @@ Solo las **periódicas** persisten filas en `OcurrenciasMaterializadas` (FK **`p
 
 RE-4 **no** aplica a Sin planificar ni Puntual.
 
-**Borrado masivo para vaciar RE-4 (feature futura):** si se implementa vaciado en bloque de `OcurrenciasMaterializadas` desde UC-02.4, debe acotarse a **un solo `planificacion_id` por operación** (`DELETE … WHERE planificacion_id = ?`). Evitar `DELETE … WHERE planificacion_id IN (…)` o vaciado de item/proyecto en una sola transacción: en READ COMMITTED con locking (p. ej. SQL Server sin RCSI) puede bloquear lecturas concurrentes sobre otras planificaciones del mismo índice. Ver [FAQ-116](../planificacion/dudas-y-resoluciones.md).
+**Borrado masivo para vaciar RE-4 (feature futura):** si se implementa vaciado en bloque de `OcurrenciasMaterializadas` desde UC-02.4, debe acotarse a **un solo `planificacion_id` por operación** (`DELETE … WHERE planificacion_id = ?`). Evitar `DELETE … WHERE planificacion_id IN (…)` o vaciado de item/proyecto en una sola transacción: en READ COMMITTED con locking (p. ej. SQL Server sin RCSI) puede bloquear lecturas concurrentes sobre otras planificaciones del mismo índice. Ver [FAQ-311](../planificacion/dudas-y-resoluciones.md).
 
 ### RE-1, RE-2 — cascada
 
@@ -227,16 +227,16 @@ Listar cada planificación bloqueante con **`IdentificablePorUsuario`** — ver 
 
 ---
 
-## Orden físico e índices de acceso (FAQ-113)
+## Orden físico e índices de acceso (FAQ-308)
 
-La **PK** (`{tabla}_id`) identifica filas y enlaza FK; **no define por sí sola** el orden físico (FAQ-113). Sintaxis concreta en Step 11.
+La **PK** (`{tabla}_id`) identifica filas y enlaza FK; **no define por sí sola** el orden físico (FAQ-308). Sintaxis concreta en Step 11.
 
 ### Principio
 
 | Concepto | Uso |
 |----------|-----|
-| `{tabla}_id` (PK) | Identidad estable, FK, ORM (FAQ-115) |
-| **Excepción** | `PlanificacionPeriodo`: PK = `planificacion_id` heredada (FAQ-114) |
+| `{tabla}_id` (PK) | Identidad estable, FK, ORM (FAQ-310) |
+| **Excepción** | `PlanificacionPeriodo`: PK = `planificacion_id` heredada (FAQ-309) |
 | **Orden físico** | Localidad de lecturas habituales (listados por proyecto, item, rango de fechas) |
 | **Índices adicionales** | Unicidad de negocio y búsquedas por nombre |
 
@@ -269,7 +269,7 @@ La **PK** (`{tabla}_id`) identifica filas y enlaza FK; **no define por sí sola*
 4. **`hora`:** orden cronológico dentro del mismo item y `fecha_inicio` (p. ej. varias puntuales el mismo día a distinta hora).
 5. **`planificacion_id` final:** desempate estable cuando comparten item, `fecha_inicio` y `hora` (p. ej. varias Sin planificar con distintas observaciones).
 
-### Tablas satélite (FAQ-114)
+### Tablas satélite (FAQ-309)
 
 Las tablas satélite **no comparten** el orden físico de `Planificaciones` (ordenadas por `item_id`, `fecha_inicio`, `hora`). Sí comparten criterio entre sí vía `planificacion_id`.
 
@@ -303,26 +303,26 @@ Las tablas satélite **no comparten** el orden físico de `Planificaciones` (ord
 
 | Restricción | Regla |
 |-------------|-------|
-| `PK proyecto_id` | FAQ-115 |
+| `PK proyecto_id` | FAQ-310 |
 | `UNIQUE (nombre)` | RP-1 |
-| Orden físico | FAQ-113: por `proyecto_id` |
+| Orden físico | FAQ-308: por `proyecto_id` |
 
 ### `Items`
 
 | Restricción | Regla |
 |-------------|-------|
-| `PK item_id` | FAQ-115 |
+| `PK item_id` | FAQ-310 |
 | `UNIQUE (proyecto_id, nombre)` | RI-1 |
 | `FK proyecto_id → Proyectos.proyecto_id ON DELETE CASCADE` | RE-1, RI-6 |
-| Orden físico | FAQ-113: `(proyecto_id, item_id)` |
+| Orden físico | FAQ-308: `(proyecto_id, item_id)` |
 
 ### `Planificaciones`
 
 | Restricción | Regla |
 |-------------|-------|
-| `PK planificacion_id` | FAQ-115 |
+| `PK planificacion_id` | FAQ-310 |
 | `FK item_id → Items.item_id ON DELETE CASCADE` | RE-2 |
-| Orden físico | FAQ-113: `(item_id, fecha_inicio, hora, planificacion_id)` |
+| Orden físico | FAQ-308: `(item_id, fecha_inicio, hora, planificacion_id)` |
 | Sin planificar | `fecha_inicio IS NULL AND fecha_fin IS NULL AND hora IS NULL AND estado IS NULL` |
 | Sin planificar | `observaciones IS NOT NULL` (RC-8) |
 | Puntual | `fecha_inicio IS NOT NULL AND fecha_inicio = fecha_fin AND hora IS NOT NULL AND estado IS NOT NULL` |
@@ -336,9 +336,9 @@ Las tablas satélite **no comparten** el orden físico de `Planificaciones` (ord
 
 | Restricción | Regla |
 |-------------|-------|
-| `PK planificacion_id` | 1:1 con `Planificaciones`; FAQ-114 |
+| `PK planificacion_id` | 1:1 con `Planificaciones`; FAQ-309 |
 | `FK planificacion_id → Planificaciones.planificacion_id ON DELETE CASCADE` | |
-| Orden físico | FAQ-114: `planificacion_id` |
+| Orden físico | FAQ-309: `planificacion_id` |
 | `FK tipo_periodo_id` | → `TipoPeriodo` |
 | `CHECK variante_diaria` | Obligatorio si `TipoPeriodo.visibilidad_variante_diaria` |
 | `CHECK dias_semana` | Obligatorio si `visibilidad_dias_semana`; solo `LMXJVSD`, ≥1 letra |
@@ -349,20 +349,20 @@ Las tablas satélite **no comparten** el orden físico de `Planificaciones` (ord
 
 | Restricción | Regla |
 |-------------|-------|
-| `PK tipo_periodo_id` | FAQ-115 |
+| `PK tipo_periodo_id` | FAQ-310 |
 | `UNIQUE (codigo)` | Catálogo cerrado en v1 |
 | Visibilidades | Al menos una `true` por fila |
 | `Diario` / `Semanal` / `Mensual` | Filas semilla según tabla anterior |
 
-### `OcurrenciasMaterializadas` (FAQ-004, FAQ-114)
+### `OcurrenciasMaterializadas` (FAQ-003, FAQ-309)
 
 | Restricción | Regla |
 |-------------|-------|
 | `PK ocurrencia_id` | Identidad de fila |
 | `FK planificacion_id NOT NULL` | → `PlanificacionPeriodo`; solo periódicas |
-| Orden físico | FAQ-114: `(planificacion_id, fecha_original, hora, ocurrencia_id)` |
+| Orden físico | FAQ-309: `(planificacion_id, fecha_original, hora, ocurrencia_id)` |
 | `UNIQUE (planificacion_id, fecha_original)` | RO-3, RO-5 |
-| `observaciones`, `estado` NULL | Herencia FAQ-004 |
+| `observaciones`, `estado` NULL | Herencia FAQ-003 |
 | `eliminada_virtual` | RO-4; cuenta para RE-4 |
 
 ---

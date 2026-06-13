@@ -1,8 +1,10 @@
-# Desambiguación: tres «implementación» en el repositorio
+﻿# Desambiguación: tres «implementación» en el repositorio
 
 **Última actualización:** 2026-06-12
 
 En Planificacion 2.0 coexisten **tres rutas distintas** cuyo nombre incluye «implementación». No son intercambiables. Este documento fija el matiz para evitar mezclar documentación, código y proyección C4.
+
+> **Marco:** [vista-general.md](../planificacion/vista-general.md) — capas, contratos externos/internos y orden documentar → implementar.
 
 ---
 
@@ -69,6 +71,7 @@ docs/diagramas-c4/c4-nivel-4/implementacion/
 ├── front-end/react-typescript/       # ZC-6
 ├── back-end/nestjs-typescript/       # ZC-1, ZC-2, ZC-3, ZC-4
 ├── persistencia/typescript/            # ZC-5 (adaptadores, repos)
+├── shared/typescript/                  # Contratos API/DTOs y códigos (sin ZC)
 └── bbdd/postgresql/                    # ZC-5 (esquema, SQL de referencia)
 ```
 
@@ -80,7 +83,7 @@ Cada subcarpeta sigue la misma convención que el **código** en `implementacion
 - Un fichero `zc-*.md` por zona crítica dentro de la carpeta del componente que la implementa.
 - Índice de compatibilidad (tecnología activa + versión de contratos) en [historial-stack.md](../stack-tecnologico/historial-stack.md) y README del componente.
 
-**Tecnologías activas v1 (FAQ-101, FAQ-102):** [historial-stack.md](../stack-tecnologico/historial-stack.md) (tabla «Stack activo»); análisis en [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md).
+**Tecnologías activas v1 (FAQ-100, FAQ-101):** [historial-stack.md](../stack-tecnologico/historial-stack.md) (tabla «Stack activo»); análisis en [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md).
 
 ---
 

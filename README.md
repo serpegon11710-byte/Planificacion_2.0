@@ -161,7 +161,7 @@ Consulta [FAQ.md](FAQ.md) si tienes dudas sobre cómo usar el sistema.
 
 ## Documentación Técnica
 
-Para información sobre arquitectura, diseño e implementación, consulta la [carpeta docs/](docs/).
+Para información sobre arquitectura, diseño e implementación, consulta la [carpeta docs/](docs/). Punto de entrada recomendado: [vista general (capas, contratos, bootstrap)](docs/planificacion/vista-general.md).
 
 ---
 

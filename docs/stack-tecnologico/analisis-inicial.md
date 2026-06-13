@@ -1,4 +1,4 @@
-# Análisis inicial de stack tecnológico
+﻿# Análisis inicial de stack tecnológico
 
 **Proyecto:** Planificacion 2.0  
 **Fecha:** 2026-06-12  
@@ -52,7 +52,7 @@ Antes de proponer stacks, se extraen criterios obligatorios del diseño acordado
 - Motor **relacional** con 6 tablas, FK en cascada, restricciones `CHECK`, índice `UNIQUE` parcial (`WHERE fecha_inicio IS NULL`).
 - Fechas/horas en **UTC** (`TIMESTAMPTZ`, `date`, `time`); formateo en UI.
 - Clase de dominio **inferida** sin columnas discriminadoras: el ORM/mapper debe soportar herencia lógica sin flags en BD.
-- FAQ-116: operaciones de borrado acotadas por `planificacion_id`; sensibilidad a bloqueos en READ COMMITTED.
+- FAQ-311: operaciones de borrado acotadas por `planificacion_id`; sensibilidad a bloqueos en READ COMMITTED.
 
 ### 2.4 Interfaz y API
 
@@ -196,7 +196,7 @@ Cada propuesta se valora del 1 al 5 (5 = excelente) en:
 - NestJS organiza el código en **módulos** que mapean directamente a Proyecto, Item, Planificación, Ocurrencia + capa de aplicación.
 - Inyección de dependencias nativa; interfaces TypeScript implementan puertos (DIP).
 - SQL explícito con `pg` respeta el desacoplamiento de ZC-5 sin presión de ORM sobre el modelo inferido.
-- PostgreSQL + migraciones SQL alineadas con FAQ-113/114/115 del ER.
+- PostgreSQL + migraciones SQL alineadas con FAQ-308/309/310 del ER.
 - Ecosistema React muy maduro para calendario, formularios dinámicos (UC-01.5) e i18n.
 - Productividad alta en greenfield; arranque rápido, hot reload en FE y BE.
 - Despliegue sencillo (contenedor Node + PostgreSQL).
@@ -239,7 +239,7 @@ Cada propuesta se valora del 1 al 5 (5 = excelente) en:
 #### Pros
 
 - **Legibilidad** del dominio: pseudocódigo N4 (ZC-1 a ZC-4) se traslada casi literalmente a Python.
-- Excelente soporte de fechas con **`datetime`**, **`zoneinfo`** (UTC FAQ-002) y potencial uso de **python-dateutil** para recurrencias.
+- Excelente soporte de fechas con **`datetime`**, **`zoneinfo`** (UTC FAQ-001) y potencial uso de **python-dateutil** para recurrencias.
 - FastAPI genera OpenAPI y validación Pydantic en bordes (DTOs de entrada/salida).
 - SQLAlchemy Core permite SQL parametrizado alineado con ZC-5 sin imponer mapeo ORM.
 - Curva de entrada suave; ideal para prototipado rápido de reglas complejas.
@@ -332,9 +332,9 @@ Para **todas** las propuestas se recomienda **PostgreSQL 16** como motor único 
 |--------------|-------------------|
 | `UNIQUE` parcial (`WHERE fecha_inicio IS NULL`) | Nativo |
 | `CHECK` condicionales referenciando catálogo | Nativo |
-| `TIMESTAMPTZ` UTC (FAQ-002) | Nativo |
+| `TIMESTAMPTZ` UTC (FAQ-001) | Nativo |
 | Cascadas FK multi-nivel | Nativo |
-| Control de bloqueos (FAQ-116) | READ COMMITTED configurable; borrados acotados por diseño |
+| Control de bloqueos (FAQ-311) | READ COMMITTED configurable; borrados acotados por diseño |
 
 SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de licencia y el ER ya contempla sintaxis genérica pendiente de Step 11 — PostgreSQL maximiza portabilidad del SQL documentado.
 
@@ -419,7 +419,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 | UTC en persistencia, locale en UI | PostgreSQL `timestamptz`; date-fns/Luxon + i18n locale en React |
 | ZC-1 cálculo + materialización | Servicio de dominio puro testeable + adaptador SQL para materializadas |
 | Transacciones multi-módulo (ZC-4) | Unit of Work sobre `pg` client en scope de request |
-| N4 implementación por componente | `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (**Step 12 cerrado**) |
+| N4 implementación por componente | `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (**Step 12a cerrado**) |
 
 ### 7.3 Riesgos del stack elegido y mitigaciones
 
@@ -432,13 +432,13 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 
 ---
 
-## 8. Decisiones derivadas (FAQ-101, FAQ-102, FAQ-007)
+## 8. Decisiones derivadas (FAQ-100, FAQ-101, FAQ-102)
 
 | FAQ | Decisión |
 |-----|----------|
-| **FAQ-101** Motor BBDD | **PostgreSQL 16** |
-| **FAQ-102** Stack aplicación | **NestJS 10 + Node 22 + React 18 + TypeScript 5** (monorepo pnpm recomendado) |
-| **FAQ-007** Política N4 e histórico | N4 por `{componente}/{tecnologia}/`; sufijo `(obsoleto)` y coexistencia: [cambio-tecnologia-componente.md](cambio-tecnologia-componente.md); registro: [historial-stack.md](historial-stack.md) |
+| **FAQ-100** Motor BBDD | **PostgreSQL 16** |
+| **FAQ-101** Stack aplicación | **NestJS 10 + Node 22 + React 18 + TypeScript 5** (monorepo pnpm recomendado) |
+| **FAQ-102** Política N4 e histórico | N4 por `{componente}/{tecnologia}/`; sufijo `(obsoleto)` y coexistencia: [cambio-tecnologia-componente.md](cambio-tecnologia-componente.md); registro: [historial-stack.md](historial-stack.md) |
 
 ### Herramientas complementarias recomendadas
 
@@ -454,12 +454,12 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 
 ## 9. Próximos pasos (sin implementación)
 
-1. **Step 12 (Opción B):** ~~Proyectar N4 canónico~~ **Completado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/).
-2. **Step 12b (Opción A):** Redactar prácticas en `docs/implementacion/{componente}/`.
-3. **Step 13:** Validar coherencia documental tras fijar stack.
-4. **Step 14 (Opción C):** Bootstrap del monorepo en `implementacion/` (fuera de alcance de este análisis).
+1. **Step 12a:** ~~Proyectar N4 canónico~~ **Completado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/).
+2. **Step 12b:** ~~Redactar prácticas~~ **Completado** — [docs/implementacion/](../implementacion/).
+3. **Step 13:** ~~Validar coherencia documental~~ **Completado** — [validacion-documental-step13.md](../planificacion/validacion-documental-step13.md) (re-validado).
+4. **Step 14:** Bootstrap del monorepo en `implementacion/` (fuera de alcance de este análisis).
 
-FAQ-101, FAQ-102 y FAQ-007 cerradas en Step 11 — ver [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
+FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11 — ver [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
 
 ---
 

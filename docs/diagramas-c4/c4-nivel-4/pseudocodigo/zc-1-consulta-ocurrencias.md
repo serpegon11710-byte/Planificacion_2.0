@@ -1,4 +1,4 @@
-# ZC-1: Consulta y calculo de ocurrencias
+﻿# ZC-1: Consulta y calculo de ocurrencias
 
 **Componente N3:** `Ocurrencia`, `Planificacion` (lectura)  
 **Prioridad:** Alta  
@@ -6,7 +6,7 @@
 **Clases:** `docs/entidades/modelo-clases-planificacion.md` (`generarNaturales` por subclase periódica)  
 **Casos de uso:** UC-02.1, UC-02.3 (lectura previa), UC-02.4
 
-## Trazabilidad (FAQ-104)
+## Trazabilidad (FAQ-201)
 
 | Caso de uso | Rol en esta zona |
 |-------------|------------------|

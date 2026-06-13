@@ -1,10 +1,10 @@
-# ZC-5: Persistencia y adaptadores
+﻿# ZC-5: Persistencia y adaptadores
 
 **Componente N3:** `Puerto de Persistencia`, `Adaptador de Persistencia`, `Puerto de Conexion a BBDD`  
 **Prioridad:** Media-alta  
 **Casos de uso:** todos UC-01.* y UC-02.* (lectura y escritura)
 
-## Trazabilidad (FAQ-104)
+## Trazabilidad (FAQ-201)
 
 | Caso de uso | Rol en esta zona |
 |-------------|------------------|

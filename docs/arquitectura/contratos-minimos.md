@@ -1,6 +1,8 @@
 ﻿# Contratos minimos de arquitectura (sin stack)
 
-Este documento define la especificacion minima de contratos logicos acordada para el Step 9a de arquitectura.
+Este documento define la especificacion minima de **contratos de interfaz externa** acordada para el Step 9a de arquitectura (puertos, servicios de aplicacion, DTOs hacia API/UI).
+
+> **Contexto:** [vista-general.md](../planificacion/vista-general.md) distingue contratos **externos** (este documento, API, ER) y **internos** (capas, ZC, mapeo N4, carpetas de codigo). Ambos deben estar cerrados antes de implementar negocio (Step 13–14).
 
 ## 1) Puerto de persistencia (por agregado)
 

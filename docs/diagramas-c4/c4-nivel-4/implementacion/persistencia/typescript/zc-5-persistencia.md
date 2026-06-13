@@ -1,4 +1,4 @@
-# ZC-5 — Persistencia (TypeScript + `pg`)
+﻿# ZC-5 — Persistencia (TypeScript + `pg`)
 
 **Canónico:** [zc-5-persistencia.md](../../../pseudocodigo/zc-5-persistencia.md)  
 **Esquema:** [bbdd/postgresql/zc-5-persistencia-esquema.md](../../bbdd/postgresql/zc-5-persistencia-esquema.md)  
@@ -71,7 +71,7 @@ Errores `pg` → `PgErrorMapper.desdeTecnico()` → `ErrorFuncional` o `ErrorTec
 | `buscarSinPlanificar` | `fecha_inicio IS NULL AND fecha_fin IS NULL` (UC-03) |
 | `buscarPlanificadasEnRango` | Excluye Sin planificar; intersección de rangos para ZC-1 |
 | `listarBloqueosEliminacion*` | Implementa `bloqueosDePlanificacion` del canónico |
-| `eliminarDirecta` | `validarEliminacionPlanificacion` + DELETE (FAQ-116: un solo `planificacion_id` por TX) |
+| `eliminarDirecta` | `validarEliminacionPlanificacion` + DELETE (FAQ-311: un solo `planificacion_id` por TX) |
 | `contarPorItem` | Para RN-4.2 |
 
 ### `OcurrenciaRepository` + `OcurrenciaQueryRepository`
@@ -83,7 +83,7 @@ Errores `pg` → `PgErrorMapper.desdeTecnico()` → `ErrorFuncional` o `ErrorTec
 | `contarPorPlanificacion` | Solo si existe `planificacion_periodo` (RE-4) |
 | `guardar` / `eliminar` | INSERT/UPDATE/DELETE por `ocurrencia_id` |
 
-**FAQ-116:** en operaciones masivas RE-4, **no** usar `DELETE … WHERE planificacion_id IN (…)` en una transacción READ COMMITTED; borrar por un único `planificacion_id` por unidad de trabajo.
+**FAQ-311:** en operaciones masivas RE-4, **no** usar `DELETE … WHERE planificacion_id IN (…)` en una transacción READ COMMITTED; borrar por un único `planificacion_id` por unidad de trabajo.
 
 ---
 

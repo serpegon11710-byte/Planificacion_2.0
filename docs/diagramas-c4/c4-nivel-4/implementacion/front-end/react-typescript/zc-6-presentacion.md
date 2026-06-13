@@ -1,4 +1,4 @@
-# ZC-6 — Presentación (React + TypeScript)
+﻿# ZC-6 — Presentación (React + TypeScript)
 
 **Canónico:** [zc-6-presentacion.md](../../../pseudocodigo/zc-6-presentacion.md)  
 **Código:** `implementacion/front-end/react-typescript/src/`
@@ -45,7 +45,7 @@ Estado equivalente a `CapturaPlanificacion` del canónico — hook `useCaptureSt
 | Paso canónico | Componente |
 |---------------|------------|
 | `SELECCION_TIPO` | `NatureSelector` (Sin planificar / Puntual / Periódica) |
-| `CONFIGURACION` | Formulario dinámico según `TipoPeriodo` (FAQ-111 visibilidades desde API catálogo) |
+| `CONFIGURACION` | Formulario dinámico según `TipoPeriodo` (FAQ-306 visibilidades desde API catálogo) |
 | `VALIDACION` | Lista errores locales + mensajes i18n |
 
 **Resultados:** `ResultadoOk(config)` | `ResultadoError` | `ResultadoCancelacion` — sin llamada persistencia desde el feature.
@@ -67,7 +67,7 @@ Integración:
 | `renderizarOcurrencia` | `OccurrenceChip` con estilo por `estado_efectivo` (incl. expirado calculado) |
 | `seleccionarOcurrencia` | Navegación a ruta UC-02.2 o UC-02.3 según naturaleza devuelta por API |
 
-Vista mensual/semanal: librería calendario (p. ej. react-big-calendar) o componente propio; fechas en UTC en modelo, formato locale en UI (FAQ-002).
+Vista mensual/semanal: librería calendario (p. ej. react-big-calendar) o componente propio; fechas en UTC en modelo, formato locale en UI (FAQ-001).
 
 ---
 

@@ -1,9 +1,10 @@
-# Desacoplamiento entre componentes por contratos
+﻿# Desacoplamiento entre componentes por contratos
 
 **Última actualización:** 2026-06-12
 
 Política transversal para que **cambiar la tecnología de un componente** (React, NestJS, PostgreSQL, etc.) afecte **solo a ese componente**, salvo cuando se modifique de forma consciente un **contrato** compartido.
 
+> **Marco conceptual:** [vista-general.md](../planificacion/vista-general.md) (§3 contratos externos vs internos).  
 > **Relacionado:** [desambiguacion-implementacion.md](desambiguacion-implementacion.md) (tres rutas «implementación»), [contratos-minimos.md](../arquitectura/contratos-minimos.md), [errores-validaciones-capas.md](../arquitectura/errores-validaciones-capas.md).
 
 ---
@@ -104,7 +105,7 @@ Cada par de componentes adyacentes tiene **un único tipo de contrato** como fue
 ### BBDD
 
 - Esquema y migraciones alineados al ER; motor concreto solo en `implementacion/bbdd/{motor}/`.
-- Políticas SQL (FAQ-116, UTC, cascadas) documentadas aquí; Persistencia las consume, **no** las redefine en Back-End.
+- Políticas SQL (FAQ-311, UTC, cascadas) documentadas aquí; Persistencia las consume, **no** las redefine en Back-End.
 - Cambiar motor (p. ej. PostgreSQL → otro) impacta **BBDD + Persistencia**; Front-End intacto; Back-End intacto si puertos y semántica transaccional equivalentes.
 
 ---

@@ -1,10 +1,10 @@
-# ZC-4: Orquestacion multi-agregado (aplicacion)
+﻿# ZC-4: Orquestacion multi-agregado (aplicacion)
 
 **Componente N3:** `API REST` + coordinadores  
 **Prioridad:** Media-alta  
 **Casos de uso:** UC-01.1, UC-01.2, UC-01.3
 
-## Trazabilidad (FAQ-104)
+## Trazabilidad (FAQ-201)
 
 | Caso de uso | Rol en esta zona |
 |-------------|------------------|

@@ -3,23 +3,25 @@
 Vista derivada del [pseudocódigo canónico](../pseudocodigo/). Documenta cómo materializa cada zona crítica el **componente** concreto que la implementa, con su **tecnología** adoptada.
 
 > **Desambiguación:** esta carpeta **no** es [`docs/implementacion/`](../../../implementacion/) (guías agnósticas por componente) ni [`implementacion/`](../../../../implementacion/) (código fuente). Ver [`desambiguacion-implementacion.md`](../../../politicas-transversales/desambiguacion-implementacion.md).  
-> **Desacoplamiento:** [`desacoplamiento-componentes-contratos.md`](../../../politicas-transversales/desacoplamiento-componentes-contratos.md).
+> **Desacoplamiento:** [`desacoplamiento-componentes-contratos.md`](../../../politicas-transversales/desacoplamiento-componentes-contratos.md).  
+> **Marco:** [`vista-general.md`](../../../planificacion/vista-general.md) — N4 implementación = contrato de **diseño interno** (mapeo lógico → clases del stack).
 
 ---
 
 ## Estado
 
-**Completado (Step 12, 2026-06-12).** Tecnologías activas: [historial-stack.md](../../../stack-tecnologico/historial-stack.md).
+**Completado (Step 12a, 2026-06-12).** Tecnologías activas: [historial-stack.md](../../../stack-tecnologico/historial-stack.md).
 
 ---
 
 ## Índice por componente
 
-| Componente | Tecnología | README | ZC |
-|------------|------------|--------|-----|
+| Componente | Tecnología | README | ZC / ámbito |
+|------------|------------|--------|-------------|
 | Front-End | `react-typescript` | [front-end/react-typescript/](front-end/react-typescript/) | ZC-6 |
 | Back-End | `nestjs-typescript` | [back-end/nestjs-typescript/](back-end/nestjs-typescript/) | ZC-1 … ZC-4 |
 | Persistencia | `typescript` | [persistencia/typescript/](persistencia/typescript/) | ZC-5 |
+| Shared | `typescript` | [shared/typescript/](shared/typescript/) | Contratos API/DTOs (sin ZC) |
 | BBDD | `postgresql` | [bbdd/postgresql/](bbdd/postgresql/) | ZC-5 (esquema) |
 
 ---
@@ -45,6 +47,7 @@ docs/diagramas-c4/c4-nivel-4/implementacion/
 ├── front-end/react-typescript/
 ├── back-end/nestjs-typescript/
 ├── persistencia/typescript/
+├── shared/typescript/
 └── bbdd/postgresql/
 ```
 

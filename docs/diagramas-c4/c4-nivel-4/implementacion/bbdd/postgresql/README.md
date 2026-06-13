@@ -1,4 +1,4 @@
-# N4 — BBDD (PostgreSQL 16)
+﻿# N4 — BBDD (PostgreSQL 16)
 
 **Componente:** Base de datos  
 **Tecnología:** PostgreSQL 16  
@@ -38,5 +38,5 @@
 ## Referencias
 
 - ER: [modelo-entidad-relacion.md](../../../../../entidades/modelo-entidad-relacion.md)
-- FAQ-101: [analisis-inicial.md](../../../../stack-tecnologico/analisis-inicial.md)
+- FAQ-100: [analisis-inicial.md](../../../../stack-tecnologico/analisis-inicial.md)
 - Guía agnóstica: [docs/implementacion/bbdd/](../../../../../implementacion/bbdd/)

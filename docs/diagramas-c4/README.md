@@ -2,7 +2,7 @@
 
 Parte del **Step 8** del plan de documentacion. Visualiza la estructura del software Planificacion 2.0 e integra con arquitectura (Step 9a).
 
-Dudas y stack: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, 102; Step 12 cerrado).
+Dudas y stack: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-100, 101; Step 12a cerrado).
 
 ## Estructura por nivel
 
@@ -14,7 +14,7 @@ diagramas-c4/
 └── c4-nivel-4/          # Detalle (codigo)
     ├── zonas-criticas-n4.md
     ├── pseudocodigo/    # Canonico (independiente del stack)
-    └── implementacion/  # N4 por componente/tecnologia (Step 12)
+    └── implementacion/  # N4 por componente/tecnologia (Step 12a)
 ```
 
 ## Diagramas por nivel
@@ -26,11 +26,11 @@ diagramas-c4/
 | N3 — Componentes Back-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes.mmd](c4-nivel-3/c4-nivel-3-componentes.mmd) | Cerrado |
 | N3 — Componentes Front-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes-frontend.mmd](c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) | Cerrado |
 | N4 — Detalle | [c4-nivel-4/](c4-nivel-4/) | [zonas-criticas-n4.md](c4-nivel-4/zonas-criticas-n4.md) + [pseudocodigo/](c4-nivel-4/pseudocodigo/) | Cerrado (canonico) |
-| N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Cerrado Step 12 | Por componente: `{componente}/{tecnologia}/` |
+| N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Cerrado Step 12a | Por componente: `{componente}/{tecnologia}/` |
 
 ## Nivel 3
 
-Dos diagramas de componentes (FAQ-103):
+Dos diagramas de componentes (FAQ-200):
 
 | Diagrama | Alcance |
 |----------|---------|

@@ -173,7 +173,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Agnostico de tecnologia en la redaccion; enlaces al codigo en `implementacion/` y a N4 del Step 12a.
 
 ### Fase 8: Cierre documental e implementacion
-**Step 13: Validar toda la documentacion** (*depends on 10, 12a, 12b*) — **Completado (2026-06-12)**
+**Step 13: Validar toda la documentacion** (*depends on 10, 12a, 12b*) — **Completado (2026-06-12; re-validado)**
 - Revision de coherencia entre entidades, ER, C4, arquitectura, stack, N4 e implementacion.
 - Informe: [validacion-documental-step13.md](validacion-documental-step13.md); checklist [vista-general.md](vista-general.md) §6 marcado.
 
@@ -260,7 +260,7 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 Resumen de estado (2026-06-12):
 
 - **Resueltas:** FAQ-000 a FAQ-007 (grupo 0), FAQ-100 a FAQ-102 (grupo 1), FAQ-200 a FAQ-201 (grupo 2), FAQ-300 a FAQ-311 (grupo 3).
-- **Steps cerrados:** 1–11, 12a, **12b**, **13** (validacion documental).
+- **Steps cerrados:** 1–11, 12a, **12b**, **13** (validacion documental; re-validado).
 - **Pendientes (orden de prioridad):** Step 14. Ver [Decisiones (entregables por step)](dudas-y-resoluciones.md#decisiones-entregables-por-step).
 
 ## Próximos Pasos
@@ -300,4 +300,5 @@ Resumen de estado (2026-06-12):
 2026-06-12 - Step 11 completado: stack NestJS+React+TS+PostgreSQL; FAQ-100/101/102; implementacion/ y docs/implementacion/
 2026-06-12 - Step 12a completado: N4 implementacion por componente (react-typescript, nestjs-typescript, typescript, postgresql)
 2026-06-12 - Step 12b completado: guias agnosticas por componente en docs/implementacion/
-2026-06-12 - Step 13 completado: validacion documental; informe validacion-documental-step13.md; checklist vista-general §6
+2026-06-12 - Step 13 completado: validacion documental; informe validacion-documental-step13.md
+2026-06-12 - Step 13 re-validado: historial FAQ corregido; N4 shared/typescript/; H-3 y H-4 cerrados

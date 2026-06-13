@@ -181,7 +181,7 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 - [x] [planificacion-inicial.md](planificacion-inicial.md) y [dudas-y-resoluciones.md](dudas-y-resoluciones.md) al día
 - [x] Stack activo en [historial-stack.md](../stack-tecnologico/historial-stack.md)
 
-**Validación Step 13 (2026-06-12):** [validacion-documental-step13.md](validacion-documental-step13.md).
+**Validación Step 13 (2026-06-12; re-validado):** [validacion-documental-step13.md](validacion-documental-step13.md).
 
 ---
 

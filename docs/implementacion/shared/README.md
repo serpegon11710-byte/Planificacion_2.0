@@ -72,6 +72,30 @@ Shared es **hoja** del grafo de dependencias: consumido por Front-End y Back-End
 
 ---
 
+## Convenciones de tests y errores
+
+Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-validaciones-capas.md).
+
+### Tests
+
+| Tipo | Alcance |
+|------|---------|
+| Tipos | Compilación estricta FE + BE contra el paquete |
+| Contrato | Cambio en DTO exige actualización coordinada FE/BE |
+| Códigos | Catálogo `codigo` sin duplicados ni sin traducción i18n |
+
+**No testear aquí:** lógica de negocio, SQL, componentes visuales.
+
+### Errores
+
+| Situación | Comportamiento |
+|-----------|----------------|
+| Nuevo `codigo` | Añadir a catálogo + clave i18n en FE |
+| Cambio breaking DTO | Versionar API o acordar migración ([desacoplamiento](../../politicas-transversales/desacoplamiento-componentes-contratos.md)) |
+| Payload RE-5 | Tipar `bloqueos`; no strings libres |
+
+---
+
 ## Referencias
 
 - Contratos: [`contratos-minimos.md`](../../arquitectura/contratos-minimos.md)

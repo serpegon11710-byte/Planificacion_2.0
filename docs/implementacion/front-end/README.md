@@ -87,6 +87,32 @@ Mapeo a carpetas del stack: N4 [`front-end/react-typescript/`](../../diagramas-c
 
 ---
 
+## Convenciones de tests y errores
+
+Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-validaciones-capas.md).
+
+### Tests
+
+| Tipo | Alcance |
+|------|---------|
+| Componentes | Formularios UC-01.5, campos dinámicos `TipoPeriodo` |
+| Integración | Flujos con API mock (MSW u homólogo) |
+| i18n | Misma `codigo` → misma clave en todos los UC |
+| UTC | Fechas mostradas en locale; asserts sobre ISO UTC en modelo |
+
+**No testear aquí:** reglas RT/RO completas (Back-End), SQL ni migraciones.
+
+### Errores
+
+| Situación | Comportamiento |
+|-----------|----------------|
+| Validación formato (vacío, patrón) | Mensaje local antes de llamar API |
+| Error API | Mostrar según `codigo` + i18n; **no** reinterpretar semántica |
+| UC-01.5 cancelado | Retorno controlado; **sin** error |
+| RE-5 | Mostrar lista `bloqueos`; confirmación usuario |
+
+---
+
 ## Referencias
 
 - Casos de uso: [`docs/casos-uso/`](../../casos-uso/)

@@ -82,6 +82,30 @@ Mapeo stack: N4 [`bbdd/postgresql/`](../../diagramas-c4/c4-nivel-4/implementacio
 
 ---
 
+## Convenciones de tests y errores
+
+Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-validaciones-capas.md). Los errores funcionales los traduce Persistencia/Back-End; BBDD expone fallos de constraint.
+
+### Tests
+
+| Tipo | Alcance |
+|------|---------|
+| Migraciones | up/down en BD limpia; idempotencia en re-ejecución |
+| Constraints | UNIQUE parcial Sin planificar, CHECK, FK CASCADE |
+| Seeds | Catálogo `TipoPeriodo` mínimo para UC-01.4 |
+| UTC | Columnas fecha/hora según FAQ-001 |
+
+**No testear aquí:** reglas RT-* de aplicación, API HTTP, componentes UI.
+
+### Errores
+
+| Situación | Comportamiento |
+|-----------|----------------|
+| Violación UNIQUE/CHECK | Error SQL capturado en Persistencia |
+| Migración fallida | Rollback de versión; no arrancar app en estado inconsistente |
+
+---
+
 ## Referencias
 
 - Modelo ER: [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md)

@@ -93,6 +93,33 @@ Mapeo a carpetas del stack: N4 [`back-end/nestjs-typescript/`](../../diagramas-c
 
 ---
 
+## Convenciones de tests y errores
+
+Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-validaciones-capas.md).
+
+### Tests
+
+| Tipo | Alcance | Herramientas (indicativas) |
+|------|---------|----------------------------|
+| Unitario dominio | Servicios ZC-1 a ZC-3, reglas RT-* | mocks de puertos |
+| Unitario aplicación | Orquestadores ZC-4 | puertos mockeados |
+| Integración API | Controllers + pipes; persistencia fake | supertest / equivalente |
+| Contrato | Serialización DTO ↔ JSON | snapshots de `shared/` |
+
+**No testear aquí:** reglas de presentación (Front-End), DDL/migraciones (BBDD), ni i18n de mensajes finales.
+
+### Errores
+
+| Situación | Comportamiento |
+|-----------|----------------|
+| Regla de negocio | Dominio emite `codigo` (+ `campo` opcional); sin literales |
+| DTO inválido | API → `ENTRADA_INVALIDA` |
+| Recurso inexistente | `*_NO_ENCONTRADO` |
+| Fallo SQL / conexión | Aplicación → `ERROR_INTERNO`; log interno |
+| RE-5 bloqueos | Payload estructurado vía `shared/`; API reenvía `codigo` |
+
+---
+
 ## Referencias
 
 - Arquitectura: [`docs/arquitectura/`](../../arquitectura/)

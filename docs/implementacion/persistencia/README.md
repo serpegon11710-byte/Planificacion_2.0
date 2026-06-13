@@ -86,6 +86,31 @@ La persistencia **implementa** puertos; no los redefine. Mapeo stack: N4 [`persi
 
 ---
 
+## Convenciones de tests y errores
+
+Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-validaciones-capas.md).
+
+### Tests
+
+| Tipo | Alcance |
+|------|---------|
+| Integración | Repositorios contra BBDD real (Testcontainers u homólogo) |
+| Mapper | Inferencia Sin planificar / Puntual / Periódica desde filas |
+| Transacción | Commit/rollback en operaciones multi-tabla ZC-4 |
+| RE-4 / FAQ-311 | DELETE acotado a un `planificacion_id`; sin DELETE multi-id en una TX |
+
+**No testear aquí:** reglas de negocio RT-* (dominio Back-End), UI, contratos HTTP.
+
+### Errores
+
+| Situación | Comportamiento |
+|-----------|----------------|
+| Violación FK / UNIQUE | Excepción infra; **no** propagar SQL al dominio |
+| Timeout conexión | Excepción infra → Back-End traduce |
+| Herencia NULL | Persistir NULL; no resolver herencia en SQL |
+
+---
+
 ## Referencias
 
 - ER: [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md)

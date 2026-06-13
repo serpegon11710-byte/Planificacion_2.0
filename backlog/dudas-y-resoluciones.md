@@ -229,7 +229,17 @@ Relacionado con FAQ-002 (estado vacio = hereda).
    - **Sin logica de negocio** (UC-01/02/03, reglas RT/RO).
    - Subtickets: `T-001-xx` (prefijo ligado a la epica `001`).
 
-5. **Trazabilidad:** el plan por fases en `planificacion-inicial.md` permanece como referencia historica del Ticket 000; el trabajo activo pasa al indice [README.md](README.md).
+5. **Tickets 002–008 — implementacion UC** (roadmap en [README.md](README.md)):
+   - **002** Proyecto + Item (UC-01.2, UC-01.3)
+   - **003** Planificacion + captura + Sin planificar (UC-01.4, UC-01.5, UC-03, ZC-3)
+   - **004** Wizard UC-01.1 (ZC-4)
+   - **005** Consulta ocurrencias / calendario (UC-02.1, ZC-1)
+   - **006** Gestion puntual individual (UC-02.2)
+   - **007** Gestion periodica + materializacion (UC-02.3, ZC-2)
+   - **008** Gestion por planificacion (UC-02.4)
+   - Subtickets: `T-NNN-xx` por epica.
+
+6. **Trazabilidad:** el plan por fases en `planificacion-inicial.md` permanece como referencia historica del Ticket 000; el trabajo activo pasa al indice [README.md](README.md).
 
 **Entregable:** estructura `backlog/`; FAQ-103; Ticket 001 documentado. Ver [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md).
 
@@ -491,6 +501,13 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | Step 12b | Practicas `docs/implementacion/` — **cerrado** |
 | Step 13 | Validacion documental — **cerrado** (re-validado 2026-06-12) |
 | Ticket 001 | Bootstrap codigo |
+| Ticket 002 | Proyecto e Item (UC-01.2, UC-01.3) |
+| Ticket 003 | Planificacion (UC-01.4, UC-01.5, UC-03) |
+| Ticket 004 | Wizard UC-01.1 |
+| Ticket 005 | Consulta ocurrencias UC-02.1 |
+| Ticket 006 | Gestion puntual UC-02.2 |
+| Ticket 007 | Gestion periodica UC-02.3 |
+| Ticket 008 | Gestion por planificacion UC-02.4 |
 
 ---
 

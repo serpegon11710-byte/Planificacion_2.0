@@ -12,7 +12,7 @@ En Planificacion 2.0 coexisten **tres rutas distintas** cuyo nombre incluye «im
 |------|--------|---------------------|
 | [`docs/implementacion/`](../implementacion/) | Prácticas y guías **por componente**, agnósticas de tecnología | **No** |
 | [`implementacion/`](../../implementacion/) (raíz del repo) | **Código fuente** y estructura de carpetas por componente y tecnología | **Sí** (por subcarpeta) |
-| [`docs/diagramas-c4/c4-nivel-4/implementacion/`](../diagramas-c4/c4-nivel-4/implementacion/) | Proyección **C4 N4** del pseudocódigo canónico a un stack concreto | **Sí** (por subcarpeta `{stack}/`) |
+| [`docs/diagramas-c4/c4-nivel-4/implementacion/`](../diagramas-c4/c4-nivel-4/implementacion/) | Proyección **C4 N4** del pseudocódigo canónico **por componente y tecnología** | **Sí** (por subcarpeta `{componente}/{tecnologia}/`) |
 
 ---
 
@@ -56,36 +56,39 @@ implementacion/
 
 ---
 
-## 3. `docs/diagramas-c4/c4-nivel-4/implementacion/` — N4 por stack
+## 3. `docs/diagramas-c4/c4-nivel-4/implementacion/` — N4 por componente y tecnología
 
-**Propósito:** traducir el [pseudocódigo canónico](../diagramas-c4/c4-nivel-4/pseudocodigo/) (ZC-1 a ZC-6) a artefactos concretos del stack activo (clases, módulos, SQL, componentes UI). Es **documentación de diseño técnico**, no código.
+**Propósito:** traducir el [pseudocódigo canónico](../diagramas-c4/c4-nivel-4/pseudocodigo/) (ZC-1 a ZC-6) a artefactos concretos del **componente** que materializa cada zona (clases, módulos, SQL, componentes UI). Es **documentación de diseño técnico**, no código.
 
-**Estructura prevista (FAQ-007):**
+**Política de desacoplamiento:** ver [desacoplamiento-componentes-contratos.md](desacoplamiento-componentes-contratos.md). Cada componente evoluciona su proyección N4 **sin** obligar a regenerar la de los demás, salvo cambio de contrato.
+
+**Estructura prevista:**
 
 ```
 docs/diagramas-c4/c4-nivel-4/implementacion/
-└── {stack}/                    # p. ej. nestjs-react-postgresql/
-    ├── README.md
-    ├── zc-1-consulta-ocurrencias.md
-    └── … zc-6-presentacion.md
+├── front-end/react-typescript/       # ZC-6
+├── back-end/nestjs-typescript/       # ZC-1, ZC-2, ZC-3, ZC-4
+├── persistencia/typescript/            # ZC-5 (adaptadores, repos)
+└── bbdd/postgresql/                    # ZC-5 (esquema, SQL de referencia)
 ```
 
-Aquí sí tiene sentido un nombre **compuesto del stack global**, porque cada carpeta `{stack}/` describe la **implementación documental completa** de todas las zonas críticas para esa combinación tecnológica.
+Cada subcarpeta sigue la misma convención que el **código** en `implementacion/{componente}/{tecnologia}/`. Al cambiar tecnología en un componente, se crea una carpeta `{tecnologia}` nueva bajo ese componente; las anteriores se conservan como histórico **de ese componente**, sin mezclar implementaciones.
 
 **Reglas:**
 
 - No redefinir reglas de negocio; enlazar al canónico en `pseudocodigo/`.
-- Al cambiar de stack, crear una carpeta `{stack}/` nueva; conservar las anteriores como histórico (FAQ-007).
+- Un fichero `zc-*.md` por zona crítica dentro de la carpeta del componente que la implementa.
+- Índice de compatibilidad (tecnología activa + versión de contratos) en el README del componente o en un índice central.
 
-**Stack activo (FAQ-101, FAQ-102):** NestJS + React + TypeScript + PostgreSQL — ver [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md).
+**Tecnologías activas v1 (FAQ-101, FAQ-102):** ver [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md).
 
 ---
 
 ## Flujo recomendado al implementar
 
-1. Leer arquitectura y pseudocódigo canónico (`docs/arquitectura/`, `pseudocodigo/`).
+1. Leer arquitectura, pseudocódigo canónico y [desacoplamiento por contratos](desacoplamiento-componentes-contratos.md).
 2. Consultar prácticas del componente en `docs/implementacion/{componente}/`.
-3. Consultar proyección N4 del stack en `docs/diagramas-c4/c4-nivel-4/implementacion/{stack}/` (cuando exista).
+3. Consultar proyección N4 del componente en `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (cuando exista).
 4. Escribir código en `implementacion/{componente}/{tecnologia}/`.
 
 ---
@@ -95,6 +98,6 @@ Aquí sí tiene sentido un nombre **compuesto del stack global**, porque cada ca
 | Tema | Documento |
 |------|-----------|
 | Stack elegido | [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md) |
-| Políticas globales (SOLID, i18n) | [`docs/politicas-transversales/README.md`](README.md) |
+| Políticas globales (SOLID, i18n, desacoplamiento) | [`docs/politicas-transversales/README.md`](README.md) |
 | Estructura de código | [`implementacion/README.md`](../../implementacion/README.md) |
-| N4 por stack | [`docs/diagramas-c4/c4-nivel-4/implementacion/README.md`](../diagramas-c4/c4-nivel-4/implementacion/README.md) |
+| N4 por componente | [`docs/diagramas-c4/c4-nivel-4/implementacion/README.md`](../diagramas-c4/c4-nivel-4/implementacion/README.md) |

@@ -3,7 +3,8 @@
 **Componente:** Front-End (SPA)  
 **Código:** [`implementacion/front-end/react-typescript/`](../../../implementacion/front-end/react-typescript/)
 
-> **Desambiguación:** [`desambiguacion-implementacion.md`](../../politicas-transversales/desambiguacion-implementacion.md)
+> **Desambiguación:** [`desambiguacion-implementacion.md`](../../politicas-transversales/desambiguacion-implementacion.md)  
+> **Desacoplamiento por contratos:** [`desacoplamiento-componentes-contratos.md`](../../politicas-transversales/desacoplamiento-componentes-contratos.md) (restricciones transversales y de este componente)
 
 ---
 

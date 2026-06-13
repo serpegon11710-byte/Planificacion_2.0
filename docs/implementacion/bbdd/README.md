@@ -3,7 +3,8 @@
 **Componente:** Base de datos (esquema y datos iniciales)  
 **Código:** [`implementacion/bbdd/postgresql/`](../../../implementacion/bbdd/postgresql/)
 
-> **Desambiguación:** [`desambiguacion-implementacion.md`](../../politicas-transversales/desambiguacion-implementacion.md)
+> **Desambiguación:** [`desambiguacion-implementacion.md`](../../politicas-transversales/desambiguacion-implementacion.md)  
+> **Desacoplamiento por contratos:** [`desacoplamiento-componentes-contratos.md`](../../politicas-transversales/desacoplamiento-componentes-contratos.md) (restricciones transversales y de este componente)
 
 ---
 

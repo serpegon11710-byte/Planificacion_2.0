@@ -102,7 +102,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - `docs/diagramas-c4/c4-nivel-2/c4-nivel-2-contenedores.mmd` (N2 cerrado)
   - `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes.mmd` (N3 cerrado)
   - N4 canonico: `docs/diagramas-c4/c4-nivel-4/pseudocodigo/` + `zonas-criticas-n4.md` (cerrado)
-  - N4 implementacion por stack: `docs/diagramas-c4/c4-nivel-4/implementacion/` (pendiente Step 12)
+  - N4 implementacion por componente: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (pendiente Step 12)
 - Incorporar trazabilidad entre diagramas C4 y casos de uso UC-01, UC-02, UC-03 (ver FAQ-104 en [dudas-y-resoluciones.md](dudas-y-resoluciones.md))
 
 **Step 8b: Diagrama C4 N3 — Front-End** (*depends on 8*; FAQ-103)
@@ -155,14 +155,14 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Entregables (FAQ):
   - **FAQ-101:** PostgreSQL 16 — [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md)
   - **FAQ-102:** NestJS 10 + React 18 + TypeScript 5 + pnpm workspaces
-  - **FAQ-007:** politica de stacks historicos y desambiguacion de rutas «implementacion»
+  - **FAQ-007:** politica N4 por componente, desacoplamiento por contratos y desambiguacion de rutas «implementacion»
   - Esqueleto de codigo: [`implementacion/`](../../implementacion/) (por componente y tecnologia)
   - Guias agnosticas (plantillas): [`docs/implementacion/`](../implementacion/)
   - [`desambiguacion-implementacion.md`](../politicas-transversales/desambiguacion-implementacion.md)
 
-**Step 12: N4 implementacion por stack — Opcion B** (*depends on 11*) — **Pendiente**
-- Carpeta: `docs/diagramas-c4/c4-nivel-4/implementacion/nestjs-react-postgresql/`
-- Proyeccion del N4 canonico (ZC-1 a ZC-6) al stack activo; enlaces al pseudocodigo, sin redefinir reglas de negocio.
+**Step 12: N4 implementacion por componente — Opcion B** (*depends on 11*) — **Pendiente**
+- Carpetas: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (p. ej. `back-end/nestjs-typescript/`, `front-end/react-typescript/`)
+- Proyeccion del N4 canonico (ZC-1 a ZC-6) repartida por componente; enlaces al pseudocodigo, sin redefinir reglas de negocio. Ver [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
 - Prioridad **1** entre pasos pendientes.
 
 **Step 12b: Practicas de implementacion por componente — Opcion A** (*depends on 11; recomendado tras Step 12*) — **Pendiente**
@@ -211,6 +211,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/entidades/modelo-clases-planificacion.md` | Diagrama de clases dominio (FAQ-112) |
 | `docs/stack-tecnologico/analisis-inicial.md` | Analisis y seleccion de stack (Step 11) |
 | `docs/politicas-transversales/desambiguacion-implementacion.md` | Tres rutas «implementacion» (FAQ-007) |
+| `docs/politicas-transversales/desacoplamiento-componentes-contratos.md` | Restricciones de desacoplamiento por contratos (FAQ-007) |
 | `docs/implementacion/` | Guias de implementacion por componente (plantillas Step 11; contenido Step 12b) |
 | `implementacion/` | Esqueleto de codigo por componente y tecnologia (Step 11) |
 
@@ -268,7 +269,7 @@ Resumen de estado (2026-06-12):
 [x] 9. Ejecutar Fase 5 : Arquitectura logica y verificacion transversal (Steps 9a, 9b)
 [x] 10. Ejecutar Step 10: Crear modelo entidad-relacion (ER)
 [x] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-101, FAQ-102, FAQ-007)
-[ ] 12. Ejecutar Step 12 — **Opcion B:** N4 implementacion por stack (`nestjs-react-postgresql/`)
+[ ] 12. Ejecutar Step 12 — **Opcion B:** N4 implementacion por componente (`{componente}/{tecnologia}/`)
 [ ] 12b. Ejecutar Step 12b — **Opcion A:** Practicas en `docs/implementacion/{componente}/`
 [ ] 13. Ejecutar Step 13: Validar toda la documentacion
 [ ] 14. Ejecutar Step 14 — **Opcion C:** Bootstrap monorepo y proyectos en `implementacion/`

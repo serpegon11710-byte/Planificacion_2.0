@@ -4,6 +4,7 @@
 
 - Stack tecnologico **definido** (Step 11, 2026-06-12): NestJS + React + TypeScript + PostgreSQL. Ver [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md) y FAQ-101/102 en [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
 - Desambiguacion de rutas «implementacion»: [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md).
+- Desacoplamiento por contratos: [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
 
 ## Objetivo de esta fase
 
@@ -50,7 +51,7 @@ Definir una arquitectura generica, independiente del stack, para alinear decisio
 
 | Step | Descripcion |
 |------|-------------|
-| 12 | N4 por stack (`docs/diagramas-c4/.../implementacion/nestjs-react-postgresql/`) |
+| 12 | N4 por componente (`docs/diagramas-c4/.../implementacion/{componente}/{tecnologia}/`) |
 | 12b | Practicas en `docs/implementacion/{componente}/` |
 | 13 | Validacion documental |
 | 14 | Bootstrap codigo en `implementacion/` |
@@ -72,12 +73,13 @@ Visualizacion documentada en Step 8 del plan. Indice: `docs/diagramas-c4/README.
 |-------|--------|-----------|
 | N1–N3 | Cerrado | Contexto, contenedores y componentes Back-End + Front-End (`.mmd`) |
 | N4 canonico | Cerrado | Pseudocodigo por zona critica (`c4-nivel-4/pseudocodigo/`) |
-| N4 implementacion | Pendiente (Step 12) | Proyeccion al stack (`c4-nivel-4/implementacion/nestjs-react-postgresql/`) |
+| N4 implementacion | Pendiente (Step 12) | Proyeccion por componente (`c4-nivel-4/implementacion/{componente}/{tecnologia}/`) |
 
-Los diagramas C4 (Step 8) complementan los documentos de arquitectura (Step 9a); el N4 canonico es independiente del stack. La proyeccion N4 al stack activo es Step 12.
+Los diagramas C4 (Step 8) complementan los documentos de arquitectura (Step 9a); el N4 canonico es independiente del stack. La proyeccion N4 por componente es Step 12.
 
 ## Politicas transversales
 
 - Indice: `docs/politicas-transversales/README.md`
 - Revision SOLID global: `docs/politicas-transversales/revision-principios-solid.md`
 - Internacionalizacion (i18n): `docs/politicas-transversales/internacionalizacion.md`
+- Desacoplamiento por contratos: `docs/politicas-transversales/desacoplamiento-componentes-contratos.md`

@@ -93,8 +93,9 @@ Solo **BBDD** incluye el nombre del motor en su ruta. Persistencia y Back-End no
 | Tema | Ubicación |
 |------|-----------|
 | Prácticas por componente (agnósticas) | [`docs/implementacion/`](../docs/implementacion/) |
+| Desacoplamiento por contratos | [`desacoplamiento-componentes-contratos.md`](../docs/politicas-transversales/desacoplamiento-componentes-contratos.md) |
 | Arquitectura y contratos | [`docs/arquitectura/`](../docs/arquitectura/) |
-| N4 traducido al stack | [`docs/diagramas-c4/c4-nivel-4/implementacion/`](../docs/diagramas-c4/c4-nivel-4/implementacion/) |
+| N4 por componente | [`docs/diagramas-c4/c4-nivel-4/implementacion/`](../docs/diagramas-c4/c4-nivel-4/implementacion/) |
 | Pseudocódigo canónico | [`docs/diagramas-c4/c4-nivel-4/pseudocodigo/`](../docs/diagramas-c4/c4-nivel-4/pseudocodigo/) |
 
 ---

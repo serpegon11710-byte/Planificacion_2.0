@@ -17,6 +17,7 @@ Centralizar criterios globales de calidad e implementacion que no pertenecen a:
 | [revision-principios-solid.md](revision-principios-solid.md) | Cumplimiento SOLID en toda la documentacion | 9b |
 | [internacionalizacion.md](internacionalizacion.md) | Politica de i18n en implementacion | 9b |
 | [desambiguacion-implementacion.md](desambiguacion-implementacion.md) | Tres rutas «implementacion» en el repo (docs, codigo, N4) | 11+ |
+| [desacoplamiento-componentes-contratos.md](desacoplamiento-componentes-contratos.md) | Restricciones para cambiar tecnologia por componente sin acoplar al vecino | 11+ |
 
 ## Criterio de inclusion
 

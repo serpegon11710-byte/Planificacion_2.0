@@ -419,7 +419,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 | UTC en persistencia, locale en UI | PostgreSQL `timestamptz`; date-fns/Luxon + i18n locale en React |
 | ZC-1 cálculo + materialización | Servicio de dominio puro testeable + adaptador SQL para materializadas |
 | Transacciones multi-módulo (ZC-4) | Unit of Work sobre `pg` client en scope de request |
-| N4 implementación por stack | Carpeta `docs/diagramas-c4/c4-nivel-4/implementacion/nestjs-react-postgresql/` (Step 12) |
+| N4 implementación por componente | Carpetas `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (Step 12) |
 
 ### 7.3 Riesgos del stack elegido y mitigaciones
 
@@ -438,7 +438,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 |-----|----------|
 | **FAQ-101** Motor BBDD | **PostgreSQL 16** |
 | **FAQ-102** Stack aplicación | **NestJS 10 + Node 22 + React 18 + TypeScript 5** (monorepo pnpm recomendado) |
-| **FAQ-007** Política N4 histórico | Conservar carpetas `implementacion/{stack}/`; stack activo: `nestjs-react-postgresql/` |
+| **FAQ-007** Política N4 e histórico | N4 por `{componente}/{tecnologia}/`; desacoplamiento: [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) |
 
 ### Herramientas complementarias recomendadas
 
@@ -454,7 +454,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 
 ## 9. Próximos pasos (sin implementación)
 
-1. **Step 12 (Opción B):** Proyectar N4 canónico a `docs/diagramas-c4/c4-nivel-4/implementacion/nestjs-react-postgresql/` (ZC-1 a ZC-6).
+1. **Step 12 (Opción B):** Proyectar N4 canónico a `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (ZC-1 a ZC-6 repartidas por componente).
 2. **Step 12b (Opción A):** Redactar prácticas en `docs/implementacion/{componente}/`.
 3. **Step 13:** Validar coherencia documental tras fijar stack.
 4. **Step 14 (Opción C):** Bootstrap del monorepo en `implementacion/` (fuera de alcance de este análisis).

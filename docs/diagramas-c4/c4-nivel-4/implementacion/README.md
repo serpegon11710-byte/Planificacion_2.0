@@ -1,30 +1,27 @@
-﻿# N4 — Implementación (por stack)
+﻿# N4 — Implementación (por componente y tecnología)
 
-Vista derivada del [pseudocódigo canónico](../pseudocodigo/). Documenta cómo se materializa cada zona crítica en un **stack tecnológico concreto**.
+Vista derivada del [pseudocódigo canónico](../pseudocodigo/). Documenta cómo materializa cada zona crítica el **componente** concreto que la implementa, con su **tecnología** adoptada.
 
-> **Desambiguación:** esta carpeta **no** es [`docs/implementacion/`](../../../implementacion/) (guías agnósticas por componente) ni [`implementacion/`](../../../../implementacion/) (código fuente). Ver [`desambiguacion-implementacion.md`](../../../politicas-transversales/desambiguacion-implementacion.md).
+> **Desambiguación:** esta carpeta **no** es [`docs/implementacion/`](../../../implementacion/) (guías agnósticas por componente) ni [`implementacion/`](../../../../implementacion/) (código fuente). Ver [`desambiguacion-implementacion.md`](../../../politicas-transversales/desambiguacion-implementacion.md).  
+> **Desacoplamiento:** [`desacoplamiento-componentes-contratos.md`](../../../politicas-transversales/desacoplamiento-componentes-contratos.md).
 
 ---
 
 ## Estado
 
-**Pendiente (Step 12).** Stack definido en Step 11 (FAQ-101, FAQ-102). Ver [`analisis-inicial.md`](../../../stack-tecnologico/analisis-inicial.md).
-
-**Stack activo:** NestJS + React + TypeScript + PostgreSQL. Carpeta prevista: `nestjs-react-postgresql/`.
+**Pendiente (Step 12).** Tecnologías activas definidas en Step 11 (FAQ-101, FAQ-102). Ver [`analisis-inicial.md`](../../../stack-tecnologico/analisis-inicial.md).
 
 ---
 
-## Política de stacks históricos (FAQ-007)
+## Política
 
-**Principio acordado:** conservar carpetas `{stack}/` al cambiar de stack; no mezclar implementaciones.
+Cada componente mantiene su proyección N4 **de forma independiente**. Cambiar React, NestJS, el adaptador de persistencia o PostgreSQL **no** exige regenerar la documentación N4 de los demás componentes, salvo que cambie un **contrato** compartido (API, puertos, ER).
 
-Al cambiar de stack se crea una carpeta `{stack}/` nueva; las anteriores se conservan como referencia histórica.
+Al adoptar una nueva tecnología en un componente:
 
----
-
-## Un C4 nivel 4 por stack
-
-Se requiere **un conjunto completo de documentación C4 nivel 4 por cada stack** adoptado. Si el stack cambia, se crea (o regenera) una carpeta `{stack}/` a partir del [pseudocódigo canónico](../pseudocodigo/); el canónico no se modifica salvo que cambie la lógica de negocio.
+1. Crear subcarpeta `{componente}/{nueva-tecnologia}/`.
+2. Conservar la anterior como histórico **de ese componente**; no mezclar tecnologías en la misma carpeta.
+3. Actualizar la matriz de compatibilidad del componente (tecnología activa + versión de contratos).
 
 ---
 
@@ -32,31 +29,41 @@ Se requiere **un conjunto completo de documentación C4 nivel 4 por cada stack**
 
 ```
 docs/diagramas-c4/c4-nivel-4/implementacion/
-└── nestjs-react-postgresql/     # stack global (nombre compuesto válido aquí)
-    ├── README.md                # mapeo global lógico → artefactos del stack
-    ├── zc-1-consulta-ocurrencias.md
-    ├── …
-    └── zc-6-presentacion.md
+├── front-end/react-typescript/
+│   ├── README.md
+│   └── zc-6-presentacion.md
+├── back-end/nestjs-typescript/
+│   ├── README.md
+│   ├── zc-1-consulta-ocurrencias.md
+│   ├── zc-2-materializacion-ocurrencias.md
+│   ├── zc-3-planificacion-temporal.md
+│   └── zc-4-orquestacion-aplicacion.md
+├── persistencia/typescript/
+│   ├── README.md
+│   └── zc-5-persistencia.md
+└── bbdd/postgresql/
+    ├── README.md
+    └── zc-5-persistencia-esquema.md   # SQL/migraciones de referencia (complemento a persistencia)
 ```
 
-Aquí el nombre **compuesto del stack** es correcto: cada carpeta describe la proyección N4 **completa** de todas las zonas críticas para esa combinación tecnológica. En el árbol de **código** (`implementacion/` en la raíz) cada componente usa solo su tecnología — ver desambiguación.
+La convención de carpetas **coincide** con el árbol de código en `implementacion/{componente}/{tecnologia}/`.
 
 ---
 
 ## Reglas
 
 1. Cada fichero debe enlazar al canónico correspondiente en `pseudocodigo/`.
-2. No se redefinen reglas de negocio; solo se traducen subcomponentes, empaquetado y detalle técnico (SQL, módulos NestJS, componentes React).
-3. Si cambia el stack, se crea una nueva carpeta `{stack}/` derivada del mismo pseudocódigo canónico.
-4. ZC-5 y ZC-6 suelen concentrar más detalle; ZC-1 a ZC-4 pueden limitarse a mapeo de módulos y empaquetado.
+2. No se redefinen reglas de negocio; solo se traducen subcomponentes, empaquetado y detalle técnico.
+3. ZC-5 puede repartirse entre `persistencia/` (adaptadores) y `bbdd/` (esquema); enlazar ambos READMEs.
+4. ZC-5 y ZC-6 suelen concentrar más detalle; ZC-1 a ZC-4 en Back-End pueden limitarse a mapeo de módulos y empaquetado.
 
 ---
 
 ## Prioridad al crear implementación N4
 
-1. ZC-5 (persistencia) y ZC-6 (presentación) — máximo detalle técnico.
-2. ZC-4 (orquestación) — coordinadores, transacciones del framework.
-3. ZC-1 a ZC-3 — empaquetado y nombres de clases; la lógica ya está en el canónico.
+1. `persistencia/` y `bbdd/` (ZC-5) + `front-end/` (ZC-6) — máximo detalle técnico.
+2. `back-end/` — ZC-4 (orquestación) y mapeo ZC-1 a ZC-3.
+3. README de índice por componente con mapeo lógico → artefactos.
 
 ---
 
@@ -66,4 +73,5 @@ Aquí el nombre **compuesto del stack** es correcto: cada carpeta describe la pr
 |------|-----------|
 | Prácticas por componente (agnósticas) | [`docs/implementacion/`](../../../implementacion/) |
 | Código fuente | [`implementacion/`](../../../../implementacion/) |
-| Stack elegido | [`docs/stack-tecnologico/analisis-inicial.md`](../../../stack-tecnologico/analisis-inicial.md) |
+| Desacoplamiento por contratos | [`desacoplamiento-componentes-contratos.md`](../../../politicas-transversales/desacoplamiento-componentes-contratos.md) |
+| Stack / tecnologías activas | [`docs/stack-tecnologico/analisis-inicial.md`](../../../stack-tecnologico/analisis-inicial.md) |

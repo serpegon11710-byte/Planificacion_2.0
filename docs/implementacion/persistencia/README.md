@@ -3,7 +3,8 @@
 **Componente:** Capa de Persistencia  
 **Código:** [`implementacion/persistencia/typescript/`](../../../implementacion/persistencia/typescript/)
 
-> **Desambiguación:** [`desambiguacion-implementacion.md`](../../politicas-transversales/desambiguacion-implementacion.md)
+> **Desambiguación:** [`desambiguacion-implementacion.md`](../../politicas-transversales/desambiguacion-implementacion.md)  
+> **Desacoplamiento por contratos:** [`desacoplamiento-componentes-contratos.md`](../../politicas-transversales/desacoplamiento-componentes-contratos.md) (restricciones transversales y de este componente)
 
 ---
 

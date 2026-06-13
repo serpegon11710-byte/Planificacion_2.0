@@ -14,7 +14,7 @@ diagramas-c4/
 └── c4-nivel-4/          # Detalle (codigo)
     ├── zonas-criticas-n4.md
     ├── pseudocodigo/    # Canonico (independiente del stack)
-    └── implementacion/  # N4 por stack (Step 12; activo: nestjs-react-postgresql/)
+    └── implementacion/  # N4 por componente/tecnologia (Step 12)
 ```
 
 ## Diagramas por nivel
@@ -26,7 +26,7 @@ diagramas-c4/
 | N3 — Componentes Back-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes.mmd](c4-nivel-3/c4-nivel-3-componentes.mmd) | Cerrado |
 | N3 — Componentes Front-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes-frontend.mmd](c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) | Cerrado |
 | N4 — Detalle | [c4-nivel-4/](c4-nivel-4/) | [zonas-criticas-n4.md](c4-nivel-4/zonas-criticas-n4.md) + [pseudocodigo/](c4-nivel-4/pseudocodigo/) | Cerrado (canonico) |
-| N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Pendiente Step 12 | Stack definido; carpeta `nestjs-react-postgresql/` |
+| N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Pendiente Step 12 | Por componente: `{componente}/{tecnologia}/` |
 
 ## Nivel 3
 

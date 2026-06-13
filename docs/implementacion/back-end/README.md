@@ -3,7 +3,8 @@
 **Componente:** Back-End (API REST + dominio + aplicación)  
 **Código:** [`implementacion/back-end/nestjs-typescript/`](../../../implementacion/back-end/nestjs-typescript/)
 
-> **Desambiguación:** [`desambiguacion-implementacion.md`](../../politicas-transversales/desambiguacion-implementacion.md)
+> **Desambiguación:** [`desambiguacion-implementacion.md`](../../politicas-transversales/desambiguacion-implementacion.md)  
+> **Desacoplamiento por contratos:** [`desacoplamiento-componentes-contratos.md`](../../politicas-transversales/desacoplamiento-componentes-contratos.md) (restricciones transversales y de este componente)
 
 ---
 

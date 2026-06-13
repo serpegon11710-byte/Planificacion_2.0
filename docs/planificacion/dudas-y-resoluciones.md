@@ -339,18 +339,19 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 ---
 
-### FAQ-007 — N4 implementacion al cambiar de stack
+### FAQ-007 — N4 implementacion al cambiar de tecnologia en un componente
 
 **Origen:** `c4-nivel-4/implementacion/README.md`.
 
-**Resolucion (2026-06-12):**
+**Resolucion (2026-06-12; actualizada misma fecha — desacoplamiento por contratos):**
 
-1. **Principio:** conservar carpetas `{stack}/` como historico al cambiar de stack; no mezclar implementaciones en la misma carpeta.
-2. **Alcance N4 (docs):** `docs/diagramas-c4/c4-nivel-4/implementacion/{stack}/` — nombre compuesto del stack (activo: `nestjs-react-postgresql/`). Contenido: proyeccion ZC-1 a ZC-6 (Step 12).
+1. **Principio:** cada **componente** conserva su historico de tecnologias en subcarpetas `{tecnologia}`; no mezclar implementaciones en la misma carpeta. Cambiar tecnologia en un componente **no** obliga a regenerar la documentacion N4 de los demas salvo cambio de contrato compartido.
+2. **Alcance N4 (docs):** `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` — misma convencion que el codigo. Proyeccion ZC-1 a ZC-6 repartida por componente (Back-End: ZC-1–4; Persistencia/BBDD: ZC-5; Front-End: ZC-6). Ver [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
 3. **Alcance codigo (raiz):** `implementacion/{componente}/{tecnologia}/` — una tecnologia exacta por componente; ver [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md).
-4. **Politica de archivo (v1):** al adoptar un stack nuevo, crear carpeta nueva; no borrar la anterior salvo decision explicita del equipo. Opcional futuro: subcarpeta `archivo/` dentro de `{stack}/` para stacks retirados.
+4. **Politica de archivo (v1):** al adoptar una nueva tecnologia en un componente, crear subcarpeta nueva bajo ese componente; conservar la anterior como historico **del componente**. Opcional futuro: subcarpeta `archivo/` dentro de `{tecnologia}/` retirada.
+5. **Contratos:** API, puertos, ER y codigos de error son la frontera entre componentes; versionar cambios breaking. Matriz de compatibilidad recomendada en README de componente.
 
-**Entregable Step 11:** [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md). **Completado (2026-06-12).**
+**Entregable Step 11:** [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md), [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md). **Completado (2026-06-12).**
 
 ---
 
@@ -394,7 +395,7 @@ _Ninguna (2026-06-12). FAQ-007, FAQ-101 y FAQ-102 cerradas en Step 11._
 |------|-----------------|------------|
 | **10** | FAQ-002, 004, 105–116 | `docs/entidades/modelo-entidad-relacion.md`; entidades; pseudocodigo alineado |
 | **11** | FAQ-007, 101, 102 | `docs/stack-tecnologico/analisis-inicial.md`; `implementacion/`; `docs/implementacion/`; desambiguacion |
-| **12** | — (Opcion **B**) | N4 `docs/diagramas-c4/c4-nivel-4/implementacion/nestjs-react-postgresql/` |
+| **12** | — (Opcion **B**) | N4 por componente: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` |
 | **12b** | — (Opcion **A**) | Contenido de practicas en `docs/implementacion/{componente}/` |
 | **13** | — | Validacion coherencia documental global |
 | **14** | — (Opcion **C**) | Bootstrap codigo (monorepo, Nest, Vite, migraciones) |
@@ -409,7 +410,7 @@ Orden de prioridad (tras cierre Step 11):
 
 | Prioridad | Step | Opcion | Descripcion |
 |-----------|------|--------|-------------|
-| 1 | **12** | **B** | Proyeccion N4 al stack (`nestjs-react-postgresql/`, ZC-1 a ZC-6) |
+| 1 | **12** | **B** | Proyeccion N4 por componente (`{componente}/{tecnologia}/`, ZC-1 a ZC-6) |
 | 2 | **12b** | **A** | Redactar practicas de implementacion por componente en `docs/implementacion/` |
 | 3 | **13** | — | Validar coherencia entre ER, C4, arquitectura, stack e implementacion |
 | 4 | **14** | **C** | Bootstrap tecnico del monorepo y proyectos en `implementacion/` |
@@ -433,8 +434,9 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | `docs/stack-tecnologico/analisis-inicial.md` | FAQ-101, 102 |
 | `implementacion/` (raiz), `docs/implementacion/` | FAQ-007, 102 |
 | `politicas-transversales/desambiguacion-implementacion.md` | FAQ-007 |
+| `politicas-transversales/desacoplamiento-componentes-contratos.md` | FAQ-007 |
 | Step 11 | FAQ-007, 101, 102 (**cerrado**) |
-| Step 12 | N4 implementacion por stack (**B**) |
+| Step 12 | N4 implementacion por componente (**B**) |
 | Step 12b | Practicas `docs/implementacion/` (**A**) |
 | Step 13 | Validacion documental |
 | Step 14 | Bootstrap codigo (**C**) |
@@ -461,3 +463,4 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | 2026-06-12 | FAQ-115: PK {tabla}_id (proyecto_id, item_id, planificacion_id, etc.); excepcion PlanificacionPeriodo |
 | 2026-06-12 | FAQ-116: bloqueos borrado masivo OcurrenciasMaterializadas; RE-4 acotado a una planificacion |
 | 2026-06-12 | Step 11 cerrado: FAQ-007, 101, 102; stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |
+| 2026-06-12 | FAQ-007 actualizada: N4 por componente/tecnologia; politica desacoplamiento-componentes-contratos |

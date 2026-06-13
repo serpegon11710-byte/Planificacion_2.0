@@ -3,7 +3,8 @@
 **Componente:** Tipos y contratos compartidos (Front-End + Back-End)  
 **Código:** [`implementacion/shared/typescript/`](../../../implementacion/shared/typescript/)
 
-> **Desambiguación:** [`desambiguacion-implementacion.md`](../../politicas-transversales/desambiguacion-implementacion.md)
+> **Desambiguación:** [`desambiguacion-implementacion.md`](../../politicas-transversales/desambiguacion-implementacion.md)  
+> **Desacoplamiento por contratos:** [`desacoplamiento-componentes-contratos.md`](../../politicas-transversales/desacoplamiento-componentes-contratos.md) (restricciones transversales y de este componente)
 
 ---
 

@@ -45,4 +45,6 @@ Prácticas y convenciones para implementar cada **contenedor lógico** de Planif
 - Pseudocódigo canónico: [`docs/diagramas-c4/c4-nivel-4/pseudocodigo/`](../diagramas-c4/c4-nivel-4/pseudocodigo/).
 - Proyección N4 por componente: [`docs/diagramas-c4/c4-nivel-4/implementacion/`](../diagramas-c4/c4-nivel-4/implementacion/).
 - Desacoplamiento por contratos: [`desacoplamiento-componentes-contratos.md`](../politicas-transversales/desacoplamiento-componentes-contratos.md).
-- Decisión de stack: [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md).
+- Decisión de stack (análisis): [`analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md).
+- Stack activo e historial: [`historial-stack.md`](../stack-tecnologico/historial-stack.md).
+- Cambio de tecnología: [`cambio-tecnologia-componente.md`](../stack-tecnologico/cambio-tecnologia-componente.md).

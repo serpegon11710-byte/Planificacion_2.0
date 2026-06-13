@@ -72,15 +72,15 @@ docs/diagramas-c4/c4-nivel-4/implementacion/
 └── bbdd/postgresql/                    # ZC-5 (esquema, SQL de referencia)
 ```
 
-Cada subcarpeta sigue la misma convención que el **código** en `implementacion/{componente}/{tecnologia}/`. Al cambiar tecnología en un componente, se crea una carpeta `{tecnologia}` nueva bajo ese componente; las anteriores se conservan como histórico **de ese componente**, sin mezclar implementaciones.
+Cada subcarpeta sigue la misma convención que el **código** en `implementacion/{componente}/{tecnologia}/`. Al sustituir una tecnología, renombrar la carpeta saliente a `{tecnologia} (obsoleto)`; coexistencia paralela (p. ej. dos motores BBDD) sin `(obsoleto)` — ver [cambio-tecnologia-componente.md](../stack-tecnologico/cambio-tecnologia-componente.md) y [historial-stack.md](../stack-tecnologico/historial-stack.md).
 
 **Reglas:**
 
 - No redefinir reglas de negocio; enlazar al canónico en `pseudocodigo/`.
 - Un fichero `zc-*.md` por zona crítica dentro de la carpeta del componente que la implementa.
-- Índice de compatibilidad (tecnología activa + versión de contratos) en el README del componente o en un índice central.
+- Índice de compatibilidad (tecnología activa + versión de contratos) en [historial-stack.md](../stack-tecnologico/historial-stack.md) y README del componente.
 
-**Tecnologías activas v1 (FAQ-101, FAQ-102):** ver [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md).
+**Tecnologías activas v1 (FAQ-101, FAQ-102):** [historial-stack.md](../stack-tecnologico/historial-stack.md) (tabla «Stack activo»); análisis en [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md).
 
 ---
 
@@ -98,6 +98,8 @@ Cada subcarpeta sigue la misma convención que el **código** en `implementacion
 | Tema | Documento |
 |------|-----------|
 | Stack elegido | [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md) |
+| Stack activo e historial | [`historial-stack.md`](../stack-tecnologico/historial-stack.md) |
+| Cambio de tecnología | [`cambio-tecnologia-componente.md`](../stack-tecnologico/cambio-tecnologia-componente.md) |
 | Políticas globales (SOLID, i18n, desacoplamiento) | [`docs/politicas-transversales/README.md`](README.md) |
 | Estructura de código | [`implementacion/README.md`](../../implementacion/README.md) |
 | N4 por componente | [`docs/diagramas-c4/c4-nivel-4/implementacion/README.md`](../diagramas-c4/c4-nivel-4/implementacion/README.md) |

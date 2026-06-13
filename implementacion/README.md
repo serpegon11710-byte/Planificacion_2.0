@@ -18,7 +18,9 @@
 | Shared | TypeScript |
 | BBDD | PostgreSQL 16 |
 
-Detalle: [`docs/stack-tecnologico/analisis-inicial.md`](../docs/stack-tecnologico/analisis-inicial.md).
+Detalle: [`docs/stack-tecnologico/analisis-inicial.md`](../docs/stack-tecnologico/analisis-inicial.md).  
+Stack activo e historial: [`historial-stack.md`](../docs/stack-tecnologico/historial-stack.md).  
+Cambio de tecnología: [`cambio-tecnologia-componente.md`](../docs/stack-tecnologico/cambio-tecnologia-componente.md).
 
 ---
 
@@ -83,6 +85,7 @@ implementacion/
 | Componente | Contenedor C4; **estable** al cambiar detalles del stack | `front-end`, `back-end` |
 | Tecnología | Nombre **exacto** de la tech del componente | `react-typescript`, `nestjs-typescript`, `postgresql` |
 | Evitar | Pack global del stack en carpetas de un solo componente | ~~`nestjs-react-postgresql`~~ en `front-end/` |
+| Obsoleto | Al sustituir tecnología, renombrar carpeta saliente | `{tecnologia} (obsoleto)` — ver [cambio-tecnologia-componente.md](../docs/stack-tecnologico/cambio-tecnologia-componente.md) |
 
 Solo **BBDD** incluye el nombre del motor en su ruta. Persistencia y Back-End no llevan `postgresql` en el path (desacoplamiento vía puertos).
 

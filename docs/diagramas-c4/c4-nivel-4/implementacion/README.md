@@ -19,9 +19,9 @@ Cada componente mantiene su proyección N4 **de forma independiente**. Cambiar R
 
 Al adoptar una nueva tecnología en un componente:
 
-1. Crear subcarpeta `{componente}/{nueva-tecnologia}/`.
-2. Conservar la anterior como histórico **de ese componente**; no mezclar tecnologías en la misma carpeta.
-3. Actualizar la matriz de compatibilidad del componente (tecnología activa + versión de contratos).
+1. Renombrar la carpeta saliente a `{tecnologia} (obsoleto)` en código y N4 (ver [cambio-tecnologia-componente.md](../../../stack-tecnologico/cambio-tecnologia-componente.md)).
+2. Crear subcarpeta `{nueva-tecnologia}/` sin sufijo `(obsoleto)`.
+3. Actualizar [historial-stack.md](../../../stack-tecnologico/historial-stack.md) (stack activo + historial de cambios).
 
 ---
 
@@ -46,7 +46,7 @@ docs/diagramas-c4/c4-nivel-4/implementacion/
     └── zc-5-persistencia-esquema.md   # SQL/migraciones de referencia (complemento a persistencia)
 ```
 
-La convención de carpetas **coincide** con el árbol de código en `implementacion/{componente}/{tecnologia}/`.
+La convención de carpetas **coincide** con el árbol de código en `implementacion/{componente}/{tecnologia}/`. Tecnologías sustituidas: `{tecnologia} (obsoleto)` — [cambio-tecnologia-componente.md](../../../stack-tecnologico/cambio-tecnologia-componente.md).
 
 ---
 
@@ -74,4 +74,5 @@ La convención de carpetas **coincide** con el árbol de código en `implementac
 | Prácticas por componente (agnósticas) | [`docs/implementacion/`](../../../implementacion/) |
 | Código fuente | [`implementacion/`](../../../../implementacion/) |
 | Desacoplamiento por contratos | [`desacoplamiento-componentes-contratos.md`](../../../politicas-transversales/desacoplamiento-componentes-contratos.md) |
-| Stack / tecnologías activas | [`docs/stack-tecnologico/analisis-inicial.md`](../../../stack-tecnologico/analisis-inicial.md) |
+| Stack / tecnologías activas | [`docs/stack-tecnologico/historial-stack.md`](../../../stack-tecnologico/historial-stack.md) |
+| Cambio de tecnología | [`cambio-tecnologia-componente.md`](../../../stack-tecnologico/cambio-tecnologia-componente.md) |

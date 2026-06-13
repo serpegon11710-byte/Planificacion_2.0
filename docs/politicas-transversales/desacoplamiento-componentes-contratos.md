@@ -111,14 +111,14 @@ Cada par de componentes adyacentes tiene **un único tipo de contrato** como fue
 
 ## Procedimiento: cambio de tecnología en un componente
 
+Procedimiento detallado, sufijo `(obsoleto)` y excepciones de coexistencia: [cambio-tecnologia-componente.md](../stack-tecnologico/cambio-tecnologia-componente.md). Historial y stack activo: [historial-stack.md](../stack-tecnologico/historial-stack.md).
+
 1. Confirmar que **no** se alteran contratos en frontera (API, puertos, ER) o planificar **nueva versión** de contrato.
-2. Crear o activar carpeta `implementacion/{componente}/{nueva-tecnologia}/`.
-3. Actualizar **solo**:
-   - guía `docs/implementacion/{componente}/` (prácticas agnósticas, si aplica);
-   - proyección N4 del componente en `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (cuando exista);
-   - matriz de compatibilidad del componente (tecnología activa + versión de contratos que soporta).
-4. **No** actualizar documentación de implementación de otros componentes salvo rotura de contrato.
-5. Ejecutar pruebas de contrato en fronteras tocadas.
+2. **Renombrar** la carpeta de la tecnología saliente a `{tecnologia} (obsoleto)` en código y N4 (si existen).
+3. **Crear** `implementacion/{componente}/{nueva-tecnologia}/` y, si aplica, proyección N4 en la ruta homóloga bajo `docs/diagramas-c4/.../implementacion/`.
+4. Actualizar **solo** la documentación del componente afectado y [historial-stack.md](../stack-tecnologico/historial-stack.md).
+5. **No** actualizar documentación de implementación de otros componentes salvo rotura de contrato.
+6. Ejecutar pruebas de contrato en fronteras tocadas.
 
 ---
 
@@ -135,9 +135,11 @@ Cada par de componentes adyacentes tiene **un único tipo de contrato** como fue
 
 ---
 
-## Matriz de compatibilidad (recomendada)
+## Matriz de compatibilidad
 
-Mantener un registro ligero de **qué tecnología activa usa cada componente** y **qué versión de contrato** implementa (p. ej. en el README del componente o en un índice central). Ejemplo:
+Fuente de verdad central: [historial-stack.md](../stack-tecnologico/historial-stack.md) (stack activo + historial de cambios + coexistencia paralela).
+
+Cada README de componente puede resumir la fila local (tecnología activa + versión de contratos). Ejemplo v1:
 
 | Componente | Tecnología activa | Contratos |
 |------------|-------------------|-----------|
@@ -169,3 +171,5 @@ Al cambiar solo Front-End, se actualiza su fila; las demás permanecen si API v1
 | Código por componente | [implementacion/](../../implementacion/) |
 | Pseudocódigo N4 canónico | [pseudocodigo/](../diagramas-c4/c4-nivel-4/pseudocodigo/) |
 | Desambiguación de rutas | [desambiguacion-implementacion.md](desambiguacion-implementacion.md) |
+| Historial de stack | [historial-stack.md](../stack-tecnologico/historial-stack.md) |
+| Cambio de tecnología | [cambio-tecnologia-componente.md](../stack-tecnologico/cambio-tecnologia-componente.md) |

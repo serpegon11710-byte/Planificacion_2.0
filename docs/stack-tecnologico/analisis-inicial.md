@@ -438,7 +438,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 |-----|----------|
 | **FAQ-101** Motor BBDD | **PostgreSQL 16** |
 | **FAQ-102** Stack aplicación | **NestJS 10 + Node 22 + React 18 + TypeScript 5** (monorepo pnpm recomendado) |
-| **FAQ-007** Política N4 e histórico | N4 por `{componente}/{tecnologia}/`; desacoplamiento: [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) |
+| **FAQ-007** Política N4 e histórico | N4 por `{componente}/{tecnologia}/`; sufijo `(obsoleto)` y coexistencia: [cambio-tecnologia-componente.md](cambio-tecnologia-componente.md); registro: [historial-stack.md](historial-stack.md) |
 
 ### Herramientas complementarias recomendadas
 
@@ -482,3 +482,5 @@ Se evaluaron **cinco stacks** alineados con la arquitectura por capas, los contr
 - `docs/diagramas-c4/c4-nivel-4/zonas-criticas-n4.md`
 - `docs/planificacion/planificacion-inicial.md` (Step 11)
 - `docs/politicas-transversales/internacionalizacion.md`
+- [historial-stack.md](historial-stack.md) — stack activo e historial por componente
+- [cambio-tecnologia-componente.md](cambio-tecnologia-componente.md) — procedimiento `(obsoleto)` y excepciones

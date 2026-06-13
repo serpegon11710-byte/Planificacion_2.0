@@ -348,10 +348,10 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 1. **Principio:** cada **componente** conserva su historico de tecnologias en subcarpetas `{tecnologia}`; no mezclar implementaciones en la misma carpeta. Cambiar tecnologia en un componente **no** obliga a regenerar la documentacion N4 de los demas salvo cambio de contrato compartido.
 2. **Alcance N4 (docs):** `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` — misma convencion que el codigo. Proyeccion ZC-1 a ZC-6 repartida por componente (Back-End: ZC-1–4; Persistencia/BBDD: ZC-5; Front-End: ZC-6). Ver [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
 3. **Alcance codigo (raiz):** `implementacion/{componente}/{tecnologia}/` — una tecnologia exacta por componente; ver [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md).
-4. **Politica de archivo (v1):** al adoptar una nueva tecnologia en un componente, crear subcarpeta nueva bajo ese componente; conservar la anterior como historico **del componente**. Opcional futuro: subcarpeta `archivo/` dentro de `{tecnologia}/` retirada.
-5. **Contratos:** API, puertos, ER y codigos de error son la frontera entre componentes; versionar cambios breaking. Matriz de compatibilidad recomendada en README de componente.
+4. **Politica de archivo (v1):** al sustituir una tecnologia, **renombrar** la carpeta saliente a `{tecnologia} (obsoleto)` en codigo y N4; crear carpeta de la tecnologia entrante sin sufijo. Procedimiento: [cambio-tecnologia-componente.md](../stack-tecnologico/cambio-tecnologia-componente.md). Historial: [historial-stack.md](../stack-tecnologico/historial-stack.md). **Excepcion:** coexistencia paralela (p. ej. PostgreSQL + MySQL en BBDD) — varias carpetas activas sin `(obsoleto)`; ver mismo documento § Excepciones.
+5. **Contratos:** API, puertos, ER y codigos de error son la frontera entre componentes; versionar cambios breaking. Matriz de compatibilidad en [historial-stack.md](../stack-tecnologico/historial-stack.md) y README del componente.
 
-**Entregable Step 11:** [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md), [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md). **Completado (2026-06-12).**
+**Entregable Step 11:** [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md), [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md), [historial-stack.md](../stack-tecnologico/historial-stack.md), [cambio-tecnologia-componente.md](../stack-tecnologico/cambio-tecnologia-componente.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md). **Completado (2026-06-12).**
 
 ---
 
@@ -434,7 +434,8 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | `docs/stack-tecnologico/analisis-inicial.md` | FAQ-101, 102 |
 | `implementacion/` (raiz), `docs/implementacion/` | FAQ-007, 102 |
 | `politicas-transversales/desambiguacion-implementacion.md` | FAQ-007 |
-| `politicas-transversales/desacoplamiento-componentes-contratos.md` | FAQ-007 |
+| `docs/stack-tecnologico/historial-stack.md` | FAQ-007 |
+| `docs/stack-tecnologico/cambio-tecnologia-componente.md` | FAQ-007 |
 | Step 11 | FAQ-007, 101, 102 (**cerrado**) |
 | Step 12 | N4 implementacion por componente (**B**) |
 | Step 12b | Practicas `docs/implementacion/` (**A**) |
@@ -464,3 +465,4 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | 2026-06-12 | FAQ-116: bloqueos borrado masivo OcurrenciasMaterializadas; RE-4 acotado a una planificacion |
 | 2026-06-12 | Step 11 cerrado: FAQ-007, 101, 102; stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |
 | 2026-06-12 | FAQ-007 actualizada: N4 por componente/tecnologia; politica desacoplamiento-componentes-contratos |
+| 2026-06-12 | historial-stack.md y cambio-tecnologia-componente.md; sufijo carpeta `(obsoleto)` y excepcion coexistencia BBDD |

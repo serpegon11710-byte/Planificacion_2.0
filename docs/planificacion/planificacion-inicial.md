@@ -210,6 +210,8 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/entidades/modelo-entidad-relacion.md` | Diagrama ERD Mermaid (Step 10) |
 | `docs/entidades/modelo-clases-planificacion.md` | Diagrama de clases dominio (FAQ-112) |
 | `docs/stack-tecnologico/analisis-inicial.md` | Analisis y seleccion de stack (Step 11) |
+| `docs/stack-tecnologico/historial-stack.md` | Stack activo e historial por componente |
+| `docs/stack-tecnologico/cambio-tecnologia-componente.md` | Procedimiento `(obsoleto)` y coexistencia paralela |
 | `docs/politicas-transversales/desambiguacion-implementacion.md` | Tres rutas «implementacion» (FAQ-007) |
 | `docs/politicas-transversales/desacoplamiento-componentes-contratos.md` | Restricciones de desacoplamiento por contratos (FAQ-007) |
 | `docs/implementacion/` | Guias de implementacion por componente (plantillas Step 11; contenido Step 12b) |

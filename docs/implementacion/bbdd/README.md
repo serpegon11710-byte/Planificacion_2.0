@@ -29,10 +29,12 @@ Documentación de **disciplina de datos** (parte agnóstica en el texto; el SQL 
 
 La capa de **Persistencia** consume este esquema vía SQL; no duplicar aquí la lógica de repositorios (ver [`persistencia/README.md`](../persistencia/README.md)).
 
+**Coexistencia de motores (excepción):** mantener PostgreSQL y otro motor (p. ej. MySQL) activos en paralelo está permitido con registro en [historial-stack.md](../../stack-tecnologico/historial-stack.md) — ver [cambio-tecnologia-componente.md § Excepciones](../../stack-tecnologico/cambio-tecnologia-componente.md#excepciones-coexistencia-de-dos-tecnologías-activas).
+
 ---
 
 ## Referencias
 
 - Modelo ER: [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md)
-- Stack motor: FAQ-101 en [`analisis-inicial.md`](../../stack-tecnologico/analisis-inicial.md)
+- Stack motor: FAQ-101 en [`analisis-inicial.md`](../../stack-tecnologico/analisis-inicial.md); activo en [`historial-stack.md`](../../stack-tecnologico/historial-stack.md)
 - Migraciones en código: `implementacion/bbdd/postgresql/migrations/`

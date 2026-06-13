@@ -200,4 +200,4 @@ FUNCION listarSinPlanificar(filtros):
 - UC-01.5 delega validacion a `ValidadorConfiguracion`; no persiste (RC-4).
 - RT-3 consulta ocurrencias via `planificacion_id` (ZC-5; FK = PK de `PlanificacionPeriodo`).
 
-Proyeccion al stack en [implementacion/](../implementacion/).
+Proyeccion: [back-end/nestjs-typescript/zc-3-planificacion-temporal.md](../implementacion/back-end/nestjs-typescript/zc-3-planificacion-temporal.md).

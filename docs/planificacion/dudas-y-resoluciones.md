@@ -395,7 +395,7 @@ _Ninguna (2026-06-12). FAQ-007, FAQ-101 y FAQ-102 cerradas en Step 11._
 |------|-----------------|------------|
 | **10** | FAQ-002, 004, 105–116 | `docs/entidades/modelo-entidad-relacion.md`; entidades; pseudocodigo alineado |
 | **11** | FAQ-007, 101, 102 | `docs/stack-tecnologico/analisis-inicial.md`; `implementacion/`; `docs/implementacion/`; desambiguacion |
-| **12** | — (Opcion **B**) | N4 por componente: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` |
+| **12** | — (Opcion **B**) | N4 por componente: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (**cerrado**) |
 | **12b** | — (Opcion **A**) | Contenido de practicas en `docs/implementacion/{componente}/` |
 | **13** | — | Validacion coherencia documental global |
 | **14** | — (Opcion **C**) | Bootstrap codigo (monorepo, Nest, Vite, migraciones) |
@@ -406,14 +406,13 @@ Los Steps 7b, 8b y 8c ya estan cerrados.
 
 ## Pendientes de ejecutar
 
-Orden de prioridad (tras cierre Step 11):
+Orden de prioridad (tras cierre Step 12):
 
 | Prioridad | Step | Opcion | Descripcion |
 |-----------|------|--------|-------------|
-| 1 | **12** | **B** | Proyeccion N4 por componente (`{componente}/{tecnologia}/`, ZC-1 a ZC-6) |
-| 2 | **12b** | **A** | Redactar practicas de implementacion por componente en `docs/implementacion/` |
-| 3 | **13** | — | Validar coherencia entre ER, C4, arquitectura, stack e implementacion |
-| 4 | **14** | **C** | Bootstrap tecnico del monorepo y proyectos en `implementacion/` |
+| 1 | **12b** | **A** | Redactar practicas de implementacion por componente en `docs/implementacion/` |
+| 2 | **13** | — | Validar coherencia entre ER, C4, arquitectura, stack e implementacion |
+| 3 | **14** | **C** | Bootstrap tecnico del monorepo y proyectos en `implementacion/` |
 
 Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8).
 
@@ -437,7 +436,7 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | `docs/stack-tecnologico/historial-stack.md` | FAQ-007 |
 | `docs/stack-tecnologico/cambio-tecnologia-componente.md` | FAQ-007 |
 | Step 11 | FAQ-007, 101, 102 (**cerrado**) |
-| Step 12 | N4 implementacion por componente (**B**) |
+| Step 12 | N4 implementacion por componente (**B**) — **cerrado** |
 | Step 12b | Practicas `docs/implementacion/` (**A**) |
 | Step 13 | Validacion documental |
 | Step 14 | Bootstrap codigo (**C**) |
@@ -465,4 +464,4 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | 2026-06-12 | FAQ-116: bloqueos borrado masivo OcurrenciasMaterializadas; RE-4 acotado a una planificacion |
 | 2026-06-12 | Step 11 cerrado: FAQ-007, 101, 102; stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |
 | 2026-06-12 | FAQ-007 actualizada: N4 por componente/tecnologia; politica desacoplamiento-componentes-contratos |
-| 2026-06-12 | historial-stack.md y cambio-tecnologia-componente.md; sufijo carpeta `(obsoleto)` y excepcion coexistencia BBDD |
+| 2026-06-12 | Step 12 cerrado: N4 implementacion por componente (ZC-1 a ZC-6) |

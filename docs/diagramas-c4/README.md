@@ -2,7 +2,7 @@
 
 Parte del **Step 8** del plan de documentacion. Visualiza la estructura del software Planificacion 2.0 e integra con arquitectura (Step 9a).
 
-Dudas y stack: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, 102; Step 12 pendiente).
+Dudas y stack: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, 102; Step 12 cerrado).
 
 ## Estructura por nivel
 
@@ -26,7 +26,7 @@ diagramas-c4/
 | N3 — Componentes Back-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes.mmd](c4-nivel-3/c4-nivel-3-componentes.mmd) | Cerrado |
 | N3 — Componentes Front-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes-frontend.mmd](c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) | Cerrado |
 | N4 — Detalle | [c4-nivel-4/](c4-nivel-4/) | [zonas-criticas-n4.md](c4-nivel-4/zonas-criticas-n4.md) + [pseudocodigo/](c4-nivel-4/pseudocodigo/) | Cerrado (canonico) |
-| N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Pendiente Step 12 | Por componente: `{componente}/{tecnologia}/` |
+| N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Cerrado Step 12 | Por componente: `{componente}/{tecnologia}/` |
 
 ## Nivel 3
 
@@ -43,7 +43,7 @@ El diagrama Back-End referencia al Front-End como contenedor; el detalle de pres
 
 Las zonas criticas estan definidas en [zonas-criticas-n4.md](c4-nivel-4/zonas-criticas-n4.md).
 
-El N4 canonico es **pseudocodigo independiente del stack** en [pseudocodigo/](c4-nivel-4/pseudocodigo/). Cada fichero `zc-*.md` incluye **trazabilidad con casos de uso** (FAQ-104); los UCs referencian las zonas criticas afectadas.
+El N4 canonico es **pseudocodigo independiente del stack** en [pseudocodigo/](c4-nivel-4/pseudocodigo/). La proyeccion por componente y tecnologia esta en [implementacion/](c4-nivel-4/implementacion/).
 
 ## Visualizacion
 

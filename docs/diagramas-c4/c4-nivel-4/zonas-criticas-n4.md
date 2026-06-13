@@ -9,9 +9,9 @@ El N4 se documenta en dos capas:
 | Capa | Ubicacion | Rol |
 |------|-----------|-----|
 | **Canonico** | [pseudocodigo/](pseudocodigo/) | Estructura logica + pseudocodigo; independiente del stack |
-| **Implementacion** | [implementacion/](implementacion/) | Proyeccion al stack concreto; pendiente hasta definir Step 11 |
+| **Implementacion** | [implementacion/](implementacion/) | Proyeccion por componente y tecnologia (Step 12) |
 
-El pseudocodigo es la fuente de verdad funcional. Si cambia el stack, se regenera la capa de implementacion a partir del mismo canonico, sin redefinir las zonas criticas ni las reglas de negocio.
+El pseudocodigo es la fuente de verdad funcional. Si cambia la tecnologia de un componente, se actualiza solo su carpeta en [implementacion/](implementacion/) a partir del mismo canonico, sin redefinir las zonas criticas ni las reglas de negocio.
 
 **Trazabilidad (FAQ-104):** cada ZC N4 documenta los casos de uso que la justifican; cada UC referencia las ZC afectadas. No hay fichero central de correspondencias.
 
@@ -186,4 +186,4 @@ No se diagraman en N4 los agregados con CRUD directo y reglas simples si el N3 y
 
 ## Resultado
 
-Quedan definidas **6 zonas criticas** (5 Back-End/Persistencia prioritarias + 1 Presentacion opcional). Cada una tiene su **N4 canonico en pseudocodigo** en [pseudocodigo/](pseudocodigo/). La capa [implementacion/](implementacion/) se creara cuando el stack este definido.
+Quedan definidas **6 zonas criticas** (5 Back-End/Persistencia prioritarias + 1 Presentacion opcional). Cada una tiene su **N4 canonico en pseudocodigo** en [pseudocodigo/](pseudocodigo/). La proyeccion por componente esta en [implementacion/](implementacion/) (Step 12).

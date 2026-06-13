@@ -241,4 +241,4 @@ INTERFAZ PuertoOcurrenciaMaterializada:
 
 En implementacion SQL, la lectura del paso 1 puede resolverse en una unica consulta indexada por `planificacion_id` y fechas; la generacion de naturales pendientes equivale a recorrer el patron omitiendo claves ya presentes (candidato a procedimiento almacenado cuando exista stack).
 
-Implementacion concreta en [zc-5-persistencia.md](zc-5-persistencia.md). Detalle de stack en [implementacion/](../implementacion/).
+Implementacion Back-End: [zc-1-consulta-ocurrencias.md](../implementacion/back-end/nestjs-typescript/zc-1-consulta-ocurrencias.md). Persistencia: [zc-5-persistencia.md](../implementacion/persistencia/typescript/zc-5-persistencia.md). Esquema: [bbdd/postgresql/](../implementacion/bbdd/postgresql/).

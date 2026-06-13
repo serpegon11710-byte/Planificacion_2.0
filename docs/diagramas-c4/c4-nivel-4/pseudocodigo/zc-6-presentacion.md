@@ -203,4 +203,4 @@ Al definir el stack de Front-End, esta zona documentara:
 - Catalogo i18n de mensajes
 - Cliente HTTP y modelos de vista tipados
 
-Deriva de este documento; ver [implementacion/](../implementacion/).
+Deriva de este documento; ver [front-end/react-typescript/zc-6-presentacion.md](../implementacion/front-end/react-typescript/zc-6-presentacion.md).

@@ -102,7 +102,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - `docs/diagramas-c4/c4-nivel-2/c4-nivel-2-contenedores.mmd` (N2 cerrado)
   - `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes.mmd` (N3 cerrado)
   - N4 canonico: `docs/diagramas-c4/c4-nivel-4/pseudocodigo/` + `zonas-criticas-n4.md` (cerrado)
-  - N4 implementacion por componente: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (pendiente Step 12)
+  - N4 implementacion por componente: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (**cerrado** Step 12)
 - Incorporar trazabilidad entre diagramas C4 y casos de uso UC-01, UC-02, UC-03 (ver FAQ-104 en [dudas-y-resoluciones.md](dudas-y-resoluciones.md))
 
 **Step 8b: Diagrama C4 N3 — Front-End** (*depends on 8*; FAQ-103)
@@ -160,9 +160,9 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - Guias agnosticas (plantillas): [`docs/implementacion/`](../implementacion/)
   - [`desambiguacion-implementacion.md`](../politicas-transversales/desambiguacion-implementacion.md)
 
-**Step 12: N4 implementacion por componente — Opcion B** (*depends on 11*) — **Pendiente**
-- Carpetas: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (p. ej. `back-end/nestjs-typescript/`, `front-end/react-typescript/`)
-- Proyeccion del N4 canonico (ZC-1 a ZC-6) repartida por componente; enlaces al pseudocodigo, sin redefinir reglas de negocio. Ver [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
+**Step 12: N4 implementacion por componente — Opcion B** (*depends on 11*) — **Completado (2026-06-12)**
+- Carpetas: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/`
+- Proyeccion ZC-1 a ZC-6; enlaces al pseudocodigo. Indice: [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md).
 - Prioridad **1** entre pasos pendientes.
 
 **Step 12b: Practicas de implementacion por componente — Opcion A** (*depends on 11; recomendado tras Step 12*) — **Pendiente**
@@ -214,6 +214,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/stack-tecnologico/cambio-tecnologia-componente.md` | Procedimiento `(obsoleto)` y coexistencia paralela |
 | `docs/politicas-transversales/desambiguacion-implementacion.md` | Tres rutas «implementacion» (FAQ-007) |
 | `docs/politicas-transversales/desacoplamiento-componentes-contratos.md` | Restricciones de desacoplamiento por contratos (FAQ-007) |
+| `docs/diagramas-c4/c4-nivel-4/implementacion/` | N4 por componente y tecnologia (Step 12) |
 | `docs/implementacion/` | Guias de implementacion por componente (plantillas Step 11; contenido Step 12b) |
 | `implementacion/` | Esqueleto de codigo por componente y tecnologia (Step 11) |
 
@@ -255,8 +256,8 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 Resumen de estado (2026-06-12):
 
 - **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-116, **FAQ-007, FAQ-101, FAQ-102** (Step 11).
-- **Steps cerrados:** 1–11 (documentacion + stack + esqueleto implementacion).
-- **Pendientes (orden de prioridad):** Step 12 (Opcion **B**), Step 12b (Opcion **A**), Step 13, Step 14 (Opcion **C**). Ver tabla en [dudas-y-resoluciones.md](dudas-y-resoluciones.md#pendientes-de-ejecutar).
+- **Steps cerrados:** 1–12 (documentacion + stack + N4 implementacion por componente).
+- **Pendientes (orden de prioridad):** Step 12b (Opcion **A**), Step 13, Step 14 (Opcion **C**). Ver tabla en [dudas-y-resoluciones.md](dudas-y-resoluciones.md#pendientes-de-ejecutar).
 
 ## Próximos Pasos
 
@@ -271,7 +272,7 @@ Resumen de estado (2026-06-12):
 [x] 9. Ejecutar Fase 5 : Arquitectura logica y verificacion transversal (Steps 9a, 9b)
 [x] 10. Ejecutar Step 10: Crear modelo entidad-relacion (ER)
 [x] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-101, FAQ-102, FAQ-007)
-[ ] 12. Ejecutar Step 12 — **Opcion B:** N4 implementacion por componente (`{componente}/{tecnologia}/`)
+[x] 12. Ejecutar Step 12 — **Opcion B:** N4 implementacion por componente (`{componente}/{tecnologia}/`)
 [ ] 12b. Ejecutar Step 12b — **Opcion A:** Practicas en `docs/implementacion/{componente}/`
 [ ] 13. Ejecutar Step 13: Validar toda la documentacion
 [ ] 14. Ejecutar Step 14 — **Opcion C:** Bootstrap monorepo y proyectos en `implementacion/`
@@ -293,4 +294,4 @@ Resumen de estado (2026-06-12):
 2026-06-12 - Limpieza plan y FAQ: entregables Step 10/11; verificacion 7-8 corregida
 2026-06-12 - Step 10 completado: modelo ER en docs/entidades/modelo-entidad-relacion.md
 2026-06-12 - Step 11 completado: stack NestJS+React+TS+PostgreSQL; FAQ-007/101/102; implementacion/ y docs/implementacion/
-2026-06-12 - Pendientes ordenados: Step 12 (B), 12b (A), 13, 14 (C)
+2026-06-12 - Step 12 completado: N4 implementacion por componente (react-typescript, nestjs-typescript, typescript, postgresql)

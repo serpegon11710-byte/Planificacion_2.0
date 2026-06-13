@@ -417,7 +417,7 @@ _Ninguna (2026-06-12). FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11._
 
 ## Decisiones (entregables por step) {#decisiones-entregables-por-step}
 
-### Steps cerrados (1–11, 12a, 12b, 13)
+### Steps cerrados (1–11, 12a, 12b)
 
 | Step | Estado | Descripcion | Artefactos / FAQ |
 |------|--------|-------------|------------------|
@@ -425,7 +425,6 @@ _Ninguna (2026-06-12). FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11._
 | **11** | Cerrado | Stack tecnologico | FAQ-100, 101, 102; `analisis-inicial.md`; `implementacion/`; `docs/implementacion/`; desambiguacion |
 | **12a** | Cerrado | N4 por componente | `c4-nivel-4/implementacion/{componente}/{tecnologia}/` |
 | **12b** | Cerrado | Guías agnósticas por componente | `docs/implementacion/{componente}/` |
-| **13** | Cerrado | Validación documental global | [validacion-documental-step13.md](validacion-documental-step13.md); checklist [vista-general.md](vista-general.md) §6 |
 
 Los Steps 7b, 8b y 8c ya estan cerrados.
 
@@ -433,6 +432,7 @@ Los Steps 7b, 8b y 8c ya estan cerrados.
 
 | Step | Estado | Descripcion | Artefactos |
 |------|--------|-------------|------------|
+| **13** | Pendiente | Validación documental global | checklist [vista-general.md](vista-general.md) §6; [validacion-documental-step13.md](validacion-documental-step13.md) |
 | **14** | Pendiente | Bootstrap monorepo | `implementacion/` (Nest, Vite, migraciones) |
 
 Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8).
@@ -461,34 +461,53 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | Step 11 | FAQ-100, 101, 102 (**cerrado**) |
 | Step 12a | N4 implementacion por componente — **cerrado** |
 | Step 12b | Practicas `docs/implementacion/` — **cerrado** |
-| Step 13 | Validacion documental — **cerrado** |
+| Step 13 | Validacion documental |
 | Step 14 | Bootstrap codigo |
 
 ---
 
 ## Historial del FAQ
 
+Referencia de migración (IDs pre-renumeración → vigentes). Solo para trazabilidad histórica; usar siempre los IDs vigentes en documentación nueva.
+
+| Legacy | Vigente | Tema |
+|--------|---------|------|
+| FAQ-103 | [FAQ-200](#faq-200--diagrama-c4-n3-para-front-end) | N3 Front-End |
+| FAQ-104 | [FAQ-201](#faq-201--trazabilidad-c4--casos-de-uso) | Trazabilidad UC ↔ C4 |
+| FAQ-105 | [FAQ-300](#faq-300--modelo-fisico-de-planificaciones-una-tabla-o-varias) | Modelo ER planificaciones |
+| FAQ-106 | [FAQ-306](#faq-306--tipoperiodo-catalogo-de-visibilidad-de-campos-de-patron) | TipoPeriodo (supersedida por FAQ-111 legacy) |
+| FAQ-107 | [FAQ-301](#faq-301--tabla-catalogo-de-tipos-de-planificacion) | Catálogo tipos |
+| FAQ-108 | [FAQ-302](#faq-302--nomenclatura-sin-planificar) | Sin planificar |
+| FAQ-109 | [FAQ-304](#faq-304--vista-unificada-dias-semana-y-ocurrencias-solo-periódicas) | Vista unificada (supersedida) |
+| FAQ-110 | [FAQ-305](#faq-305--tabla-unica-planificaciones--planificacionperiodo-11) | Tabla única + PlanificacionPeriodo |
+| FAQ-111 | [FAQ-306](#faq-306--tipoperiodo-catalogo-de-visibilidad-de-campos-de-patron) | TipoPeriodo visibilidad |
+| FAQ-112 | [FAQ-307](#faq-307--diagrama-de-clases-de-planificacion) | Diagrama de clases |
+| FAQ-113 | [FAQ-308](#faq-308--orden-fisico-de-tablas-cluster-frente-a-pk-tabla_id) | Orden físico cluster |
+| FAQ-114 | [FAQ-309](#faq-309--tablas-satelite-pk-y-orden-fisico) | Satélites PK |
+| FAQ-115 | [FAQ-310](#faq-310--convencion-de-nombres-pk-tabla_id) | Convención PK |
+| FAQ-116 | [FAQ-311](#faq-311--bloqueos-en-borrado-masivo-de-ocurrenciasmaterializadas-re-4) | Bloqueos RE-4 |
+| FAQ-007 (stack/N4) | [FAQ-102](#faq-102--n4-implementacion-al-cambiar-de-tecnologia-en-un-componente) | Política N4 / desacoplamiento |
+
 | Fecha | Cambio |
 |-------|--------|
 | 2026-06-12 | Creacion del documento; migracion de consideraciones del plan y respuestas del cuestionario |
-| 2026-06-12 | Anadidas FAQ-105 a FAQ-108 (modelo ER, tablas por tipo, nomenclatura Sin planificar) |
-| 2026-06-12 | FAQ-004: aclarada semantica herencia (NULL en BD, valor visible heredado, persistencia al interactuar) |
-| 2026-06-12 | FAQ-104 a FAQ-108 resueltas; trazabilidad distribuida; modelo dos tablas; Sin planificar |
-| 2026-06-12 | Step 7b: entidades proyectos.md e items.md (FAQ-005) |
-| 2026-06-12 | Step 8b: diagrama N3 Front-End (FAQ-103) |
-| 2026-06-12 | Renumeracion plan: Step 11 -> Step 11; ER (10) antes que stack; Step 12 N4 implementacion |
-| 2026-06-12 | FAQ-109: V_Planificacion, dias_semana LMXJVSD, ocurrencias solo periódicas |
-| 2026-06-12 | FAQ-110: tabla unica Planificaciones + PlanificacionPeriodo; supersede FAQ-109 |
-| 2026-06-12 | FAQ-111: TipoPeriodo (visibilidad campos patron); supersede FAQ-106 |
-| 2026-06-12 | FAQ-112: diagrama de clases Planificacion en docs/entidades |
-| 2026-06-12 | FAQ-113: orden fisico cluster (item, fechas) vs PK id |
-| 2026-06-12 | FAQ-114: satelites PK planificacion_id; ocurrencias (planificacion_id, fecha_original, hora, ocurrencia_id) |
-| 2026-06-12 | FAQ-115: PK {tabla}_id (proyecto_id, item_id, planificacion_id, etc.); excepcion PlanificacionPeriodo |
-| 2026-06-12 | FAQ-116: bloqueos borrado masivo OcurrenciasMaterializadas; RE-4 acotado a una planificacion |
-| 2026-06-12 | Step 11 cerrado: FAQ-007, 101, 102; stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |
-| 2026-06-12 | FAQ-007 actualizada: N4 por componente/tecnologia; politica desacoplamiento-componentes-contratos |
-| 2026-06-12 | Step 12 cerrado: N4 implementacion por componente (ZC-1 a ZC-6) |
-| 2026-06-12 | vista-general.md: capas, contratos externo/interno, bootstrap, checklist pre-implementacion |
-| 2026-06-12 | **Renumeracion FAQ por grupos FAQ-Gnn** (0 dominio, 1 stack, 2 C4, 3 ER). Steps 12→12a/12b; tabla Decisiones sin Opciones A/B/C. Migracion IDs: 001→000, 002→001, …, 116→311; 007 stack→102; ver grupos arriba |
+| 2026-06-12 | Anadidas [FAQ-300](#faq-300--modelo-fisico-de-planificaciones-una-tabla-o-varias) a [FAQ-303](#faq-303--borrador-er-del-plan-definicionfechahora) (modelo ER, tablas por tipo, nomenclatura Sin planificar) |
+| 2026-06-12 | [FAQ-004](#faq-004--entidades-proyecto-e-item): aclarada semantica herencia (NULL en BD, valor visible heredado, persistencia al interactuar) |
+| 2026-06-12 | [FAQ-201](#faq-201--trazabilidad-c4--casos-de-uso) resuelta; trazabilidad distribuida; [FAQ-300](#faq-300--modelo-fisico-de-planificaciones-una-tabla-o-varias) modelo dos tablas; [FAQ-302](#faq-302--nomenclatura-sin-planificar) Sin planificar |
+| 2026-06-12 | Step 7b: entidades proyectos.md e items.md ([FAQ-004](#faq-004--entidades-proyecto-e-item)) |
+| 2026-06-12 | Step 8b: diagrama N3 Front-End ([FAQ-200](#faq-200--diagrama-c4-n3-para-front-end)) |
+| 2026-06-12 | Renumeracion plan: ER (Step 10) antes que stack (Step 11); Step 12 N4 implementacion |
+| 2026-06-12 | [FAQ-304](#faq-304--vista-unificada-dias-semana-y-ocurrencias-solo-periódicas): V_Planificacion, dias_semana LMXJVSD, ocurrencias solo periodicas |
+| 2026-06-12 | [FAQ-305](#faq-305--tabla-unica-planificaciones--planificacionperiodo-11): tabla unica Planificaciones + PlanificacionPeriodo; supersedida [FAQ-304](#faq-304--vista-unificada-dias-semana-y-ocurrencias-solo-periódicas) |
+| 2026-06-12 | [FAQ-306](#faq-306--tipoperiodo-catalogo-de-visibilidad-de-campos-de-patron): TipoPeriodo (visibilidad campos patron) |
+| 2026-06-12 | [FAQ-307](#faq-307--diagrama-de-clases-de-planificacion): diagrama de clases Planificacion en docs/entidades |
+| 2026-06-12 | [FAQ-308](#faq-308--orden-fisico-de-tablas-cluster-frente-a-pk-tabla_id): orden fisico cluster (item, fechas) vs PK id |
+| 2026-06-12 | [FAQ-309](#faq-309--tablas-satelite-pk-y-orden-fisico): satelites PK planificacion_id; ocurrencias (planificacion_id, fecha_original, hora, ocurrencia_id) |
+| 2026-06-12 | [FAQ-310](#faq-310--convencion-de-nombres-pk-tabla_id): PK {tabla}_id; excepcion PlanificacionPeriodo |
+| 2026-06-12 | [FAQ-311](#faq-311--bloqueos-en-borrado-masivo-de-ocurrenciasmaterializadas-re-4): bloqueos borrado masivo OcurrenciasMaterializadas; RE-4 acotado a una planificacion |
+| 2026-06-12 | Step 11 cerrado: [FAQ-100](#faq-100--motor-de-base-de-datos), [FAQ-101](#faq-101--stack-de-aplicacion), [FAQ-102](#faq-102--n4-implementacion-al-cambiar-de-tecnologia-en-un-componente); stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |
+| 2026-06-12 | [FAQ-102](#faq-102--n4-implementacion-al-cambiar-de-tecnologia-en-un-componente) actualizada: N4 por componente/tecnologia; politica desacoplamiento-componentes-contratos |
+| 2026-06-12 | Step 12a cerrado: N4 implementacion por componente (ZC-1 a ZC-6) |
+| 2026-06-12 | [vista-general.md](vista-general.md): capas, contratos externo/interno, bootstrap, checklist pre-implementacion |
+| 2026-06-12 | **Renumeracion FAQ por grupos FAQ-Gnn** (0 dominio, 1 stack, 2 C4, 3 ER). Steps 12→12a/12b; tabla Decisiones sin Opciones A/B/C. Ver mapa legacy arriba |
 | 2026-06-12 | Step 12b cerrado: guias agnosticas por componente en docs/implementacion/ |
-| 2026-06-12 | Step 13 cerrado: validacion documental; informe validacion-documental-step13.md |

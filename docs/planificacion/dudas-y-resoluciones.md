@@ -423,6 +423,7 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | Documento | IDs FAQ |
 |-----------|---------|
 | `planificacion-inicial.md` | FAQ-001, 002, 003, 108; Steps 11–14 |
+| `planificacion/vista-general.md` | Capas, contratos externo/interno, bootstrap |
 | `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108, 113, 114, **115**, **116** |
 | `entidades/ocurrencias.md` | FAQ-003, 004, **116** |
 | `entidades/proyectos.md`, `items.md` | FAQ-005, **115** |
@@ -465,3 +466,4 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | 2026-06-12 | Step 11 cerrado: FAQ-007, 101, 102; stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |
 | 2026-06-12 | FAQ-007 actualizada: N4 por componente/tecnologia; politica desacoplamiento-componentes-contratos |
 | 2026-06-12 | Step 12 cerrado: N4 implementacion por componente (ZC-1 a ZC-6) |
+| 2026-06-12 | vista-general.md: capas, contratos externo/interno, bootstrap, checklist pre-implementacion |

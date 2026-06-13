@@ -4,6 +4,8 @@
 
 En Planificacion 2.0 coexisten **tres rutas distintas** cuyo nombre incluye «implementación». No son intercambiables. Este documento fija el matiz para evitar mezclar documentación, código y proyección C4.
 
+> **Marco:** [vista-general.md](../planificacion/vista-general.md) — capas, contratos externos/internos y orden documentar → implementar.
+
 ---
 
 ## Resumen

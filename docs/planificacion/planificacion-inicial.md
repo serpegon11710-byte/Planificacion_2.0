@@ -1,6 +1,8 @@
 # Plan de Documentación Inicial - Planificacion 2.0
 
-**Fecha:** 2026-06-10
+**Fecha:** 2026-06-10  
+**Vista general (capas, contratos, bootstrap):** [vista-general.md](vista-general.md) — lectura recomendada antes de implementar código.
+
 **Objetivo:** Crear la estructura de documentación completa para el proyecto Planificacion 2.0
 
 ## Resumen Ejecutivo
@@ -173,11 +175,12 @@ Con fecha inicio, fecha fin y periodo de repetición:
 ### Fase 8: Cierre documental e implementacion
 **Step 13: Validar toda la documentacion** (*depends on 10, 12, 12b*) — **Pendiente**
 - Revision de coherencia entre entidades, ER, C4, arquitectura, stack, N4 e implementacion.
+- Incluye checklist de [vista-general.md](vista-general.md) §6 (contratos externos e internos antes de codificar negocio).
 - Prioridad **3**.
 
 **Step 14: Bootstrap e implementacion tecnica — Opcion C** (*depends on 13*) — **Pendiente**
 - Monorepo (pnpm), proyectos Nest/Vite, migraciones en `implementacion/bbdd/postgresql/`, paquete shared.
-- Sin logica de negocio hasta validar documentacion (Step 13).
+- Solo andamiaje ejecutable (arranque, DI, migraciones); **sin logica de negocio** hasta validar Step 13. Ver [vista-general.md](vista-general.md) §5.
 - Prioridad **4**.
 
 ## Archivos a Crear
@@ -206,6 +209,8 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/politicas-transversales/README.md` | Indice de politicas transversales |
 | `docs/politicas-transversales/revision-principios-solid.md` | Revision global de cumplimiento SOLID |
 | `docs/politicas-transversales/internacionalizacion.md` | Politica transversal de i18n |
+| `docs/planificacion/planificacion-inicial.md` | Plan por fases y steps |
+| `docs/planificacion/vista-general.md` | Capas, contratos (externo/interno), bootstrap, checklist pre-implementacion |
 | `docs/planificacion/dudas-y-resoluciones.md` | FAQ centralizado de dudas, resoluciones y nomenclatura |
 | `docs/entidades/modelo-entidad-relacion.md` | Diagrama ERD Mermaid (Step 10) |
 | `docs/entidades/modelo-clases-planificacion.md` | Diagrama de clases dominio (FAQ-112) |

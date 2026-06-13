@@ -16,11 +16,12 @@ Vista derivada del [pseudocódigo canónico](../pseudocodigo/). Documenta cómo 
 
 ## Índice por componente
 
-| Componente | Tecnología | README | ZC |
-|------------|------------|--------|-----|
+| Componente | Tecnología | README | ZC / ámbito |
+|------------|------------|--------|-------------|
 | Front-End | `react-typescript` | [front-end/react-typescript/](front-end/react-typescript/) | ZC-6 |
 | Back-End | `nestjs-typescript` | [back-end/nestjs-typescript/](back-end/nestjs-typescript/) | ZC-1 … ZC-4 |
 | Persistencia | `typescript` | [persistencia/typescript/](persistencia/typescript/) | ZC-5 |
+| Shared | `typescript` | [shared/typescript/](shared/typescript/) | Contratos API/DTOs (sin ZC) |
 | BBDD | `postgresql` | [bbdd/postgresql/](bbdd/postgresql/) | ZC-5 (esquema) |
 
 ---
@@ -46,6 +47,7 @@ docs/diagramas-c4/c4-nivel-4/implementacion/
 ├── front-end/react-typescript/
 ├── back-end/nestjs-typescript/
 ├── persistencia/typescript/
+├── shared/typescript/
 └── bbdd/postgresql/
 ```
 

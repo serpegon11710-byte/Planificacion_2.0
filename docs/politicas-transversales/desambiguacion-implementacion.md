@@ -71,6 +71,7 @@ docs/diagramas-c4/c4-nivel-4/implementacion/
 ├── front-end/react-typescript/       # ZC-6
 ├── back-end/nestjs-typescript/       # ZC-1, ZC-2, ZC-3, ZC-4
 ├── persistencia/typescript/            # ZC-5 (adaptadores, repos)
+├── shared/typescript/                  # Contratos API/DTOs y códigos (sin ZC)
 └── bbdd/postgresql/                    # ZC-5 (esquema, SQL de referencia)
 ```
 

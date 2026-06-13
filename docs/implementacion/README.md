@@ -19,7 +19,7 @@ Prácticas y convenciones para implementar cada **contenedor lógico** de Planif
 | Front-End | [front-end/README.md](front-end/README.md) | ZC-6 | `implementacion/front-end/react-typescript/` | [react-typescript/](../diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/) |
 | Back-End | [back-end/README.md](back-end/README.md) | ZC-1 … ZC-4 | `implementacion/back-end/nestjs-typescript/` | [nestjs-typescript/](../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/) |
 | Persistencia | [persistencia/README.md](persistencia/README.md) | ZC-5 | `implementacion/persistencia/typescript/` | [typescript/](../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/) |
-| Shared | [shared/README.md](shared/README.md) | — | `implementacion/shared/typescript/` | — (contratos en arquitectura) |
+| Shared | [shared/README.md](shared/README.md) | — | `implementacion/shared/typescript/` | [typescript/](../diagramas-c4/c4-nivel-4/implementacion/shared/typescript/) |
 | BBDD | [bbdd/README.md](bbdd/README.md) | ZC-5 (esquema) | `implementacion/bbdd/postgresql/` | [postgresql/](../diagramas-c4/c4-nivel-4/implementacion/bbdd/postgresql/) |
 
 ---

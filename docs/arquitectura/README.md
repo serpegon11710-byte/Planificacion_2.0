@@ -2,7 +2,9 @@
 
 ## Estado actual
 
-- Se acuerda no fijar stack tecnologico por ahora (Step 11 pendiente).
+- Stack tecnologico **definido** (Step 11, 2026-06-12): NestJS + React + TypeScript + PostgreSQL. Ver [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md) y FAQ-101/102 en [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
+- Desambiguacion de rutas «implementacion»: [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md).
+- Desacoplamiento por contratos: [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
 
 ## Objetivo de esta fase
 
@@ -37,15 +39,24 @@ Definir una arquitectura generica, independiente del stack, para alinear decisio
 - Persistencia implementa puertos definidos por Negocio/Aplicacion.
 - Ninguna capa de dominio conoce detalles del motor de BBDD.
 
-## Decisiones pendientes (sin stack)
-
-Ver FAQ-007, FAQ-101 y FAQ-102 en [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (Step 11).
+## Checklist arquitectura logica
 
 [x] Definir contratos minimos de puertos e interfaces.
 [x] Definir granularidad final de modulos de negocio.
 [x] Definir transacciones y limites de consistencia.
 [x] Definir politicas de errores y validaciones por capa.
-[ ] Step 11: stack, motor BBDD, politica N4 historico (FAQ-007, 101, 102).
+[x] Step 11: stack, motor BBDD, politica N4 historico (FAQ-007, 101, 102).
+
+## Siguientes pasos (implementacion)
+
+| Step | Descripcion |
+|------|-------------|
+| 12 | N4 por componente (`docs/diagramas-c4/.../implementacion/{componente}/{tecnologia}/`) |
+| 12b | Practicas en `docs/implementacion/{componente}/` |
+| 13 | Validacion documental |
+| 14 | Bootstrap codigo en `implementacion/` |
+
+Ver [planificacion-inicial.md](../planificacion/planificacion-inicial.md).
 
 ## Documentos de soporte de arquitectura
 
@@ -62,12 +73,13 @@ Visualizacion documentada en Step 8 del plan. Indice: `docs/diagramas-c4/README.
 |-------|--------|-----------|
 | N1–N3 | Cerrado | Contexto, contenedores y componentes Back-End + Front-End (`.mmd`) |
 | N4 canonico | Cerrado | Pseudocodigo por zona critica (`c4-nivel-4/pseudocodigo/`) |
-| N4 implementacion | Pendiente (Step 11) | Proyeccion al stack (`c4-nivel-4/implementacion/`) |
+| N4 implementacion | Pendiente (Step 12) | Proyeccion por componente (`c4-nivel-4/implementacion/{componente}/{tecnologia}/`) |
 
-Los diagramas C4 (Step 8) complementan los documentos de arquitectura (Step 9a); el N4 canonico es independiente del stack y la capa de implementacion se genera al cerrar Step 11.
+Los diagramas C4 (Step 8) complementan los documentos de arquitectura (Step 9a); el N4 canonico es independiente del stack. La proyeccion N4 por componente es Step 12.
 
 ## Politicas transversales
 
 - Indice: `docs/politicas-transversales/README.md`
 - Revision SOLID global: `docs/politicas-transversales/revision-principios-solid.md`
 - Internacionalizacion (i18n): `docs/politicas-transversales/internacionalizacion.md`
+- Desacoplamiento por contratos: `docs/politicas-transversales/desacoplamiento-componentes-contratos.md`

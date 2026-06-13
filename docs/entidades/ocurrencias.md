@@ -116,7 +116,36 @@ Tabla `OcurrenciasMaterializadas` — ver [modelo-entidad-relacion.md](modelo-en
 
 ---
 
+## Borrado masivo (feature futura)
+
+El modelo actual vacía RE-4 desde UC-02.4 **ocurrencia a ocurrencia** (`eliminar(ocurrencia_id)` tras localizar por `(planificacion_id, fecha_original)`). Una feature futura podría ofrecer **vaciar todas las materializadas de una planificación** en una operación.
+
+### Patrón recomendado
+
+```sql
+DELETE FROM OcurrenciasMaterializadas WHERE planificacion_id = @planificacion_id;
+```
+
+Un solo prefijo del orden físico `(planificacion_id, fecha_original, hora, ocurrencia_id)` (FAQ-114): rango contiguo, transacción breve.
+
+### Patrones a evitar
+
+| Patrón | Motivo |
+|--------|--------|
+| `DELETE … WHERE planificacion_id IN (…)` | En READ COMMITTED con locking (p. ej. SQL Server sin RCSI), puede bloquear `SELECT` concurrentes sobre **otros** `planificacion_id` del mismo índice (locks, escalation). |
+| Vaciado de item/proyecto en **una** transacción multi-planificación | Mismo riesgo; repetir **una planificación por operación**. |
+| `DELETE … WHERE ocurrencia_id IN (…)` repartido en muchas planificaciones | Peor plan de acceso; preferir criterio por `planificacion_id`. |
+
+### Escrituras ligeras vs borrado
+
+- **UC-02.3** (solo observaciones u otros campos): UPDATE puntual → bloqueo mínimo.
+- **UC-02.4** anular/restaurar o vaciado masivo: DELETE → mayor ventana de lock local en esa planificación.
+
+Detalle de aislamiento, RCSI y Step 11: [FAQ-116](../planificacion/dudas-y-resoluciones.md).
+
+---
+
 ## Referencias
 
 - [modelo-clases-planificacion.md](modelo-clases-planificacion.md), [planificaciones.md](planificaciones.md)
-- [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-003, FAQ-004)
+- [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-003, FAQ-004, **FAQ-116**)

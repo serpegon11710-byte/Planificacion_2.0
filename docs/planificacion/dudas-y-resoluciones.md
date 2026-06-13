@@ -15,7 +15,7 @@ Los documentos funcionales (`entidades/`, `arquitectura/`, etc.) deben **referen
 | Estado | Significado |
 |--------|-------------|
 | **Resuelta** | Decision acordada; el detalle documental puede quedar como entregable del Step indicado en cada FAQ |
-| **Abierta** | Requiere decision; ver Step 11 o Step 10 segun el FAQ |
+| **Abierta** | Requiere decision; ver Step indicado en cada FAQ |
 | **Supersedida** | Duda historica; ver resolucion y nota de nomenclatura |
 
 ---
@@ -260,6 +260,36 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 ---
 
+### FAQ-116 — Bloqueos en borrado masivo de `OcurrenciasMaterializadas` (RE-4)
+
+**Origen:** Analisis de concurrencia (escenario multi-usuario / SQL Server); feature futura de vaciado masivo para resolver RE-4 desde UC-02.4.
+
+**Contexto:** Orden fisico de la tabla (FAQ-114): **`(planificacion_id, fecha_original, hora, ocurrencia_id)`**. La PK surrogate `ocurrencia_id` no define la localidad de lectura/borrado.
+
+**Resolucion (2026-06-12):**
+
+1. **Escrituras ligeras (UC-02.3):** actualizar solo `observaciones` (u otros campos) de una fila ya localizada implica bloqueo minimo (UPDATE puntual).
+
+2. **Borrado masivo por planificacion (feature futura RE-4):** patron SQL recomendado:
+   ```sql
+   DELETE FROM OcurrenciasMaterializadas WHERE planificacion_id = @planificacion_id;
+   ```
+   Un solo prefijo del indice agrupado → rango contiguo, transaccion corta. Alineado con UC-02.4 (ambito: **una planificacion**).
+
+3. **Patron a evitar (READ COMMITTED con locking, p. ej. SQL Server sin RCSI):**
+   ```sql
+   DELETE FROM OcurrenciasMaterializadas WHERE planificacion_id IN (@id1, @id2, …);
+   ```
+   Aunque los `planificacion_id` del DELETE y los de un `SELECT … WHERE planificacion_id IN (…)` **no compartan filas**, en la practica puede bloquear lecturas concurrentes sobre **otros** prefijos del mismo indice (locks en claves/paginas, planes de acceso amplios, **lock escalation**). RCSI / SNAPSHOT mitiga el bloqueo lector/escritor, pero aumenta coste de servidor (version store); no siempre es viable a gran escala.
+
+4. **Cascada item/proyecto:** no vaciar ocurrencias de **varias planificaciones** en una unica sentencia ni en una transaccion larga. Para cumplir RE-4 antes de UC-01.4 / UC-01.3 / UC-01.2: **una planificacion por operacion** (commit breve entre planificaciones si aplica).
+
+5. **Lectura calendario (UC-02.1):** con borrado acotado a un solo `planificacion_id`, el conflicto con lecturas de otras planificaciones es **extremadamente improbable** en READ COMMITTED locking. Bucle por planificacion o lectura batch del alumno: ambos son viables; el riesgo venia del DELETE multi-`planificacion_id`, no del shape del SELECT.
+
+**Entregable:** trazabilidad en `modelo-entidad-relacion.md` (RE-4), `ocurrencias.md`, UC-02.4. Implementacion concreta (aislamiento, RCSI, lotes) en **Step 11** (FAQ-101).
+
+---
+
 ### FAQ-107 — Nomenclatura «Sin planificar»
 
 **Origen:** FAQ-105 / modelo ER.
@@ -309,15 +339,19 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 ---
 
-## Abiertas (postergadas a Step 11)
-
-### FAQ-007 — N4 implementacion al cambiar de stack
+### FAQ-007 — N4 implementacion al cambiar de tecnologia en un componente
 
 **Origen:** `c4-nivel-4/implementacion/README.md`.
 
-**Principio acordado (2026-06-12):** **Conservar** carpetas `{stack}/` como historico al cambiar de stack; no mezclar implementaciones en la misma carpeta.
+**Resolucion (2026-06-12; actualizada misma fecha — desacoplamiento por contratos):**
 
-**Entregable Step 11:** politica de archivo detallada en `implementacion/README.md` (cuando se cierre la seleccion de stack).
+1. **Principio:** cada **componente** conserva su historico de tecnologias en subcarpetas `{tecnologia}`; no mezclar implementaciones en la misma carpeta. Cambiar tecnologia en un componente **no** obliga a regenerar la documentacion N4 de los demas salvo cambio de contrato compartido.
+2. **Alcance N4 (docs):** `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` — misma convencion que el codigo. Proyeccion ZC-1 a ZC-6 repartida por componente (Back-End: ZC-1–4; Persistencia/BBDD: ZC-5; Front-End: ZC-6). Ver [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
+3. **Alcance codigo (raiz):** `implementacion/{componente}/{tecnologia}/` — una tecnologia exacta por componente; ver [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md).
+4. **Politica de archivo (v1):** al sustituir una tecnologia, **renombrar** la carpeta saliente a `{tecnologia} (obsoleto)` en codigo y N4; crear carpeta de la tecnologia entrante sin sufijo. Procedimiento: [cambio-tecnologia-componente.md](../stack-tecnologico/cambio-tecnologia-componente.md). Historial: [historial-stack.md](../stack-tecnologico/historial-stack.md). **Excepcion:** coexistencia paralela (p. ej. PostgreSQL + MySQL en BBDD) — varias carpetas activas sin `(obsoleto)`; ver mismo documento § Excepciones.
+5. **Contratos:** API, puertos, ER y codigos de error son la frontera entre componentes; versionar cambios breaking. Matriz de compatibilidad en [historial-stack.md](../stack-tecnologico/historial-stack.md) y README del componente.
+
+**Entregable Step 11:** [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md), [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md), [historial-stack.md](../stack-tecnologico/historial-stack.md), [cambio-tecnologia-componente.md](../stack-tecnologico/cambio-tecnologia-componente.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md). **Completado (2026-06-12).**
 
 ---
 
@@ -325,7 +359,9 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 **Origen:** Step 11.
 
-**Estado:** **Postergada** — entregable Step 11.
+**Resolucion (2026-06-12):** **PostgreSQL 16** como motor unico en v1. Motivos: soporte nativo de restricciones del ER (UNIQUE parcial, CHECK, TIMESTAMPTZ, cascadas FK), alineacion con FAQ-113/114/116 y portabilidad del SQL documentado.
+
+**Entregable Step 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md) (seccion 5 y 8). Codigo: `implementacion/bbdd/postgresql/`. **Completado (2026-06-12).**
 
 ---
 
@@ -333,7 +369,23 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 **Origen:** Step 11.
 
-**Estado:** **Postergada** — entregable Step 11.
+**Resolucion (2026-06-12):**
+
+| Capa | Tecnologia |
+|------|------------|
+| Back-End | **NestJS 10** + **Node.js 22** + **TypeScript 5** |
+| Front-End | **React 18** + **TypeScript 5** + **Vite** |
+| Persistencia | TypeScript + **node-postgres (`pg`)** + migraciones SQL |
+| Shared | TypeScript (DTOs, codigos de error, tipos de contrato) |
+| Monorepo | **pnpm workspaces** (recomendado) |
+
+**Entregable Step 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md), esqueleto [`implementacion/`](../../implementacion/), guias [`docs/implementacion/`](../implementacion/). **Completado (2026-06-12).**
+
+---
+
+## Abiertas (postergadas a Step 11)
+
+_Ninguna (2026-06-12). FAQ-007, FAQ-101 y FAQ-102 cerradas en Step 11._
 
 ---
 
@@ -341,17 +393,29 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 | Step | FAQ / contenido | Artefactos |
 |------|-----------------|------------|
-| **10** | FAQ-002, 004, 105, 106, 108 | `docs/entidades/modelo-entidad-relacion.md`; UTC en ER + `internacionalizacion.md`; ocurrencias materializadas |
-| **11** | FAQ-007, 101, 102 | Stack, motor BBDD, politica N4 historico |
-| **12** | — | N4 `implementacion/{stack}/` (proyeccion del canonico) |
+| **10** | FAQ-002, 004, 105–116 | `docs/entidades/modelo-entidad-relacion.md`; entidades; pseudocodigo alineado |
+| **11** | FAQ-007, 101, 102 | `docs/stack-tecnologico/analisis-inicial.md`; `implementacion/`; `docs/implementacion/`; desambiguacion |
+| **12** | — (Opcion **B**) | N4 por componente: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` |
+| **12b** | — (Opcion **A**) | Contenido de practicas en `docs/implementacion/{componente}/` |
+| **13** | — | Validacion coherencia documental global |
+| **14** | — (Opcion **C**) | Bootstrap codigo (monorepo, Nest, Vite, migraciones) |
 
-Los Steps 7b, 8b y 8c ya estan cerrados. Las FAQ 001, 003, 006, 008, 009, 103, 104, 107 no tienen entregable pendiente fuera de lo ya documentado.
+Los Steps 7b, 8b y 8c ya estan cerrados.
 
 ---
 
 ## Pendientes de ejecutar
 
-_Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
+Orden de prioridad (tras cierre Step 11):
+
+| Prioridad | Step | Opcion | Descripcion |
+|-----------|------|--------|-------------|
+| 1 | **12** | **B** | Proyeccion N4 por componente (`{componente}/{tecnologia}/`, ZC-1 a ZC-6) |
+| 2 | **12b** | **A** | Redactar practicas de implementacion por componente en `docs/implementacion/` |
+| 3 | **13** | — | Validar coherencia entre ER, C4, arquitectura, stack e implementacion |
+| 4 | **14** | **C** | Bootstrap tecnico del monorepo y proyectos en `implementacion/` |
+
+Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8).
 
 ---
 
@@ -359,16 +423,25 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 
 | Documento | IDs FAQ |
 |-----------|---------|
-| `planificacion-inicial.md` | FAQ-001, 002, 003, 108 |
-| `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108, 113, 114, **115** |
-| `entidades/ocurrencias.md` | FAQ-003, 004 |
+| `planificacion-inicial.md` | FAQ-001, 002, 003, 108; Steps 11–14 |
+| `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108, 113, 114, **115**, **116** |
+| `entidades/ocurrencias.md` | FAQ-003, 004, **116** |
 | `entidades/proyectos.md`, `items.md` | FAQ-005, **115** |
-| `entidades/planificaciones.md`, `modelo-clases-planificacion.md` | FAQ-001, 105, 106, 107, 110, 111, 112, **115** |
+| `entidades/planificaciones.md`, `modelo-clases-planificacion.md` | FAQ-001, 105, 106, 107, 110, 111, 112, **115**, **116** |
+| `casos-uso/UC-02.4` | **116** (borrado masivo RE-4) |
 | `revision-principios-solid.md` | FAQ-005, 009 |
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
-| Step 11 | FAQ-007, 101, 102 |
-| Step 12 | N4 implementacion por stack |
-| Step 10 | FAQ-002, 004, 105, 106, 108, 110, 111, 112, 113, 114, **115** |
+| `docs/stack-tecnologico/analisis-inicial.md` | FAQ-101, 102 |
+| `implementacion/` (raiz), `docs/implementacion/` | FAQ-007, 102 |
+| `politicas-transversales/desambiguacion-implementacion.md` | FAQ-007 |
+| `docs/stack-tecnologico/historial-stack.md` | FAQ-007 |
+| `docs/stack-tecnologico/cambio-tecnologia-componente.md` | FAQ-007 |
+| Step 11 | FAQ-007, 101, 102 (**cerrado**) |
+| Step 12 | N4 implementacion por componente (**B**) |
+| Step 12b | Practicas `docs/implementacion/` (**A**) |
+| Step 13 | Validacion documental |
+| Step 14 | Bootstrap codigo (**C**) |
+| Step 10 | FAQ-002, 004, 105, 106, 108, 110, 111, 112, 113, 114, **115**, **116** |
 ---
 
 ## Historial del FAQ
@@ -389,3 +462,7 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | 2026-06-12 | FAQ-113: orden fisico cluster (item, fechas) vs PK id |
 | 2026-06-12 | FAQ-114: satelites PK planificacion_id; ocurrencias (planificacion_id, fecha_original, hora, ocurrencia_id) |
 | 2026-06-12 | FAQ-115: PK {tabla}_id (proyecto_id, item_id, planificacion_id, etc.); excepcion PlanificacionPeriodo |
+| 2026-06-12 | FAQ-116: bloqueos borrado masivo OcurrenciasMaterializadas; RE-4 acotado a una planificacion |
+| 2026-06-12 | Step 11 cerrado: FAQ-007, 101, 102; stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |
+| 2026-06-12 | FAQ-007 actualizada: N4 por componente/tecnologia; politica desacoplamiento-componentes-contratos |
+| 2026-06-12 | historial-stack.md y cambio-tecnologia-componente.md; sufijo carpeta `(obsoleto)` y excepcion coexistencia BBDD |

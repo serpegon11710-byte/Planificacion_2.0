@@ -103,8 +103,8 @@ El N4 canonico no mezcla capas: negocio no referencia SQL ni frameworks.
 
 ### Diagramas C4
 
-- **N4 canonico** cerrado a extension de logica; **N4 implementacion** abierto por stack sin redefinir reglas (OCP).
-- Nuevas zonas criticas o subcomponentes se anaden en pseudocodigo; la capa `{stack}/` se regenera, no se mezclan stacks.
+- **N4 canonico** cerrado a extension de logica; **N4 implementacion** abierto por componente/tecnologia sin redefinir reglas (OCP).
+- Nuevas zonas criticas o subcomponentes se anaden en pseudocodigo; la capa `{componente}/{tecnologia}/` se actualiza solo en el componente afectado, no se mezclan tecnologias.
 
 ### Criterio global de implementacion
 

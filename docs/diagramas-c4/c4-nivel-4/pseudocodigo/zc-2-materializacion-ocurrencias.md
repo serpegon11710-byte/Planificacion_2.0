@@ -192,4 +192,4 @@ INTERFAZ PuertoOcurrenciaMaterializada:
   eliminar(ocurrencia_id) -> VOID
 ```
 
-Detalle de persistencia en [zc-5-persistencia.md](zc-5-persistencia.md). Proyeccion al stack en [implementacion/](../implementacion/).
+Detalle de persistencia en [zc-5-persistencia.md](../implementacion/persistencia/typescript/zc-5-persistencia.md). Back-End: [nestjs-typescript/zc-2-materializacion-ocurrencias.md](../implementacion/back-end/nestjs-typescript/zc-2-materializacion-ocurrencias.md).

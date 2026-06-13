@@ -293,4 +293,4 @@ Al definir el stack, esta zona concentra:
 - Consultas SQL optimizadas para rango de ocurrencias (RO-9, RO-10)
 - Implementacion real de `PuertoConexion`
 
-Deriva de este documento; ver [implementacion/](../implementacion/).
+Deriva de este documento; ver [persistencia/typescript/zc-5-persistencia.md](../implementacion/persistencia/typescript/zc-5-persistencia.md) y [bbdd/postgresql/](../implementacion/bbdd/postgresql/).

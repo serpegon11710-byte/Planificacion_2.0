@@ -199,4 +199,4 @@ FUNCION definicionSinPlanificarPorDefecto():
 | Crear item manual | `CoordinadorCreacionItem` | Item, Planificacion |
 | CRUD planificacion solo | UC-01.4 directo a `AgregadoPlanificacion` | Planificacion |
 
-La persistencia transaccional concreta se implementa en [zc-5-persistencia.md](zc-5-persistencia.md). Proyeccion al stack en [implementacion/](../implementacion/).
+La persistencia transaccional concreta se implementa en [zc-5-persistencia.md](../implementacion/persistencia/typescript/zc-5-persistencia.md). Orquestacion: [back-end/nestjs-typescript/zc-4-orquestacion-aplicacion.md](../implementacion/back-end/nestjs-typescript/zc-4-orquestacion-aplicacion.md).

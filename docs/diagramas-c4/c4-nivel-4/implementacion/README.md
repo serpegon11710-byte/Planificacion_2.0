@@ -9,61 +9,54 @@ Vista derivada del [pseudocódigo canónico](../pseudocodigo/). Documenta cómo 
 
 ## Estado
 
-**Pendiente (Step 12).** Tecnologías activas definidas en Step 11 (FAQ-101, FAQ-102). Ver [`analisis-inicial.md`](../../../stack-tecnologico/analisis-inicial.md).
+**Completado (Step 12, 2026-06-12).** Tecnologías activas: [historial-stack.md](../../../stack-tecnologico/historial-stack.md).
+
+---
+
+## Índice por componente
+
+| Componente | Tecnología | README | ZC |
+|------------|------------|--------|-----|
+| Front-End | `react-typescript` | [front-end/react-typescript/](front-end/react-typescript/) | ZC-6 |
+| Back-End | `nestjs-typescript` | [back-end/nestjs-typescript/](back-end/nestjs-typescript/) | ZC-1 … ZC-4 |
+| Persistencia | `typescript` | [persistencia/typescript/](persistencia/typescript/) | ZC-5 |
+| BBDD | `postgresql` | [bbdd/postgresql/](bbdd/postgresql/) | ZC-5 (esquema) |
 
 ---
 
 ## Política
 
-Cada componente mantiene su proyección N4 **de forma independiente**. Cambiar React, NestJS, el adaptador de persistencia o PostgreSQL **no** exige regenerar la documentación N4 de los demás componentes, salvo que cambie un **contrato** compartido (API, puertos, ER).
+Cada componente mantiene su proyección N4 **de forma independiente**. Cambiar tecnología renombra la carpeta saliente a `{tecnologia} (obsoleto)` — [cambio-tecnologia-componente.md](../../../stack-tecnologico/cambio-tecnologia-componente.md).
 
-Al adoptar una nueva tecnología en un componente:
+### Dos tecnologías activas en el mismo componente
 
-1. Renombrar la carpeta saliente a `{tecnologia} (obsoleto)` en código y N4 (ver [cambio-tecnologia-componente.md](../../../stack-tecnologico/cambio-tecnologia-componente.md)).
-2. Crear subcarpeta `{nueva-tecnologia}/` sin sufijo `(obsoleto)`.
-3. Actualizar [historial-stack.md](../../../stack-tecnologico/historial-stack.md) (stack activo + historial de cambios).
+Excepción prevista en [cambio-tecnologia-componente.md](../../../stack-tecnologico/cambio-tecnologia-componente.md) y registro en [historial-stack.md](../../../stack-tecnologico/historial-stack.md): un componente puede tener **varias carpetas `{tecnologia}/` activas a la vez** (ninguna con sufijo `(obsoleto)`).
+
+En ese caso, la proyección N4 **no se comparte entre tecnologías**: hay que **replicar el proceso de documentación en cada carpeta activa** — README del componente, ficheros `zc-*.md` y detalle técnico propio de esa tecnología. El pseudocódigo canónico sigue siendo único; lo que cambia es la traducción (p. ej. dialecto SQL distinto si coexisten dos motores de BBDD como PostgreSQL y MySQL).
+
+Al retirar una de las tecnologías paralelas, aplicar el procedimiento habitual de sustitución (`(obsoleto)` en la carpeta retirada).
 
 ---
 
-## Estructura prevista
+## Estructura
 
 ```
 docs/diagramas-c4/c4-nivel-4/implementacion/
 ├── front-end/react-typescript/
-│   ├── README.md
-│   └── zc-6-presentacion.md
 ├── back-end/nestjs-typescript/
-│   ├── README.md
-│   ├── zc-1-consulta-ocurrencias.md
-│   ├── zc-2-materializacion-ocurrencias.md
-│   ├── zc-3-planificacion-temporal.md
-│   └── zc-4-orquestacion-aplicacion.md
 ├── persistencia/typescript/
-│   ├── README.md
-│   └── zc-5-persistencia.md
 └── bbdd/postgresql/
-    ├── README.md
-    └── zc-5-persistencia-esquema.md   # SQL/migraciones de referencia (complemento a persistencia)
 ```
 
-La convención de carpetas **coincide** con el árbol de código en `implementacion/{componente}/{tecnologia}/`. Tecnologías sustituidas: `{tecnologia} (obsoleto)` — [cambio-tecnologia-componente.md](../../../stack-tecnologico/cambio-tecnologia-componente.md).
+Coincide con `implementacion/{componente}/{tecnologia}/` en la raíz del repositorio.
 
 ---
 
 ## Reglas
 
-1. Cada fichero debe enlazar al canónico correspondiente en `pseudocodigo/`.
-2. No se redefinen reglas de negocio; solo se traducen subcomponentes, empaquetado y detalle técnico.
-3. ZC-5 puede repartirse entre `persistencia/` (adaptadores) y `bbdd/` (esquema); enlazar ambos READMEs.
-4. ZC-5 y ZC-6 suelen concentrar más detalle; ZC-1 a ZC-4 en Back-End pueden limitarse a mapeo de módulos y empaquetado.
-
----
-
-## Prioridad al crear implementación N4
-
-1. `persistencia/` y `bbdd/` (ZC-5) + `front-end/` (ZC-6) — máximo detalle técnico.
-2. `back-end/` — ZC-4 (orquestación) y mapeo ZC-1 a ZC-3.
-3. README de índice por componente con mapeo lógico → artefactos.
+1. Cada fichero enlaza al canónico en `pseudocodigo/`.
+2. No se redefinen reglas de negocio; solo traducción técnica.
+3. ZC-5 repartida entre persistencia (adaptadores) y bbdd (esquema SQL).
 
 ---
 
@@ -73,6 +66,5 @@ La convención de carpetas **coincide** con el árbol de código en `implementac
 |------|-----------|
 | Prácticas por componente (agnósticas) | [`docs/implementacion/`](../../../implementacion/) |
 | Código fuente | [`implementacion/`](../../../../implementacion/) |
-| Desacoplamiento por contratos | [`desacoplamiento-componentes-contratos.md`](../../../politicas-transversales/desacoplamiento-componentes-contratos.md) |
-| Stack / tecnologías activas | [`docs/stack-tecnologico/historial-stack.md`](../../../stack-tecnologico/historial-stack.md) |
+| Stack activo e historial | [`historial-stack.md`](../../../stack-tecnologico/historial-stack.md) |
 | Cambio de tecnología | [`cambio-tecnologia-componente.md`](../../../stack-tecnologico/cambio-tecnologia-componente.md) |

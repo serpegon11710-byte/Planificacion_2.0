@@ -419,7 +419,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 | UTC en persistencia, locale en UI | PostgreSQL `timestamptz`; date-fns/Luxon + i18n locale en React |
 | ZC-1 cálculo + materialización | Servicio de dominio puro testeable + adaptador SQL para materializadas |
 | Transacciones multi-módulo (ZC-4) | Unit of Work sobre `pg` client en scope de request |
-| N4 implementación por componente | Carpetas `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (Step 12) |
+| N4 implementación por componente | `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (**Step 12 cerrado**) |
 
 ### 7.3 Riesgos del stack elegido y mitigaciones
 
@@ -454,7 +454,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 
 ## 9. Próximos pasos (sin implementación)
 
-1. **Step 12 (Opción B):** Proyectar N4 canónico a `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (ZC-1 a ZC-6 repartidas por componente).
+1. **Step 12 (Opción B):** ~~Proyectar N4 canónico~~ **Completado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/).
 2. **Step 12b (Opción A):** Redactar prácticas en `docs/implementacion/{componente}/`.
 3. **Step 13:** Validar coherencia documental tras fijar stack.
 4. **Step 14 (Opción C):** Bootstrap del monorepo en `implementacion/` (fuera de alcance de este análisis).

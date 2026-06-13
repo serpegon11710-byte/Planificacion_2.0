@@ -45,16 +45,16 @@ Definir una arquitectura generica, independiente del stack, para alinear decisio
 [x] Definir granularidad final de modulos de negocio.
 [x] Definir transacciones y limites de consistencia.
 [x] Definir politicas de errores y validaciones por capa.
-[x] Step 11: stack, motor BBDD, politica N4 historico (FAQ-007, 101, 102).
+[x] Step 12: N4 implementacion por componente (FAQ-007).
 
 ## Siguientes pasos (implementacion)
 
-| Step | Descripcion |
-|------|-------------|
-| 12 | N4 por componente (`docs/diagramas-c4/.../implementacion/{componente}/{tecnologia}/`) |
-| 12b | Practicas en `docs/implementacion/{componente}/` |
-| 13 | Validacion documental |
-| 14 | Bootstrap codigo en `implementacion/` |
+| Step | Descripcion | Estado |
+|------|-------------|--------|
+| 12 | N4 por componente | **Cerrado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/) |
+| 12b | Practicas en `docs/implementacion/{componente}/` | Pendiente |
+| 13 | Validacion documental | Pendiente |
+| 14 | Bootstrap codigo en `implementacion/` | Pendiente |
 
 Ver [planificacion-inicial.md](../planificacion/planificacion-inicial.md).
 
@@ -73,7 +73,7 @@ Visualizacion documentada en Step 8 del plan. Indice: `docs/diagramas-c4/README.
 |-------|--------|-----------|
 | N1–N3 | Cerrado | Contexto, contenedores y componentes Back-End + Front-End (`.mmd`) |
 | N4 canonico | Cerrado | Pseudocodigo por zona critica (`c4-nivel-4/pseudocodigo/`) |
-| N4 implementacion | Pendiente (Step 12) | Proyeccion por componente (`c4-nivel-4/implementacion/{componente}/{tecnologia}/`) |
+| N4 implementacion | Cerrado (Step 12) | Proyeccion por componente (`c4-nivel-4/implementacion/{componente}/{tecnologia}/`) |
 
 Los diagramas C4 (Step 8) complementan los documentos de arquitectura (Step 9a); el N4 canonico es independiente del stack. La proyeccion N4 por componente es Step 12.
 

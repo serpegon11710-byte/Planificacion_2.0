@@ -162,24 +162,26 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 
 ### Contratos de interfaz externa
 
-- [ ] API/DTOs alineados con [contratos-minimos.md](../arquitectura/contratos-minimos.md)
-- [ ] Puertos de persistencia definidos; dominio no referencia SQL ni `pg`
-- [ ] ER cerrado en [modelo-entidad-relacion.md](../entidades/modelo-entidad-relacion.md)
-- [ ] Códigos de error estables; i18n en FE ([internacionalizacion.md](../politicas-transversales/internacionalizacion.md))
-- [ ] [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) leído
+- [x] API/DTOs alineados con [contratos-minimos.md](../arquitectura/contratos-minimos.md)
+- [x] Puertos de persistencia definidos; dominio no referencia SQL ni `pg`
+- [x] ER cerrado en [modelo-entidad-relacion.md](../entidades/modelo-entidad-relacion.md)
+- [x] Códigos de error estables; i18n en FE ([internacionalizacion.md](../politicas-transversales/internacionalizacion.md))
+- [x] [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) leído
 
 ### Contratos de diseño interno
 
-- [ ] ZC canónicas en [pseudocodigo/](../diagramas-c4/c4-nivel-4/pseudocodigo/)
-- [ ] N4 implementación por componente en [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/)
-- [ ] Granularidad de módulos en [granularidad-modulos-negocio.md](../arquitectura/granularidad-modulos-negocio.md)
+- [x] ZC canónicas en [pseudocodigo/](../diagramas-c4/c4-nivel-4/pseudocodigo/)
+- [x] N4 implementación por componente en [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/)
+- [x] Granularidad de módulos en [granularidad-modulos-negocio.md](../arquitectura/granularidad-modulos-negocio.md)
 - [x] Guías por componente en [docs/implementacion/](../implementacion/) (Step 12b)
-- [ ] Árbol de código acordado en [implementacion/README.md](../../implementacion/README.md)
+- [x] Árbol de código acordado en [implementacion/README.md](../../implementacion/README.md)
 
 ### Plan y stack
 
-- [ ] [planificacion-inicial.md](planificacion-inicial.md) y [dudas-y-resoluciones.md](dudas-y-resoluciones.md) al día
-- [ ] Stack activo en [historial-stack.md](../stack-tecnologico/historial-stack.md)
+- [x] [planificacion-inicial.md](planificacion-inicial.md) y [dudas-y-resoluciones.md](dudas-y-resoluciones.md) al día
+- [x] Stack activo en [historial-stack.md](../stack-tecnologico/historial-stack.md)
+
+**Validación Step 13 (2026-06-12):** [validacion-documental-step13.md](validacion-documental-step13.md).
 
 ---
 

@@ -173,13 +173,13 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Agnostico de tecnologia en la redaccion; enlaces al codigo en `implementacion/` y a N4 del Step 12a.
 
 ### Fase 8: Cierre documental e implementacion
-**Step 13: Validar toda la documentacion** (*depends on 10, 12a, 12b*) — **Pendiente**
+**Step 13: Validar toda la documentacion** (*depends on 10, 12a, 12b*) — **Completado (2026-06-12)**
 - Revision de coherencia entre entidades, ER, C4, arquitectura, stack, N4 e implementacion.
-- Incluye checklist de [vista-general.md](vista-general.md) §6 (contratos externos e internos antes de codificar negocio).
+- Informe: [validacion-documental-step13.md](validacion-documental-step13.md); checklist [vista-general.md](vista-general.md) §6 marcado.
 
 **Step 14: Bootstrap e implementacion tecnica** (*depends on 13*) — **Pendiente**
 - Monorepo (pnpm), proyectos Nest/Vite, migraciones en `implementacion/bbdd/postgresql/`, paquete shared.
-- Solo andamiaje ejecutable (arranque, DI, migraciones); **sin logica de negocio** hasta validar Step 13. Ver [vista-general.md](vista-general.md) §5.
+- Solo andamiaje ejecutable (arranque, DI, migraciones); **sin logica de negocio** hasta completar bootstrap. Ver [vista-general.md](vista-general.md) §5.
 
 ## Archivos a Crear
 
@@ -219,6 +219,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/politicas-transversales/desacoplamiento-componentes-contratos.md` | Restricciones de desacoplamiento por contratos (FAQ-102) |
 | `docs/diagramas-c4/c4-nivel-4/implementacion/` | N4 por componente y tecnologia (Step 12a) |
 | `docs/implementacion/` | Guias de implementacion por componente (Step 12b — **cerrado**) |
+| `docs/planificacion/validacion-documental-step13.md` | Informe validacion documental global (Step 13) |
 | `implementacion/` | Esqueleto de codigo por componente y tecnologia (Step 11) |
 
 ## Verificación
@@ -259,8 +260,8 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 Resumen de estado (2026-06-12):
 
 - **Resueltas:** FAQ-000 a FAQ-007 (grupo 0), FAQ-100 a FAQ-102 (grupo 1), FAQ-200 a FAQ-201 (grupo 2), FAQ-300 a FAQ-311 (grupo 3).
-- **Steps cerrados:** 1–11, 12a, **12b** (guias `docs/implementacion/`).
-- **Pendientes (orden de prioridad):** Step 13, Step 14. Ver [Decisiones (entregables por step)](dudas-y-resoluciones.md#decisiones-entregables-por-step).
+- **Steps cerrados:** 1–11, 12a, **12b**, **13** (validacion documental).
+- **Pendientes (orden de prioridad):** Step 14. Ver [Decisiones (entregables por step)](dudas-y-resoluciones.md#decisiones-entregables-por-step).
 
 ## Próximos Pasos
 
@@ -277,7 +278,7 @@ Resumen de estado (2026-06-12):
 [x] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-100, FAQ-101, FAQ-102)
 [x] 12a. Ejecutar Step 12a: N4 implementacion por componente (`{componente}/{tecnologia}/`)
 [x] 12b. Ejecutar Step 12b: Practicas en `docs/implementacion/{componente}/`
-[ ] 13. Ejecutar Step 13: Validar toda la documentacion
+[x] 13. Ejecutar Step 13: Validar toda la documentacion
 [ ] 14. Ejecutar Step 14: Bootstrap monorepo y proyectos en `implementacion/`
 
 ## Historial
@@ -299,3 +300,4 @@ Resumen de estado (2026-06-12):
 2026-06-12 - Step 11 completado: stack NestJS+React+TS+PostgreSQL; FAQ-100/101/102; implementacion/ y docs/implementacion/
 2026-06-12 - Step 12a completado: N4 implementacion por componente (react-typescript, nestjs-typescript, typescript, postgresql)
 2026-06-12 - Step 12b completado: guias agnosticas por componente en docs/implementacion/
+2026-06-12 - Step 13 completado: validacion documental; informe validacion-documental-step13.md; checklist vista-general §6

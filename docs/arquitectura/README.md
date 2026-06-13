@@ -54,7 +54,7 @@ Definir una arquitectura generica, independiente del stack, para alinear decisio
 |------|-------------|--------|
 | 12a | N4 por componente | **Cerrado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/) |
 | 12b | Practicas en `docs/implementacion/{componente}/` | **Cerrado** |
-| 13 | Validacion documental | Pendiente |
+| 13 | Validacion documental | **Cerrado** — [validacion-documental-step13.md](../planificacion/validacion-documental-step13.md) |
 | 14 | Bootstrap codigo en `implementacion/` | Pendiente |
 
 Ver [planificacion-inicial.md](../planificacion/planificacion-inicial.md).

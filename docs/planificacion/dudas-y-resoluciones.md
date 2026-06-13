@@ -417,13 +417,15 @@ _Ninguna (2026-06-12). FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11._
 
 ## Decisiones (entregables por step) {#decisiones-entregables-por-step}
 
-### Steps cerrados (1–11, 12a)
+### Steps cerrados (1–11, 12a, 12b, 13)
 
 | Step | Estado | Descripcion | Artefactos / FAQ |
 |------|--------|-------------|------------------|
 | **10** | Cerrado | Modelo ER | FAQ-001, 003, 300–311; `modelo-entidad-relacion.md`; entidades; pseudocodigo |
 | **11** | Cerrado | Stack tecnologico | FAQ-100, 101, 102; `analisis-inicial.md`; `implementacion/`; `docs/implementacion/`; desambiguacion |
 | **12a** | Cerrado | N4 por componente | `c4-nivel-4/implementacion/{componente}/{tecnologia}/` |
+| **12b** | Cerrado | Guías agnósticas por componente | `docs/implementacion/{componente}/` |
+| **13** | Cerrado | Validación documental global | [validacion-documental-step13.md](validacion-documental-step13.md); checklist [vista-general.md](vista-general.md) §6 |
 
 Los Steps 7b, 8b y 8c ya estan cerrados.
 
@@ -431,8 +433,6 @@ Los Steps 7b, 8b y 8c ya estan cerrados.
 
 | Step | Estado | Descripcion | Artefactos |
 |------|--------|-------------|------------|
-| **12b** | Cerrado | Guías agnósticas por componente | `docs/implementacion/{componente}/` |
-| **13** | Pendiente | Validación documental global | checklist [vista-general.md](vista-general.md) §6 |
 | **14** | Pendiente | Bootstrap monorepo | `implementacion/` (Nest, Vite, migraciones) |
 
 Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8).
@@ -461,7 +461,7 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | Step 11 | FAQ-100, 101, 102 (**cerrado**) |
 | Step 12a | N4 implementacion por componente — **cerrado** |
 | Step 12b | Practicas `docs/implementacion/` — **cerrado** |
-| Step 13 | Validacion documental |
+| Step 13 | Validacion documental — **cerrado** |
 | Step 14 | Bootstrap codigo |
 
 ---
@@ -491,3 +491,4 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | 2026-06-12 | vista-general.md: capas, contratos externo/interno, bootstrap, checklist pre-implementacion |
 | 2026-06-12 | **Renumeracion FAQ por grupos FAQ-Gnn** (0 dominio, 1 stack, 2 C4, 3 ER). Steps 12→12a/12b; tabla Decisiones sin Opciones A/B/C. Migracion IDs: 001→000, 002→001, …, 116→311; 007 stack→102; ver grupos arriba |
 | 2026-06-12 | Step 12b cerrado: guias agnosticas por componente en docs/implementacion/ |
+| 2026-06-12 | Step 13 cerrado: validacion documental; informe validacion-documental-step13.md |

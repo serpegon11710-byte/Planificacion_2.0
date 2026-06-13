@@ -57,10 +57,10 @@ Objetos que representan **conceptos del negocio** y sus reglas.
 
 | Agregado | Ejemplos | Dónde se documenta |
 |----------|----------|-------------------|
-| Proyecto | Identidad, nombre, unicidad | [proyectos.md](../entidades/proyectos.md) |
-| Item | Pertenece a proyecto | [items.md](../entidades/items.md) |
-| Planificación | Tipos temporal, RT-*, RC-*; subclases Sin planificar / Puntual / Periódica | [planificaciones.md](../entidades/planificaciones.md), [modelo-clases-planificacion.md](../entidades/modelo-clases-planificacion.md) |
-| Ocurrencia materializada | RO-*, materialización individual | [ocurrencias.md](../entidades/ocurrencias.md) |
+| Proyecto | Identidad, nombre, unicidad | [proyectos.md](../docs/entidades/proyectos.md) |
+| Item | Pertenece a proyecto | [items.md](../docs/entidades/items.md) |
+| Planificación | Tipos temporal, RT-*, RC-*; subclases Sin planificar / Puntual / Periódica | [planificaciones.md](../docs/entidades/planificaciones.md), [modelo-clases-planificacion.md](../docs/entidades/modelo-clases-planificacion.md) |
+| Ocurrencia materializada | RO-*, materialización individual | [ocurrencias.md](../docs/entidades/ocurrencias.md) |
 
 En código (previsto): `implementacion/back-end/nestjs-typescript/src/domain/{proyecto,item,planificacion,ocurrencia}/`.
 
@@ -91,13 +91,13 @@ Un **contrato** es un acuerdo estable entre partes. En este proyecto se distingu
 
 | Frontera | Contrato | Documentación principal |
 |----------|----------|-------------------------|
-| Front-End ↔ Back-End | API REST (HTTP/JSON), DTOs, paginación, códigos de error | [contratos-minimos.md](../arquitectura/contratos-minimos.md) §3, [errores-validaciones-capas.md](../arquitectura/errores-validaciones-capas.md), N4 [back-end/.../README.md](../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/README.md) |
-| Back-End ↔ Persistencia | Puertos de repositorio y conexión (`*RepositoryPort`, `DatabaseConnectionPort`) | [contratos-minimos.md](../arquitectura/contratos-minimos.md) §1–2, N4 [persistencia/.../zc-5-persistencia.md](../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/zc-5-persistencia.md) |
-| Persistencia ↔ BBDD | Esquema relacional, migraciones, restricciones | [modelo-entidad-relacion.md](../entidades/modelo-entidad-relacion.md), N4 [bbdd/.../zc-5-persistencia-esquema.md](../diagramas-c4/c4-nivel-4/implementacion/bbdd/postgresql/zc-5-persistencia-esquema.md) |
+| Front-End ↔ Back-End | API REST (HTTP/JSON), DTOs, paginación, códigos de error | [contratos-minimos.md](../docs/arquitectura/contratos-minimos.md) §3, [errores-validaciones-capas.md](../docs/arquitectura/errores-validaciones-capas.md), N4 [back-end/.../README.md](../docs/diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/README.md) |
+| Back-End ↔ Persistencia | Puertos de repositorio y conexión (`*RepositoryPort`, `DatabaseConnectionPort`) | [contratos-minimos.md](../docs/arquitectura/contratos-minimos.md) §1–2, N4 [persistencia/.../zc-5-persistencia.md](../docs/diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/zc-5-persistencia.md) |
+| Persistencia ↔ BBDD | Esquema relacional, migraciones, restricciones | [modelo-entidad-relacion.md](../docs/entidades/modelo-entidad-relacion.md), N4 [bbdd/.../zc-5-persistencia-esquema.md](../docs/diagramas-c4/c4-nivel-4/implementacion/bbdd/postgresql/zc-5-persistencia-esquema.md) |
 | Front-End ↔ Back-End (tipos) | Shapes de DTO y catálogo de `codigo` | `implementacion/shared/typescript/` (código), alineado a contratos-minimos |
-| Presentación ↔ usuario | i18n por `codigo` | [internacionalizacion.md](../politicas-transversales/internacionalizacion.md) |
+| Presentación ↔ usuario | i18n por `codigo` | [internacionalizacion.md](../docs/politicas-transversales/internacionalizacion.md) |
 
-**Política transversal:** [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
+**Política transversal:** [desacoplamiento-componentes-contratos.md](../docs/politicas-transversales/desacoplamiento-componentes-contratos.md).
 
 Cambiar tecnología en un componente **no** debe romper contratos externos salvo **versión explícita** del contrato (p. ej. API v2).
 
@@ -107,13 +107,13 @@ Cambiar tecnología en un componente **no** debe romper contratos externos salvo
 
 | Ámbito | Qué fija | Documentación principal |
 |--------|----------|-------------------------|
-| Módulos de negocio y agregados | Límites Proyecto / Item / Planificación / Ocurrencia | [granularidad-modulos-negocio.md](../arquitectura/granularidad-modulos-negocio.md) |
-| Capas Back-End | `api/` → `application/` → `domain/` → `ports/` | N4 [back-end/nestjs-typescript/](../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/), [docs/implementacion/back-end/](../implementacion/back-end/) (Step 12b) |
-| Subcomponentes lógicos (ZC) | Algoritmos, pseudocódigo, puertos de lectura | [pseudocodigo/](../diagramas-c4/c4-nivel-4/pseudocodigo/) |
-| Traducción al stack | Mapeo lógico → clase → archivo | [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/) por `{componente}/{tecnologia}/` |
+| Módulos de negocio y agregados | Límites Proyecto / Item / Planificación / Ocurrencia | [granularidad-modulos-negocio.md](../docs/arquitectura/granularidad-modulos-negocio.md) |
+| Capas Back-End | `api/` → `application/` → `domain/` → `ports/` | N4 [back-end/nestjs-typescript/](../docs/diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/), [docs/implementacion/back-end/](../docs/implementacion/back-end/) (Step 12b) |
+| Subcomponentes lógicos (ZC) | Algoritmos, pseudocódigo, puertos de lectura | [pseudocodigo/](../docs/diagramas-c4/c4-nivel-4/pseudocodigo/) |
+| Traducción al stack | Mapeo lógico → clase → archivo | [implementacion/](../docs/diagramas-c4/c4-nivel-4/implementacion/) por `{componente}/{tecnologia}/` |
 | Árbol de código | Carpetas por componente y tecnología | [implementacion/README.md](../../implementacion/README.md) |
-| Transacciones y errores internos | Unidades de trabajo, taxonomía por capa | [transacciones-consistencia.md](../arquitectura/transacciones-consistencia.md), [errores-validaciones-capas.md](../arquitectura/errores-validaciones-capas.md) |
-| Convenciones por contenedor (agnósticas) | Prácticas sin atar al stack en el texto | [docs/implementacion/](../implementacion/) (Step 12b) |
+| Transacciones y errores internos | Unidades de trabajo, taxonomía por capa | [transacciones-consistencia.md](../docs/arquitectura/transacciones-consistencia.md), [errores-validaciones-capas.md](../docs/arquitectura/errores-validaciones-capas.md) |
+| Convenciones por contenedor (agnósticas) | Prácticas sin atar al stack en el texto | [docs/implementacion/](../docs/implementacion/) (Step 12b) |
 
 Los contratos de diseño interno **no sustituyen** a los externos: definen la **forma** del código; los externos definen la **frontera** con vecinos.
 
@@ -152,7 +152,7 @@ Incluye (orientativo):
 
 **No es:** documentar (Steps 1–13), ni implementar wizard/calendario/reglas RT/RO.
 
-Detalle en [planificacion-inicial.md](planificacion-inicial.md) — Step 14.
+Detalle en [planificacion-inicial.md](000-planificacion-inicial/planificacion-inicial.md) — Step 14.
 
 ---
 
@@ -162,26 +162,26 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 
 ### Contratos de interfaz externa
 
-- [x] API/DTOs alineados con [contratos-minimos.md](../arquitectura/contratos-minimos.md)
+- [x] API/DTOs alineados con [contratos-minimos.md](../docs/arquitectura/contratos-minimos.md)
 - [x] Puertos de persistencia definidos; dominio no referencia SQL ni `pg`
-- [x] ER cerrado en [modelo-entidad-relacion.md](../entidades/modelo-entidad-relacion.md)
-- [x] Códigos de error estables; i18n en FE ([internacionalizacion.md](../politicas-transversales/internacionalizacion.md))
-- [x] [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) leído
+- [x] ER cerrado en [modelo-entidad-relacion.md](../docs/entidades/modelo-entidad-relacion.md)
+- [x] Códigos de error estables; i18n en FE ([internacionalizacion.md](../docs/politicas-transversales/internacionalizacion.md))
+- [x] [desacoplamiento-componentes-contratos.md](../docs/politicas-transversales/desacoplamiento-componentes-contratos.md) leído
 
 ### Contratos de diseño interno
 
-- [x] ZC canónicas en [pseudocodigo/](../diagramas-c4/c4-nivel-4/pseudocodigo/)
-- [x] N4 implementación por componente en [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/)
-- [x] Granularidad de módulos en [granularidad-modulos-negocio.md](../arquitectura/granularidad-modulos-negocio.md)
-- [x] Guías por componente en [docs/implementacion/](../implementacion/) (Step 12b)
+- [x] ZC canónicas en [pseudocodigo/](../docs/diagramas-c4/c4-nivel-4/pseudocodigo/)
+- [x] N4 implementación por componente en [implementacion/](../docs/diagramas-c4/c4-nivel-4/implementacion/)
+- [x] Granularidad de módulos en [granularidad-modulos-negocio.md](../docs/arquitectura/granularidad-modulos-negocio.md)
+- [x] Guías por componente en [docs/implementacion/](../docs/implementacion/) (Step 12b)
 - [x] Árbol de código acordado en [implementacion/README.md](../../implementacion/README.md)
 
 ### Plan y stack
 
-- [x] [planificacion-inicial.md](planificacion-inicial.md) y [dudas-y-resoluciones.md](dudas-y-resoluciones.md) al día
-- [x] Stack activo en [historial-stack.md](../stack-tecnologico/historial-stack.md)
+- [x] [planificacion-inicial.md](000-planificacion-inicial/planificacion-inicial.md) y [dudas-y-resoluciones.md](dudas-y-resoluciones.md) al día
+- [x] Stack activo en [historial-stack.md](../docs/stack-tecnologico/historial-stack.md)
 
-**Validación Step 13 (2026-06-12; re-validado):** [validacion-documental-step13.md](validacion-documental-step13.md).
+**Validación Step 13 (2026-06-12; re-validado):** [validacion-documental-step13.md](000-planificacion-inicial/validacion-documental-step13.md).
 
 ---
 
@@ -189,11 +189,11 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 
 | Pieza | Tipo | Artefacto |
 |-------|------|-----------|
-| Reglas RO-3, RO-7 | Dominio / canónico | [ocurrencias.md](../entidades/ocurrencias.md), [zc-1](../diagramas-c4/c4-nivel-4/pseudocodigo/zc-1-consulta-ocurrencias.md) |
+| Reglas RO-3, RO-7 | Dominio / canónico | [ocurrencias.md](../docs/entidades/ocurrencias.md), [zc-1](../docs/diagramas-c4/c4-nivel-4/pseudocodigo/zc-1-consulta-ocurrencias.md) |
 | `GET /ocurrencias?desde&hasta` | Contrato **externo** API | N4 back-end, DTO shared |
-| `OccurrenceQueryService` | Contrato **interno** + clase | N4 [zc-1 implementación](../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/zc-1-consulta-ocurrencias.md) |
-| `CalendarView` | Contrato **interno** FE | N4 [zc-6](../diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/zc-6-presentacion.md) |
-| Consulta SQL materializadas | Contrato **externo** persistencia↔BBDD | N4 [zc-5](../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/zc-5-persistencia.md) |
+| `OccurrenceQueryService` | Contrato **interno** + clase | N4 [zc-1 implementación](../docs/diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/zc-1-consulta-ocurrencias.md) |
+| `CalendarView` | Contrato **interno** FE | N4 [zc-6](../docs/diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/zc-6-presentacion.md) |
+| Consulta SQL materializadas | Contrato **externo** persistencia↔BBDD | N4 [zc-5](../docs/diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/zc-5-persistencia.md) |
 
 ---
 
@@ -201,9 +201,9 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 
 | Tema | Ubicación |
 |------|-----------|
-| Plan por fases | [planificacion-inicial.md](planificacion-inicial.md) |
+| Plan por fases | [planificacion-inicial.md](000-planificacion-inicial/planificacion-inicial.md) |
 | FAQ y decisiones | [dudas-y-resoluciones.md](dudas-y-resoluciones.md) |
-| Arquitectura | [docs/arquitectura/README.md](../arquitectura/README.md) |
-| Desacoplamiento | [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) |
-| Tres rutas «implementación» | [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md) |
-| C4 | [diagramas-c4/README.md](../diagramas-c4/README.md) |
+| Arquitectura | [docs/arquitectura/README.md](../docs/arquitectura/README.md) |
+| Desacoplamiento | [desacoplamiento-componentes-contratos.md](../docs/politicas-transversales/desacoplamiento-componentes-contratos.md) |
+| Tres rutas «implementación» | [desambiguacion-implementacion.md](../docs/politicas-transversales/desambiguacion-implementacion.md) |
+| C4 | [diagramas-c4/README.md](../docs/diagramas-c4/README.md) |

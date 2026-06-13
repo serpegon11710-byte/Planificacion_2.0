@@ -169,7 +169,7 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 
 **Resolucion (2026-06-12):** **PostgreSQL 16** como motor unico en v1. Motivos: soporte nativo de restricciones del ER (UNIQUE parcial, CHECK, TIMESTAMPTZ, cascadas FK), alineacion con FAQ-308/309/311 y portabilidad del SQL documentado.
 
-**Entregable Step 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md) (seccion 5 y 8). Codigo: `implementacion/bbdd/postgresql/`. **Completado (2026-06-12).**
+**Entregable Step 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../docs/stack-tecnologico/analisis-inicial.md) (seccion 5 y 8). Codigo: `implementacion/bbdd/postgresql/`. **Completado (2026-06-12).**
 
 ---
 
@@ -187,7 +187,7 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 | Shared | TypeScript (DTOs, codigos de error, tipos de contrato) |
 | Monorepo | **pnpm workspaces** (recomendado) |
 
-**Entregable Step 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md), esqueleto [`implementacion/`](../../implementacion/), guias [`docs/implementacion/`](../implementacion/). **Completado (2026-06-12).**
+**Entregable Step 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../docs/stack-tecnologico/analisis-inicial.md), esqueleto [`implementacion/`](../../implementacion/), guias [`docs/implementacion/`](../implementacion/). **Completado (2026-06-12).**
 
 ---
 
@@ -198,12 +198,12 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 **Resolucion (2026-06-12; actualizada misma fecha — desacoplamiento por contratos):**
 
 1. **Principio:** cada **componente** conserva su historico de tecnologias en subcarpetas `{tecnologia}`; no mezclar implementaciones en la misma carpeta. Cambiar tecnologia en un componente **no** obliga a regenerar la documentacion N4 de los demas salvo cambio de contrato compartido.
-2. **Alcance N4 (docs):** `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` — misma convencion que el codigo. Proyeccion ZC-1 a ZC-6 repartida por componente (Back-End: ZC-1–4; Persistencia/BBDD: ZC-5; Front-End: ZC-6). **Shared:** N4 de contratos API/DTOs y codigos de error (sin ZC) en `shared/typescript/`. Ver [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
-3. **Alcance codigo (raiz):** `implementacion/{componente}/{tecnologia}/` — una tecnologia exacta por componente; ver [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md).
-4. **Politica de archivo (v1):** al sustituir una tecnologia, **renombrar** la carpeta saliente a `{tecnologia} (obsoleto)` en codigo y N4; crear carpeta de la tecnologia entrante sin sufijo. Procedimiento: [cambio-tecnologia-componente.md](../stack-tecnologico/cambio-tecnologia-componente.md). Historial: [historial-stack.md](../stack-tecnologico/historial-stack.md). **Excepcion:** coexistencia paralela (p. ej. PostgreSQL + MySQL en BBDD) — varias carpetas activas sin `(obsoleto)`; ver mismo documento § Excepciones.
-5. **Contratos:** API, puertos, ER y codigos de error son la frontera entre componentes; versionar cambios breaking. Matriz de compatibilidad en [historial-stack.md](../stack-tecnologico/historial-stack.md) y README del componente.
+2. **Alcance N4 (docs):** `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` — misma convencion que el codigo. Proyeccion ZC-1 a ZC-6 repartida por componente (Back-End: ZC-1–4; Persistencia/BBDD: ZC-5; Front-End: ZC-6). **Shared:** N4 de contratos API/DTOs y codigos de error (sin ZC) en `shared/typescript/`. Ver [desacoplamiento-componentes-contratos.md](../docs/politicas-transversales/desacoplamiento-componentes-contratos.md).
+3. **Alcance codigo (raiz):** `implementacion/{componente}/{tecnologia}/` — una tecnologia exacta por componente; ver [desambiguacion-implementacion.md](../docs/politicas-transversales/desambiguacion-implementacion.md).
+4. **Politica de archivo (v1):** al sustituir una tecnologia, **renombrar** la carpeta saliente a `{tecnologia} (obsoleto)` en codigo y N4; crear carpeta de la tecnologia entrante sin sufijo. Procedimiento: [cambio-tecnologia-componente.md](../docs/stack-tecnologico/cambio-tecnologia-componente.md). Historial: [historial-stack.md](../docs/stack-tecnologico/historial-stack.md). **Excepcion:** coexistencia paralela (p. ej. PostgreSQL + MySQL en BBDD) — varias carpetas activas sin `(obsoleto)`; ver mismo documento § Excepciones.
+5. **Contratos:** API, puertos, ER y codigos de error son la frontera entre componentes; versionar cambios breaking. Matriz de compatibilidad en [historial-stack.md](../docs/stack-tecnologico/historial-stack.md) y README del componente.
 
-**Entregable Step 11:** [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md), [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md), [historial-stack.md](../stack-tecnologico/historial-stack.md), [cambio-tecnologia-componente.md](../stack-tecnologico/cambio-tecnologia-componente.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md). Proyeccion N4 concreta: **Step 12a**. **Completado (2026-06-12).**
+**Entregable Step 11:** [desambiguacion-implementacion.md](../docs/politicas-transversales/desambiguacion-implementacion.md), [desacoplamiento-componentes-contratos.md](../docs/politicas-transversales/desacoplamiento-componentes-contratos.md), [historial-stack.md](../docs/stack-tecnologico/historial-stack.md), [cambio-tecnologia-componente.md](../docs/stack-tecnologico/cambio-tecnologia-componente.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../docs/diagramas-c4/c4-nivel-4/implementacion/README.md). Proyeccion N4 concreta: **Step 12a**. **Completado (2026-06-12).**
 
 ---
 
@@ -229,7 +229,7 @@ Relacionado con FAQ-002 (estado vacio = hereda).
    - **Sin logica de negocio** (UC-01/02/03, reglas RT/RO).
    - Subtickets: `T-001-xx` (prefijo ligado a la epica `001`).
 
-5. **Trazabilidad:** el plan por fases en `planificacion-inicial.md` permanece como referencia historica del Ticket 000; el trabajo activo pasa al indice [backlog/README.md](../../backlog/README.md).
+5. **Trazabilidad:** el plan por fases en `planificacion-inicial.md` permanece como referencia historica del Ticket 000; el trabajo activo pasa al indice [README.md](README.md).
 
 **Entregable:** estructura `backlog/`; FAQ-103; Ticket 001 documentado. Ver [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md).
 

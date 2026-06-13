@@ -1,4 +1,4 @@
-# Implementación — Código fuente
+﻿# Implementación — Código fuente
 
 **Última actualización:** 2026-06-12
 
@@ -9,7 +9,7 @@
 
 ---
 
-## Stack activo (FAQ-101, FAQ-102)
+## Stack activo (FAQ-100, FAQ-101)
 
 | Capa | Tecnología |
 |------|------------|
@@ -104,4 +104,4 @@ Solo **BBDD** incluye el nombre del motor en su ruta. Persistencia y Back-End no
 
 ---
 
-**Estado:** estructura base creada (Step 11). Bootstrap de proyectos (package.json, Nest, Vite, migraciones) pendiente — **Step 14 (Opción C)**. Ver [planificacion-inicial.md](../docs/planificacion/planificacion-inicial.md).
+**Estado:** estructura base creada (Step 11). Bootstrap de proyectos (package.json, Nest, Vite, migraciones) pendiente — **Step 14**. Ver [planificacion-inicial.md](../docs/planificacion/planificacion-inicial.md).

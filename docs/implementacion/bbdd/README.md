@@ -1,4 +1,4 @@
-# BBDD — Guía de implementación
+﻿# BBDD — Guía de implementación
 
 **Componente:** Base de datos (esquema y datos iniciales)  
 **Código:** [`implementacion/bbdd/postgresql/`](../../../implementacion/bbdd/postgresql/)
@@ -20,10 +20,10 @@ Documentación de **disciplina de datos** (parte agnóstica en el texto; el SQL 
 
 | Tema | Ejemplos |
 |------|----------|
-| Alineación con ER | Tablas, PK `{tabla}_id`, orden físico FAQ-113/114 |
+| Alineación con ER | Tablas, PK `{tabla}_id`, orden físico FAQ-308/309 |
 | Migraciones | Versionado, idempotencia, rollback |
 | Restricciones | CHECK, UNIQUE parcial Sin planificar, FK CASCADE |
-| UTC | `timestamptz`, `date`, `time` (FAQ-002) |
+| UTC | `timestamptz`, `date`, `time` (FAQ-001) |
 | Seeds | Catálogo `TipoPeriodo`, datos de desarrollo |
 | Operación | Scripts de mantenimiento (fuera de la app) |
 
@@ -36,5 +36,5 @@ La capa de **Persistencia** consume este esquema vía SQL; no duplicar aquí la 
 ## Referencias
 
 - Modelo ER: [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md)
-- Stack motor: FAQ-101 en [`analisis-inicial.md`](../../stack-tecnologico/analisis-inicial.md); activo en [`historial-stack.md`](../../stack-tecnologico/historial-stack.md)
+- Stack motor: FAQ-100 en [`analisis-inicial.md`](../../stack-tecnologico/analisis-inicial.md); activo en [`historial-stack.md`](../../stack-tecnologico/historial-stack.md)
 - Migraciones en código: `implementacion/bbdd/postgresql/migrations/`

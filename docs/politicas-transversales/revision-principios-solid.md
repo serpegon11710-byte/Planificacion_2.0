@@ -1,4 +1,4 @@
-# Revision global de principios SOLID
+﻿# Revision global de principios SOLID
 
 Este documento audita el cumplimiento de los principios SOLID en **toda** la documentacion del proyecto Planificacion 2.0, no solo en la carpeta de arquitectura.
 
@@ -221,7 +221,7 @@ Las flechas indican referencia/trazabilidad, no acoplamiento de implementacion.
 
 ## Deuda documental detectada (no bloqueante)
 
-Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, FAQ-102, FAQ-007 — Step 11).
+Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-100, FAQ-101, FAQ-102 — Step 11).
 
 ---
 

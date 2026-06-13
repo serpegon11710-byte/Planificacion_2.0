@@ -1,4 +1,4 @@
-# Entidad: Proyectos
+﻿# Entidad: Proyectos
 
 **Última actualización:** 2026-06-12
 
@@ -8,7 +8,7 @@
 
 Este documento define el modelo funcional de **Proyecto**, sus atributos, reglas de negocio y efectos colaterales al crear o eliminar. Es la fuente única para UC-01.1, UC-01.2 y cualquier operación que gestione proyectos.
 
-Registro FAQ: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-005).
+Registro FAQ: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-004).
 
 ---
 
@@ -33,10 +33,10 @@ Un proyecto siempre debe tener **al menos un item** (garantizado por la creació
 
 | Atributo | Obligatorio | Notas |
 |----------|-------------|-------|
-| `proyecto_id` | Si (persistencia) | Identificador interno (PK; FAQ-115) |
+| `proyecto_id` | Si (persistencia) | Identificador interno (PK; FAQ-310) |
 | `nombre` | Si | Único en todo el sistema (RP-1) |
 | `descripcion` | No | Texto libre |
-| `fecha_creacion` | Si (persistencia) | Metadato; UTC si incluye hora (FAQ-002) |
+| `fecha_creacion` | Si (persistencia) | Metadato; UTC si incluye hora (FAQ-001) |
 
 La edición de un proyecto **no modifica** los items ni planificaciones existentes; solo actualiza nombre y descripción del proyecto.
 
@@ -44,11 +44,11 @@ La edición de un proyecto **no modifica** los items ni planificaciones existent
 
 ## Modelo de persistencia (orientativo)
 
-Tabla `Proyectos` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico por `proyecto_id`; índice `UNIQUE (nombre)` (FAQ-113).
+Tabla `Proyectos` — ver [modelo-entidad-relacion.md](modelo-entidad-relacion.md). Orden físico por `proyecto_id`; índice `UNIQUE (nombre)` (FAQ-308).
 
 | Campo | Tipo orientativo | Restricción |
 |-------|------------------|-------------|
-| `proyecto_id` | PK | FAQ-115 |
+| `proyecto_id` | PK | FAQ-310 |
 | `nombre` | texto | UNIQUE global |
 | `descripcion` | texto | nullable |
 | `fecha_creacion` | timestamptz | UTC |

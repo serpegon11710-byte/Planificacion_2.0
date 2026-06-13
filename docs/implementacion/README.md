@@ -8,7 +8,7 @@ Prácticas y convenciones para implementar cada **contenedor lógico** de Planif
 > **Tres rutas llamadas «implementación»:** leer [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md) antes de añadir documentación o código en otra ubicación.  
 > **Desacoplamiento por contratos:** [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) — restricciones para cambiar tecnología en un componente sin arrastrar al resto.
 
-**Estado:** plantillas README por componente (Step 11). Contenido de prácticas pendiente — **Step 12b (Opción A)**. Ver [planificacion-inicial.md](../planificacion/planificacion-inicial.md).
+**Estado:** plantillas README por componente (Step 11). Contenido de prácticas pendiente — **Step 12b**. Ver [planificacion-inicial.md](../planificacion/planificacion-inicial.md).
 
 ---
 

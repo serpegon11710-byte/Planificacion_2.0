@@ -1,4 +1,4 @@
-# Entidad: Ocurrencias
+﻿# Entidad: Ocurrencias
 
 **Última actualización:** 2026-06-12
 
@@ -105,13 +105,13 @@ Tabla `OcurrenciasMaterializadas` — ver [modelo-entidad-relacion.md](modelo-en
 
 | Campo | Obligatorio | Notas |
 |-------|-------------|-------|
-| `ocurrencia_id` | PK | Identidad de fila (FAQ-114, FAQ-115) |
+| `ocurrencia_id` | PK | Identidad de fila (FAQ-309, FAQ-310) |
 | `planificacion_id` | Sí | FK → `PlanificacionPeriodo` (`PK = planificacion_id`) |
 | `fecha_original` | Sí | RO-5; parte del orden físico |
 | `fecha_efectiva` | Sí | Visibilidad RO-8, RO-9, RO-10 |
 | `hora` | Sí | UTC; parte del orden físico |
-| `observaciones` | Nullable | Herencia FAQ-004 |
-| `estado` | Nullable | Herencia FAQ-004 |
+| `observaciones` | Nullable | Herencia FAQ-003 |
+| `estado` | Nullable | Herencia FAQ-003 |
 | `eliminada_virtual` | Sí | RO-4 |
 
 ---
@@ -126,7 +126,7 @@ El modelo actual vacía RE-4 desde UC-02.4 **ocurrencia a ocurrencia** (`elimina
 DELETE FROM OcurrenciasMaterializadas WHERE planificacion_id = @planificacion_id;
 ```
 
-Un solo prefijo del orden físico `(planificacion_id, fecha_original, hora, ocurrencia_id)` (FAQ-114): rango contiguo, transacción breve.
+Un solo prefijo del orden físico `(planificacion_id, fecha_original, hora, ocurrencia_id)` (FAQ-309): rango contiguo, transacción breve.
 
 ### Patrones a evitar
 
@@ -141,11 +141,11 @@ Un solo prefijo del orden físico `(planificacion_id, fecha_original, hora, ocur
 - **UC-02.3** (solo observaciones u otros campos): UPDATE puntual → bloqueo mínimo.
 - **UC-02.4** anular/restaurar o vaciado masivo: DELETE → mayor ventana de lock local en esa planificación.
 
-Detalle de aislamiento, RCSI y Step 11: [FAQ-116](../planificacion/dudas-y-resoluciones.md).
+Detalle de aislamiento, RCSI y Step 11: [FAQ-311](../planificacion/dudas-y-resoluciones.md).
 
 ---
 
 ## Referencias
 
 - [modelo-clases-planificacion.md](modelo-clases-planificacion.md), [planificaciones.md](planificaciones.md)
-- [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-003, FAQ-004, **FAQ-116**)
+- [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, FAQ-003, **FAQ-311**)

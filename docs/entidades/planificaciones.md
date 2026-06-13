@@ -1,4 +1,4 @@
-# Entidad: Planificaciones
+﻿# Entidad: Planificaciones
 
 **Última actualización:** 2026-06-12
 
@@ -10,7 +10,7 @@ Este documento define la entidad abstracta **Planificación**, sus especializaci
 
 **Jerarquía de clases (dominio):** [modelo-clases-planificacion.md](modelo-clases-planificacion.md) — diagrama y mapeo persistencia ↔ clase.
 
-Decisiones de modelo: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-105, FAQ-106, FAQ-107, FAQ-110, FAQ-111, FAQ-112).
+Decisiones de modelo: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-300, FAQ-301, FAQ-302, FAQ-305, FAQ-306, FAQ-307).
 
 ---
 
@@ -78,7 +78,7 @@ No se instancia directamente. Segunda especialización por clase concreta (cada 
 
 | Campo de patrón | Regla |
 |-----------------|-------|
-| `variante_diaria` | FAQ-001: Todos los días \| Lunes a Viernes \| Fin de semana |
+| `variante_diaria` | FAQ-000: Todos los días \| Lunes a Viernes \| Fin de semana |
 
 #### `PlanificacionSemanal` (`TipoPeriodo.codigo = Semanal`)
 
@@ -97,7 +97,7 @@ No se instancia directamente. Segunda especialización por clase concreta (cada 
 
 ## Modelo de persistencia (ER)
 
-Definición canónica: [modelo-entidad-relacion.md](modelo-entidad-relacion.md). PK `planificacion_id` (FAQ-115). Orden físico de filas `(item_id, fecha_inicio, hora, planificacion_id)`: FAQ-113.
+Definición canónica: [modelo-entidad-relacion.md](modelo-entidad-relacion.md). PK `planificacion_id` (FAQ-310). Orden físico de filas `(item_id, fecha_inicio, hora, planificacion_id)`: FAQ-308.
 
 ```
 Items 1──N Planificaciones
@@ -111,9 +111,9 @@ Almacena **Sin planificar**, **Puntual** y los datos comunes de **Periódica**. 
 
 ### Tabla `PlanificacionPeriodo`
 
-Solo para periódicas. Relación **1:1** con `Planificaciones`: **PK = `planificacion_id`** (sin `id` propio; FAQ-114). Tipo de periodo vía `tipo_periodo_id` (FK → `TipoPeriodo`).
+Solo para periódicas. Relación **1:1** con `Planificaciones`: **PK = `planificacion_id`** (sin `id` propio; FAQ-309). Tipo de periodo vía `tipo_periodo_id` (FK → `TipoPeriodo`).
 
-### Catálogo `TipoPeriodo` (FAQ-111)
+### Catálogo `TipoPeriodo` (FAQ-306)
 
 No es un mero duplicado del `codigo` en el periodo: registra **qué campos de patrón son visibles y exigibles** por tipo (`visibilidad_variante_diaria`, `visibilidad_dias_semana`, `visibilidad_dia_mes`, `visibilidad_comportamiento_mes_corto`). Los **valores** del patrón siguen en `PlanificacionPeriodo`.
 
@@ -196,7 +196,7 @@ Diagrama y factory: **[modelo-clases-planificacion.md](modelo-clases-planificaci
 - **Pendiente** / **Completada** — solo Puntual y Periódica.
 - **Sin planificar:** `estado` siempre `NULL`.
 
-El estado puede heredarse en ocurrencias sin estado propio (FAQ-003, FAQ-004).
+El estado puede heredarse en ocurrencias sin estado propio (FAQ-002, FAQ-003).
 
 ---
 
@@ -243,7 +243,7 @@ Nuevo tipo de periodo: fila en `TipoPeriodo`, nueva subclase de `PlanificacionPe
 
 ### RC-6: Eliminación restringida (RE-3, RE-4)
 
-No eliminar si `estado = Completada` o si la planificación **periódica** tiene ocurrencias materializadas. Vaciado masivo futuro de materializadas para RE-4: ver [FAQ-116](../planificacion/dudas-y-resoluciones.md) y UC-02.4.
+No eliminar si `estado = Completada` o si la planificación **periódica** tiene ocurrencias materializadas. Vaciado masivo futuro de materializadas para RE-4: ver [FAQ-311](../planificacion/dudas-y-resoluciones.md) y UC-02.4.
 
 ### RC-7: Aviso RE-5
 

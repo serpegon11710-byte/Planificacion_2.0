@@ -1,10 +1,10 @@
-# ZC-6: Presentacion — captura y calendario
+﻿# ZC-6: Presentacion — captura y calendario
 
 **Componente N3:** `Front-End` (ver [N3 Front-End](../../c4-nivel-3/c4-nivel-3-componentes-frontend.mmd))  
 **Prioridad:** Media (opcional en primera iteracion)  
 **Casos de uso:** UC-01.1, UC-01.4 (via UC-01.5), UC-02.1
 
-## Trazabilidad (FAQ-104)
+## Trazabilidad (FAQ-201)
 
 | Caso de uso | Rol en esta zona |
 |-------------|------------------|
@@ -66,7 +66,7 @@ FUNCION seleccionarNaturaleza(estado, naturaleza):
   estado.paso = CONFIGURACION
 
 FUNCION seleccionarTipoPeriodo(estado, tipo_periodo):
-  // Tras elegir PERIODICA: campos de patron segun visibilidades de TipoPeriodo (FAQ-111)
+  // Tras elegir PERIODICA: campos de patron segun visibilidades de TipoPeriodo (FAQ-306)
   estado.tipo_periodo_seleccionado = tipo_periodo
   estado.datos_formulario.agregarTodos(camposVisiblesDelPeriodo(tipo_periodo))
 

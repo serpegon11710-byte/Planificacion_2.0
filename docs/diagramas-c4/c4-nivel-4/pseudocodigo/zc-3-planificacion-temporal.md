@@ -1,11 +1,11 @@
-# ZC-3: Definicion temporal y ciclo de vida de planificaciones
+﻿# ZC-3: Definicion temporal y ciclo de vida de planificaciones
 
 **Componente N3:** `Planificacion`  
 **Prioridad:** Alta  
 **Reglas:** `docs/entidades/planificaciones.md` (RC-*, RT-*)  
 **Casos de uso:** UC-01.4, UC-01.5 (validacion), UC-03
 
-## Trazabilidad (FAQ-104)
+## Trazabilidad (FAQ-201)
 
 | Caso de uso | Rol en esta zona |
 |-------------|------------------|
@@ -34,8 +34,8 @@ flowchart LR
 | Subcomponente | Responsabilidad |
 |---------------|-----------------|
 | `AgregadoPlanificacion` | Fila `Planificaciones` + `PlanificacionPeriodo` opcional |
-| `InferenciaNaturaleza` | Sin planificar / Puntual / Periódica desde datos (FAQ-110) |
-| `CatalogoTipoPeriodo` | Visibilidad de campos de patron desde tabla `TipoPeriodo` (FAQ-111) |
+| `InferenciaNaturaleza` | Sin planificar / Puntual / Periódica desde datos (FAQ-305) |
+| `CatalogoTipoPeriodo` | Visibilidad de campos de patron desde tabla `TipoPeriodo` (FAQ-306) |
 | `ValidadorConfiguracion` | RC-1, RC-2, RC-3 |
 | `GestorCambioNaturaleza` | RT-1 a RT-5 |
 

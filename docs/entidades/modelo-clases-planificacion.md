@@ -1,4 +1,4 @@
-# Modelo de clases — Planificación
+﻿# Modelo de clases — Planificación
 
 **Última actualización:** 2026-06-12  
 **Fuente canónica de la jerarquía de dominio.** Complementa [planificaciones.md](planificaciones.md) (reglas) y [modelo-entidad-relacion.md](modelo-entidad-relacion.md) (persistencia).
@@ -118,7 +118,7 @@ Pseudocódigo (ZC-3): `inferirClase(planificacion)` — equivalente a `inferirNa
 | `PlanificacionSemanal` | sí | sí | `dias_semana` |
 | `PlanificacionMensual` | sí | sí | `dia_mes`, `comportamiento_mes_corto` |
 
-Visibilidad de campos de patrón: catálogo `TipoPeriodo` (FAQ-111).
+Visibilidad de campos de patrón: catálogo `TipoPeriodo` (FAQ-306).
 
 ---
 

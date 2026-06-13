@@ -2,7 +2,7 @@
 
 ## Estado actual
 
-- Stack tecnologico **definido** (Step 11, 2026-06-12): NestJS + React + TypeScript + PostgreSQL. Ver [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md) y FAQ-101/102 en [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
+- Stack tecnologico **definido** (Step 11, 2026-06-12): NestJS + React + TypeScript + PostgreSQL. Ver [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md) y FAQ-100/102 en [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
 - Vista general (capas, contratos, bootstrap): [vista-general.md](../planificacion/vista-general.md).
 - Desambiguacion de rutas «implementacion»: [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md).
 - Desacoplamiento por contratos: [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
@@ -46,13 +46,13 @@ Definir una arquitectura generica, independiente del stack, para alinear decisio
 [x] Definir granularidad final de modulos de negocio.
 [x] Definir transacciones y limites de consistencia.
 [x] Definir politicas de errores y validaciones por capa.
-[x] Step 12: N4 implementacion por componente (FAQ-007).
+[x] Step 12a: N4 implementacion por componente (FAQ-102).
 
 ## Siguientes pasos (implementacion)
 
 | Step | Descripcion | Estado |
 |------|-------------|--------|
-| 12 | N4 por componente | **Cerrado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/) |
+| 12a | N4 por componente | **Cerrado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/) |
 | 12b | Practicas en `docs/implementacion/{componente}/` | Pendiente |
 | 13 | Validacion documental | Pendiente |
 | 14 | Bootstrap codigo en `implementacion/` | Pendiente |
@@ -74,9 +74,9 @@ Visualizacion documentada en Step 8 del plan. Indice: `docs/diagramas-c4/README.
 |-------|--------|-----------|
 | N1–N3 | Cerrado | Contexto, contenedores y componentes Back-End + Front-End (`.mmd`) |
 | N4 canonico | Cerrado | Pseudocodigo por zona critica (`c4-nivel-4/pseudocodigo/`) |
-| N4 implementacion | Cerrado (Step 12) | Proyeccion por componente (`c4-nivel-4/implementacion/{componente}/{tecnologia}/`) |
+| N4 implementacion | Cerrado (Step 12a) | Proyeccion por componente (`c4-nivel-4/implementacion/{componente}/{tecnologia}/`) |
 
-Los diagramas C4 (Step 8) complementan los documentos de arquitectura (Step 9a); el N4 canonico es independiente del stack. La proyeccion N4 por componente es Step 12.
+Los diagramas C4 (Step 8) complementan los documentos de arquitectura (Step 9a); el N4 canonico es independiente del stack. La proyeccion N4 por componente es Step 12a.
 
 ## Politicas transversales
 

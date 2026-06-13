@@ -1,4 +1,4 @@
-# Desambiguación: tres «implementación» en el repositorio
+﻿# Desambiguación: tres «implementación» en el repositorio
 
 **Última actualización:** 2026-06-12
 
@@ -82,7 +82,7 @@ Cada subcarpeta sigue la misma convención que el **código** en `implementacion
 - Un fichero `zc-*.md` por zona crítica dentro de la carpeta del componente que la implementa.
 - Índice de compatibilidad (tecnología activa + versión de contratos) en [historial-stack.md](../stack-tecnologico/historial-stack.md) y README del componente.
 
-**Tecnologías activas v1 (FAQ-101, FAQ-102):** [historial-stack.md](../stack-tecnologico/historial-stack.md) (tabla «Stack activo»); análisis en [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md).
+**Tecnologías activas v1 (FAQ-100, FAQ-101):** [historial-stack.md](../stack-tecnologico/historial-stack.md) (tabla «Stack activo»); análisis en [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md).
 
 ---
 

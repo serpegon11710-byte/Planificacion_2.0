@@ -1,4 +1,4 @@
-# Plan de Documentación Inicial - Planificacion 2.0
+﻿# Plan de Documentación Inicial - Planificacion 2.0
 
 **Fecha:** 2026-06-10  
 **Vista general (capas, contratos, bootstrap):** [vista-general.md](vista-general.md) — lectura recomendada antes de implementar código.
@@ -85,11 +85,11 @@ Con fecha inicio, fecha fin y periodo de repetición:
 **Step 7: Documentar modelos funcionales** (*depends on 3-6*)
 - Archivos:
   - `docs/entidades/planificaciones.md`
-  - `docs/entidades/modelo-clases-planificacion.md` (jerarquía de clases; FAQ-112)
+  - `docs/entidades/modelo-clases-planificacion.md` (jerarquía de clases; FAQ-307)
   - `docs/entidades/ocurrencias.md`
 - Definir estructura funcional del dominio y trazabilidad con casos de uso.
 
-**Step 7b: Documentar entidades Proyecto e Item** (*depends on 3-6*; FAQ-005)
+**Step 7b: Documentar entidades Proyecto e Item** (*depends on 3-6*; FAQ-004)
 - Archivos:
   - `docs/entidades/proyectos.md`
   - `docs/entidades/items.md`
@@ -104,14 +104,14 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - `docs/diagramas-c4/c4-nivel-2/c4-nivel-2-contenedores.mmd` (N2 cerrado)
   - `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes.mmd` (N3 cerrado)
   - N4 canonico: `docs/diagramas-c4/c4-nivel-4/pseudocodigo/` + `zonas-criticas-n4.md` (cerrado)
-  - N4 implementacion por componente: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (**cerrado** Step 12)
-- Incorporar trazabilidad entre diagramas C4 y casos de uso UC-01, UC-02, UC-03 (ver FAQ-104 en [dudas-y-resoluciones.md](dudas-y-resoluciones.md))
+  - N4 implementacion por componente: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (**cerrado** Step 12a)
+- Incorporar trazabilidad entre diagramas C4 y casos de uso UC-01, UC-02, UC-03 (ver FAQ-201 en [dudas-y-resoluciones.md](dudas-y-resoluciones.md))
 
-**Step 8b: Diagrama C4 N3 — Front-End** (*depends on 8*; FAQ-103)
+**Step 8b: Diagrama C4 N3 — Front-End** (*depends on 8*; FAQ-200)
 - Fichero: `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes-frontend.mmd`
 - Zoom de componentes UI (complementa N4 ZC-6).
 
-**Step 8c: Trazabilidad casos de uso ↔ C4** (*depends on 8*; FAQ-104)
+**Step 8c: Trazabilidad casos de uso ↔ C4** (*depends on 8*; FAQ-201)
 - Trazabilidad **distribuida**: cada ZC N4 en `pseudocodigo/zc-*.md` documenta los UCs que la justifican; cada UC referencia las ZC afectadas.
 - Sin fichero central.
 
@@ -146,42 +146,40 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Archivo principal: `docs/entidades/modelo-entidad-relacion.md`
 - Basarse en [dudas-y-resoluciones.md](dudas-y-resoluciones.md) y entidades en `docs/entidades/`.
 - Entregables (FAQ):
-  - **FAQ-105 / 106 / 108 / 110 / 111:** ERD con `Proyectos`, `Items`, `Planificaciones`, `PlanificacionPeriodo`, `TipoPeriodo` (visibilidad campos patrón), `OcurrenciasMaterializadas`; naturaleza inferida sin flags (sustituye borrador `DefinicionFechaHora`)
-  - **FAQ-004:** tabla `OcurrenciasMaterializadas`; alinear seccion de persistencia en `ocurrencias.md`
-  - **FAQ-002:** columnas fecha/hora en UTC en el ER; nota en `internacionalizacion.md` (almacenamiento UTC vs formateo en UI)
+  - **FAQ-300–311:** ERD con `Proyectos`, `Items`, `Planificaciones`, `PlanificacionPeriodo`, `TipoPeriodo` (visibilidad campos patrón), `OcurrenciasMaterializadas`; naturaleza inferida sin flags (sustituye borrador `DefinicionFechaHora`)
+  - **FAQ-003:** tabla `OcurrenciasMaterializadas`; alinear seccion de persistencia en `ocurrencias.md`
+  - **FAQ-001:** columnas fecha/hora en UTC en el ER; nota en `internacionalizacion.md` (almacenamiento UTC vs formateo en UI)
 - Diagrama Mermaid ERD, atributos clave y restricciones (UNIQUE, FK, CHECK segun reglas RP-*, RI-*, RT-*)
 
-### Fase 7: Stack e implementacion N4
+### Fase 7: Stack e implementacion documental
 **Step 11: Stack tecnologico (cierre de arquitectura)** (*depends on 9a, 9b, 10*) — **Cerrado (2026-06-12)**
 - Resultado: criterios y seleccion tecnologica alineada con arquitectura, diagramas C4 y modelo ER.
 - Entregables (FAQ):
-  - **FAQ-101:** PostgreSQL 16 — [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md)
-  - **FAQ-102:** NestJS 10 + React 18 + TypeScript 5 + pnpm workspaces
-  - **FAQ-007:** politica N4 por componente, desacoplamiento por contratos y desambiguacion de rutas «implementacion»
+  - **FAQ-100:** PostgreSQL 16 — [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md)
+  - **FAQ-101:** NestJS 10 + React 18 + TypeScript 5 + pnpm workspaces
+  - **FAQ-102:** politica N4 por componente, desacoplamiento por contratos y desambiguacion de rutas «implementacion»
   - Esqueleto de codigo: [`implementacion/`](../../implementacion/) (por componente y tecnologia)
   - Guias agnosticas (plantillas): [`docs/implementacion/`](../implementacion/)
   - [`desambiguacion-implementacion.md`](../politicas-transversales/desambiguacion-implementacion.md)
 
-**Step 12: N4 implementacion por componente — Opcion B** (*depends on 11*) — **Completado (2026-06-12)**
+**Step 12: Implementacion documental** (*depends on 11*)
+
+**Step 12a: N4 implementacion por componente** (*depends on 11*) — **Completado (2026-06-12)**
 - Carpetas: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/`
 - Proyeccion ZC-1 a ZC-6; enlaces al pseudocodigo. Indice: [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md).
-- Prioridad **1** entre pasos pendientes.
 
-**Step 12b: Practicas de implementacion por componente — Opcion A** (*depends on 11; recomendado tras Step 12*) — **Pendiente**
+**Step 12b: Practicas de implementacion por componente** (*depends on 11, 12a*) — **Pendiente**
 - Redactar contenido en `docs/implementacion/{front-end,back-end,persistencia,shared,bbdd}/` (convenciones de capas, tests, errores, dependencias).
-- Agnostico de tecnologia en la redaccion; enlaces al codigo en `implementacion/` y a N4 del Step 12.
-- Prioridad **2** (antes del bootstrap de codigo).
+- Agnostico de tecnologia en la redaccion; enlaces al codigo en `implementacion/` y a N4 del Step 12a.
 
 ### Fase 8: Cierre documental e implementacion
-**Step 13: Validar toda la documentacion** (*depends on 10, 12, 12b*) — **Pendiente**
+**Step 13: Validar toda la documentacion** (*depends on 10, 12a, 12b*) — **Pendiente**
 - Revision de coherencia entre entidades, ER, C4, arquitectura, stack, N4 e implementacion.
 - Incluye checklist de [vista-general.md](vista-general.md) §6 (contratos externos e internos antes de codificar negocio).
-- Prioridad **3**.
 
-**Step 14: Bootstrap e implementacion tecnica — Opcion C** (*depends on 13*) — **Pendiente**
+**Step 14: Bootstrap e implementacion tecnica** (*depends on 13*) — **Pendiente**
 - Monorepo (pnpm), proyectos Nest/Vite, migraciones en `implementacion/bbdd/postgresql/`, paquete shared.
 - Solo andamiaje ejecutable (arranque, DI, migraciones); **sin logica de negocio** hasta validar Step 13. Ver [vista-general.md](vista-general.md) §5.
-- Prioridad **4**.
 
 ## Archivos a Crear
 
@@ -213,13 +211,13 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/planificacion/vista-general.md` | Capas, contratos (externo/interno), bootstrap, checklist pre-implementacion |
 | `docs/planificacion/dudas-y-resoluciones.md` | FAQ centralizado de dudas, resoluciones y nomenclatura |
 | `docs/entidades/modelo-entidad-relacion.md` | Diagrama ERD Mermaid (Step 10) |
-| `docs/entidades/modelo-clases-planificacion.md` | Diagrama de clases dominio (FAQ-112) |
+| `docs/entidades/modelo-clases-planificacion.md` | Diagrama de clases dominio (FAQ-307) |
 | `docs/stack-tecnologico/analisis-inicial.md` | Analisis y seleccion de stack (Step 11) |
 | `docs/stack-tecnologico/historial-stack.md` | Stack activo e historial por componente |
 | `docs/stack-tecnologico/cambio-tecnologia-componente.md` | Procedimiento `(obsoleto)` y coexistencia paralela |
-| `docs/politicas-transversales/desambiguacion-implementacion.md` | Tres rutas «implementacion» (FAQ-007) |
-| `docs/politicas-transversales/desacoplamiento-componentes-contratos.md` | Restricciones de desacoplamiento por contratos (FAQ-007) |
-| `docs/diagramas-c4/c4-nivel-4/implementacion/` | N4 por componente y tecnologia (Step 12) |
+| `docs/politicas-transversales/desambiguacion-implementacion.md` | Tres rutas «implementacion» (FAQ-102) |
+| `docs/politicas-transversales/desacoplamiento-componentes-contratos.md` | Restricciones de desacoplamiento por contratos (FAQ-102) |
+| `docs/diagramas-c4/c4-nivel-4/implementacion/` | N4 por componente y tecnologia (Step 12a) |
 | `docs/implementacion/` | Guias de implementacion por componente (plantillas Step 11; contenido Step 12b) |
 | `implementacion/` | Esqueleto de codigo por componente y tecnologia (Step 11) |
 
@@ -232,7 +230,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 5. ✓ Los diagramas C4 estan documentados (Step 8) e integrados con arquitectura (Step 9a)
 6. ✓ La arquitectura logica se documenta en su README y archivos de soporte (Step 9a)
 7. [x] El diagrama entidad-relacion representa todas las entidades y relaciones descritas (Step 10)
-8. [x] El stack tecnologico se define al cierre de arquitectura (Step 11; FAQ-101, 102, 007)
+8. [x] El stack tecnologico se define al cierre de arquitectura (Step 11; FAQ-100, 101, 102)
 9. ✓ La estructura de carpetas docs/ facilita la organizacion y escalabilidad futura
 10. ✓ Todos los tipos de planificacion estan cubiertos (Puntual, Diaria, Semanal, Mensual, Sin planificar)
 
@@ -249,7 +247,7 @@ Se utilizará formato estándar con secciones: Actores, Precondiciones, Flujo Pr
 - Diagramas de flujo para visualización/consultas
 
 ### Modelo de Datos
-Modelo ER unificado (`Planificaciones` + `PlanificacionPeriodo`, catálogo `TipoPeriodo`). Ver [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (FAQ-105–116) y [modelo-entidad-relacion.md](../entidades/modelo-entidad-relacion.md).
+Modelo ER unificado (`Planificaciones` + `PlanificacionPeriodo`, catálogo `TipoPeriodo`). Ver [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (FAQ-300–311) y [modelo-entidad-relacion.md](../entidades/modelo-entidad-relacion.md).
 
 ### Estados de Planificación
 Se consideran 3 estados (Pendiente, Completada, Expirada) donde "Expirada" se calcula dinámicamente según fecha actual vs. fecha planificada.
@@ -260,9 +258,9 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 
 Resumen de estado (2026-06-12):
 
-- **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-116, **FAQ-007, FAQ-101, FAQ-102** (Step 11).
-- **Steps cerrados:** 1–12 (documentacion + stack + N4 implementacion por componente).
-- **Pendientes (orden de prioridad):** Step 12b (Opcion **A**), Step 13, Step 14 (Opcion **C**). Ver tabla en [dudas-y-resoluciones.md](dudas-y-resoluciones.md#pendientes-de-ejecutar).
+- **Resueltas:** FAQ-000 a FAQ-007 (grupo 0), FAQ-100 a FAQ-102 (grupo 1), FAQ-200 a FAQ-201 (grupo 2), FAQ-300 a FAQ-311 (grupo 3).
+- **Steps cerrados:** 1–11, 12a (N4 implementacion por componente).
+- **Pendientes (orden de prioridad):** Step 12b, Step 13, Step 14. Ver [Decisiones (entregables por step)](dudas-y-resoluciones.md#decisiones-entregables-por-step).
 
 ## Próximos Pasos
 
@@ -270,17 +268,17 @@ Resumen de estado (2026-06-12):
 [x] 2. Ejecutar Fase 1: Crear estructura base y README
 [x] 3. Ejecutar Fase 2: Documentar casos de uso
 [x] 4. Ejecutar Fase 3: Documentar modelos funcionales del dominio (Step 7)
-[x] 5. Ejecutar Step 7b: Documentar entidades Proyecto e Item (FAQ-005)
+[x] 5. Ejecutar Step 7b: Documentar entidades Proyecto e Item (FAQ-004)
 [x] 6. Ejecutar Fase 4 parcial: Diagramas C4 N1–N4 canonico (Step 8)
-[x] 7. Ejecutar Step 8c: Trazabilidad UC ↔ C4 distribuida (FAQ-104)
-[x] 8. Ejecutar Step 8b: Diagrama C4 N3 Front-End (FAQ-103)
+[x] 7. Ejecutar Step 8c: Trazabilidad UC ↔ C4 distribuida (FAQ-201)
+[x] 8. Ejecutar Step 8b: Diagrama C4 N3 Front-End (FAQ-200)
 [x] 9. Ejecutar Fase 5 : Arquitectura logica y verificacion transversal (Steps 9a, 9b)
 [x] 10. Ejecutar Step 10: Crear modelo entidad-relacion (ER)
-[x] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-101, FAQ-102, FAQ-007)
-[x] 12. Ejecutar Step 12 — **Opcion B:** N4 implementacion por componente (`{componente}/{tecnologia}/`)
-[ ] 12b. Ejecutar Step 12b — **Opcion A:** Practicas en `docs/implementacion/{componente}/`
+[x] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-100, FAQ-101, FAQ-102)
+[x] 12a. Ejecutar Step 12a: N4 implementacion por componente (`{componente}/{tecnologia}/`)
+[ ] 12b. Ejecutar Step 12b: Practicas en `docs/implementacion/{componente}/`
 [ ] 13. Ejecutar Step 13: Validar toda la documentacion
-[ ] 14. Ejecutar Step 14 — **Opcion C:** Bootstrap monorepo y proyectos en `implementacion/`
+[ ] 14. Ejecutar Step 14: Bootstrap monorepo y proyectos en `implementacion/`
 
 ## Historial
 2026-06-10 - Paso 1 Completado
@@ -298,5 +296,6 @@ Resumen de estado (2026-06-12):
 2026-06-12 - Revision SOLID actualizada incluyendo docs/diagramas-c4/
 2026-06-12 - Limpieza plan y FAQ: entregables Step 10/11; verificacion 7-8 corregida
 2026-06-12 - Step 10 completado: modelo ER en docs/entidades/modelo-entidad-relacion.md
-2026-06-12 - Step 11 completado: stack NestJS+React+TS+PostgreSQL; FAQ-007/101/102; implementacion/ y docs/implementacion/
-2026-06-12 - Step 12 completado: N4 implementacion por componente (react-typescript, nestjs-typescript, typescript, postgresql)
+2026-06-12 - Step 11 completado: stack NestJS+React+TS+PostgreSQL; FAQ-100/101/102; implementacion/ y docs/implementacion/
+2026-06-12 - Step 12a completado: N4 implementacion por componente (react-typescript, nestjs-typescript, typescript, postgresql)
+2026-06-12 - Renumeracion Steps 12a/12b y FAQ por grupos FAQ-Gnn

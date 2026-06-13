@@ -1,4 +1,4 @@
-# UC-03: Visualización de Planificaciones de Tipo "Sin planificar"
+﻿# UC-03: Visualización de Planificaciones de Tipo "Sin planificar"
 
 **ID:** UC-03  
 **Nombre:** Visualización de Planificaciones de Tipo "Sin planificar"  
@@ -39,7 +39,7 @@ flowchart TD
 ## Reglas de Negocio
 
 ### RN-3.1: Filtro exclusivo por tipo
-Solo deben recuperarse planificaciones Sin planificar: filas en `Planificaciones` con `fecha_inicio IS NULL` y `fecha_fin IS NULL` (naturaleza inferida; ver FAQ-110).
+Solo deben recuperarse planificaciones Sin planificar: filas en `Planificaciones` con `fecha_inicio IS NULL` y `fecha_fin IS NULL` (naturaleza inferida; ver FAQ-305).
 
 ### RN-3.2: Consulta sin ocurrencias dinámicas
 Este caso de uso no calcula ocurrencias dinámicas; solo lista planificaciones del tipo indicado.

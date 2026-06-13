@@ -1,4 +1,4 @@
-# Desacoplamiento entre componentes por contratos
+﻿# Desacoplamiento entre componentes por contratos
 
 **Última actualización:** 2026-06-12
 
@@ -105,7 +105,7 @@ Cada par de componentes adyacentes tiene **un único tipo de contrato** como fue
 ### BBDD
 
 - Esquema y migraciones alineados al ER; motor concreto solo en `implementacion/bbdd/{motor}/`.
-- Políticas SQL (FAQ-116, UTC, cascadas) documentadas aquí; Persistencia las consume, **no** las redefine en Back-End.
+- Políticas SQL (FAQ-311, UTC, cascadas) documentadas aquí; Persistencia las consume, **no** las redefine en Back-End.
 - Cambiar motor (p. ej. PostgreSQL → otro) impacta **BBDD + Persistencia**; Front-End intacto; Back-End intacto si puertos y semántica transaccional equivalentes.
 
 ---

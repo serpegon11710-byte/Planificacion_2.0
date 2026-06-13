@@ -2,7 +2,7 @@
 
 Parte del **Step 8** del plan de documentacion. Visualiza la estructura del software Planificacion 2.0 e integra con arquitectura (Step 9a).
 
-Dudas abiertas: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (Step 11, stack).
+Dudas y stack: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-101, 102; Step 12 pendiente).
 
 ## Estructura por nivel
 
@@ -14,7 +14,7 @@ diagramas-c4/
 └── c4-nivel-4/          # Detalle (codigo)
     ├── zonas-criticas-n4.md
     ├── pseudocodigo/    # Canonico (independiente del stack)
-    └── implementacion/  # Por stack (pendiente)
+    └── implementacion/  # N4 por stack (Step 12; activo: nestjs-react-postgresql/)
 ```
 
 ## Diagramas por nivel
@@ -26,7 +26,7 @@ diagramas-c4/
 | N3 — Componentes Back-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes.mmd](c4-nivel-3/c4-nivel-3-componentes.mmd) | Cerrado |
 | N3 — Componentes Front-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes-frontend.mmd](c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) | Cerrado |
 | N4 — Detalle | [c4-nivel-4/](c4-nivel-4/) | [zonas-criticas-n4.md](c4-nivel-4/zonas-criticas-n4.md) + [pseudocodigo/](c4-nivel-4/pseudocodigo/) | Cerrado (canonico) |
-| N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Pendiente | Requiere stack |
+| N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Pendiente Step 12 | Stack definido; carpeta `nestjs-react-postgresql/` |
 
 ## Nivel 3
 

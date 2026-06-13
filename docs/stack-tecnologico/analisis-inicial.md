@@ -454,10 +454,12 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 
 ## 9. Próximos pasos (sin implementación)
 
-1. **Step 12:** Proyectar N4 canónico a `docs/diagramas-c4/c4-nivel-4/implementacion/nestjs-react-postgresql/` (ZC-1 a ZC-6).
-2. Actualizar `docs/planificacion/dudas-y-resoluciones.md` — cerrar FAQ-101, FAQ-102 y FAQ-007 con referencia a este documento.
+1. **Step 12 (Opción B):** Proyectar N4 canónico a `docs/diagramas-c4/c4-nivel-4/implementacion/nestjs-react-postgresql/` (ZC-1 a ZC-6).
+2. **Step 12b (Opción A):** Redactar prácticas en `docs/implementacion/{componente}/`.
 3. **Step 13:** Validar coherencia documental tras fijar stack.
-4. **Step 14:** Bootstrap del monorepo (fuera de alcance de este análisis).
+4. **Step 14 (Opción C):** Bootstrap del monorepo en `implementacion/` (fuera de alcance de este análisis).
+
+FAQ-101, FAQ-102 y FAQ-007 cerradas en Step 11 — ver [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
 
 ---
 

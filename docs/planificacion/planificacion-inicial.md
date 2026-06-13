@@ -102,7 +102,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - `docs/diagramas-c4/c4-nivel-2/c4-nivel-2-contenedores.mmd` (N2 cerrado)
   - `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes.mmd` (N3 cerrado)
   - N4 canonico: `docs/diagramas-c4/c4-nivel-4/pseudocodigo/` + `zonas-criticas-n4.md` (cerrado)
-  - N4 implementacion por stack: `docs/diagramas-c4/c4-nivel-4/implementacion/` (pendiente hasta Step 11)
+  - N4 implementacion por stack: `docs/diagramas-c4/c4-nivel-4/implementacion/` (pendiente Step 12)
 - Incorporar trazabilidad entre diagramas C4 y casos de uso UC-01, UC-02, UC-03 (ver FAQ-104 en [dudas-y-resoluciones.md](dudas-y-resoluciones.md))
 
 **Step 8b: Diagrama C4 N3 — Front-End** (*depends on 8*; FAQ-103)
@@ -150,23 +150,35 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Diagrama Mermaid ERD, atributos clave y restricciones (UNIQUE, FK, CHECK segun reglas RP-*, RI-*, RT-*)
 
 ### Fase 7: Stack e implementacion N4
-**Step 11: Stack tecnologico (cierre de arquitectura)** (*depends on 9a, 9b, 10*)
+**Step 11: Stack tecnologico (cierre de arquitectura)** (*depends on 9a, 9b, 10*) — **Cerrado (2026-06-12)**
 - Resultado: criterios y seleccion tecnologica alineada con arquitectura, diagramas C4 y modelo ER.
 - Entregables (FAQ):
-  - **FAQ-101:** motor de base de datos
-  - **FAQ-102:** stack de aplicacion (Front-End, Back-End, herramientas)
-  - **FAQ-007:** politica de archivo de carpetas `implementacion/{stack}/` historicas
-  - Crear `docs/diagramas-c4/c4-nivel-4/implementacion/{stack}/` (proyeccion del N4 canonico)
+  - **FAQ-101:** PostgreSQL 16 — [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md)
+  - **FAQ-102:** NestJS 10 + React 18 + TypeScript 5 + pnpm workspaces
+  - **FAQ-007:** politica de stacks historicos y desambiguacion de rutas «implementacion»
+  - Esqueleto de codigo: [`implementacion/`](../../implementacion/) (por componente y tecnologia)
+  - Guias agnosticas (plantillas): [`docs/implementacion/`](../implementacion/)
+  - [`desambiguacion-implementacion.md`](../politicas-transversales/desambiguacion-implementacion.md)
 
-**Step 12: N4 implementacion por stack** (*depends on 11*)
-- Completar proyeccion del N4 canonico en `docs/diagramas-c4/c4-nivel-4/implementacion/{stack}/` (ZC-1 a ZC-6).
+**Step 12: N4 implementacion por stack — Opcion B** (*depends on 11*) — **Pendiente**
+- Carpeta: `docs/diagramas-c4/c4-nivel-4/implementacion/nestjs-react-postgresql/`
+- Proyeccion del N4 canonico (ZC-1 a ZC-6) al stack activo; enlaces al pseudocodigo, sin redefinir reglas de negocio.
+- Prioridad **1** entre pasos pendientes.
+
+**Step 12b: Practicas de implementacion por componente — Opcion A** (*depends on 11; recomendado tras Step 12*) — **Pendiente**
+- Redactar contenido en `docs/implementacion/{front-end,back-end,persistencia,shared,bbdd}/` (convenciones de capas, tests, errores, dependencias).
+- Agnostico de tecnologia en la redaccion; enlaces al codigo en `implementacion/` y a N4 del Step 12.
+- Prioridad **2** (antes del bootstrap de codigo).
 
 ### Fase 8: Cierre documental e implementacion
-**Step 13: Validar toda la documentacion** (*depends on 10, 12*)
-- Revision de coherencia entre entidades, ER, C4, arquitectura y casos de uso.
+**Step 13: Validar toda la documentacion** (*depends on 10, 12, 12b*) — **Pendiente**
+- Revision de coherencia entre entidades, ER, C4, arquitectura, stack, N4 e implementacion.
+- Prioridad **3**.
 
-**Step 14: Proceder con la implementacion tecnica** (*depends on 13*)
-- Codigo de aplicacion segun stack elegido en Step 11.
+**Step 14: Bootstrap e implementacion tecnica — Opcion C** (*depends on 13*) — **Pendiente**
+- Monorepo (pnpm), proyectos Nest/Vite, migraciones en `implementacion/bbdd/postgresql/`, paquete shared.
+- Sin logica de negocio hasta validar documentacion (Step 13).
+- Prioridad **4**.
 
 ## Archivos a Crear
 
@@ -197,6 +209,10 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/planificacion/dudas-y-resoluciones.md` | FAQ centralizado de dudas, resoluciones y nomenclatura |
 | `docs/entidades/modelo-entidad-relacion.md` | Diagrama ERD Mermaid (Step 10) |
 | `docs/entidades/modelo-clases-planificacion.md` | Diagrama de clases dominio (FAQ-112) |
+| `docs/stack-tecnologico/analisis-inicial.md` | Analisis y seleccion de stack (Step 11) |
+| `docs/politicas-transversales/desambiguacion-implementacion.md` | Tres rutas «implementacion» (FAQ-007) |
+| `docs/implementacion/` | Guias de implementacion por componente (plantillas Step 11; contenido Step 12b) |
+| `implementacion/` | Esqueleto de codigo por componente y tecnologia (Step 11) |
 
 ## Verificación
 
@@ -207,7 +223,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 5. ✓ Los diagramas C4 estan documentados (Step 8) e integrados con arquitectura (Step 9a)
 6. ✓ La arquitectura logica se documenta en su README y archivos de soporte (Step 9a)
 7. [x] El diagrama entidad-relacion representa todas las entidades y relaciones descritas (Step 10)
-8. [ ] El stack tecnologico se define al cierre de arquitectura (Step 11)
+8. [x] El stack tecnologico se define al cierre de arquitectura (Step 11; FAQ-101, 102, 007)
 9. ✓ La estructura de carpetas docs/ facilita la organizacion y escalabilidad futura
 10. ✓ Todos los tipos de planificacion estan cubiertos (Puntual, Diaria, Semanal, Mensual, Sin planificar)
 
@@ -224,7 +240,7 @@ Se utilizará formato estándar con secciones: Actores, Precondiciones, Flujo Pr
 - Diagramas de flujo para visualización/consultas
 
 ### Modelo de Datos
-Modelo ER segun FAQ-105/106/108: dos tablas de planificacion + catalogo de tipos. Ver [dudas-y-resoluciones.md](dudas-y-resoluciones.md) y [planificaciones.md](../entidades/planificaciones.md).
+Modelo ER unificado (`Planificaciones` + `PlanificacionPeriodo`, catálogo `TipoPeriodo`). Ver [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (FAQ-105–116) y [modelo-entidad-relacion.md](../entidades/modelo-entidad-relacion.md).
 
 ### Estados de Planificación
 Se consideran 3 estados (Pendiente, Completada, Expirada) donde "Expirada" se calcula dinámicamente según fecha actual vs. fecha planificada.
@@ -235,9 +251,9 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 
 Resumen de estado (2026-06-12):
 
-- **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-112 (decisiones cerradas; ER en Step 10).
-- **Postergadas a Step 11:** FAQ-007 (detalle archivo N4), FAQ-101, FAQ-102.
-- **Entregables pendientes:** Step 11–12 (stack + N4 implementacion).
+- **Resueltas:** FAQ-001 a FAQ-009, FAQ-103, FAQ-104, FAQ-105 a FAQ-116, **FAQ-007, FAQ-101, FAQ-102** (Step 11).
+- **Steps cerrados:** 1–11 (documentacion + stack + esqueleto implementacion).
+- **Pendientes (orden de prioridad):** Step 12 (Opcion **B**), Step 12b (Opcion **A**), Step 13, Step 14 (Opcion **C**). Ver tabla en [dudas-y-resoluciones.md](dudas-y-resoluciones.md#pendientes-de-ejecutar).
 
 ## Próximos Pasos
 
@@ -251,10 +267,11 @@ Resumen de estado (2026-06-12):
 [x] 8. Ejecutar Step 8b: Diagrama C4 N3 Front-End (FAQ-103)
 [x] 9. Ejecutar Fase 5 : Arquitectura logica y verificacion transversal (Steps 9a, 9b)
 [x] 10. Ejecutar Step 10: Crear modelo entidad-relacion (ER)
-[ ] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-101, FAQ-102, FAQ-007)
-[ ] 12. Ejecutar Step 12: Completar N4 implementacion por stack
+[x] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-101, FAQ-102, FAQ-007)
+[ ] 12. Ejecutar Step 12 — **Opcion B:** N4 implementacion por stack (`nestjs-react-postgresql/`)
+[ ] 12b. Ejecutar Step 12b — **Opcion A:** Practicas en `docs/implementacion/{componente}/`
 [ ] 13. Ejecutar Step 13: Validar toda la documentacion
-[ ] 14. Ejecutar Step 14: Proceder con la implementacion tecnica
+[ ] 14. Ejecutar Step 14 — **Opcion C:** Bootstrap monorepo y proyectos en `implementacion/`
 
 ## Historial
 2026-06-10 - Paso 1 Completado
@@ -272,3 +289,5 @@ Resumen de estado (2026-06-12):
 2026-06-12 - Revision SOLID actualizada incluyendo docs/diagramas-c4/
 2026-06-12 - Limpieza plan y FAQ: entregables Step 10/11; verificacion 7-8 corregida
 2026-06-12 - Step 10 completado: modelo ER en docs/entidades/modelo-entidad-relacion.md
+2026-06-12 - Step 11 completado: stack NestJS+React+TS+PostgreSQL; FAQ-007/101/102; implementacion/ y docs/implementacion/
+2026-06-12 - Pendientes ordenados: Step 12 (B), 12b (A), 13, 14 (C)

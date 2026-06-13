@@ -15,7 +15,7 @@ Los documentos funcionales (`entidades/`, `arquitectura/`, etc.) deben **referen
 | Estado | Significado |
 |--------|-------------|
 | **Resuelta** | Decision acordada; el detalle documental puede quedar como entregable del Step indicado en cada FAQ |
-| **Abierta** | Requiere decision; ver Step 11 o Step 10 segun el FAQ |
+| **Abierta** | Requiere decision; ver Step indicado en cada FAQ |
 | **Supersedida** | Duda historica; ver resolucion y nota de nomenclatura |
 
 ---
@@ -339,15 +339,18 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 ---
 
-## Abiertas (postergadas a Step 11)
-
 ### FAQ-007 — N4 implementacion al cambiar de stack
 
 **Origen:** `c4-nivel-4/implementacion/README.md`.
 
-**Principio acordado (2026-06-12):** **Conservar** carpetas `{stack}/` como historico al cambiar de stack; no mezclar implementaciones en la misma carpeta.
+**Resolucion (2026-06-12):**
 
-**Entregable Step 11:** politica de archivo detallada en `implementacion/README.md` (cuando se cierre la seleccion de stack).
+1. **Principio:** conservar carpetas `{stack}/` como historico al cambiar de stack; no mezclar implementaciones en la misma carpeta.
+2. **Alcance N4 (docs):** `docs/diagramas-c4/c4-nivel-4/implementacion/{stack}/` — nombre compuesto del stack (activo: `nestjs-react-postgresql/`). Contenido: proyeccion ZC-1 a ZC-6 (Step 12).
+3. **Alcance codigo (raiz):** `implementacion/{componente}/{tecnologia}/` — una tecnologia exacta por componente; ver [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md).
+4. **Politica de archivo (v1):** al adoptar un stack nuevo, crear carpeta nueva; no borrar la anterior salvo decision explicita del equipo. Opcional futuro: subcarpeta `archivo/` dentro de `{stack}/` para stacks retirados.
+
+**Entregable Step 11:** [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md). **Completado (2026-06-12).**
 
 ---
 
@@ -355,7 +358,9 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 **Origen:** Step 11.
 
-**Estado:** **Postergada** — entregable Step 11.
+**Resolucion (2026-06-12):** **PostgreSQL 16** como motor unico en v1. Motivos: soporte nativo de restricciones del ER (UNIQUE parcial, CHECK, TIMESTAMPTZ, cascadas FK), alineacion con FAQ-113/114/116 y portabilidad del SQL documentado.
+
+**Entregable Step 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md) (seccion 5 y 8). Codigo: `implementacion/bbdd/postgresql/`. **Completado (2026-06-12).**
 
 ---
 
@@ -363,7 +368,23 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 **Origen:** Step 11.
 
-**Estado:** **Postergada** — entregable Step 11.
+**Resolucion (2026-06-12):**
+
+| Capa | Tecnologia |
+|------|------------|
+| Back-End | **NestJS 10** + **Node.js 22** + **TypeScript 5** |
+| Front-End | **React 18** + **TypeScript 5** + **Vite** |
+| Persistencia | TypeScript + **node-postgres (`pg`)** + migraciones SQL |
+| Shared | TypeScript (DTOs, codigos de error, tipos de contrato) |
+| Monorepo | **pnpm workspaces** (recomendado) |
+
+**Entregable Step 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../stack-tecnologico/analisis-inicial.md), esqueleto [`implementacion/`](../../implementacion/), guias [`docs/implementacion/`](../implementacion/). **Completado (2026-06-12).**
+
+---
+
+## Abiertas (postergadas a Step 11)
+
+_Ninguna (2026-06-12). FAQ-007, FAQ-101 y FAQ-102 cerradas en Step 11._
 
 ---
 
@@ -371,17 +392,29 @@ La clave primaria de cada tabla se nombra **`{entidad}_id`**, equivalente al nom
 
 | Step | FAQ / contenido | Artefactos |
 |------|-----------------|------------|
-| **10** | FAQ-002, 004, 105, 106, 108 | `docs/entidades/modelo-entidad-relacion.md`; UTC en ER + `internacionalizacion.md`; ocurrencias materializadas |
-| **11** | FAQ-007, 101, 102 | Stack, motor BBDD, politica N4 historico |
-| **12** | — | N4 `implementacion/{stack}/` (proyeccion del canonico) |
+| **10** | FAQ-002, 004, 105–116 | `docs/entidades/modelo-entidad-relacion.md`; entidades; pseudocodigo alineado |
+| **11** | FAQ-007, 101, 102 | `docs/stack-tecnologico/analisis-inicial.md`; `implementacion/`; `docs/implementacion/`; desambiguacion |
+| **12** | — (Opcion **B**) | N4 `docs/diagramas-c4/c4-nivel-4/implementacion/nestjs-react-postgresql/` |
+| **12b** | — (Opcion **A**) | Contenido de practicas en `docs/implementacion/{componente}/` |
+| **13** | — | Validacion coherencia documental global |
+| **14** | — (Opcion **C**) | Bootstrap codigo (monorepo, Nest, Vite, migraciones) |
 
-Los Steps 7b, 8b y 8c ya estan cerrados. Las FAQ 001, 003, 006, 008, 009, 103, 104, 107 no tienen entregable pendiente fuera de lo ya documentado.
+Los Steps 7b, 8b y 8c ya estan cerrados.
 
 ---
 
 ## Pendientes de ejecutar
 
-_Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
+Orden de prioridad (tras cierre Step 11):
+
+| Prioridad | Step | Opcion | Descripcion |
+|-----------|------|--------|-------------|
+| 1 | **12** | **B** | Proyeccion N4 al stack (`nestjs-react-postgresql/`, ZC-1 a ZC-6) |
+| 2 | **12b** | **A** | Redactar practicas de implementacion por componente en `docs/implementacion/` |
+| 3 | **13** | — | Validar coherencia entre ER, C4, arquitectura, stack e implementacion |
+| 4 | **14** | **C** | Bootstrap tecnico del monorepo y proyectos en `implementacion/` |
+
+Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8).
 
 ---
 
@@ -389,7 +422,7 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 
 | Documento | IDs FAQ |
 |-----------|---------|
-| `planificacion-inicial.md` | FAQ-001, 002, 003, 108 |
+| `planificacion-inicial.md` | FAQ-001, 002, 003, 108; Steps 11–14 |
 | `entidades/modelo-entidad-relacion.md` | FAQ-002, 004, 105, 106, 108, 113, 114, **115**, **116** |
 | `entidades/ocurrencias.md` | FAQ-003, 004, **116** |
 | `entidades/proyectos.md`, `items.md` | FAQ-005, **115** |
@@ -397,8 +430,14 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | `casos-uso/UC-02.4` | **116** (borrado masivo RE-4) |
 | `revision-principios-solid.md` | FAQ-005, 009 |
 | `diagramas-c4/` | FAQ-103, 104, 007, 008 |
-| Step 11 | FAQ-007, 101, 102, **116** |
-| Step 12 | N4 implementacion por stack |
+| `docs/stack-tecnologico/analisis-inicial.md` | FAQ-101, 102 |
+| `implementacion/` (raiz), `docs/implementacion/` | FAQ-007, 102 |
+| `politicas-transversales/desambiguacion-implementacion.md` | FAQ-007 |
+| Step 11 | FAQ-007, 101, 102 (**cerrado**) |
+| Step 12 | N4 implementacion por stack (**B**) |
+| Step 12b | Practicas `docs/implementacion/` (**A**) |
+| Step 13 | Validacion documental |
+| Step 14 | Bootstrap codigo (**C**) |
 | Step 10 | FAQ-002, 004, 105, 106, 108, 110, 111, 112, 113, 114, **115**, **116** |
 ---
 
@@ -421,3 +460,4 @@ _Ninguno fuera de Steps 11 y 12 (2026-06-12). Step 10 cerrado._
 | 2026-06-12 | FAQ-114: satelites PK planificacion_id; ocurrencias (planificacion_id, fecha_original, hora, ocurrencia_id) |
 | 2026-06-12 | FAQ-115: PK {tabla}_id (proyecto_id, item_id, planificacion_id, etc.); excepcion PlanificacionPeriodo |
 | 2026-06-12 | FAQ-116: bloqueos borrado masivo OcurrenciasMaterializadas; RE-4 acotado a una planificacion |
+| 2026-06-12 | Step 11 cerrado: FAQ-007, 101, 102; stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |

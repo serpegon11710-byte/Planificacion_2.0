@@ -121,5 +121,5 @@ Errores `pg` → `PgErrorMapper.desdeTecnico()` → `ErrorFuncional` o `ErrorTec
 
 ## Tests
 
-- Integración con PostgreSQL (Testcontainers recomendado en Step 14).
+- Integración con PostgreSQL (Testcontainers recomendado en Ticket 001).
 - Fixtures alineados a seeds `implementacion/bbdd/postgresql/seeds/`.

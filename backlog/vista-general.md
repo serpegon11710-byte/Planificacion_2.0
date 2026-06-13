@@ -2,7 +2,7 @@
 
 **Última actualización:** 2026-06-12
 
-Documento de referencia para entender **cómo encajan** dominio, contenedores, contratos y código en Planificacion 2.0. Forma parte de la **documentación previa obligatoria** antes de implementar lógica de negocio (Step 14) o ampliar código más allá del bootstrap.
+Documento de referencia para entender **cómo encajan** dominio, contenedores, contratos y código en Planificacion 2.0. Forma parte de la **documentación previa obligatoria** antes de implementar lógica de negocio o ampliar código más allá del bootstrap ([Ticket 001](001-bootstrap/README.md)).
 
 > **Principio:** documentar primero, implementar después. Los contratos (externos e internos) fijan qué se puede codificar sin sorpresas de acoplamiento.
 
@@ -131,28 +131,16 @@ Los contratos de diseño interno **no sustituyen** a los externos: definen la **
 | 6 | N4 implementación + **contratos internos** | ¿Cómo se nombra y organiza en el stack? |
 | 7 | Step 12b (guías componente) | ¿Qué convenciones agnósticas aplican? |
 | 8 | Step 13 (validación) | ¿Todo es coherente? |
-| 9 | Step 14 (bootstrap) | ¿Arranca el andamiaje sin negocio? |
+| 9 | Ticket 001 (bootstrap) | ¿Arranca el andamiaje sin negocio? |
 | 10 | Implementación UC-* | ¿Reglas de negocio en código? |
 
 ---
 
-## 5. Bootstrap (Step 14) — qué es y qué no es
+## 5. Bootstrap — qué es y qué no es
 
-**Bootstrap** = andamiaje ejecutable **mínimo**, no lógica de negocio.
+Resumen: andamiaje ejecutable **mínimo** (monorepo, arranque FE/BE, migraciones, shared, DI), **sin lógica de negocio**.
 
-Incluye (orientativo):
-
-- Monorepo pnpm, `package.json`, scripts `dev` / `build` / `test`
-- NestJS arranca (p. ej. health check); Vite/React arranca en navegador
-- PostgreSQL: migraciones iniciales, seeds `TipoPeriodo`, conexión desde persistencia
-- Paquete `shared` compilable
-- Wiring DI: implementaciones de puertos registradas en Nest
-
-**Objetivo:** clonar, instalar y ejecutar **sin error**, aunque UC-01/02/03 aún no estén implementados.
-
-**No es:** documentar (Steps 1–13), ni implementar wizard/calendario/reglas RT/RO.
-
-Detalle en [planificacion-inicial.md](000-planificacion-inicial/planificacion-inicial.md) — Step 14.
+Detalle, stack, requisitos e subtickets: **[001-bootstrap/README.md](001-bootstrap/README.md)**.
 
 ---
 

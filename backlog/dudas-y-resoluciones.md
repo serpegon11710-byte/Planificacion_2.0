@@ -490,7 +490,7 @@ Ver detalle en [planificacion-inicial.md](planificacion-inicial.md) (Fase 7–8)
 | Step 12a | N4 implementacion por componente — **cerrado** |
 | Step 12b | Practicas `docs/implementacion/` — **cerrado** |
 | Step 13 | Validacion documental — **cerrado** (re-validado 2026-06-12) |
-| Step 14 | Bootstrap codigo |
+| Ticket 001 | Bootstrap codigo |
 
 ---
 

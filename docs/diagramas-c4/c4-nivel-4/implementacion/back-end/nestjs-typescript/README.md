@@ -49,7 +49,7 @@ src/
 
 ---
 
-## Módulos Nest (previstos Step 14)
+## Módulos Nest (previstos Ticket 001)
 
 | Módulo | Agregados / ZC |
 |--------|-----------------|

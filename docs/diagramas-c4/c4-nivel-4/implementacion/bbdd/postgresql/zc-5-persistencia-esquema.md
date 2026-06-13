@@ -66,7 +66,7 @@ CREATE INDEX idx_planificaciones_item_fechas
 | Seed | Contenido |
 |------|-----------|
 | `tipo_periodo` | Filas Diario, Semanal, Mensual con flags de visibilidad (FAQ-306) |
-| Desarrollo | Proyectos/items de prueba (opcional Step 14) |
+| Desarrollo | Proyectos/items de prueba (opcional Ticket 001) |
 
 ---
 

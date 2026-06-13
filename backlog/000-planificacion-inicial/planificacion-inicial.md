@@ -177,9 +177,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Revision de coherencia entre entidades, ER, C4, arquitectura, stack, N4 e implementacion.
 - Informe: [validacion-documental-step13.md](validacion-documental-step13.md); checklist [vista-general.md](../vista-general.md) §6 marcado.
 
-**Step 14: Bootstrap e implementacion tecnica** (*depends on 13*) — **Pendiente**
-- Monorepo (pnpm), proyectos Nest/Vite, migraciones en `implementacion/bbdd/postgresql/`, paquete shared.
-- Solo andamiaje ejecutable (arranque, DI, migraciones); **sin logica de negocio** hasta completar bootstrap. Ver [vista-general.md](../vista-general.md) §5.
+> **Bootstrap (ex Step 14):** fuera del Ticket 000. Ver [Ticket 001 — Bootstrap](../001-bootstrap/README.md).
 
 ## Archivos a Crear
 
@@ -281,7 +279,8 @@ Resumen de estado (2026-06-12):
 [x] 12a. Ejecutar Step 12a: N4 implementacion por componente (`{componente}/{tecnologia}/`)
 [x] 12b. Ejecutar Step 12b: Practicas en `docs/implementacion/{componente}/`
 [x] 13. Ejecutar Step 13: Validar toda la documentacion
-[ ] 14. Ejecutar Step 14: Bootstrap monorepo y proyectos en `implementacion/`
+
+> **Siguiente trabajo:** [Ticket 001 — Bootstrap](../001-bootstrap/README.md) (no forma parte del Ticket 000).
 
 ## Historial
 2026-06-10 - Paso 1 Completado

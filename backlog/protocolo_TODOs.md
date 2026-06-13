@@ -36,7 +36,7 @@ Configura package.json raíz y workspaces para FE, BE, shared, persistencia.
 
 ### Criterios del título
 
-- Indica el **ámbito** (p. ej. `docs`, `feat`, `fix`) y, si aplica, la **fase o step** del plan.
+- Indica el **ámbito** (p. ej. `docs`, `feat`, `T-001`) y la **épica o step** si aplica.
 - Describe el **resultado** del TODO, no la intención genérica.
 
 ### Criterios del cuerpo
@@ -58,4 +58,4 @@ Configura package.json raíz y workspaces para FE, BE, shared, persistencia.
 
 ## Ámbito
 
-Este protocolo aplica a **planes con TODOs** ejecutados en el repositorio (documentación, código, configuración). Los commits deben respetar además las reglas generales del proyecto (no incluir secretos, no amend salvo las excepciones acordadas en el flujo de git del equipo).
+Este protocolo aplica a **planes con TODOs o subtickets** ejecutados en el repositorio (documentación en `backlog/`, código en `implementacion/`). Los commits deben respetar además las reglas generales del proyecto (no incluir secretos, no amend salvo las excepciones acordadas en el flujo de git del equipo).

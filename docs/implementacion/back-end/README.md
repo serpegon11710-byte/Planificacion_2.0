@@ -14,17 +14,34 @@ Punto de entrada HTTP/JSON, orquestación de casos de uso (ZC-4) y lógica de ne
 
 ---
 
-## Contenido esperado en esta carpeta
+## Responsabilidades y límites
 
-| Tema | Ejemplos |
-|------|----------|
-| Capas | `api/` (controllers), `application/` (orquestadores), `domain/` (entidades, servicios, puertos) |
-| Módulos de negocio | Un módulo por agregado; dependencias unidireccionales |
-| Regla de aislamiento | El dominio no importa framework ni infraestructura |
-| ZC-1 a ZC-3 | Servicios de ocurrencias, materialización, definición temporal |
-| ZC-4 | Transacciones multi-agregado (wizard, creación automática, cascadas) |
-| Errores | Propagación de `codigo` estable hacia la API |
-| Pruebas | Unitarias de dominio; integración de API con persistencia mockeada |
+### Responsabilidades
+
+- Exponer la **API REST** (entrada/salida JSON) al Front-End.
+- Orquestar casos de uso multi-agregado en la capa de **aplicación** (wizard, cascadas, transacciones).
+- Implementar **reglas de negocio** en la capa de **dominio** (Proyecto, Item, Planificación, Ocurrencia).
+- Definir **puertos** (`*RepositoryPort`, servicios de dominio) que la persistencia implementará.
+- Propagar hacia la API solo **`codigo`** de error estable (sin literales de negocio ni SQL).
+
+### Sí hace / No hace
+
+| Sí hace | No hace |
+|---------|---------|
+| Validar DTOs de entrada en API/aplicación | Ejecutar SQL ni conocer el motor de BBDD |
+| Coordinar ZC-1 a ZC-4 (consulta, materialización, temporal, orquestación) | Renderizar UI ni resolver i18n de mensajes |
+| Invocar puertos de persistencia dentro de unidades de trabajo | Duplicar restricciones del ER (CHECK, UNIQUE) que ya garantiza la BBDD |
+| Traducir errores de infraestructura a `ERROR_INTERNO` | Importar adaptadores concretos de persistencia en dominio |
+
+### Frontera con vecinos
+
+| Vecino | Contrato externo | Rol del Back-End |
+|--------|------------------|------------------|
+| Front-End | API REST + DTOs ([`contratos-minimos.md`](../../arquitectura/contratos-minimos.md)) | Expone endpoints; consume requests validados |
+| Persistencia | Puertos de repositorio y conexión | Define interfaces en dominio; inyecta implementación en aplicación |
+| Shared | Tipos y códigos compartidos | Importa DTOs/`codigo`; no redefine contratos en silos |
+
+Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general.md) §3.1.
 
 ---
 

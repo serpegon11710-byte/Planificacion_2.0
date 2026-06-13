@@ -14,15 +14,32 @@ Centralizar DTOs, códigos de error, tipos de contrato e identificadores estable
 
 ---
 
-## Contenido esperado en esta carpeta
+## Responsabilidades y límites
 
-| Tema | Ejemplos |
-|------|----------|
-| DTOs | Inputs/Outputs de [`contratos-minimos.md`](../../arquitectura/contratos-minimos.md) |
-| Errores | Enum o const de `codigo`; payloads RE-5 (`bloqueos`) |
-| Tipos | Identificables por usuario, rangos de fechas, naturalezas de planificación |
-| Versionado | Criterio de cambio breaking en contratos API |
-| Qué no incluir | Lógica de negocio, SQL, componentes UI |
+### Responsabilidades
+
+- Publicar **DTOs** de request/response alineados a [`contratos-minimos.md`](../../arquitectura/contratos-minimos.md).
+- Centralizar **`codigo`** de error estables y payloads transversales (p. ej. RE-5 `bloqueos`).
+- Definir tipos de **identificadores**, rangos de fechas y enumeraciones compartidas FE/BE.
+- Documentar criterio de **versionado breaking** cuando cambie un contrato API.
+
+### Sí hace / No hace
+
+| Sí hace | No hace |
+|---------|---------|
+| Tipos TypeScript compilables por FE y BE | Lógica de negocio ni validaciones RT-* |
+| Catálogo de códigos reutilizable | SQL, migraciones ni componentes UI |
+| Shapes de API estables | Depender de Back-End, Front-End o Persistencia |
+
+### Frontera con vecinos
+
+| Vecino | Contrato externo | Rol de Shared |
+|--------|------------------|---------------|
+| Front-End | Importa DTOs y `codigo` | Consumidor; no amplía contratos en local |
+| Back-End | Serializa/deserializa mismos tipos | Productor/consumidor simétrico en API |
+| Arquitectura | [`contratos-minimos.md`](../../arquitectura/contratos-minimos.md) | Materializa en código lo acordado documentalmente |
+
+Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general.md) §3.1.
 
 ---
 

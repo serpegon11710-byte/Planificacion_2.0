@@ -14,19 +14,36 @@ Implementar los puertos de repositorio y conexión definidos por el dominio (ZC-
 
 ---
 
-## Contenido esperado en esta carpeta
+## Responsabilidades y límites
 
-| Tema | Ejemplos |
-|------|----------|
-| Adaptadores | Implementación de `*RepositoryPort`, `DatabaseConnectionPort` |
-| Repositorios | Un repositorio por agregado; SQL explícito o query builder acotado |
-| Mappers | Persistencia ↔ entidades de dominio; inferencia de clase de planificación |
-| Transacciones | Unit of Work, begin/commit/rollback (ZC-4, ZC-5) |
-| Consultas en rango | Ocurrencias materializadas, listados por item/proyecto |
-| Borrados (FAQ-311) | Vaciado RE-4 acotado a un `planificacion_id`; evitar DELETE multi-planificación en una TX |
-| Pruebas | Integración con BBDD (Testcontainers u homólogo) |
+### Responsabilidades
 
-**No nombrar el motor en las reglas de esta carpeta:** las decisiones PostgreSQL concretas van en [`docs/implementacion/bbdd/`](../bbdd/) y en `implementacion/bbdd/postgresql/`.
+- **Implementar** los puertos de repositorio y conexión definidos en el Back-End (ZC-5).
+- Traducir entidades de dominio ↔ filas del almacén (mappers, inferencia de clase de planificación).
+- Ejecutar **consultas en rango**, listados y operaciones CRUD acordadas en pseudocódigo ZC-5.
+- Gestionar **transacciones** (begin/commit/rollback) en colaboración con orquestadores ZC-4.
+- Aplicar patrones de borrado acordados (FAQ-311: un `planificacion_id` por operación RE-4).
+
+### Sí hace / No hace
+
+| Sí hace | No hace |
+|---------|---------|
+| SQL parametrizado o query builder acotado | Exponer detalles del motor al dominio |
+| Mapear NULL de herencia en ocurrencias (FAQ-003) | Validar reglas de negocio RT-* (dominio) |
+| Unit of Work para operaciones multi-tabla | Renderizar respuestas HTTP |
+| Traducir fallos de conexión a excepciones de infraestructura | Definir el esquema relacional (componente BBDD) |
+
+**Regla de redacción:** no nombrar el motor en las reglas de esta guía; el SQL dialect-specific va en [`bbdd/`](../bbdd/) y N4 BBDD.
+
+### Frontera con vecinos
+
+| Vecino | Contrato externo | Rol de Persistencia |
+|--------|------------------|---------------------|
+| Back-End | Puertos (`*RepositoryPort`, `DatabaseConnectionPort`) | Implementa interfaces; no las redefine |
+| BBDD | Esquema ER + migraciones | Consume tablas/restricciones; no altera contrato ER sin acuerdo |
+| Shared | — | No depende de DTOs de API; mapea dominio ↔ persistencia |
+
+Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general.md) §3.1.
 
 ---
 

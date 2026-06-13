@@ -14,22 +14,35 @@ Definir el esquema relacional, migraciones versionadas, seeds y scripts operativ
 
 ---
 
-## Contenido esperado en esta carpeta
+## Responsabilidades y límites
 
-Documentación de **disciplina de datos** (parte agnóstica en el texto; el SQL concreto referencia PostgreSQL):
+### Responsabilidades
 
-| Tema | Ejemplos |
-|------|----------|
-| Alineación con ER | Tablas, PK `{tabla}_id`, orden físico FAQ-308/309 |
-| Migraciones | Versionado, idempotencia, rollback |
-| Restricciones | CHECK, UNIQUE parcial Sin planificar, FK CASCADE |
-| UTC | `timestamptz`, `date`, `time` (FAQ-001) |
-| Seeds | Catálogo `TipoPeriodo`, datos de desarrollo |
-| Operación | Scripts de mantenimiento (fuera de la app) |
+- Materializar el **modelo ER** en tablas, índices y restricciones (CHECK, UNIQUE parcial, FK).
+- Versionar **migraciones** y mantener historial reproducible (up/down en entornos de prueba).
+- Proveer **seeds** de catálogo (`TipoPeriodo`) y datos de desarrollo opcionales.
+- Documentar **disciplina de datos**: PK `{tabla}_id`, orden físico (FAQ-308/309), UTC (FAQ-001).
 
-La capa de **Persistencia** consume este esquema vía SQL; no duplicar aquí la lógica de repositorios (ver [`persistencia/README.md`](../persistencia/README.md)).
+### Sí hace / No hace
 
-**Coexistencia de motores (excepción):** mantener PostgreSQL y otro motor (p. ej. MySQL) activos en paralelo está permitido con registro en [historial-stack.md](../../stack-tecnologico/historial-stack.md) — ver [cambio-tecnologia-componente.md § Excepciones](../../stack-tecnologico/cambio-tecnologia-componente.md#excepciones-coexistencia-de-dos-tecnologías-activas).
+| Sí hace | No hace |
+|---------|---------|
+| DDL y DML de esquema/seeds | Lógica de repositorios (Persistencia) |
+| Restricciones de integridad referencial | Reglas de negocio RT/RO en triggers de aplicación |
+| Scripts operativos de mantenimiento | Exponer API HTTP |
+
+La capa de **Persistencia** consume este esquema vía SQL; ver [`persistencia/README.md`](../persistencia/README.md).
+
+**Coexistencia de motores (excepción):** varios motores activos en paralelo — [historial-stack.md](../../stack-tecnologico/historial-stack.md), [cambio-tecnologia-componente.md § Excepciones](../../stack-tecnologico/cambio-tecnologia-componente.md#excepciones-coexistencia-de-dos-tecnologías-activas).
+
+### Frontera con vecinos
+
+| Vecino | Contrato externo | Rol de BBDD |
+|--------|------------------|-------------|
+| Persistencia | Esquema + migraciones aplicadas | Almacén físico; no invocado por dominio directo |
+| Entidades / ER | [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md) | Implementación relacional del modelo acordado |
+
+Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general.md) §3.1.
 
 ---
 

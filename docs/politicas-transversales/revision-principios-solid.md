@@ -11,7 +11,7 @@ Verificar coherencia de diseno a nivel global como parte del Step 9b, antes del 
 | Area | Documentos |
 |------|------------|
 | Raiz | `README.md` |
-| Planificacion | `docs/planificacion/planificacion-inicial.md` |
+| Planificacion | `backlog/000-planificacion-inicial/planificacion-inicial.md` |
 | Casos de uso | `docs/casos-uso/README.md`, UC-01.*, UC-02.*, UC-03 |
 | Entidades | `docs/entidades/planificaciones.md`, `ocurrencias.md`, `proyectos.md`, `items.md` |
 | Politicas transversales | `docs/politicas-transversales/` |
@@ -221,7 +221,7 @@ Las flechas indican referencia/trazabilidad, no acoplamiento de implementacion.
 
 ## Deuda documental detectada (no bloqueante)
 
-Ver [docs/planificacion/dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-100, FAQ-101, FAQ-102 — Step 11).
+Ver [backlog/dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md) (FAQ-100, FAQ-101, FAQ-102 — Step 11).
 
 ---
 

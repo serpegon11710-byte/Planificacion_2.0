@@ -8,7 +8,7 @@
 
 Este documento define el modelo funcional de **Item**, sus atributos, reglas de negocio y efectos colaterales al crear o eliminar. Es la fuente única para UC-01.1, UC-01.2, UC-01.3 y cualquier operación que gestione items dentro de un proyecto.
 
-Registro FAQ: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-004).
+Registro FAQ: [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md) (FAQ-004).
 
 ---
 

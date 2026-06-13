@@ -4,7 +4,7 @@
 
 Prácticas y convenciones para implementar cada **contenedor lógico** de Planificacion 2.0. El contenido de esta carpeta es **agnóstico de tecnología**; el código concreto vive en [`implementacion/`](../../implementacion/) (raíz del repositorio).
 
-> **Vista general:** [vista-general.md](../planificacion/vista-general.md) — contratos de **diseño interno** por componente (Step 12b) vs contratos **externos** en arquitectura.  
+> **Vista general:** [vista-general.md](../../backlog/vista-general.md) — contratos de **diseño interno** por componente (Step 12b) vs contratos **externos** en arquitectura.  
 > **Tres rutas llamadas «implementación»:** leer [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md) antes de añadir documentación o código en otra ubicación.  
 > **Desacoplamiento por contratos:** [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) — restricciones para cambiar tecnología en un componente sin arrastrar al resto.
 

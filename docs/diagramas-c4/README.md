@@ -2,7 +2,7 @@
 
 Parte del **Step 8** del plan de documentacion. Visualiza la estructura del software Planificacion 2.0 e integra con arquitectura (Step 9a).
 
-Dudas y stack: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-100, 101; Step 12a cerrado).
+Dudas y stack: [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md) (FAQ-100, 101; Step 12a cerrado).
 
 ## Estructura por nivel
 

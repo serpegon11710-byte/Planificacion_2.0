@@ -456,10 +456,10 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 
 1. **Step 12a:** ~~Proyectar N4 canónico~~ **Completado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/).
 2. **Step 12b:** ~~Redactar prácticas~~ **Completado** — [docs/implementacion/](../implementacion/).
-3. **Step 13:** ~~Validar coherencia documental~~ **Completado** — [validacion-documental-step13.md](../planificacion/validacion-documental-step13.md) (re-validado).
+3. **Step 13:** ~~Validar coherencia documental~~ **Completado** — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md) (re-validado).
 4. **Step 14:** Bootstrap del monorepo en `implementacion/` (fuera de alcance de este análisis).
 
-FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11 — ver [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md).
+FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11 — ver [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md).
 
 ---
 
@@ -480,7 +480,7 @@ Se evaluaron **cinco stacks** alineados con la arquitectura por capas, los contr
 - `docs/arquitectura/README.md`
 - `docs/entidades/modelo-entidad-relacion.md`
 - `docs/diagramas-c4/c4-nivel-4/zonas-criticas-n4.md`
-- `docs/planificacion/planificacion-inicial.md` (Step 11)
+- `backlog/000-planificacion-inicial/planificacion-inicial.md` (Step 11)
 - `docs/politicas-transversales/internacionalizacion.md`
 - [historial-stack.md](historial-stack.md) — stack activo e historial por componente
 - [cambio-tecnologia-componente.md](cambio-tecnologia-componente.md) — procedimiento `(obsoleto)` y excepciones

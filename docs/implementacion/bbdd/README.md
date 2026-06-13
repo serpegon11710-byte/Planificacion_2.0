@@ -42,7 +42,7 @@ La capa de **Persistencia** consume este esquema vía SQL; ver [`persistencia/RE
 | Persistencia | Esquema + migraciones aplicadas | Almacén físico; no invocado por dominio directo |
 | Entidades / ER | [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md) | Implementación relacional del modelo acordado |
 
-Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general.md) §3.1.
+Ver contratos externos en [`vista-general.md`](../../../backlog/vista-general.md) §3.1.
 
 ---
 

@@ -41,7 +41,7 @@ Interfaz web en navegador: wizard y mantenimiento (UC-01), calendario y gestión
 | Shared | Tipos y `codigo` de error | Importa shapes compartidos; no duplica DTOs |
 | Usuario | i18n y UX | Presenta datos; no persiste directamente |
 
-Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general.md) §3.1.
+Ver contratos externos en [`vista-general.md`](../../../backlog/vista-general.md) §3.1.
 
 ---
 

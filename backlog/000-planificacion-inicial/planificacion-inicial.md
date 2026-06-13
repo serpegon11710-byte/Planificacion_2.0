@@ -207,7 +207,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/politicas-transversales/README.md` | Indice de politicas transversales |
 | `docs/politicas-transversales/revision-principios-solid.md` | Revision global de cumplimiento SOLID |
 | `docs/politicas-transversales/internacionalizacion.md` | Politica transversal de i18n |
-| `docs/planificacion/planificacion-inicial.md` | Plan por fases y steps (→ `backlog/000-planificacion-inicial/`) |
+| `backlog/000-planificacion-inicial/planificacion-inicial.md` | Plan por fases y steps (→ `backlog/000-planificacion-inicial/`) |
 | `backlog/vista-general.md` | Capas, contratos (externo/interno), checklist pre-implementacion |
 | `backlog/dudas-y-resoluciones.md` | FAQ centralizado (FAQ-103: tickets y backlog) |
 | `backlog/README.md` | Indice de tickets y epica activa |
@@ -220,7 +220,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/politicas-transversales/desacoplamiento-componentes-contratos.md` | Restricciones de desacoplamiento por contratos (FAQ-102) |
 | `docs/diagramas-c4/c4-nivel-4/implementacion/` | N4 por componente y tecnologia (Step 12a) |
 | `docs/implementacion/` | Guias de implementacion por componente (Step 12b — **cerrado**) |
-| `docs/planificacion/validacion-documental-step13.md` | Informe validacion documental global (Step 13) |
+| `backlog/000-planificacion-inicial/validacion-documental-step13.md` | Informe validacion documental global (Step 13) |
 | `implementacion/` | Esqueleto de codigo por componente y tecnologia (Step 11) |
 
 ## Verificación

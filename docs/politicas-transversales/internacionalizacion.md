@@ -12,7 +12,7 @@ Separar textos orientados al usuario de la logica de dominio, permitiendo traduc
 
 ## Decisiones base
 
-- **Idioma por defecto:** espanol (`es`), coherente con `docs/planificacion/planificacion-inicial.md`.
+- **Idioma por defecto:** espanol (`es`), coherente con `backlog/000-planificacion-inicial/planificacion-inicial.md`.
 - **Identificadores estables:** codigos de error, tipos de planificacion en persistencia y enums de dominio no se traducen; se usan como claves.
 - **Mensajes al usuario:** se resuelven por clave i18n en la capa que presenta informacion al usuario final.
 

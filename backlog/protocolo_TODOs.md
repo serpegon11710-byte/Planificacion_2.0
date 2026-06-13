@@ -2,7 +2,7 @@
 
 **Última actualización:** 2026-06-12
 
-Cuando un plan de trabajo se diseña con **TODOs** (tareas numeradas o con id), la ejecución debe seguir este protocolo.
+Cuando un plan de trabajo se diseña con **TODOs** o **subtickets** (`T-NNN-xx`), la ejecución debe seguir este protocolo. Marco: [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md).
 
 ---
 
@@ -29,9 +29,9 @@ Explicación en una o dos líneas: qué se hizo, qué ficheros o ámbito tocó y
 ### Ejemplo
 
 ```
-docs(12b): responsabilidades y límites por componente
+feat(T-001-01): monorepo pnpm workspaces
 
-Añade la sección «Responsabilidades y límites» en los cinco README de docs/implementacion/.
+Configura package.json raíz y workspaces para FE, BE, shared, persistencia.
 ```
 
 ### Criterios del título

@@ -63,6 +63,25 @@ BBDD materializa el **contrato ER**; no mapea UC directamente. Las reglas RT/RI 
 
 ---
 
+## Reglas de dependencia
+
+Política transversal: [`desacoplamiento-componentes-contratos.md`](../../politicas-transversales/desacoplamiento-componentes-contratos.md).
+
+| Desde | Puede importar | No puede importar |
+|-------|----------------|-------------------|
+| Migraciones / seeds | SQL del motor, scripts propios | Código TypeScript de aplicación |
+| Consumidor | Solo **Persistencia** (vía conexión SQL) | Dominio Back-End directo |
+
+```mermaid
+flowchart LR
+  bbdd[BBDD migraciones] --> persistencia[Persistencia]
+  persistencia --> domain[Dominio via puertos]
+```
+
+Mapeo stack: N4 [`bbdd/postgresql/`](../../diagramas-c4/c4-nivel-4/implementacion/bbdd/postgresql/).
+
+---
+
 ## Referencias
 
 - Modelo ER: [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md)

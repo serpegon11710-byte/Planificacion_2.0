@@ -65,6 +65,28 @@ Casos de uso: [`docs/casos-uso/`](../../casos-uso/).
 
 ---
 
+## Reglas de dependencia
+
+Política transversal: [`desacoplamiento-componentes-contratos.md`](../../politicas-transversales/desacoplamiento-componentes-contratos.md).
+
+```mermaid
+flowchart TB
+  pages[pages/features] --> components[components]
+  pages --> apiClient[api client]
+  apiClient --> shared[shared]
+  components --> shared
+```
+
+| Desde | Puede importar | No puede importar |
+|-------|----------------|-------------------|
+| `pages/`, `features/` | `components/`, hooks, `api client`, `shared/` | Dominio Back-End, SQL, puertos persistencia |
+| `components/` | `shared/`, utilidades UI | Cliente HTTP directo sin capa api |
+| `api client/` | `shared/` (DTOs) | Lógica de presentación compleja de negocio |
+
+Mapeo a carpetas del stack: N4 [`front-end/react-typescript/`](../../diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/).
+
+---
+
 ## Referencias
 
 - Casos de uso: [`docs/casos-uso/`](../../casos-uso/)

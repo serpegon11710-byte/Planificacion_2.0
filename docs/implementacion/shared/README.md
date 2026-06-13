@@ -60,6 +60,18 @@ Sin pseudocódigo ZC propio. Contrato fuente: [`contratos-minimos.md`](../../arq
 
 ---
 
+## Reglas de dependencia
+
+Política transversal: [`desacoplamiento-componentes-contratos.md`](../../politicas-transversales/desacoplamiento-componentes-contratos.md).
+
+| Desde | Puede importar | No puede importar |
+|-------|----------------|-------------------|
+| `shared/` | — (solo std/lib) | `back-end/`, `front-end/`, `persistencia/`, `bbdd/` |
+
+Shared es **hoja** del grafo de dependencias: consumido por Front-End y Back-End, sin dependencias hacia otros componentes de aplicación.
+
+---
+
 ## Referencias
 
 - Contratos: [`contratos-minimos.md`](../../arquitectura/contratos-minimos.md)

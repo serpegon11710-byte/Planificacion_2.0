@@ -67,6 +67,32 @@ Sub-UC y orquestación: [`granularidad-modulos-negocio.md`](../../arquitectura/g
 
 ---
 
+## Reglas de dependencia
+
+Política transversal: [`desacoplamiento-componentes-contratos.md`](../../politicas-transversales/desacoplamiento-componentes-contratos.md).
+
+```mermaid
+flowchart TB
+  api[api] --> application[application]
+  application --> domain[domain]
+  domain --> ports[ports]
+  application --> ports
+  ports -.->|implementado por| persistencia[Persistencia externa]
+```
+
+| Desde | Puede importar | No puede importar |
+|-------|----------------|-------------------|
+| `api/` | `application/`, DTOs `shared/` | `domain/` internals directos, SQL, adaptadores persistencia |
+| `application/` | `domain/`, `ports/`, `shared/` | Framework HTTP en dominio, UI |
+| `domain/` | otros módulos dominio vía contratos explícitos | `application/`, `api/`, persistencia concreta, framework |
+| `ports/` | tipos de dominio | implementaciones de repositorio |
+
+Orquestadores (ZC-4) viven en **`application/`**; no contienen reglas RT-* ([`granularidad-modulos-negocio.md`](../../arquitectura/granularidad-modulos-negocio.md)).
+
+Mapeo a carpetas del stack: N4 [`back-end/nestjs-typescript/`](../../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/).
+
+---
+
 ## Referencias
 
 - Arquitectura: [`docs/arquitectura/`](../../arquitectura/)

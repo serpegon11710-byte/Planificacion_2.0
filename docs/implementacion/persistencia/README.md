@@ -65,6 +65,27 @@ La persistencia no expone UC directamente; implementa **puertos** invocados desd
 
 ---
 
+## Reglas de dependencia
+
+Política transversal: [`desacoplamiento-componentes-contratos.md`](../../politicas-transversales/desacoplamiento-componentes-contratos.md).
+
+```mermaid
+flowchart LR
+  portsBE[Puertos Back-End] --> adapters[adaptadores]
+  adapters --> repos[repositorios]
+  repos --> driver[driver conexión]
+  driver --> bbdd[BBDD externa]
+```
+
+| Desde | Puede importar | No puede importar |
+|-------|----------------|-------------------|
+| Adaptadores / repos | tipos de `ports` (BE), driver, SQL | `api/`, componentes UI, reglas RT-* |
+| Mappers | entidades equivalentes del dominio (vía contrato) | controllers, DTOs de API |
+
+La persistencia **implementa** puertos; no los redefine. Mapeo stack: N4 [`persistencia/typescript/`](../../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/).
+
+---
+
 ## Referencias
 
 - ER: [`modelo-entidad-relacion.md`](../../entidades/modelo-entidad-relacion.md)

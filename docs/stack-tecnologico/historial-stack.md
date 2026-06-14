@@ -11,7 +11,7 @@ Registro vivo de **qué tecnología está activa** en cada contenedor y **qué t
 
 ## Stack activo (línea base v1)
 
-Adoptado en **Step 11** (2026-06-12). Es la primera entrada del historial; aún no hay tecnologías sustituidas.
+Adoptado en **[T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md)** (2026-06-12). Es la primera entrada del historial; aún no hay tecnologías sustituidas.
 
 | Componente | Tecnología | Versión / detalle | Carpeta `{tecnologia}` | Estado |
 |------------|------------|-------------------|------------------------|--------|
@@ -22,7 +22,7 @@ Adoptado en **Step 11** (2026-06-12). Es la primera entrada del historial; aún 
 | BBDD | PostgreSQL | 16 | `postgresql` | **activa** |
 
 **Rutas de código:** `implementacion/{componente}/{tecnologia}/`  
-**Rutas N4 implementación (Step 12a+):** `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/`
+**Rutas N4 implementación ([T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md)+):** `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/`
 
 **Contratos de referencia (v1):** API v1, puertos v1, ER v1, catálogo de errores v1 — ver [contratos-minimos.md](../arquitectura/contratos-minimos.md).
 
@@ -48,7 +48,7 @@ Registrar **cada sustitución** o **cada alta de coexistencia paralela**. Una fi
 
 | Fecha | Componente | Evento | Tecnología anterior | Tecnología nueva / adicional | Carpeta obsoleta | Motivo | Referencia |
 |-------|------------|--------|---------------------|------------------------------|------------------|--------|------------|
-| 2026-06-12 | *(todos)* | **Línea base v1** | — | Ver tabla «Stack activo» | — | Step 11; FAQ-100, FAQ-101 | [analisis-inicial.md](analisis-inicial.md) |
+| 2026-06-12 | *(todos)* | **Línea base v1** | — | Ver tabla «Stack activo» | — | [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md); FAQ-100, FAQ-101 | [analisis-inicial.md](analisis-inicial.md) |
 
 *(Sin entradas de sustitución hasta el primer cambio de tecnología.)*
 

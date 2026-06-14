@@ -1,8 +1,8 @@
 ﻿# Diagramas C4
 
-Parte del **Step 8** del plan de documentacion. Visualiza la estructura del software Planificacion 2.0 e integra con arquitectura (Step 9a).
+Parte del **[T-000#S-8](../../backlog/000-planificacion-inicial/planificacion-inicial.md)** del plan de documentacion. Visualiza la estructura del software Planificacion 2.0 e integra con arquitectura ([T-000#S-9a](../../backlog/000-planificacion-inicial/planificacion-inicial.md)).
 
-Dudas y stack: [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-100, 101; Step 12a cerrado).
+Dudas y stack: [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) (FAQ-100, 101; [T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md) cerrado).
 
 ## Estructura por nivel
 
@@ -14,7 +14,7 @@ diagramas-c4/
 └── c4-nivel-4/          # Detalle (codigo)
     ├── zonas-criticas-n4.md
     ├── pseudocodigo/    # Canonico (independiente del stack)
-    └── implementacion/  # N4 por componente/tecnologia (Step 12a)
+    └── implementacion/  # N4 por componente/tecnologia ([T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md))
 ```
 
 ## Diagramas por nivel
@@ -26,7 +26,7 @@ diagramas-c4/
 | N3 — Componentes Back-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes.mmd](c4-nivel-3/c4-nivel-3-componentes.mmd) | Cerrado |
 | N3 — Componentes Front-End | [c4-nivel-3/](c4-nivel-3/) | [c4-nivel-3-componentes-frontend.mmd](c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) | Cerrado |
 | N4 — Detalle | [c4-nivel-4/](c4-nivel-4/) | [zonas-criticas-n4.md](c4-nivel-4/zonas-criticas-n4.md) + [pseudocodigo/](c4-nivel-4/pseudocodigo/) | Cerrado (canonico) |
-| N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Cerrado Step 12a | Por componente: `{componente}/{tecnologia}/` |
+| N4 — Implementacion | [c4-nivel-4/implementacion/](c4-nivel-4/implementacion/) | Cerrado [T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md) | Por componente: `{componente}/{tecnologia}/` |
 
 ## Nivel 3
 

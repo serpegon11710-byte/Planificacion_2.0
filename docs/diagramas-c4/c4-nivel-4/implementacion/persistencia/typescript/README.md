@@ -40,7 +40,7 @@ Los **puertos** (interfaces) viven en Back-End: `implementacion/back-end/nestjs-
 
 ## Inyección (NestJS)
 
-En bootstrap (Step 14), registrar providers:
+En bootstrap (Ticket 001), registrar providers:
 
 ```typescript
 { provide: PROYECTO_REPOSITORY_PORT, useClass: ProyectoRepository }

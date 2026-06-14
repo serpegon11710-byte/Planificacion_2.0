@@ -57,7 +57,7 @@ BBDD materializa el **contrato ER**; no mapea UC directamente. Las reglas RT/RI 
 | Periódicas | `PlanificacionPeriodo`, `TipoPeriodo` | ZC-5 |
 | Ocurrencias | `OcurrenciasMaterializadas`, orden físico FAQ-309 | ZC-5 |
 
-| ZC | Pseudocódigo | N4 Step 12a |
+| ZC | Pseudocódigo | N4 [T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md) |
 |----|--------------|-------------|
 | ZC-5 (esquema) | [`zc-5-persistencia.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | [`postgresql/zc-5-persistencia-esquema.md`](../../diagramas-c4/c4-nivel-4/implementacion/bbdd/postgresql/zc-5-persistencia-esquema.md) |
 
@@ -114,5 +114,5 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 | Stack | [analisis-inicial.md](../../stack-tecnologico/analisis-inicial.md) (FAQ-100), [historial-stack.md](../../stack-tecnologico/historial-stack.md) |
 | Persistencia (consumidor) | [persistencia/README.md](../persistencia/README.md) |
 | Pseudocódigo | [zc-5-persistencia.md](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) |
-| N4 Step 12a | [postgresql/zc-5-persistencia-esquema.md](../../diagramas-c4/c4-nivel-4/implementacion/bbdd/postgresql/zc-5-persistencia-esquema.md) |
+| N4 [T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md) | [postgresql/zc-5-persistencia-esquema.md](../../diagramas-c4/c4-nivel-4/implementacion/bbdd/postgresql/zc-5-persistencia-esquema.md) |
 | Código | [`implementacion/bbdd/postgresql/migrations/`](../../../implementacion/bbdd/postgresql/migrations/) |

@@ -56,7 +56,7 @@ Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general
 | UC-03 (Sin planificar) | ZC-1 | Listado filtrado |
 | Definición/edición planificación periódica | ZC-3 | Motor temporal e inferencia de naturaleza |
 
-| ZC | Pseudocódigo | N4 Step 12a |
+| ZC | Pseudocódigo | N4 [T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md) |
 |----|--------------|-------------|
 | ZC-1 | [`zc-1-consulta-ocurrencias.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-1-consulta-ocurrencias.md) | [`nestjs-typescript/zc-1-consulta-ocurrencias.md`](../../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/zc-1-consulta-ocurrencias.md) |
 | ZC-2 | [`zc-2-materializacion-ocurrencias.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-2-materializacion-ocurrencias.md) | [`zc-2-materializacion-ocurrencias.md`](../../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/zc-2-materializacion-ocurrencias.md) |
@@ -127,5 +127,5 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 | Arquitectura | [README](../../arquitectura/README.md), [contratos-minimos.md](../../arquitectura/contratos-minimos.md), [granularidad-modulos-negocio.md](../../arquitectura/granularidad-modulos-negocio.md), [transacciones-consistencia.md](../../arquitectura/transacciones-consistencia.md), [errores-validaciones-capas.md](../../arquitectura/errores-validaciones-capas.md) |
 | Entidades | [proyectos.md](../../entidades/proyectos.md), [items.md](../../entidades/items.md), [planificaciones.md](../../entidades/planificaciones.md), [ocurrencias.md](../../entidades/ocurrencias.md), [modelo-entidad-relacion.md](../../entidades/modelo-entidad-relacion.md) |
 | Pseudocódigo | [zc-1](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-1-consulta-ocurrencias.md) … [zc-4](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-4-orquestacion-aplicacion.md) |
-| N4 Step 12a | [nestjs-typescript/](../../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/) |
+| N4 [T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md) | [nestjs-typescript/](../../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/) |
 | Código | [`implementacion/back-end/nestjs-typescript/`](../../../implementacion/back-end/nestjs-typescript/) |

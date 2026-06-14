@@ -177,4 +177,4 @@ Esta granularidad se considera base de referencia para los siguientes pasos de a
 
 - transacciones y limites de consistencia,
 - politicas de errores y validaciones por capa,
-- y Step 11 (seleccion de stack tecnologico).
+- y [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md) (seleccion de stack tecnologico).

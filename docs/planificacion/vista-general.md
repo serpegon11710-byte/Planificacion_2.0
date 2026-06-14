@@ -2,7 +2,7 @@
 
 **Última actualización:** 2026-06-12
 
-Documento de referencia para entender **cómo encajan** dominio, contenedores, contratos y código en Planificacion 2.0. Forma parte de la **documentación previa obligatoria** antes de implementar lógica de negocio (Step 14) o ampliar código más allá del bootstrap.
+Documento de referencia para entender **cómo encajan** dominio, contenedores, contratos y código en Planificacion 2.0. Forma parte de la **documentación previa obligatoria** antes de implementar lógica de negocio o ampliar código más allá del bootstrap ([Ticket 001](../../backlog/001-bootstrap/README.md)).
 
 > **Principio:** documentar primero, implementar después. Los contratos (externos e internos) fijan qué se puede codificar sin sorpresas de acoplamiento.
 
@@ -108,12 +108,12 @@ Cambiar tecnología en un componente **no** debe romper contratos externos salvo
 | Ámbito | Qué fija | Documentación principal |
 |--------|----------|-------------------------|
 | Módulos de negocio y agregados | Límites Proyecto / Item / Planificación / Ocurrencia | [granularidad-modulos-negocio.md](../arquitectura/granularidad-modulos-negocio.md) |
-| Capas Back-End | `api/` → `application/` → `domain/` → `ports/` | N4 [back-end/nestjs-typescript/](../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/), [docs/implementacion/back-end/](../implementacion/back-end/) (Step 12b) |
+| Capas Back-End | `api/` → `application/` → `domain/` → `ports/` | N4 [back-end/nestjs-typescript/](../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/), [docs/implementacion/back-end/](../implementacion/back-end/) ([T-000#S-12b](../../backlog/000-planificacion-inicial/planificacion-inicial.md)) |
 | Subcomponentes lógicos (ZC) | Algoritmos, pseudocódigo, puertos de lectura | [pseudocodigo/](../diagramas-c4/c4-nivel-4/pseudocodigo/) |
 | Traducción al stack | Mapeo lógico → clase → archivo | [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/) por `{componente}/{tecnologia}/` |
 | Árbol de código | Carpetas por componente y tecnología | [implementacion/README.md](../../implementacion/README.md) |
 | Transacciones y errores internos | Unidades de trabajo, taxonomía por capa | [transacciones-consistencia.md](../arquitectura/transacciones-consistencia.md), [errores-validaciones-capas.md](../arquitectura/errores-validaciones-capas.md) |
-| Convenciones por contenedor (agnósticas) | Prácticas sin atar al stack en el texto | [docs/implementacion/](../implementacion/) (Step 12b) |
+| Convenciones por contenedor (agnósticas) | Prácticas sin atar al stack en el texto | [docs/implementacion/](../implementacion/) ([T-000#S-12b](../../backlog/000-planificacion-inicial/planificacion-inicial.md)) |
 
 Los contratos de diseño interno **no sustituyen** a los externos: definen la **forma** del código; los externos definen la **frontera** con vecinos.
 
@@ -129,36 +129,37 @@ Los contratos de diseño interno **no sustituyen** a los externos: definen la **
 | 4 | Arquitectura + **contratos externos** | ¿Qué se expone en cada frontera? |
 | 5 | N4 canónico | ¿Cómo funciona por dentro (lógica)? |
 | 6 | N4 implementación + **contratos internos** | ¿Cómo se nombra y organiza en el stack? |
-| 7 | Step 12b (guías componente) | ¿Qué convenciones agnósticas aplican? |
-| 8 | Step 13 (validación) | ¿Todo es coherente? |
-| 9 | Step 14 (bootstrap) | ¿Arranca el andamiaje sin negocio? |
+| 7 | Ticket 000 — Paso 12b (guías componente) | ¿Qué convenciones agnósticas aplican? |
+| 8 | Ticket 000 — Paso 13 (validación) | ¿Todo es coherente? |
+| 9 | Ticket 001 (bootstrap) | ¿Arranca el andamiaje sin negocio? |
 | 10 | Implementación UC-* | ¿Reglas de negocio en código? |
 
 ---
 
-## 5. Bootstrap (Step 14) — qué es y qué no es
+## 5. Bootstrap — qué es y qué no es
 
-**Bootstrap** = andamiaje ejecutable **mínimo**, no lógica de negocio.
+Resumen: andamiaje ejecutable **mínimo** (monorepo, arranque FE/BE, migraciones, shared, DI), **sin lógica de negocio**.
 
-Incluye (orientativo):
+Detalle, stack, requisitos e subtickets: **[001-bootstrap/README.md](../../backlog/001-bootstrap/README.md)**.
 
-- Monorepo pnpm, `package.json`, scripts `dev` / `build` / `test`
-- NestJS arranca (p. ej. health check); Vite/React arranca en navegador
-- PostgreSQL: migraciones iniciales, seeds `TipoPeriodo`, conexión desde persistencia
-- Paquete `shared` compilable
-- Wiring DI: implementaciones de puertos registradas en Nest
+---
 
-**Objetivo:** clonar, instalar y ejecutar **sin error**, aunque UC-01/02/03 aún no estén implementados.
+## 5b. Separación `docs/` vs `backlog/`
 
-**No es:** documentar (Steps 1–13), ni implementar wizard/calendario/reglas RT/RO.
+| Ubicación | Contenido |
+|-----------|-----------|
+| **`docs/`** | Producto: dominio, arquitectura, C4, entidades, casos de uso |
+| **`docs/planificacion/`** | Transversales: este documento, protocolos, [historial-tickets.md](historial-tickets.md) |
+| **`backlog/`** | Solo épicas (`000`…`008`) e índice [README.md](../../backlog/README.md) |
+| **`backlog/NNN-…/dudas-y-resoluciones.md`** | FAQ del ticket activo (T-000: diseño Steps 1–13; 001+: dudas de ejecución) |
 
-Detalle en [planificacion-inicial.md](planificacion-inicial.md) — Step 14.
+Protocolo completo: [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md) §7.
 
 ---
 
 ## 6. Checklist: documentación antes de implementar negocio
 
-Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
+Usar antes del **bootstrap con lógica de negocio** o al cerrar [T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md).
 
 ### Contratos de interfaz externa
 
@@ -173,15 +174,16 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 - [x] ZC canónicas en [pseudocodigo/](../diagramas-c4/c4-nivel-4/pseudocodigo/)
 - [x] N4 implementación por componente en [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/)
 - [x] Granularidad de módulos en [granularidad-modulos-negocio.md](../arquitectura/granularidad-modulos-negocio.md)
-- [x] Guías por componente en [docs/implementacion/](../implementacion/) (Step 12b)
+- [x] Guías por componente en [docs/implementacion/](../implementacion/) ([T-000#S-12b](../../backlog/000-planificacion-inicial/planificacion-inicial.md))
 - [x] Árbol de código acordado en [implementacion/README.md](../../implementacion/README.md)
 
 ### Plan y stack
 
-- [x] [planificacion-inicial.md](planificacion-inicial.md) y [dudas-y-resoluciones.md](dudas-y-resoluciones.md) al día
+- [x] [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md) y FAQ del T-000 [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) al día (FAQ cerrada)
 - [x] Stack activo en [historial-stack.md](../stack-tecnologico/historial-stack.md)
+- [x] FAQ del ticket activo sin entradas **Abiertas** que bloqueen subtickets (T-000 cerrado; 001+ usan su propio `dudas-y-resoluciones.md`)
 
-**Validación Step 13 (2026-06-12; re-validado):** [validacion-documental-step13.md](validacion-documental-step13.md).
+**Validación [T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** **completada** (re-validada 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
 
 ---
 
@@ -201,9 +203,10 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 
 | Tema | Ubicación |
 |------|-----------|
-| Plan por fases | [planificacion-inicial.md](planificacion-inicial.md) |
-| FAQ y decisiones | [dudas-y-resoluciones.md](dudas-y-resoluciones.md) |
-| Arquitectura | [docs/arquitectura/README.md](../arquitectura/README.md) |
+| Plan por fases (T-000) | [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md) |
+| FAQ diseño T-000 | [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) |
+| Épicas e historial | [backlog/README.md](../../backlog/README.md), [historial-tickets.md](historial-tickets.md) |
+| Arquitectura | [arquitectura/README.md](../arquitectura/README.md) |
 | Desacoplamiento | [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) |
 | Tres rutas «implementación» | [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md) |
 | C4 | [diagramas-c4/README.md](../diagramas-c4/README.md) |

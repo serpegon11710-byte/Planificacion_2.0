@@ -11,7 +11,7 @@ Instrucciones para **sustituir** la tecnología de un contenedor (Front-End, Bac
 
 ## Alcance
 
-Aplica a **código** y **documentación N4 de implementación** (Step 12a+):
+Aplica a **código** y **documentación N4 de implementación** ([T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md)+):
 
 | Ámbito | Patrón de ruta |
 |--------|----------------|
@@ -132,6 +132,6 @@ Sin registro en historial, **no** se considera válida la coexistencia de dos ca
 
 | Tema | Ubicación |
 |------|-----------|
-| FAQ-102 | [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) |
+| FAQ-102 | [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) |
 | Desambiguación rutas | [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md) |
 | N4 por componente | [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md) |

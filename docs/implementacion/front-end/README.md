@@ -57,7 +57,7 @@ Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general
 | UC-02.4 | ZC-6 | Gestión ocurrencias materializadas; avisos RE-5 |
 | UC-03 (Sin planificar) | ZC-6 | Listado y acciones desde backlog |
 
-| ZC | Pseudocódigo | N4 Step 12a |
+| ZC | Pseudocódigo | N4 [T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md) |
 |----|--------------|-------------|
 | ZC-6 | [`zc-6-presentacion.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-6-presentacion.md) | [`react-typescript/zc-6-presentacion.md`](../../diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/zc-6-presentacion.md) |
 
@@ -122,6 +122,6 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 | Casos de uso | [docs/casos-uso/](../../casos-uso/) |
 | Políticas | [internacionalizacion.md](../../politicas-transversales/internacionalizacion.md) |
 | Pseudocódigo | [zc-6-presentacion.md](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-6-presentacion.md) |
-| N4 Step 12a | [react-typescript/zc-6-presentacion.md](../../diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/zc-6-presentacion.md) |
+| N4 [T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md) | [react-typescript/zc-6-presentacion.md](../../diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/zc-6-presentacion.md) |
 | Código | [`implementacion/front-end/react-typescript/`](../../../implementacion/front-end/react-typescript/) |
 | Shared | [shared/README.md](../shared/README.md) |

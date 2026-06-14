@@ -115,7 +115,7 @@ Usado por `ELIMINACION_PROYECTO_BLOQUEADA` y `ELIMINACION_ITEM_BLOQUEADA`. Fuent
 
 1. No importar módulos de `back-end/`, `front-end/`, `persistencia/` ni `bbdd/`.
 2. Cambios breaking en DTOs o `ErrorCode` requieren versionado de contrato (ver [historial-stack.md](../../../../../stack-tecnologico/historial-stack.md)).
-3. Implementación concreta en código: Step 14 (`implementacion/shared/typescript/`).
+3. Implementación concreta en código: Ticket 001 (`implementacion/shared/typescript/`).
 
 ---
 

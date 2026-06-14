@@ -141,11 +141,11 @@ Un solo prefijo del orden físico `(planificacion_id, fecha_original, hora, ocur
 - **UC-02.3** (solo observaciones u otros campos): UPDATE puntual → bloqueo mínimo.
 - **UC-02.4** anular/restaurar o vaciado masivo: DELETE → mayor ventana de lock local en esa planificación.
 
-Detalle de aislamiento, RCSI y Step 11: [FAQ-311](../planificacion/dudas-y-resoluciones.md).
+Detalle de aislamiento, RCSI y [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md): [FAQ-311](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md).
 
 ---
 
 ## Referencias
 
 - [modelo-clases-planificacion.md](modelo-clases-planificacion.md), [planificaciones.md](planificaciones.md)
-- [dudas-y-resoluciones.md](../planificacion/dudas-y-resoluciones.md) (FAQ-002, FAQ-003, **FAQ-311**)
+- [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) (FAQ-002, FAQ-003, **FAQ-311**)

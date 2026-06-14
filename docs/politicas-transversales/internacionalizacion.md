@@ -12,7 +12,7 @@ Separar textos orientados al usuario de la logica de dominio, permitiendo traduc
 
 ## Decisiones base
 
-- **Idioma por defecto:** espanol (`es`), coherente con `docs/planificacion/planificacion-inicial.md`.
+- **Idioma por defecto:** espanol (`es`), coherente con `backlog/000-planificacion-inicial/planificacion-inicial.md`.
 - **Identificadores estables:** codigos de error, tipos de planificacion en persistencia y enums de dominio no se traducen; se usan como claves.
 - **Mensajes al usuario:** se resuelven por clave i18n en la capa que presenta informacion al usuario final.
 
@@ -131,9 +131,9 @@ locales/
     ...
 ```
 
-## Criterio para stack tecnologico (Step 11)
+## Criterio para stack tecnologico ([T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md))
 
-Al elegir tecnologias en el Step 11 del plan de documentacion, valorar soporte de i18n en Front-End, interpolacion de parametros y formateo de fecha/hora por locale.
+Al elegir tecnologias en el [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md) del plan de documentacion, valorar soporte de i18n en Front-End, interpolacion de parametros y formateo de fecha/hora por locale.
 
 ## Resultado
 

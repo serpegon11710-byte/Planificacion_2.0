@@ -3,7 +3,7 @@
 > **Ticket 000 — Planificación inicial.** Los pasos numerados en este documento son **Pasos 1–13 del Ticket 000**. Índice paso ↔ FAQ: [README.md](README.md). Tras el Paso 13, la implementación continúa en tickets **001+** ([backlog/README.md](../README.md)).
 
 **Fecha:** 2026-06-10  
-**Vista general (capas, contratos, bootstrap):** [vista-general.md](../vista-general.md) — lectura recomendada antes de implementar código.
+**Vista general (capas, contratos, bootstrap):** [vista-general.md](../../docs/planificacion/vista-general.md) — lectura recomendada antes de implementar código.
 
 **Objetivo:** Crear la estructura de documentación completa para el proyecto Planificacion 2.0
 
@@ -107,7 +107,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
   - `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes.mmd` (N3 cerrado)
   - N4 canonico: `docs/diagramas-c4/c4-nivel-4/pseudocodigo/` + `zonas-criticas-n4.md` (cerrado)
   - N4 implementacion por componente: `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (**cerrado** Step 12a)
-- Incorporar trazabilidad entre diagramas C4 y casos de uso UC-01, UC-02, UC-03 (ver FAQ-201 en [dudas-y-resoluciones.md](../dudas-y-resoluciones.md))
+- Incorporar trazabilidad entre diagramas C4 y casos de uso UC-01, UC-02, UC-03 (ver FAQ-201 en [dudas-y-resoluciones.md](dudas-y-resoluciones.md))
 
 **Step 8b: Diagrama C4 N3 — Front-End** (*depends on 8*; FAQ-200)
 - Fichero: `docs/diagramas-c4/c4-nivel-3/c4-nivel-3-componentes-frontend.mmd`
@@ -146,7 +146,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 ### Fase 6: Modelo de Datos (ER)
 **Step 10: Generar diagrama entidad-relacion** (*depends on 9a, 9b*)
 - Archivo principal: `docs/entidades/modelo-entidad-relacion.md`
-- Basarse en [dudas-y-resoluciones.md](../dudas-y-resoluciones.md) y entidades en `docs/entidades/`.
+- Basarse en [dudas-y-resoluciones.md](dudas-y-resoluciones.md) y entidades en `docs/entidades/`.
 - Entregables (FAQ):
   - **FAQ-300–311:** ERD con `Proyectos`, `Items`, `Planificaciones`, `PlanificacionPeriodo`, `TipoPeriodo` (visibilidad campos patrón), `OcurrenciasMaterializadas`; naturaleza inferida sin flags (sustituye borrador `DefinicionFechaHora`)
   - **FAQ-003:** tabla `OcurrenciasMaterializadas`; alinear seccion de persistencia en `ocurrencias.md`
@@ -208,8 +208,8 @@ Con fecha inicio, fecha fin y periodo de repetición:
 | `docs/politicas-transversales/revision-principios-solid.md` | Revision global de cumplimiento SOLID |
 | `docs/politicas-transversales/internacionalizacion.md` | Politica transversal de i18n |
 | `backlog/000-planificacion-inicial/planificacion-inicial.md` | Plan por fases y steps (→ `backlog/000-planificacion-inicial/`) |
-| `backlog/vista-general.md` | Capas, contratos (externo/interno), checklist pre-implementacion |
-| `backlog/dudas-y-resoluciones.md` | FAQ centralizado (FAQ-103: tickets y backlog) |
+| `docs/planificacion/vista-general.md` | Capas, contratos (externo/interno), checklist pre-implementacion |
+| `000-planificacion-inicial/dudas-y-resoluciones.md` | FAQ de diseño T-000 (Steps 1–13) |
 | `backlog/README.md` | Indice de tickets y epica activa |
 | `docs/entidades/modelo-entidad-relacion.md` | Diagrama ERD Mermaid (Step 10) |
 | `docs/entidades/modelo-clases-planificacion.md` | Diagrama de clases dominio (FAQ-307) |
@@ -249,18 +249,18 @@ Se utilizará formato estándar con secciones: Actores, Precondiciones, Flujo Pr
 - Diagramas de flujo para visualización/consultas
 
 ### Modelo de Datos
-Modelo ER unificado (`Planificaciones` + `PlanificacionPeriodo`, catálogo `TipoPeriodo`). Ver [dudas-y-resoluciones.md](../dudas-y-resoluciones.md) (FAQ-300–311) y [modelo-entidad-relacion.md](../../docs/entidades/modelo-entidad-relacion.md).
+Modelo ER unificado (`Planificaciones` + `PlanificacionPeriodo`, catálogo `TipoPeriodo`). Ver [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (FAQ-300–311) y [modelo-entidad-relacion.md](../../docs/entidades/modelo-entidad-relacion.md).
 
 ### Estados de Planificación
 Se consideran 3 estados (Pendiente, Completada, Expirada) donde "Expirada" se calcula dinámicamente según fecha actual vs. fecha planificada.
 
 ## Dudas y resoluciones
 
-Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centralizan en **[dudas-y-resoluciones.md](../dudas-y-resoluciones.md)** (FAQ).
+Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centralizan en **[dudas-y-resoluciones.md](dudas-y-resoluciones.md)** (FAQ).
 
 Resumen de estado (2026-06-12):
 
-- **Resueltas:** FAQ-000 a FAQ-007 (grupo 0), FAQ-100 a FAQ-103 (grupo 1), FAQ-200 a FAQ-201 (grupo 2), FAQ-300 a FAQ-311 (grupo 3).
+- **Resueltas:** FAQ-000 a FAQ-007 (grupo 0), FAQ-100 a FAQ-102 (grupo 1), FAQ-200 a FAQ-201 (grupo 2), FAQ-300 a FAQ-311 (grupo 3).
 - **Ticket 000 (planificacion-inicial):** **en curso** — Step 13 pendiente de re-validación (reorganización FAQ/backlog).
 - **Ticket 001 (bootstrap):** **bloqueado** — ver [001-bootstrap/README.md](../001-bootstrap/README.md) hasta cierre del T-000.
 - **Gestion del trabajo:** indice en [README.md](../README.md).

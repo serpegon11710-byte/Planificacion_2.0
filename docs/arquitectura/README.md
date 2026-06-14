@@ -2,8 +2,8 @@
 
 ## Estado actual
 
-- Stack tecnologico **definido** (Step 11, 2026-06-12): NestJS + React + TypeScript + PostgreSQL. Ver [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md) y FAQ-100/102 en [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md).
-- Vista general (capas, contratos, bootstrap): [vista-general.md](../../backlog/vista-general.md).
+- Stack tecnologico **definido** (Step 11, 2026-06-12): NestJS + React + TypeScript + PostgreSQL. Ver [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md) y FAQ-100/102 en [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md).
+- Vista general (capas, contratos, bootstrap): [vista-general.md](../planificacion/vista-general.md).
 - Desambiguacion de rutas «implementacion»: [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md).
 - Desacoplamiento por contratos: [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
 

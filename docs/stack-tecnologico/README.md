@@ -8,4 +8,4 @@
 | [historial-stack.md](historial-stack.md) | **Stack activo** por componente e **historial** de tecnologías sustituidas o coexistientes |
 | [cambio-tecnologia-componente.md](cambio-tecnologia-componente.md) | **Procedimiento** al cambiar tecnología: etiqueta `(obsoleto)`, excepciones de coexistencia (p. ej. BBDD) |
 
-**Políticas relacionadas:** [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md), FAQ-102 en [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md).
+**Políticas relacionadas:** [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md), FAQ-102 en [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md).

@@ -459,7 +459,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 3. **Step 13:** Validar coherencia documental — **pendiente re-validación** (Step 13 reabierto 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
 4. **Ticket 001:** Bootstrap del monorepo en `implementacion/` — ver [001-bootstrap/README.md](../../backlog/001-bootstrap/README.md).
 
-FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11 — ver [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md).
+FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11 — ver [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md).
 
 ---
 

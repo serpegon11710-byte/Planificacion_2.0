@@ -4,7 +4,7 @@
 
 Política transversal para que **cambiar la tecnología de un componente** (React, NestJS, PostgreSQL, etc.) afecte **solo a ese componente**, salvo cuando se modifique de forma consciente un **contrato** compartido.
 
-> **Marco conceptual:** [vista-general.md](../../backlog/vista-general.md) (§3 contratos externos vs internos).  
+> **Marco conceptual:** [vista-general.md](../planificacion/vista-general.md) (§3 contratos externos vs internos).  
 > **Relacionado:** [desambiguacion-implementacion.md](desambiguacion-implementacion.md) (tres rutas «implementación»), [contratos-minimos.md](../arquitectura/contratos-minimos.md), [errores-validaciones-capas.md](../arquitectura/errores-validaciones-capas.md).
 
 ---

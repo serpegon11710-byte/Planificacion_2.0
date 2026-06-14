@@ -28,7 +28,7 @@ Incluye:
 
 ## 2. Stack inicial v1
 
-Fuente: [FAQ-100](../dudas-y-resoluciones.md#faq-100--motor-de-base-de-datos), [FAQ-101](../dudas-y-resoluciones.md#faq-101--stack-de-aplicacion), [historial-stack.md](../../docs/stack-tecnologico/historial-stack.md).
+Fuente: [FAQ-100](../000-planificacion-inicial/dudas-y-resoluciones.md#faq-100--motor-de-base-de-datos), [FAQ-101](../000-planificacion-inicial/dudas-y-resoluciones.md#faq-101--stack-de-aplicacion), [historial-stack.md](../../docs/stack-tecnologico/historial-stack.md).
 
 | Componente | Tecnología | Código | N4 12a | Guía 12b |
 |------------|------------|--------|--------|----------|
@@ -107,4 +107,4 @@ Cada subticket tendrá fichero `T-001-xx-*.md` al iniciarse.
 
 - [vista-general.md](../vista-general.md) — capas y contratos
 - [implementacion/README.md](../../implementacion/README.md) — árbol de código
-- [FAQ-103](../dudas-y-resoluciones.md#faq-103--gestion-del-trabajo-por-tickets-y-carpeta-backlog)
+- [protocolo-trabajo-tickets.md](../../docs/planificacion/protocolo-trabajo-tickets.md) — modelo tickets y backlog

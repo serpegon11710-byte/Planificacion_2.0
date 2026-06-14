@@ -4,7 +4,7 @@ Vista derivada del [pseudocódigo canónico](../pseudocodigo/). Documenta cómo 
 
 > **Desambiguación:** esta carpeta **no** es [`docs/implementacion/`](../../../implementacion/) (guías agnósticas por componente) ni [`implementacion/`](../../../../implementacion/) (código fuente). Ver [`desambiguacion-implementacion.md`](../../../politicas-transversales/desambiguacion-implementacion.md).  
 > **Desacoplamiento:** [`desacoplamiento-componentes-contratos.md`](../../../politicas-transversales/desacoplamiento-componentes-contratos.md).  
-> **Marco:** [`vista-general.md`](../../../../backlog/vista-general.md) — N4 implementación = contrato de **diseño interno** (mapeo lógico → clases del stack).
+> **Marco:** [`vista-general.md`](../../../planificacion/vista-general.md) — N4 implementación = contrato de **diseño interno** (mapeo lógico → clases del stack).
 
 ---
 

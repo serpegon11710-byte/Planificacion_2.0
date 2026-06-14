@@ -43,7 +43,7 @@ Implementar los puertos de repositorio y conexión definidos por el dominio (ZC-
 | BBDD | Esquema ER + migraciones | Consume tablas/restricciones; no altera contrato ER sin acuerdo |
 | Shared | — | No depende de DTOs de API; mapea dominio ↔ persistencia |
 
-Ver contratos externos en [`vista-general.md`](../../../backlog/vista-general.md) §3.1.
+Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general.md) §3.1.
 
 ---
 
@@ -57,7 +57,7 @@ La persistencia no expone UC directamente; implementa **puertos** invocados desd
 | CRUD Proyecto, Item, Planificación | ZC-5 | Mappers e inferencia de naturaleza |
 | Materialización / mutación ocurrencias | ZC-5 (ZC-2) | Herencia NULL (FAQ-003) |
 | Transacciones multi-tabla | ZC-5 (ZC-4) | Unit of Work |
-| Borrado masivo RE-4 | ZC-5 | Un `planificacion_id` por TX ([FAQ-311](../../../backlog/dudas-y-resoluciones.md)) |
+| Borrado masivo RE-4 | ZC-5 | Un `planificacion_id` por TX ([FAQ-311](../../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md)) |
 
 | ZC | Pseudocódigo | N4 Step 12a |
 |----|--------------|-------------|
@@ -117,7 +117,7 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 |--------|---------|
 | Arquitectura | [contratos-minimos.md](../../arquitectura/contratos-minimos.md) §1–2, [transacciones-consistencia.md](../../arquitectura/transacciones-consistencia.md) |
 | Entidades | [modelo-entidad-relacion.md](../../entidades/modelo-entidad-relacion.md), [planificaciones.md](../../entidades/planificaciones.md), [ocurrencias.md](../../entidades/ocurrencias.md) |
-| FAQ | [FAQ-311](../../../backlog/dudas-y-resoluciones.md) (borrado RE-4) |
+| FAQ | [FAQ-311](../../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) (borrado RE-4) |
 | Pseudocódigo | [zc-5-persistencia.md](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) |
 | N4 Step 12a | [typescript/zc-5-persistencia.md](../../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/zc-5-persistencia.md) |
 | Código | [`implementacion/persistencia/typescript/`](../../../implementacion/persistencia/typescript/) |

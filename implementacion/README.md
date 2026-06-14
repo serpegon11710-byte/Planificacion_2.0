@@ -5,7 +5,7 @@
 Árbol de **código ejecutable** de Planificacion 2.0, organizado por **componente lógico** (contenedores C4) y **tecnología concreta** en cada subcarpeta.
 
 > **Desambiguación:** este directorio no es `docs/implementacion/` (guías agnósticas) ni `docs/diagramas-c4/.../implementacion/` (N4 por stack). Ver [`desambiguacion-implementacion.md`](../docs/politicas-transversales/desambiguacion-implementacion.md).  
-> **Antes de codificar negocio:** [vista-general.md](../backlog/vista-general.md) §6 (checklist de contratos).
+> **Antes de codificar negocio:** [vista-general.md](../docs/planificacion/vista-general.md) §6 (checklist de contratos).
 
 ---
 

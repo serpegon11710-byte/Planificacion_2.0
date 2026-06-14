@@ -37,4 +37,4 @@ Gestión de ocurrencias **físicas** de una planificación concreta (vista por p
 ## Referencias
 
 - [UC-02.4](../../docs/casos-uso/UC-02.4-gestion-ocurrencias-por-planificacion.md)
-- [FAQ-311](../dudas-y-resoluciones.md) (borrado acotado)
+- [T-000#F-311](../000-planificacion-inicial/dudas-y-resoluciones.md#faq-311--bloqueos-en-borrado-masivo-de-ocurrenciasmaterializadas-re-4) (borrado acotado)

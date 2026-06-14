@@ -132,6 +132,6 @@ Sin registro en historial, **no** se considera válida la coexistencia de dos ca
 
 | Tema | Ubicación |
 |------|-----------|
-| FAQ-102 | [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md) |
+| FAQ-102 | [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) |
 | Desambiguación rutas | [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md) |
 | N4 por componente | [c4-nivel-4/implementacion/README.md](../diagramas-c4/c4-nivel-4/implementacion/README.md) |

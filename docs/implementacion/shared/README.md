@@ -39,7 +39,7 @@ Centralizar DTOs, códigos de error, tipos de contrato e identificadores estable
 | Back-End | Serializa/deserializa mismos tipos | Productor/consumidor simétrico en API |
 | Arquitectura | [`contratos-minimos.md`](../../arquitectura/contratos-minimos.md) | Materializa en código lo acordado documentalmente |
 
-Ver contratos externos en [`vista-general.md`](../../../backlog/vista-general.md) §3.1.
+Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general.md) §3.1.
 
 ---
 

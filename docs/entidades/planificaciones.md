@@ -10,7 +10,7 @@ Este documento define la entidad abstracta **Planificación**, sus especializaci
 
 **Jerarquía de clases (dominio):** [modelo-clases-planificacion.md](modelo-clases-planificacion.md) — diagrama y mapeo persistencia ↔ clase.
 
-Decisiones de modelo: [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md) (FAQ-300, FAQ-301, FAQ-302, FAQ-305, FAQ-306, FAQ-307).
+Decisiones de modelo: [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) (FAQ-300, FAQ-301, FAQ-302, FAQ-305, FAQ-306, FAQ-307).
 
 ---
 
@@ -243,7 +243,7 @@ Nuevo tipo de periodo: fila en `TipoPeriodo`, nueva subclase de `PlanificacionPe
 
 ### RC-6: Eliminación restringida (RE-3, RE-4)
 
-No eliminar si `estado = Completada` o si la planificación **periódica** tiene ocurrencias materializadas. Vaciado masivo futuro de materializadas para RE-4: ver [FAQ-311](../../backlog/dudas-y-resoluciones.md) y UC-02.4.
+No eliminar si `estado = Completada` o si la planificación **periódica** tiene ocurrencias materializadas. Vaciado masivo futuro de materializadas para RE-4: ver [FAQ-311](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) y UC-02.4.
 
 ### RC-7: Aviso RE-5
 

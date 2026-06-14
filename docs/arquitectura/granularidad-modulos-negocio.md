@@ -1,6 +1,6 @@
 # Granularidad final de modulos de negocio
 
-Este documento fija la granularidad de modulos de negocio para Planificacion 2.0, sin acoplarse a tecnologias concretas. Forma parte de los **contratos de diseño interno** del Back-End — ver [vista-general.md](../../backlog/vista-general.md) §3.2.
+Este documento fija la granularidad de modulos de negocio para Planificacion 2.0, sin acoplarse a tecnologias concretas. Forma parte de los **contratos de diseño interno** del Back-End — ver [vista-general.md](../planificacion/vista-general.md) §3.2.
 
 ## Objetivo
 

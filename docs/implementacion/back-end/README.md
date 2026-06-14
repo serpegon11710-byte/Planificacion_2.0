@@ -41,7 +41,7 @@ Punto de entrada HTTP/JSON, orquestación de casos de uso (ZC-4) y lógica de ne
 | Persistencia | Puertos de repositorio y conexión | Define interfaces en dominio; inyecta implementación en aplicación |
 | Shared | Tipos y códigos compartidos | Importa DTOs/`codigo`; no redefine contratos en silos |
 
-Ver contratos externos en [`vista-general.md`](../../../backlog/vista-general.md) §3.1.
+Ver contratos externos en [`vista-general.md`](../../planificacion/vista-general.md) §3.1.
 
 ---
 

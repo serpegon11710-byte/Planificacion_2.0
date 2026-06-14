@@ -1,7 +1,7 @@
 # Ticket 000 — Planificación inicial
 
-**Estado:** **Cerrado** (2026-06-12)  
-**Alcance:** Pasos 1–13 del plan documental. **No incluye código ni bootstrap.**
+**Estado:** **En curso** (Step 13 pendiente de re-validación, 2026-06-13)  
+**Alcance:** Steps 1–13 del plan documental — planificar y definir la documentación del proyecto. **No incluye código ni bootstrap.**
 
 > Las FAQ de diseño referencian pasos como **«Ticket 000 — Paso N»**. El historico FAQ termina en el **Paso 13**. La implementacion continua en tickets **001+** — ver [backlog/README.md](../README.md).
 

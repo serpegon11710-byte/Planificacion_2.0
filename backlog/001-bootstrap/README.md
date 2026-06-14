@@ -2,9 +2,9 @@
 
 **Estado:** **Pendiente**  
 **Épica:** andamiaje ejecutable (histórico Step 14)  
-**Prerequisito:** Ticket 000 cerrado (Step 13 validado)
+**Prerequisito:** Ticket 000 en curso; Step 13 pendiente de re-validación (no iniciar bootstrap)
 
-> Protocolo: [protocolo-trabajo-tickets.md](../protocolo-trabajo-tickets.md) · Checklist previo: [vista-general.md](../vista-general.md) §6
+> Protocolo: [protocolo-trabajo-tickets.md](../../docs/planificacion/protocolo-trabajo-tickets.md) · Checklist previo: [vista-general.md](../../docs/planificacion/vista-general.md) §6
 
 ---
 

@@ -1,13 +1,16 @@
-# Planificación (movida)
+# Planificación — documentos transversales
 
-La gestión del trabajo y la planificación documental se han reubicado en **[`backlog/`](../../backlog/)** (FAQ-103).
+> **Índice provisional (T1); índice completo en T7.**
 
-| Antes | Ahora |
-|-------|-------|
-| `docs/planificacion/vista-general.md` | [`backlog/vista-general.md`](../../backlog/vista-general.md) |
-| `docs/planificacion/dudas-y-resoluciones.md` | [`backlog/dudas-y-resoluciones.md`](../../backlog/dudas-y-resoluciones.md) |
-| `docs/planificacion/planificacion-inicial.md` | [`backlog/000-planificacion-inicial/planificacion-inicial.md`](../../backlog/000-planificacion-inicial/planificacion-inicial.md) |
-| `docs/planificacion/validacion-documental-step13.md` | [`backlog/000-planificacion-inicial/validacion-documental-step13.md`](../../backlog/000-planificacion-inicial/validacion-documental-step13.md) |
-| `docs/planificacion/protocolo_TODOs.md` | [`backlog/protocolo_TODOs.md`](../../backlog/protocolo_TODOs.md) |
+Documentación transversal de planificación y gestión del trabajo (no es producto ni tickets de implementación).
 
-Índice de tickets: [`backlog/README.md`](../../backlog/README.md).
+| Documento | Propósito |
+|-----------|-----------|
+| [vista-general.md](vista-general.md) | Capas, contratos, checklist pre-implementación |
+| [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md) | Flujo de trabajo por tickets |
+| [protocolo-commits.md](protocolo-commits.md) | Formato de mensajes de commit |
+| [protocolo_TODOs.md](protocolo_TODOs.md) | Un commit por TODO/subticket |
+
+**FAQ de diseño (Ticket 000, provisional):** [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md) — se moverá al T-000 en T2.
+
+**Épicas (tickets 000–008):** [backlog/README.md](../../backlog/README.md).

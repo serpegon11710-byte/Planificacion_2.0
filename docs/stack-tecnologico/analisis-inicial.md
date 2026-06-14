@@ -456,7 +456,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 
 1. **Step 12a:** ~~Proyectar N4 canónico~~ **Completado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/).
 2. **Step 12b:** ~~Redactar prácticas~~ **Completado** — [docs/implementacion/](../implementacion/).
-3. **Step 13:** ~~Validar coherencia documental~~ **Completado** — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md) (re-validado).
+3. **Step 13:** Validar coherencia documental — **pendiente re-validación** (Step 13 reabierto 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
 4. **Ticket 001:** Bootstrap del monorepo en `implementacion/` — ver [001-bootstrap/README.md](../../backlog/001-bootstrap/README.md).
 
 FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11 — ver [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md).

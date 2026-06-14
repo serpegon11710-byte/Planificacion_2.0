@@ -2,10 +2,11 @@
 
 **Fecha inicial:** 2026-06-12  
 **Re-validación:** 2026-06-12 (corrección FAQ legacy + N4 shared)  
+**Step 13 reabierto:** 2026-06-13 — reorganización FAQ/backlog (Ticket 000 en curso)  
 **Alcance:** coherencia global entre entidades, ER, C4, arquitectura, stack, N4 (12a), guías de implementación (12b) y plan/FAQ.  
-**Resultado:** **Aprobado** — documentación lista para **Ticket 001** (bootstrap técnico sin lógica de negocio).
+**Resultado:** **Pendiente re-validación** — aprobación previa (2026-06-12) no sustituye el cierre tras la reorganización.
 
-Referencia de checklist: [vista-general.md](../vista-general.md) §6.
+Referencia de checklist: [vista-general.md](../../docs/planificacion/vista-general.md) §6.
 
 ---
 

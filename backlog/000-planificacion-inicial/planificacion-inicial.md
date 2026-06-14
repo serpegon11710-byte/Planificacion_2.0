@@ -175,9 +175,9 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Agnostico de tecnologia en la redaccion; enlaces al codigo en `implementacion/` y a N4 del Step 12a.
 
 ### Fase 8: Cierre documental e implementacion
-**Step 13: Validar toda la documentacion** (*depends on 10, 12a, 12b*) — **Completado (2026-06-12; re-validado)**
+**Step 13: Validar toda la documentacion** (*depends on 10, 12a, 12b*) — **Pendiente** (reabierto 2026-06-13: reorganización FAQ/backlog)
 - Revision de coherencia entre entidades, ER, C4, arquitectura, stack, N4 e implementacion.
-- Informe: [validacion-documental-step13.md](validacion-documental-step13.md); checklist [vista-general.md](../vista-general.md) §6 marcado.
+- Informe: [validacion-documental-step13.md](validacion-documental-step13.md); checklist [vista-general.md](../../docs/planificacion/vista-general.md) §6 marcado.
 
 > **Bootstrap (ex Step 14):** fuera del Ticket 000. Ver [Ticket 001 — Bootstrap](../001-bootstrap/README.md).
 
@@ -261,8 +261,8 @@ Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centrali
 Resumen de estado (2026-06-12):
 
 - **Resueltas:** FAQ-000 a FAQ-007 (grupo 0), FAQ-100 a FAQ-103 (grupo 1), FAQ-200 a FAQ-201 (grupo 2), FAQ-300 a FAQ-311 (grupo 3).
-- **Ticket 000 (planificacion-inicial):** **cerrado** — Steps 1–13; ver [validacion-documental-step13.md](validacion-documental-step13.md).
-- **Ticket 001 (bootstrap):** **pendiente** — ver [001-bootstrap/README.md](../001-bootstrap/README.md) (FAQ-103).
+- **Ticket 000 (planificacion-inicial):** **en curso** — Step 13 pendiente de re-validación (reorganización FAQ/backlog).
+- **Ticket 001 (bootstrap):** **bloqueado** — ver [001-bootstrap/README.md](../001-bootstrap/README.md) hasta cierre del T-000.
 - **Gestion del trabajo:** indice en [README.md](../README.md).
 
 ## Próximos Pasos
@@ -280,7 +280,7 @@ Resumen de estado (2026-06-12):
 [x] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-100, FAQ-101, FAQ-102)
 [x] 12a. Ejecutar Step 12a: N4 implementacion por componente (`{componente}/{tecnologia}/`)
 [x] 12b. Ejecutar Step 12b: Practicas en `docs/implementacion/{componente}/`
-[x] 13. Ejecutar Step 13: Validar toda la documentacion
+[ ] 13. Ejecutar Step 13: Validar toda la documentacion (re-validacion pendiente)
 
 > **Siguiente trabajo:** [Ticket 001 — Bootstrap](../001-bootstrap/README.md) (no forma parte del Ticket 000).
 

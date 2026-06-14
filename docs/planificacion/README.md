@@ -1,7 +1,5 @@
 # Planificación — documentos transversales
 
-> **Índice provisional (T1); índice completo en T7.**
-
 Documentación transversal de planificación y gestión del trabajo (no es producto ni tickets de implementación).
 
 | Documento | Propósito |
@@ -12,6 +10,6 @@ Documentación transversal de planificación y gestión del trabajo (no es produ
 | [protocolo_TODOs.md](protocolo_TODOs.md) | Un commit por TODO/subticket |
 | [historial-tickets.md](historial-tickets.md) | Estado de épicas 000–008 |
 
-**FAQ de diseño (Ticket 000):** [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md)
+**FAQ de diseño (Ticket 000, Steps 1–13):** [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md)
 
-**Épicas (tickets 000–008):** [backlog/README.md](../../backlog/README.md).
+**Épicas (tickets 000–008):** [backlog/README.md](../../backlog/README.md)

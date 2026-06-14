@@ -144,6 +144,19 @@ Detalle, stack, requisitos e subtickets: **[001-bootstrap/README.md](../../backl
 
 ---
 
+## 5b. Separación `docs/` vs `backlog/`
+
+| Ubicación | Contenido |
+|-----------|-----------|
+| **`docs/`** | Producto: dominio, arquitectura, C4, entidades, casos de uso |
+| **`docs/planificacion/`** | Transversales: este documento, protocolos, [historial-tickets.md](historial-tickets.md) |
+| **`backlog/`** | Solo épicas (`000`…`008`) e índice [README.md](../../backlog/README.md) |
+| **`backlog/NNN-…/dudas-y-resoluciones.md`** | FAQ del ticket activo (T-000: diseño Steps 1–13; 001+: dudas de ejecución) |
+
+Protocolo completo: [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md) §7.
+
+---
+
 ## 6. Checklist: documentación antes de implementar negocio
 
 Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
@@ -166,8 +179,9 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 
 ### Plan y stack
 
-- [x] [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md) y [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md) al día
+- [x] [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md) y FAQ del T-000 [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) al día (re-validación Step 13 pendiente)
 - [x] Stack activo en [historial-stack.md](../stack-tecnologico/historial-stack.md)
+- [ ] FAQ del **ticket activo** sin entradas **Abiertas** que bloqueen subtickets (T-000 en curso; 001+ usan su propio `dudas-y-resoluciones.md`)
 
 **Validación Step 13:** **pendiente re-validación** (reabierto 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
 
@@ -189,8 +203,9 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 
 | Tema | Ubicación |
 |------|-----------|
-| Plan por fases | [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md) |
-| FAQ y decisiones | [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md) |
+| Plan por fases (T-000) | [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md) |
+| FAQ diseño T-000 | [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) |
+| Épicas e historial | [backlog/README.md](../../backlog/README.md), [historial-tickets.md](historial-tickets.md) |
 | Arquitectura | [arquitectura/README.md](../arquitectura/README.md) |
 | Desacoplamiento | [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) |
 | Tres rutas «implementación» | [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md) |

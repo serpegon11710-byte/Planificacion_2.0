@@ -49,11 +49,14 @@ Reglas ámbito: `F-Gnn` ↔ `FAQ-Gnn`; `S-YY` ↔ Step `YY`; no usar `(000)` sin
 
 ---
 
-## Referencias en markdown (T1 — solo FAQ; Steps en T4)
+## Referencias en markdown
 
 | Tipo | Texto visible | Destino del enlace |
 |------|---------------|-------------------|
 | FAQ | `T-NNN#F-Gnn` | `backlog/NNN-…/dudas-y-resoluciones.md#faq-Gnn--…` |
+| Step | `T-NNN#S-YY` | `backlog/NNN-…/planificacion-inicial.md#s-YY--…` (T-000: [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md)) |
+
+Convención simétrica documentada en [protocolo-trabajo-tickets.md § Referencias externas (FAQ y Steps)](protocolo-trabajo-tickets.md#referencias-externas-faq-y-steps).
 
 ---
 

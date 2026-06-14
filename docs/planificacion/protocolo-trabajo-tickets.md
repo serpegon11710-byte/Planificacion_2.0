@@ -123,6 +123,68 @@ No cerrar un subticket si queda una FAQ **abierta** que lo bloquea.
 
 ---
 
+## 8. Gestión de FAQs por ticket
+
+### Referencias externas (FAQ y Steps) {#referencias-externas-faq-y-steps}
+
+Fuera de la carpeta del ticket origen, usar ID con prefijo `T-NNN`:
+
+| Tipo | ID visible (externo) | Canónico (dentro del ticket) | Destino del enlace |
+|------|----------------------|------------------------------|-------------------|
+| **FAQ** | `T-NNN#F-Gnn` | `FAQ-Gnn` en `dudas-y-resoluciones.md` | `backlog/NNN-…/dudas-y-resoluciones.md#faq-Gnn--…` |
+| **Step** | `T-NNN#S-YY` | `Step YY:` en el plan del ticket | `backlog/NNN-…/planificacion-inicial.md#s-YY--…` |
+
+Reglas Steps (simétricas a FAQ):
+
+- **`S-YY`** = forma corta de Step `YY` (`S-10` ↔ Step 10), igual que **`F-Gnn`** ↔ `FAQ-Gnn`.
+- Fuera de la carpeta del ticket **NNN**: no escribir «Step 10» a secas; usar **`T-NNN#S-10`** + enlace al doc canónico del ticket.
+- Dentro del ticket: redacción nativa («**Step 13:** Validar…»).
+- Migración masiva de refs existentes: auditoría periódica; convención documentada aquí.
+
+Enlazar a [protocolo-commits.md](protocolo-commits.md) para ámbitos `(T-NNN#F-Gnn)` y `(T-NNN#S-YY)` en commits.
+
+### Reglas generales (FAQ)
+
+| Regla | Contenido |
+|-------|-----------|
+| FAQ 000 | Tras re-cierre Step 13: archivo **cerrado** (cabecera protocolizada); no bloquea ejecución de épicas 001+ |
+| FAQ 001+ | Dudas de la épica (Abiertas y **Resueltas** conservadas como acta); numeración **FAQ-Gnn** local; grupos semánticos propios documentados en cabecera |
+| Cierre de duda | Producto → actualizar `docs/` + marcar resuelta; proceso → protocolo |
+| Bloqueo | Subticket bloqueado solo por FAQ **abierta del ticket activo** |
+| Referencia externa | Formato **`T-NNN#F-Gnn`** (ej. `T-000#F-311`; equivale a FAQ-311 del ticket NNN) |
+| Enlace en markdown | Ruta al fichero + ancla `#faq-Gnn--…`; texto visible **`T-NNN#F-Gnn`** (ticket explícito) |
+| Reversión de decisión | Nueva entrada o nota: «Decisión revertida en T-NNN#F-Gnn» |
+
+Grupos semánticos de referencia del T-000 (plantilla para épicas 001+): **0** dominio, **1** stack, **2** C4, **3** ER — ver [FAQ del T-000](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md).
+
+### Cierre de FAQ de épica (protocolizado)
+
+Cuando una épica **cierra** (criterios del README cumplidos + commit de cierre):
+
+1. **Comprobar** que no quedan entradas con estado **Abierta** en `dudas-y-resoluciones.md` del ticket.
+2. **Sustituir** la cabecera del fichero (o añadir bloque bajo el título `# FAQ`) por la plantilla de cierre:
+
+```markdown
+> **Ticket NNN — FAQ cerrada (YYYY-MM-DD).** Solo lectura; no admite entradas nuevas.
+> Resoluciones ejecutables: ver entregables en `docs/` o README de la épica (acta histórica en este fichero).
+```
+
+- **Ticket 000:** fecha = commit que re-cierra Step 13; texto cita «Step 13».
+- **Tickets 001+:** fecha = día del commit que cierra la épica.
+
+3. **No añadir** más entradas FAQ en ese fichero; nuevas dudas de producto → `docs/` + FAQ del ticket activo.
+4. **Actualizar** [historial-tickets.md](historial-tickets.md) (fecha cierre, commit) y README de la épica (estado **Cerrada**).
+5. **Commit de cierre** de épica: título con ámbito `(T-NNN)`; cuerpo menciona `FAQ cerrada T-NNN`.
+
+**Estados de FAQ por ticket:**
+
+| Estado del fichero | Cabecera | ¿Bloquea subtickets? |
+|--------------------|----------|---------------------|
+| **Viva** | Sin bloque de cierre; leyenda Abierta/Resuelta | Solo entradas **Abiertas** |
+| **Cerrada** | Plantilla de cierre (solo lectura) | No |
+
+---
+
 ## Referencias
 
 - [README.md](README.md) — índice de transversales

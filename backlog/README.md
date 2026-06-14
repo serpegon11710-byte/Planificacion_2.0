@@ -2,7 +2,7 @@
 
 **Última actualización:** 2026-06-13
 
-Índice de **tickets y épicas** de Planificacion 2.0. La documentación de producto (dominio, arquitectura, C4) permanece en [`docs/`](../docs/). Protocolos, vista general e historial: [`docs/planificacion/`](../docs/planificacion/README.md).
+Índice de **tickets y épicas** de Planificacion 2.0. La documentación de producto (dominio, arquitectura, C4) permanece en [`docs/`](../docs/). Protocolos, vista general e historial: [`docs/planificacion/`](../docs/planificacion/README.md) ([historial-tickets.md](../docs/planificacion/historial-tickets.md)).
 
 > **Leer primero:** [protocolo-trabajo-tickets.md](../docs/planificacion/protocolo-trabajo-tickets.md) · [vista-general.md](../docs/planificacion/vista-general.md)
 

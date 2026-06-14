@@ -2,7 +2,7 @@
 
 **Última actualización:** 2026-06-13
 
-Reglas para ejecutar trabajo en Planificacion 2.0. Durante la reorganización del backlog, el **Ticket 000** está **en curso** (Step 13 pendiente de re-validación); el **Ticket 001** permanece bloqueado hasta el cierre del T-000. Ver [FAQ-103](../../backlog/dudas-y-resoluciones.md#faq-103--gestion-del-trabajo-por-tickets-y-carpeta-backlog).
+Reglas para ejecutar trabajo en Planificacion 2.0. Durante la reorganización del backlog, el **Ticket 000** está **en curso** (Step 13 pendiente de re-validación); el **Ticket 001** permanece bloqueado hasta el cierre del T-000.
 
 ---
 
@@ -26,7 +26,7 @@ Antes de abrir un subticket de código:
 | Subticket | `T-NNN-xx-nombre.md` | `T-001-01-monorepo-pnpm.md` |
 
 - El prefijo `T-NNN` corresponde a la épica `NNN`.
-- **Ticket 000:** plan documental Steps 1–13; **en curso** (Step 13 pendiente). No admite subtickets de código.
+- **Ticket 000:** plan documental Steps 1–13; **en curso** (Step 13 pendiente). No admite subtickets de código ni bootstrap.
 
 ---
 
@@ -93,9 +93,10 @@ Una frase.
 
 | Situación | Acción |
 |-----------|--------|
-| Duda de diseño / contrato / ER | [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md) (Ticket 000, Pasos 1–13) |
+| Duda de diseño / contrato / ER (Ticket 000) | [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) (Pasos 1–13) |
+| Duda durante ejecución de épica 001+ | `dudas-y-resoluciones.md` de la épica activa |
 | Tarea ejecutable acotada | Subticket en la épica ([backlog/README.md](../../backlog/README.md)) |
-| Cambio breaking de contrato API/DTO | FAQ + actualizar N4 shared + historial-stack |
+| Cambio breaking de contrato API/DTO | FAQ del ticket + actualizar N4 shared + historial-stack |
 
 No cerrar un subticket si queda una FAQ **abierta** que lo bloquea.
 
@@ -103,17 +104,28 @@ No cerrar un subticket si queda una FAQ **abierta** que lo bloquea.
 
 ## 7. Separación docs/ vs backlog/
 
-| Carpeta | Contenido |
-|---------|-----------|
-| [`docs/`](../) | Producto: dominio, arquitectura, C4, entidades |
-| [`docs/planificacion/`](README.md) | Transversales: vista-general, protocolos, historial |
-| [`backlog/`](../../backlog/README.md) | Épicas 000–008 y subtickets |
+| Ubicación | Contenido |
+|-----------|-----------|
+| **`docs/`** | Producto: dominio, arquitectura, C4, entidades, casos de uso |
+| **`docs/planificacion/`** | Transversales: [vista-general.md](vista-general.md), [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md), [protocolo-commits.md](protocolo-commits.md), [protocolo_TODOs.md](protocolo_TODOs.md), [historial-tickets.md](historial-tickets.md) (cuando exista) |
+| **`backlog/`** (raíz) | Solo **épicas** (`000`…`008`) e índice [README.md](../../backlog/README.md) |
+| **`backlog/000-planificacion-inicial/`** | Ticket 000: plan documental Steps 1–13, FAQ de diseño, validación Step 13 |
+| **`backlog/00N-…/`** (N ≥ 1) | Épica de implementación; detalle en cada `README.md` y subtickets `T-NNN-xx` |
+| **`implementacion/`** | Código fuente |
+
+**Referencias comunes** (no son tickets): transversales en [`docs/planificacion/`](README.md); épicas en [`backlog/README.md`](../../backlog/README.md).
+
+**Ticket 000** (`backlog/000-planificacion-inicial/`): planificar y definir la documentación del proyecto (Steps 1–13). Tabla pasos ↔ FAQ: [000-planificacion-inicial/README.md](../../backlog/000-planificacion-inicial/README.md). **En curso** (Step 13 pendiente de re-validación). No admite subtickets de código.
+
+**Tickets 001+** (bootstrap, UC, …): índice y roadmap en [backlog/README.md](../../backlog/README.md). Convención subtickets `T-NNN-xx`. **001 bloqueado** hasta cierre del T-000.
+
+**FAQ vs backlog:** el FAQ del T-000 registra **decisiones de diseño** (Steps 1–13). **No** duplicar en él el listado ni el estado de tickets 001+.
 
 ---
 
 ## Referencias
 
+- [README.md](README.md) — índice de transversales
 - [backlog/README.md](../../backlog/README.md) — índice de épicas
 - [protocolo-commits.md](protocolo-commits.md) — formato de commits
 - [protocolo_TODOs.md](protocolo_TODOs.md) — un commit por subticket
-- [FAQ-103](../../backlog/dudas-y-resoluciones.md#faq-103--gestion-del-trabajo-por-tickets-y-carpeta-backlog)

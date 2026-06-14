@@ -2,20 +2,9 @@
 
 **Última actualización:** 2026-06-13
 
-Índice de **tickets y épicas** de Planificacion 2.0. La documentación de producto (dominio, arquitectura, C4) permanece en [`docs/`](../docs/).
+Índice de **tickets y épicas** de Planificacion 2.0. La documentación de producto (dominio, arquitectura, C4) permanece en [`docs/`](../docs/). Protocolos, vista general e historial: [`docs/planificacion/`](../docs/planificacion/README.md).
 
-> **Leer primero:** [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md) · [vista-general.md](vista-general.md) · [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (FAQ-103)
-
----
-
-## Referencia común (no son tickets)
-
-| Documento | Propósito |
-|-----------|-----------|
-| [vista-general.md](vista-general.md) | Capas, contratos, checklist pre-implementación |
-| [dudas-y-resoluciones.md](dudas-y-resoluciones.md) | FAQ de diseño (Ticket 000, Pasos 1–13); FAQ-103: modelo `docs/` vs `backlog/` |
-| [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md) | Flujo de trabajo por tickets |
-| [protocolo_TODOs.md](protocolo_TODOs.md) | Commits (un commit por subticket) |
+> **Leer primero:** [protocolo-trabajo-tickets.md](../docs/planificacion/protocolo-trabajo-tickets.md) · [vista-general.md](../docs/planificacion/vista-general.md)
 
 ---
 
@@ -23,11 +12,11 @@
 
 | Necesitas… | Lee… |
 |------------|------|
-| Decisiones de diseño, FAQ por tema | [dudas-y-resoluciones.md](dudas-y-resoluciones.md) (historico hasta **Ticket 000 — Paso 13**) |
+| Decisiones de diseño del T-000 (Steps 1–13) | [000-planificacion-inicial/dudas-y-resoluciones.md](000-planificacion-inicial/dudas-y-resoluciones.md) |
 | Pasos 1–13 del plan documental, tabla paso ↔ FAQ | [000-planificacion-inicial/README.md](000-planificacion-inicial/README.md) |
 | Roadmap tickets 001+, ticket activo | **Este README** (sección Épicas) |
 | Detalle de una épica (alcance, subtickets) | `00N-nombre/README.md` |
-| Protocolo de ejecución y commits | [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md), [protocolo_TODOs.md](protocolo_TODOs.md) |
+| Protocolo de ejecución, commits, historial | [docs/planificacion/README.md](../docs/planificacion/README.md) |
 
 ---
 
@@ -49,8 +38,8 @@ flowchart LR
 
 | ID | Carpeta | Estado | Alcance |
 |----|---------|--------|---------|
-| **000** | [000-planificacion-inicial/](000-planificacion-inicial/) | **Cerrada** | Steps 1–13: documentación y validación |
-| **001** | [001-bootstrap/](001-bootstrap/) | **Pendiente** | Andamiaje ejecutable; sin negocio |
+| **000** | [000-planificacion-inicial/](000-planificacion-inicial/) | **En curso** | Steps 1–13: documentación y validación (Step 13 pendiente) |
+| **001** | [001-bootstrap/](001-bootstrap/) | **Bloqueado** | Andamiaje ejecutable; sin negocio (hasta cierre T-000) |
 | **002** | [002-proyecto-item/](002-proyecto-item/) | **Pendiente** | UC-01.2, UC-01.3 — módulos Proyecto e Item |
 | **003** | [003-planificacion/](003-planificacion/) | **Pendiente** | UC-01.4, UC-01.5, UC-03 — módulo Planificación (ZC-3) |
 | **004** | [004-wizard-uc01/](004-wizard-uc01/) | **Pendiente** | UC-01.1 — wizard creación (ZC-4) |
@@ -63,6 +52,6 @@ flowchart LR
 
 ## Ticket activo
 
-**001-bootstrap** — ver [001-bootstrap/README.md](001-bootstrap/README.md).
+**000-planificacion-inicial** — Step 13 pendiente de re-validación. Ver [000-planificacion-inicial/README.md](000-planificacion-inicial/README.md).
 
-Tras cerrar 001, siguiente recomendado: **002-proyecto-item**.
+**001-bootstrap** permanece **bloqueado** hasta el cierre del T-000 (T10).

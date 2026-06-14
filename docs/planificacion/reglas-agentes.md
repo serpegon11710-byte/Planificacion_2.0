@@ -13,6 +13,7 @@
 | **Checklist pre-implementación** | [vista-general.md](vista-general.md) §6 | Contratos antes de bootstrap / negocio |
 | **Estado de épicas** | [historial-tickets.md](historial-tickets.md) | Solo épicas 000–008; subtickets en README de épica |
 | **Roadmap e ticket activo** | [backlog/README.md](../../backlog/README.md) | Épicas; no duplicar transversales aquí |
+| **Encoding / finales de línea** | [.editorconfig](../../.editorconfig), [.gitattributes](../../.gitattributes) | UTF-8 sin BOM, LF en repo; ver también [.vscode/settings.json](../../.vscode/settings.json) |
 
 ---
 

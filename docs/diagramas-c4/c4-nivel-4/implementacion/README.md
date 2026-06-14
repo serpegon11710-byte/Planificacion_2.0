@@ -10,7 +10,7 @@ Vista derivada del [pseudocódigo canónico](../pseudocodigo/). Documenta cómo 
 
 ## Estado
 
-**Completado (Step 12a, 2026-06-12).** Tecnologías activas: [historial-stack.md](../../../stack-tecnologico/historial-stack.md).
+**Completado ([T-000#S-12a](../../../../backlog/000-planificacion-inicial/planificacion-inicial.md), 2026-06-12).** Tecnologías activas: [historial-stack.md](../../../stack-tecnologico/historial-stack.md).
 
 ---
 

@@ -4,17 +4,17 @@
 
 Prácticas y convenciones para implementar cada **contenedor lógico** de Planificacion 2.0. El contenido de esta carpeta es **agnóstico de tecnología**; el código concreto vive en [`implementacion/`](../../implementacion/) (raíz del repositorio).
 
-> **Vista general:** [vista-general.md](../planificacion/vista-general.md) — contratos de **diseño interno** por componente (Step 12b) vs contratos **externos** en arquitectura.  
+> **Vista general:** [vista-general.md](../planificacion/vista-general.md) — contratos de **diseño interno** por componente ([T-000#S-12b](../../backlog/000-planificacion-inicial/planificacion-inicial.md)) vs contratos **externos** en arquitectura.  
 > **Tres rutas llamadas «implementación»:** leer [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md) antes de añadir documentación o código en otra ubicación.  
 > **Desacoplamiento por contratos:** [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md) — restricciones para cambiar tecnología en un componente sin arrastrar al resto.
 
-**Estado:** **Completado (Step 12b, 2026-06-12).** Cada guía incluye responsabilidades, mapeo UC/ZC, dependencias, tests/errores y referencias cruzadas.
+**Estado:** **Completado ([T-000#S-12b](../../backlog/000-planificacion-inicial/planificacion-inicial.md), 2026-06-12).** Cada guía incluye responsabilidades, mapeo UC/ZC, dependencias, tests/errores y referencias cruzadas.
 
 ---
 
 ## Componentes
 
-| Componente | Guía | ZC | Código | N4 Step 12a |
+| Componente | Guía | ZC | Código | N4 [T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md) |
 |------------|------|-----|--------|-------------|
 | Front-End | [front-end/README.md](front-end/README.md) | ZC-6 | `implementacion/front-end/react-typescript/` | [react-typescript/](../diagramas-c4/c4-nivel-4/implementacion/front-end/react-typescript/) |
 | Back-End | [back-end/README.md](back-end/README.md) | ZC-1 … ZC-4 | `implementacion/back-end/nestjs-typescript/` | [nestjs-typescript/](../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/) |
@@ -37,6 +37,6 @@ Prácticas y convenciones para implementar cada **contenedor lógico** de Planif
 ## Relación con N4 y stack
 
 - Pseudocódigo canónico: [`docs/diagramas-c4/c4-nivel-4/pseudocodigo/`](../diagramas-c4/c4-nivel-4/pseudocodigo/).
-- Proyección N4 por componente (Step 12a): [`docs/diagramas-c4/c4-nivel-4/implementacion/`](../diagramas-c4/c4-nivel-4/implementacion/).
+- Proyección N4 por componente ([T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md)): [`docs/diagramas-c4/c4-nivel-4/implementacion/`](../diagramas-c4/c4-nivel-4/implementacion/).
 - Desacoplamiento por contratos: [`desacoplamiento-componentes-contratos.md`](../politicas-transversales/desacoplamiento-componentes-contratos.md).
 - Stack activo: [`historial-stack.md`](../stack-tecnologico/historial-stack.md).

@@ -332,4 +332,4 @@ Quedan definidas las politicas de errores y validaciones para:
 
 Los mensajes orientativos de este documento alimentan el catalogo i18n del locale `es` (ver `docs/politicas-transversales/internacionalizacion.md`).
 
-Este documento es base para el Step 11 (stack tecnologico), cierre del Step 9 de arquitectura.
+Este documento es base para el [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md) (stack tecnologico), cierre del [T-000#S-9](../../backlog/000-planificacion-inicial/planificacion-inicial.md) de arquitectura.

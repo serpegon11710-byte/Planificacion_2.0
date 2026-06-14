@@ -103,5 +103,5 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 | Arquitectura | [contratos-minimos.md](../../arquitectura/contratos-minimos.md), [errores-validaciones-capas.md](../../arquitectura/errores-validaciones-capas.md) |
 | Políticas | [internacionalizacion.md](../../politicas-transversales/internacionalizacion.md), [desacoplamiento-componentes-contratos.md](../../politicas-transversales/desacoplamiento-componentes-contratos.md) |
 | Pseudocódigo | — (tipos derivados de contratos API) |
-| N4 Step 12a | [shared/typescript/](../diagramas-c4/c4-nivel-4/implementacion/shared/typescript/) (contratos API/DTOs; sin ZC) |
+| N4 [T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md) | [shared/typescript/](../diagramas-c4/c4-nivel-4/implementacion/shared/typescript/) (contratos API/DTOs; sin ZC) |
 | Código | [`implementacion/shared/typescript/`](../../../implementacion/shared/typescript/) |

@@ -10,7 +10,7 @@ Modelo lógico de persistencia para Planificacion 2.0. **Jerarquía de clases de
 **Notas transversales:**
 
 - Fechas y horas en **UTC** (FAQ-001). El formateo a locale es responsabilidad de la capa de presentación.
-- Tipos físicos concretos (`TIMESTAMPTZ`, etc.) se fijan en Step 11 al elegir motor de BBDD.
+- Tipos físicos concretos (`TIMESTAMPTZ`, etc.) se fijan en [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md) al elegir motor de BBDD.
 - La **clase concreta** de dominio (`PlanificacionSinPlanificar`, `PlanificacionPuntual`, `PlanificacionDiaria`, …) se **infiere** de los datos; no hay flags ni columnas discriminadoras en BD.
 
 ---
@@ -229,7 +229,7 @@ Listar cada planificación bloqueante con **`IdentificablePorUsuario`** — ver 
 
 ## Orden físico e índices de acceso (FAQ-308)
 
-La **PK** (`{tabla}_id`) identifica filas y enlaza FK; **no define por sí sola** el orden físico (FAQ-308). Sintaxis concreta en Step 11.
+La **PK** (`{tabla}_id`) identifica filas y enlaza FK; **no define por sí sola** el orden físico (FAQ-308). Sintaxis concreta en [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md).
 
 ### Principio
 

@@ -59,7 +59,7 @@ La persistencia no expone UC directamente; implementa **puertos** invocados desd
 | Transacciones multi-tabla | ZC-5 (ZC-4) | Unit of Work |
 | Borrado masivo RE-4 | ZC-5 | Un `planificacion_id` por TX ([FAQ-311](../../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md)) |
 
-| ZC | Pseudocódigo | N4 Step 12a |
+| ZC | Pseudocódigo | N4 [T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md) |
 |----|--------------|-------------|
 | ZC-5 | [`zc-5-persistencia.md`](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) | [`typescript/zc-5-persistencia.md`](../../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/zc-5-persistencia.md) |
 
@@ -119,6 +119,6 @@ Taxonomía global: [`errores-validaciones-capas.md`](../../arquitectura/errores-
 | Entidades | [modelo-entidad-relacion.md](../../entidades/modelo-entidad-relacion.md), [planificaciones.md](../../entidades/planificaciones.md), [ocurrencias.md](../../entidades/ocurrencias.md) |
 | FAQ | [FAQ-311](../../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) (borrado RE-4) |
 | Pseudocódigo | [zc-5-persistencia.md](../../diagramas-c4/c4-nivel-4/pseudocodigo/zc-5-persistencia.md) |
-| N4 Step 12a | [typescript/zc-5-persistencia.md](../../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/zc-5-persistencia.md) |
+| N4 [T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md) | [typescript/zc-5-persistencia.md](../../diagramas-c4/c4-nivel-4/implementacion/persistencia/typescript/zc-5-persistencia.md) |
 | Código | [`implementacion/persistencia/typescript/`](../../../implementacion/persistencia/typescript/) |
 | BBDD (esquema) | [bbdd/README.md](../bbdd/README.md) |

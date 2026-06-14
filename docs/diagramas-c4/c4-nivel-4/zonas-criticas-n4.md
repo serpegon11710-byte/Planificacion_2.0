@@ -9,7 +9,7 @@ El N4 se documenta en dos capas:
 | Capa | Ubicacion | Rol |
 |------|-----------|-----|
 | **Canonico** | [pseudocodigo/](pseudocodigo/) | Estructura logica + pseudocodigo; independiente del stack |
-| **Implementacion** | [implementacion/](implementacion/) | Proyeccion por componente y tecnologia (Step 12a) |
+| **Implementacion** | [implementacion/](implementacion/) | Proyeccion por componente y tecnologia ([T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md)) |
 
 El pseudocodigo es la fuente de verdad funcional. Si cambia la tecnologia de un componente, se actualiza solo su carpeta en [implementacion/](implementacion/) a partir del mismo canonico, sin redefinir las zonas criticas ni las reglas de negocio.
 
@@ -162,7 +162,7 @@ No se diagraman en N4 los agregados con CRUD directo y reglas simples si el N3 y
 - Resolucion de mensajes al usuario en cliente.
 
 **Nota:** N4 de presentacion es opcional en una primera iteracion; las zonas ZC-1 a ZC-5 del Back-End tienen prioridad.  
-**N3 Front-End:** [c4-nivel-3-componentes-frontend.mmd](../c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) (zoom de componentes UI; Step 8b).  
+**N3 Front-End:** [c4-nivel-3-componentes-frontend.mmd](../c4-nivel-3/c4-nivel-3-componentes-frontend.mmd) (zoom de componentes UI; [T-000#S-8b](../../../backlog/000-planificacion-inicial/planificacion-inicial.md)).  
 **N4 canonico:** [pseudocodigo/zc-6-presentacion.md](pseudocodigo/zc-6-presentacion.md)
 
 ## Componentes N3 excluidos de N4
@@ -186,4 +186,4 @@ No se diagraman en N4 los agregados con CRUD directo y reglas simples si el N3 y
 
 ## Resultado
 
-Quedan definidas **6 zonas criticas** (5 Back-End/Persistencia prioritarias + 1 Presentacion opcional). Cada una tiene su **N4 canonico en pseudocodigo** en [pseudocodigo/](pseudocodigo/). La proyeccion por componente esta en [implementacion/](implementacion/) (Step 12a).
+Quedan definidas **6 zonas criticas** (5 Back-End/Persistencia prioritarias + 1 Presentacion opcional). Cada una tiene su **N4 canonico en pseudocodigo** en [pseudocodigo/](pseudocodigo/). La proyeccion por componente esta en [implementacion/](implementacion/) ([T-000#S-12a](../../../backlog/000-planificacion-inicial/planificacion-inicial.md)).

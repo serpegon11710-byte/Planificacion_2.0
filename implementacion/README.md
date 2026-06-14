@@ -104,4 +104,4 @@ Solo **BBDD** incluye el nombre del motor en su ruta. Persistencia y Back-End no
 
 ---
 
-**Estado:** estructura base creada (Step 11). Bootstrap de proyectos (package.json, Nest, Vite, migraciones) pendiente — **Ticket 001**. Ver [001-bootstrap/README.md](../backlog/001-bootstrap/README.md).
+**Estado:** estructura base creada ([T-000#S-11](../backlog/000-planificacion-inicial/planificacion-inicial.md)). Bootstrap de proyectos (package.json, Nest, Vite, migraciones) pendiente — **Ticket 001**. Ver [001-bootstrap/README.md](../backlog/001-bootstrap/README.md).

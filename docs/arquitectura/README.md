@@ -2,7 +2,7 @@
 
 ## Estado actual
 
-- Stack tecnologico **definido** (Step 11, 2026-06-12): NestJS + React + TypeScript + PostgreSQL. Ver [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md) y FAQ-100/102 en [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md).
+- Stack tecnologico **definido** ([T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md), 2026-06-12): NestJS + React + TypeScript + PostgreSQL. Ver [analisis-inicial.md](../stack-tecnologico/analisis-inicial.md) y FAQ-100/102 en [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md).
 - Vista general (capas, contratos, bootstrap): [vista-general.md](../planificacion/vista-general.md).
 - Desambiguacion de rutas «implementacion»: [desambiguacion-implementacion.md](../politicas-transversales/desambiguacion-implementacion.md).
 - Desacoplamiento por contratos: [desacoplamiento-componentes-contratos.md](../politicas-transversales/desacoplamiento-componentes-contratos.md).
@@ -46,7 +46,7 @@ Definir una arquitectura generica, independiente del stack, para alinear decisio
 [x] Definir granularidad final de modulos de negocio.
 [x] Definir transacciones y limites de consistencia.
 [x] Definir politicas de errores y validaciones por capa.
-[x] Step 12a: N4 implementacion por componente (FAQ-102).
+[x] [T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md): N4 implementacion por componente (FAQ-102).
 
 ## Siguientes pasos (implementacion)
 
@@ -66,17 +66,17 @@ Ver [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planifica
 - Transacciones y consistencia: `docs/arquitectura/transacciones-consistencia.md`
 - Errores y validaciones por capa: `docs/arquitectura/errores-validaciones-capas.md`
 
-## Diagramas C4 (Step 8)
+## Diagramas C4 ([T-000#S-8](../../backlog/000-planificacion-inicial/planificacion-inicial.md))
 
-Visualizacion documentada en Step 8 del plan. Indice: `docs/diagramas-c4/README.md`
+Visualizacion documentada en [T-000#S-8](../../backlog/000-planificacion-inicial/planificacion-inicial.md) del plan. Indice: `docs/diagramas-c4/README.md`
 
 | Nivel | Estado | Contenido |
 |-------|--------|-----------|
 | N1–N3 | Cerrado | Contexto, contenedores y componentes Back-End + Front-End (`.mmd`) |
 | N4 canonico | Cerrado | Pseudocodigo por zona critica (`c4-nivel-4/pseudocodigo/`) |
-| N4 implementacion | Cerrado (Step 12a) | Proyeccion por componente (`c4-nivel-4/implementacion/{componente}/{tecnologia}/`) |
+| N4 implementacion | Cerrado ([T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md)) | Proyeccion por componente (`c4-nivel-4/implementacion/{componente}/{tecnologia}/`) |
 
-Los diagramas C4 (Step 8) complementan los documentos de arquitectura (Step 9a); el N4 canonico es independiente del stack. La proyeccion N4 por componente es Step 12a.
+Los diagramas C4 ([T-000#S-8](../../backlog/000-planificacion-inicial/planificacion-inicial.md)) complementan los documentos de arquitectura ([T-000#S-9a](../../backlog/000-planificacion-inicial/planificacion-inicial.md)); el N4 canonico es independiente del stack. La proyeccion N4 por componente es [T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md).
 
 ## Politicas transversales
 

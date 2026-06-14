@@ -38,7 +38,7 @@ flowchart LR
 
 | ID | Carpeta | Estado | Alcance |
 |----|---------|--------|---------|
-| **000** | [000-planificacion-inicial/](000-planificacion-inicial/) | **En curso** | Steps 1–13: documentación y validación (Step 13 pendiente) |
+| **000** | [000-planificacion-inicial/](000-planificacion-inicial/) | **En curso** | Steps 1–13: documentación y validación ([T-000#S-13](000-planificacion-inicial/planificacion-inicial.md) pendiente) |
 | **001** | [001-bootstrap/](001-bootstrap/) | **Bloqueado** | Andamiaje ejecutable; sin negocio (hasta cierre T-000) |
 | **002** | [002-proyecto-item/](002-proyecto-item/) | **Pendiente** | UC-01.2, UC-01.3 — módulos Proyecto e Item |
 | **003** | [003-planificacion/](003-planificacion/) | **Pendiente** | UC-01.4, UC-01.5, UC-03 — módulo Planificación (ZC-3) |
@@ -52,6 +52,6 @@ flowchart LR
 
 ## Ticket activo
 
-**000-planificacion-inicial** — Step 13 pendiente de re-validación. Ver [000-planificacion-inicial/README.md](000-planificacion-inicial/README.md).
+**000-planificacion-inicial** — [T-000#S-13](000-planificacion-inicial/planificacion-inicial.md) pendiente de re-validación. Ver [000-planificacion-inicial/README.md](000-planificacion-inicial/README.md).
 
 **001-bootstrap** permanece **bloqueado** hasta el cierre del T-000 (T10).

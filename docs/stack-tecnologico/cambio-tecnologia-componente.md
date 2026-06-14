@@ -11,7 +11,7 @@ Instrucciones para **sustituir** la tecnología de un contenedor (Front-End, Bac
 
 ## Alcance
 
-Aplica a **código** y **documentación N4 de implementación** (Step 12a+):
+Aplica a **código** y **documentación N4 de implementación** ([T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md)+):
 
 | Ámbito | Patrón de ruta |
 |--------|----------------|

@@ -7,7 +7,7 @@ Especificacion logica del detalle interno de cada [zona critica](../zonas-critic
 | Capa | Carpeta | Proposito | Cuando cambia |
 |------|---------|-----------|---------------|
 | **N4 canonico** | `pseudocodigo/` | Estructura logica + algoritmos + contratos de puertos | Cuando cambia la logica de negocio o el diseno interno |
-| **N4 implementacion** | [implementacion/](../implementacion/) | Proyeccion por componente y tecnologia (Step 12a) | Al cambiar tecnologia en un componente |
+| **N4 implementacion** | [implementacion/](../implementacion/) | Proyeccion por componente y tecnologia ([T-000#S-12a](../../../../backlog/000-planificacion-inicial/planificacion-inicial.md)) | Al cambiar tecnologia en un componente |
 
 El pseudocodigo es la **fuente de verdad funcional** (contrato de **diseño interno** lógico). Cada documento de implementacion debe referenciar el canonico del que deriva y traducir nombres logicos a artefactos reales, sin redefinir reglas. Marco: [vista-general.md](../../planificacion/vista-general.md).
 

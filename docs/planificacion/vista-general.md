@@ -108,12 +108,12 @@ Cambiar tecnología en un componente **no** debe romper contratos externos salvo
 | Ámbito | Qué fija | Documentación principal |
 |--------|----------|-------------------------|
 | Módulos de negocio y agregados | Límites Proyecto / Item / Planificación / Ocurrencia | [granularidad-modulos-negocio.md](../arquitectura/granularidad-modulos-negocio.md) |
-| Capas Back-End | `api/` → `application/` → `domain/` → `ports/` | N4 [back-end/nestjs-typescript/](../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/), [docs/implementacion/back-end/](../implementacion/back-end/) (Step 12b) |
+| Capas Back-End | `api/` → `application/` → `domain/` → `ports/` | N4 [back-end/nestjs-typescript/](../diagramas-c4/c4-nivel-4/implementacion/back-end/nestjs-typescript/), [docs/implementacion/back-end/](../implementacion/back-end/) ([T-000#S-12b](../../backlog/000-planificacion-inicial/planificacion-inicial.md)) |
 | Subcomponentes lógicos (ZC) | Algoritmos, pseudocódigo, puertos de lectura | [pseudocodigo/](../diagramas-c4/c4-nivel-4/pseudocodigo/) |
 | Traducción al stack | Mapeo lógico → clase → archivo | [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/) por `{componente}/{tecnologia}/` |
 | Árbol de código | Carpetas por componente y tecnología | [implementacion/README.md](../../implementacion/README.md) |
 | Transacciones y errores internos | Unidades de trabajo, taxonomía por capa | [transacciones-consistencia.md](../arquitectura/transacciones-consistencia.md), [errores-validaciones-capas.md](../arquitectura/errores-validaciones-capas.md) |
-| Convenciones por contenedor (agnósticas) | Prácticas sin atar al stack en el texto | [docs/implementacion/](../implementacion/) (Step 12b) |
+| Convenciones por contenedor (agnósticas) | Prácticas sin atar al stack en el texto | [docs/implementacion/](../implementacion/) ([T-000#S-12b](../../backlog/000-planificacion-inicial/planificacion-inicial.md)) |
 
 Los contratos de diseño interno **no sustituyen** a los externos: definen la **forma** del código; los externos definen la **frontera** con vecinos.
 
@@ -159,7 +159,7 @@ Protocolo completo: [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md)
 
 ## 6. Checklist: documentación antes de implementar negocio
 
-Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
+Usar antes del **bootstrap con lógica de negocio** o al cerrar [T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md).
 
 ### Contratos de interfaz externa
 
@@ -174,16 +174,16 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar Step 13.
 - [x] ZC canónicas en [pseudocodigo/](../diagramas-c4/c4-nivel-4/pseudocodigo/)
 - [x] N4 implementación por componente en [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/)
 - [x] Granularidad de módulos en [granularidad-modulos-negocio.md](../arquitectura/granularidad-modulos-negocio.md)
-- [x] Guías por componente en [docs/implementacion/](../implementacion/) (Step 12b)
+- [x] Guías por componente en [docs/implementacion/](../implementacion/) ([T-000#S-12b](../../backlog/000-planificacion-inicial/planificacion-inicial.md))
 - [x] Árbol de código acordado en [implementacion/README.md](../../implementacion/README.md)
 
 ### Plan y stack
 
-- [x] [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md) y FAQ del T-000 [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) al día (re-validación Step 13 pendiente)
+- [x] [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md) y FAQ del T-000 [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) al día (re-validación [T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md) pendiente)
 - [x] Stack activo en [historial-stack.md](../stack-tecnologico/historial-stack.md)
 - [ ] FAQ del **ticket activo** sin entradas **Abiertas** que bloqueen subtickets (T-000 en curso; 001+ usan su propio `dudas-y-resoluciones.md`)
 
-**Validación Step 13:** **pendiente re-validación** (reabierto 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
+**Validación [T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** **pendiente re-validación** (reabierto 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
 
 ---
 

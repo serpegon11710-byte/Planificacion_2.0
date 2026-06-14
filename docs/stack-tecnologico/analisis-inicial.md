@@ -9,7 +9,7 @@
 
 ## 1. Contexto y objetivo
 
-Este documento cierra el **Step 11** del plan de documentación: evaluar opciones de stack alineadas con la arquitectura ya definida (Steps 9–10), elegir una recomendación y justificarla frente a las alternativas.
+Este documento cierra el **[T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md)** del plan de documentación: evaluar opciones de stack alineadas con la arquitectura ya definida (Steps 9–10), elegir una recomendación y justificarla frente a las alternativas.
 
 **Referencias analizadas:**
 
@@ -34,7 +34,7 @@ Antes de proponer stacks, se extraen criterios obligatorios del diseño acordado
 - **Puertos y adaptadores**: el dominio consume `*RepositoryPort` y `DatabaseConnectionPort`; no conoce el motor SQL.
 - **4 módulos de negocio** con dependencias unidireccionales: Proyecto → Item → Planificación → Ocurrencia.
 - **Orquestadores de aplicación** para flujos multi-agregado (wizard UC-01.1, creación automática UC-01.2/01.3).
-- Cumplimiento explícito de **SOLID** (revisión global en Step 9b).
+- Cumplimiento explícito de **SOLID** (revisión global en [T-000#S-9b](../../backlog/000-planificacion-inicial/planificacion-inicial.md)).
 
 ### 2.2 Complejidad de dominio (prioridad de implementación)
 
@@ -336,7 +336,7 @@ Para **todas** las propuestas se recomienda **PostgreSQL 16** como motor único 
 | Cascadas FK multi-nivel | Nativo |
 | Control de bloqueos (FAQ-311) | READ COMMITTED configurable; borrados acotados por diseño |
 
-SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de licencia y el ER ya contempla sintaxis genérica pendiente de Step 11 — PostgreSQL maximiza portabilidad del SQL documentado.
+SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de licencia y el ER ya contempla sintaxis genérica pendiente de [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md) — PostgreSQL maximiza portabilidad del SQL documentado.
 
 ---
 
@@ -419,7 +419,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 | UTC en persistencia, locale en UI | PostgreSQL `timestamptz`; date-fns/Luxon + i18n locale en React |
 | ZC-1 cálculo + materialización | Servicio de dominio puro testeable + adaptador SQL para materializadas |
 | Transacciones multi-módulo (ZC-4) | Unit of Work sobre `pg` client en scope de request |
-| N4 implementación por componente | `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (**Step 12a cerrado**) |
+| N4 implementación por componente | `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` (**[T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md) cerrado**) |
 
 ### 7.3 Riesgos del stack elegido y mitigaciones
 
@@ -454,12 +454,12 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 
 ## 9. Próximos pasos (sin implementación)
 
-1. **Step 12a:** ~~Proyectar N4 canónico~~ **Completado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/).
-2. **Step 12b:** ~~Redactar prácticas~~ **Completado** — [docs/implementacion/](../implementacion/).
-3. **Step 13:** Validar coherencia documental — **pendiente re-validación** (Step 13 reabierto 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
+1. **[T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** ~~Proyectar N4 canónico~~ **Completado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/).
+2. **[T-000#S-12b](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** ~~Redactar prácticas~~ **Completado** — [docs/implementacion/](../implementacion/).
+3. **[T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** Validar coherencia documental — **pendiente re-validación** ([T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md) reabierto 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
 4. **Ticket 001:** Bootstrap del monorepo en `implementacion/` — ver [001-bootstrap/README.md](../../backlog/001-bootstrap/README.md).
 
-FAQ-100, FAQ-101 y FAQ-102 cerradas en Step 11 — ver [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md).
+FAQ-100, FAQ-101 y FAQ-102 cerradas en [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md) — ver [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md).
 
 ---
 
@@ -480,7 +480,7 @@ Se evaluaron **cinco stacks** alineados con la arquitectura por capas, los contr
 - `docs/arquitectura/README.md`
 - `docs/entidades/modelo-entidad-relacion.md`
 - `docs/diagramas-c4/c4-nivel-4/zonas-criticas-n4.md`
-- `backlog/000-planificacion-inicial/planificacion-inicial.md` (Step 11)
+- `backlog/000-planificacion-inicial/planificacion-inicial.md` ([T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md))
 - `docs/politicas-transversales/internacionalizacion.md`
 - [historial-stack.md](historial-stack.md) — stack activo e historial por componente
 - [cambio-tecnologia-componente.md](cambio-tecnologia-componente.md) — procedimiento `(obsoleto)` y excepciones

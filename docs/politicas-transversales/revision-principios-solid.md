@@ -4,7 +4,7 @@ Este documento audita el cumplimiento de los principios SOLID en **toda** la doc
 
 ## Objetivo
 
-Verificar coherencia de diseno a nivel global como parte del Step 9b, antes del Step 11 (stack tecnologico), identificando cumplimientos, desviaciones justificadas y deuda documental a corregir.
+Verificar coherencia de diseno a nivel global como parte del [T-000#S-9b](../../backlog/000-planificacion-inicial/planificacion-inicial.md), antes del [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md) (stack tecnologico), identificando cumplimientos, desviaciones justificadas y deuda documental a corregir.
 
 ## Alcance revisado
 
@@ -221,7 +221,7 @@ Las flechas indican referencia/trazabilidad, no acoplamiento de implementacion.
 
 ## Deuda documental detectada (no bloqueante)
 
-Ver [backlog/000-planificacion-inicial/dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) (FAQ-100, FAQ-101, FAQ-102 — Step 11).
+Ver [backlog/000-planificacion-inicial/dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) (FAQ-100, FAQ-101, FAQ-102 — [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md)).
 
 ---
 
@@ -231,7 +231,7 @@ Ver [backlog/000-planificacion-inicial/dudas-y-resoluciones.md](../../backlog/00
 2. Separacion `codigo` / mensaje i18n en politica de errores (Negocio no emite literales de UI).
 3. Correccion de jerarquia de dependencias entre entidades en `docs/arquitectura/README.md`.
 4. Eliminacion de regla duplicada RN-5.5 en UC-01.5 (renumeracion de RN-5.6).
-5. Diagramas C4 (Step 8) integrados con arquitectura (Step 9a); N4 canonico en pseudocodigo alineado con contratos de arquitectura.
+5. Diagramas C4 ([T-000#S-8](../../backlog/000-planificacion-inicial/planificacion-inicial.md)) integrados con arquitectura ([T-000#S-9a](../../backlog/000-planificacion-inicial/planificacion-inicial.md)); N4 canonico en pseudocodigo alineado con contratos de arquitectura.
 6. Composicion de ocurrencias en ZC-1: lectura fisica previa + generacion incremental (evita doble calculo; coherente con SRP en consultas de rango amplio).
 
 ---
@@ -240,4 +240,4 @@ Ver [backlog/000-planificacion-inicial/dudas-y-resoluciones.md](../../backlog/00
 
 **Ultima revision:** 2026-06-12 (post-integracion C4 con arquitectura)
 
-La documentacion global del proyecto cumple SOLID de forma coherente. Las desviaciones detectadas son menores y no bloquean la seleccion de stack tecnologico (Step 11). La revision debe repetirse al anadir nuevos casos de uso, entidades, modulos de arquitectura o zonas criticas N4.
+La documentacion global del proyecto cumple SOLID de forma coherente. Las desviaciones detectadas son menores y no bloquean la seleccion de stack tecnologico ([T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md)). La revision debe repetirse al anadir nuevos casos de uso, entidades, modulos de arquitectura o zonas criticas N4.

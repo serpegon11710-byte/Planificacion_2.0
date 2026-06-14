@@ -1,4 +1,4 @@
-﻿# ZC-4: Orquestacion multi-agregado (aplicacion)
+# ZC-4: Orquestacion multi-agregado (aplicacion)
 
 **Componente N3:** `API REST` + coordinadores  
 **Prioridad:** Media-alta  

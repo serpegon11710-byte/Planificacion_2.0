@@ -1,4 +1,4 @@
-﻿# Historial de stack por componente
+# Historial de stack por componente
 
 **Última actualización:** 2026-06-12
 

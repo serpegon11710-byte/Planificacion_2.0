@@ -1,4 +1,4 @@
-﻿# Zonas criticas para C4 Nivel 4
+# Zonas criticas para C4 Nivel 4
 
 Define que componentes del [Nivel 3](../c4-nivel-3/c4-nivel-3-componentes.mmd) merecen un diagrama N4 (detalle interno) y con que alcance funcional.
 

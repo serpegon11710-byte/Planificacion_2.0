@@ -1,4 +1,4 @@
-﻿# ZC-5 — Persistencia (TypeScript + `pg`)
+# ZC-5 — Persistencia (TypeScript + `pg`)
 
 **Canónico:** [zc-5-persistencia.md](../../../pseudocodigo/zc-5-persistencia.md)  
 **Esquema:** [bbdd/postgresql/zc-5-persistencia-esquema.md](../../bbdd/postgresql/zc-5-persistencia-esquema.md)  

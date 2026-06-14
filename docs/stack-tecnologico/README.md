@@ -1,4 +1,4 @@
-﻿# Stack tecnológico — documentación
+# Stack tecnológico — documentación
 
 Índice de la carpeta `docs/stack-tecnologico/`.
 

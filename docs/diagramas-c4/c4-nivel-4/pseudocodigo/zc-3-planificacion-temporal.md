@@ -1,4 +1,4 @@
-﻿# ZC-3: Definicion temporal y ciclo de vida de planificaciones
+# ZC-3: Definicion temporal y ciclo de vida de planificaciones
 
 **Componente N3:** `Planificacion`  
 **Prioridad:** Alta  

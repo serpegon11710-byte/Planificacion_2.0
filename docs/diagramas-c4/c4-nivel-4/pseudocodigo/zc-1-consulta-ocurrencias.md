@@ -1,4 +1,4 @@
-﻿# ZC-1: Consulta y calculo de ocurrencias
+# ZC-1: Consulta y calculo de ocurrencias
 
 **Componente N3:** `Ocurrencia`, `Planificacion` (lectura)  
 **Prioridad:** Alta  

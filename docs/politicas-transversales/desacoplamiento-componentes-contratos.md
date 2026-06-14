@@ -1,4 +1,4 @@
-﻿# Desacoplamiento entre componentes por contratos
+# Desacoplamiento entre componentes por contratos
 
 **Última actualización:** 2026-06-12
 

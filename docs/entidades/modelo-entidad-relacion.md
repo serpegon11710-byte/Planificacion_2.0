@@ -1,4 +1,4 @@
-﻿# Modelo entidad-relación (ER)
+# Modelo entidad-relación (ER)
 
 **Última actualización:** 2026-06-12 (`TipoPeriodo` catálogo de visibilidad de campos)  
 **Step:** 10

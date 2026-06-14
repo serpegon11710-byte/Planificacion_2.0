@@ -1,4 +1,4 @@
-﻿# Entidad: Proyectos
+# Entidad: Proyectos
 
 **Última actualización:** 2026-06-12
 

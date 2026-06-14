@@ -1,4 +1,4 @@
-﻿# ZC-5 — Esquema y SQL (PostgreSQL 16)
+# ZC-5 — Esquema y SQL (PostgreSQL 16)
 
 **Canónico lógico:** [zc-5-persistencia.md](../../../pseudocodigo/zc-5-persistencia.md)  
 **Adaptadores:** [persistencia/typescript/zc-5-persistencia.md](../../persistencia/typescript/zc-5-persistencia.md)  

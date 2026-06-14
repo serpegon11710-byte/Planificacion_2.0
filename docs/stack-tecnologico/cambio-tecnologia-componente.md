@@ -1,4 +1,4 @@
-﻿# Cambio de tecnología en un componente
+# Cambio de tecnología en un componente
 
 **Última actualización:** 2026-06-12
 

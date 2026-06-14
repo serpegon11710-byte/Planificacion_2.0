@@ -1,4 +1,4 @@
-﻿# N4 — BBDD (PostgreSQL 16)
+# N4 — BBDD (PostgreSQL 16)
 
 **Componente:** Base de datos  
 **Tecnología:** PostgreSQL 16  

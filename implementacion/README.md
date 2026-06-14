@@ -1,4 +1,4 @@
-﻿# Implementación — Código fuente
+# Implementación — Código fuente
 
 **Última actualización:** 2026-06-12
 

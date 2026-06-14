@@ -1,4 +1,4 @@
-﻿# Entidad: Items
+# Entidad: Items
 
 **Última actualización:** 2026-06-12
 

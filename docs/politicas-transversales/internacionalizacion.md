@@ -1,4 +1,4 @@
-﻿# Politica de internacionalizacion (i18n)
+# Politica de internacionalizacion (i18n)
 
 Politica transversal del proyecto Planificacion 2.0. Aplica a la implementacion de la aplicacion, no a la estructura arquitectonica en si.
 

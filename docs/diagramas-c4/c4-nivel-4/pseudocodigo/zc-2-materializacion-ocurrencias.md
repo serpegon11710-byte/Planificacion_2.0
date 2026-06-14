@@ -1,4 +1,4 @@
-﻿# ZC-2: Materializacion y mutacion de ocurrencias
+# ZC-2: Materializacion y mutacion de ocurrencias
 
 **Componente N3:** `Ocurrencia`  
 **Prioridad:** Alta  

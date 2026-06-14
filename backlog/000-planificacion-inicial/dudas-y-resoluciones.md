@@ -6,9 +6,9 @@ Registro centralizado de preguntas abiertas, decisiones tomadas y cambios de nom
 
 Los documentos funcionales (`docs/entidades/`, `docs/arquitectura/`, etc.) deben **referenciar este FAQ** en lugar de mantener dudas duplicadas. Las resoluciones aqui prevalecen sobre borradores antiguos del plan (p. ej. `DefinicionFechaHora`, `InstanciaPlanificacion`).
 
-**Alcance:** decisiones de **diseno** vinculadas al **[Ticket 000 — Pasos 1–13](000-planificacion-inicial/README.md)**. El historico FAQ **termina en el Paso 13**. Roadmap de implementacion (tickets 001+), estados y subtickets: **[backlog/README.md](README.md)** — no se duplican aqui.
+**Alcance:** decisiones de **diseno** vinculadas al **[Ticket 000 — Pasos 1–13](README.md)**. El historico FAQ **termina en el Paso 13**. Roadmap de implementacion (tickets 001+), estados y subtickets: **[backlog/README.md](../README.md)** — no se duplican aqui.
 
-**FAQ de uso del producto** (por qué no puedo borrar, cómo preparar planificaciones antes de eliminar): [FAQ.md](../../FAQ.md) en la raíz del repositorio. Este archivo (`dudas-y-resoluciones.md`) es solo para decisiones de diseño.
+**FAQ de uso del producto** (por qué no puedo borrar, cómo preparar planificaciones antes de eliminar): [FAQ.md](../../../FAQ.md) en la raíz del repositorio. Este archivo (`dudas-y-resoluciones.md`) es solo para decisiones de diseño.
 
 ---
 
@@ -171,7 +171,7 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 
 **Resolucion (2026-06-12):** **PostgreSQL 16** como motor unico en v1. Motivos: soporte nativo de restricciones del ER (UNIQUE parcial, CHECK, TIMESTAMPTZ, cascadas FK), alineacion con FAQ-308/309/311 y portabilidad del SQL documentado.
 
-**Entregable Ticket 000 — Paso 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../docs/stack-tecnologico/analisis-inicial.md) (seccion 5 y 8). Codigo: `implementacion/bbdd/postgresql/`. **Completado (2026-06-12).**
+**Entregable Ticket 000 — Paso 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../../docs/stack-tecnologico/analisis-inicial.md) (seccion 5 y 8). Codigo: `implementacion/bbdd/postgresql/`. **Completado (2026-06-12).**
 
 ---
 
@@ -189,7 +189,7 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 | Shared | TypeScript (DTOs, codigos de error, tipos de contrato) |
 | Monorepo | **pnpm workspaces** (recomendado) |
 
-**Entregable Ticket 000 — Paso 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../docs/stack-tecnologico/analisis-inicial.md), esqueleto [`implementacion/`](../../implementacion/), guias [`docs/implementacion/`](../implementacion/). **Completado (2026-06-12).**
+**Entregable Ticket 000 — Paso 11:** [`docs/stack-tecnologico/analisis-inicial.md`](../../docs/stack-tecnologico/analisis-inicial.md), esqueleto [`implementacion/`](../../../implementacion/), guias [`docs/implementacion/`](../../../implementacion/). **Completado (2026-06-12).**
 
 ---
 
@@ -200,40 +200,12 @@ Relacionado con FAQ-002 (estado vacio = hereda).
 **Resolucion (2026-06-12; actualizada misma fecha — desacoplamiento por contratos):**
 
 1. **Principio:** cada **componente** conserva su historico de tecnologias en subcarpetas `{tecnologia}`; no mezclar implementaciones en la misma carpeta. Cambiar tecnologia en un componente **no** obliga a regenerar la documentacion N4 de los demas salvo cambio de contrato compartido.
-2. **Alcance N4 (docs):** `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` — misma convencion que el codigo. Proyeccion ZC-1 a ZC-6 repartida por componente (Back-End: ZC-1–4; Persistencia/BBDD: ZC-5; Front-End: ZC-6). **Shared:** N4 de contratos API/DTOs y codigos de error (sin ZC) en `shared/typescript/`. Ver [desacoplamiento-componentes-contratos.md](../docs/politicas-transversales/desacoplamiento-componentes-contratos.md).
-3. **Alcance codigo (raiz):** `implementacion/{componente}/{tecnologia}/` — una tecnologia exacta por componente; ver [desambiguacion-implementacion.md](../docs/politicas-transversales/desambiguacion-implementacion.md).
-4. **Politica de archivo (v1):** al sustituir una tecnologia, **renombrar** la carpeta saliente a `{tecnologia} (obsoleto)` en codigo y N4; crear carpeta de la tecnologia entrante sin sufijo. Procedimiento: [cambio-tecnologia-componente.md](../docs/stack-tecnologico/cambio-tecnologia-componente.md). Historial: [historial-stack.md](../docs/stack-tecnologico/historial-stack.md). **Excepcion:** coexistencia paralela (p. ej. PostgreSQL + MySQL en BBDD) — varias carpetas activas sin `(obsoleto)`; ver mismo documento § Excepciones.
-5. **Contratos:** API, puertos, ER y codigos de error son la frontera entre componentes; versionar cambios breaking. Matriz de compatibilidad en [historial-stack.md](../docs/stack-tecnologico/historial-stack.md) y README del componente.
+2. **Alcance N4 (docs):** `docs/diagramas-c4/c4-nivel-4/implementacion/{componente}/{tecnologia}/` — misma convencion que el codigo. Proyeccion ZC-1 a ZC-6 repartida por componente (Back-End: ZC-1–4; Persistencia/BBDD: ZC-5; Front-End: ZC-6). **Shared:** N4 de contratos API/DTOs y codigos de error (sin ZC) en `shared/typescript/`. Ver [desacoplamiento-componentes-contratos.md](../../docs/politicas-transversales/desacoplamiento-componentes-contratos.md).
+3. **Alcance codigo (raiz):** `implementacion/{componente}/{tecnologia}/` — una tecnologia exacta por componente; ver [desambiguacion-implementacion.md](../../docs/politicas-transversales/desambiguacion-implementacion.md).
+4. **Politica de archivo (v1):** al sustituir una tecnologia, **renombrar** la carpeta saliente a `{tecnologia} (obsoleto)` en codigo y N4; crear carpeta de la tecnologia entrante sin sufijo. Procedimiento: [cambio-tecnologia-componente.md](../../docs/stack-tecnologico/cambio-tecnologia-componente.md). Historial: [historial-stack.md](../../docs/stack-tecnologico/historial-stack.md). **Excepcion:** coexistencia paralela (p. ej. PostgreSQL + MySQL en BBDD) — varias carpetas activas sin `(obsoleto)`; ver mismo documento § Excepciones.
+5. **Contratos:** API, puertos, ER y codigos de error son la frontera entre componentes; versionar cambios breaking. Matriz de compatibilidad en [historial-stack.md](../../docs/stack-tecnologico/historial-stack.md) y README del componente.
 
-**Entregable Ticket 000 — Paso 11:** [desambiguacion-implementacion.md](../docs/politicas-transversales/desambiguacion-implementacion.md), [desacoplamiento-componentes-contratos.md](../docs/politicas-transversales/desacoplamiento-componentes-contratos.md), [historial-stack.md](../docs/stack-tecnologico/historial-stack.md), [cambio-tecnologia-componente.md](../docs/stack-tecnologico/cambio-tecnologia-componente.md), [implementacion/README.md](../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../docs/diagramas-c4/c4-nivel-4/implementacion/README.md). Proyeccion N4 concreta: **Ticket 000 — Paso 12a**. **Completado (2026-06-12).**
-
----
-
-### FAQ-103 — Gestion del trabajo por tickets y carpeta backlog
-
-**Origen:** Cierre **Ticket 000 — Paso 13**; transicion a implementacion.
-
-**Resolucion (2026-06-12):**
-
-1. **Donde va cada cosa:**
-
-| Ubicacion | Contenido |
-|-----------|-----------|
-| **`docs/`** | Producto: dominio, arquitectura, C4, entidades, casos de uso |
-| **`backlog/`** (raiz) | Gestion del trabajo: indice tickets 001+, protocolos, vista-general, **este FAQ** |
-| **`backlog/000-planificacion-inicial/`** | Historico Ticket 000 (Pasos 1–13, tabla pasos↔FAQ) |
-| **`backlog/00N-…/`** (N ≥ 1) | Epica de implementacion; detalle en cada `README.md` |
-| **`implementacion/`** | Codigo fuente |
-
-2. **Referencias comunes en raiz de `backlog/`** (no son tickets): [vista-general.md](vista-general.md), [dudas-y-resoluciones.md](dudas-y-resoluciones.md), [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md), [protocolo_TODOs.md](protocolo_TODOs.md).
-
-3. **Ticket 000** (`backlog/000-planificacion-inicial/`): Pasos 1–13; **cerrado** en Paso 13. Tabla pasos ↔ FAQ: [000-planificacion-inicial/README.md](000-planificacion-inicial/README.md). No admite subtickets de codigo.
-
-4. **Tickets 001+** (bootstrap, UC, …): indice y roadmap en **[backlog/README.md](README.md)**. Convencion subtickets `T-NNN-xx`.
-
-5. **FAQ vs backlog:** este archivo registra **decisiones de diseno** (Ticket 000, Pasos 1–13). **No** duplicar aqui el listado ni el estado de tickets 001+.
-
-**Entregable:** estructura `backlog/`; ver [protocolo-trabajo-tickets.md](protocolo-trabajo-tickets.md).
+**Entregable Ticket 000 — Paso 11:** [desambiguacion-implementacion.md](../../docs/politicas-transversales/desambiguacion-implementacion.md), [desacoplamiento-componentes-contratos.md](../../docs/politicas-transversales/desacoplamiento-componentes-contratos.md), [historial-stack.md](../../docs/stack-tecnologico/historial-stack.md), [cambio-tecnologia-componente.md](../../docs/stack-tecnologico/cambio-tecnologia-componente.md), [implementacion/README.md](../../../implementacion/README.md), [c4-nivel-4/implementacion/README.md](../../docs/diagramas-c4/c4-nivel-4/implementacion/README.md). Proyeccion N4 concreta: **Ticket 000 — Paso 12a**. **Completado (2026-06-12).**
 
 ---
 
@@ -449,8 +421,8 @@ _Ninguna (2026-06-12). FAQ-100, FAQ-101 y FAQ-102 cerradas en Ticket 000 — Pas
 
 | Documento | IDs FAQ |
 |-----------|---------|
-| `000-planificacion-inicial/planificacion-inicial.md` | FAQ-000, 001, 002, 303; **Pasos 1–13** → [README Ticket 000](000-planificacion-inicial/README.md) |
-| `backlog/vista-general.md` | Capas, contratos externo/interno, bootstrap |
+| `planificacion-inicial.md` | FAQ-000, 001, 002, 303; **Pasos 1–13** → [README Ticket 000](README.md) |
+| `../../docs/planificacion/vista-general.md` | Capas, contratos externo/interno, bootstrap |
 | `docs/entidades/modelo-entidad-relacion.md` | FAQ-001, 003, 300, 301, 303, 308, 309, **310**, **311** |
 | `docs/entidades/ocurrencias.md` | FAQ-002, 003, **311** |
 | `docs/entidades/proyectos.md`, `items.md` | FAQ-004, **310** |
@@ -464,8 +436,8 @@ _Ninguna (2026-06-12). FAQ-100, FAQ-101 y FAQ-102 cerradas en Ticket 000 — Pas
 | `docs/stack-tecnologico/historial-stack.md` | FAQ-102 |
 | `docs/stack-tecnologico/cambio-tecnologia-componente.md` | FAQ-102 |
 
-**Trazabilidad Ticket 000 — Paso ↔ FAQ:** [000-planificacion-inicial/README.md](000-planificacion-inicial/README.md).  
-**Tickets de implementacion (001+):** [README.md](README.md).
+**Trazabilidad Ticket 000 — Paso ↔ FAQ:** [README.md](README.md).  
+**Tickets de implementacion (001+):** [README.md](../README.md).
 
 ---
 
@@ -511,7 +483,7 @@ Referencia de migración (IDs pre-renumeración → vigentes). Solo para trazabi
 | 2026-06-12 | Ticket 000 — Paso 11 cerrado: [FAQ-100](#faq-100--motor-de-base-de-datos), [FAQ-101](#faq-101--stack-de-aplicacion), [FAQ-102](#faq-102--n4-implementacion-al-cambiar-de-tecnologia-en-un-componente); stack PostgreSQL + NestJS/React/TS; desambiguacion e implementacion |
 | 2026-06-12 | [FAQ-102](#faq-102--n4-implementacion-al-cambiar-de-tecnologia-en-un-componente) actualizada: N4 por componente/tecnologia; politica desacoplamiento-componentes-contratos |
 | 2026-06-12 | Ticket 000 — Paso 12a cerrado: N4 implementacion por componente (ZC-1 a ZC-6) |
-| 2026-06-12 | [vista-general.md](vista-general.md): capas, contratos externo/interno, bootstrap, checklist pre-implementacion |
-| 2026-06-12 | **Renumeracion FAQ por grupos FAQ-Gnn** (0 dominio, 1 stack, 2 C4, 3 ER). Pasos 12→12a/12b; trazabilidad paso↔FAQ en [Ticket 000 README](000-planificacion-inicial/README.md) |
+| 2026-06-12 | [vista-general.md](../../docs/planificacion/vista-general.md): capas, contratos externo/interno, bootstrap, checklist pre-implementacion |
+| 2026-06-12 | **Renumeracion FAQ por grupos FAQ-Gnn** (0 dominio, 1 stack, 2 C4, 3 ER). Pasos 12→12a/12b; trazabilidad paso↔FAQ en [Ticket 000 README](README.md) |
 | 2026-06-12 | Ticket 000 — Paso 12b cerrado: guias agnosticas por componente en docs/implementacion/ |
 | 2026-06-12 | Ticket 000 — Paso 13 re-validado: historial FAQ con IDs vigentes; N4 shared/typescript/; informe actualizado |

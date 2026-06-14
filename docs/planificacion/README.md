@@ -11,6 +11,6 @@ Documentación transversal de planificación y gestión del trabajo (no es produ
 | [protocolo-commits.md](protocolo-commits.md) | Formato de mensajes de commit |
 | [protocolo_TODOs.md](protocolo_TODOs.md) | Un commit por TODO/subticket |
 
-**FAQ de diseño (Ticket 000, provisional):** [dudas-y-resoluciones.md](../../backlog/dudas-y-resoluciones.md) — se moverá al T-000 en T2.
+**FAQ de diseño (Ticket 000):** [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md)
 
 **Épicas (tickets 000–008):** [backlog/README.md](../../backlog/README.md).

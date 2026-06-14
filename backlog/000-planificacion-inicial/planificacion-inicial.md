@@ -175,7 +175,7 @@ Con fecha inicio, fecha fin y periodo de repetición:
 - Agnostico de tecnologia en la redaccion; enlaces al codigo en `implementacion/` y a N4 del Step 12a.
 
 ### Fase 8: Cierre documental e implementacion
-**Step 13: Validar toda la documentacion** (*depends on 10, 12a, 12b*) — **Pendiente** (reabierto 2026-06-13: reorganización FAQ/backlog)
+**Step 13: Validar toda la documentacion** (*depends on 10, 12a, 12b*) — **Completado (2026-06-13; re-validado tras reorganización FAQ/backlog)**
 - Revision de coherencia entre entidades, ER, C4, arquitectura, stack, N4 e implementacion.
 - Informe: [validacion-documental-step13.md](validacion-documental-step13.md); checklist [vista-general.md](../../docs/planificacion/vista-general.md) §6 marcado.
 
@@ -258,12 +258,12 @@ Se consideran 3 estados (Pendiente, Completada, Expirada) donde "Expirada" se ca
 
 Las preguntas abiertas, decisiones tomadas y cambios de nomenclatura se centralizan en **[dudas-y-resoluciones.md](dudas-y-resoluciones.md)** (FAQ).
 
-Resumen de estado (2026-06-12):
+Resumen de estado (2026-06-13):
 
 - **Resueltas:** FAQ-000 a FAQ-007 (grupo 0), FAQ-100 a FAQ-102 (grupo 1), FAQ-200 a FAQ-201 (grupo 2), FAQ-300 a FAQ-311 (grupo 3).
-- **Ticket 000 (planificacion-inicial):** **en curso** — Step 13 pendiente de re-validación (reorganización FAQ/backlog).
-- **Ticket 001 (bootstrap):** **bloqueado** — ver [001-bootstrap/README.md](../001-bootstrap/README.md) hasta cierre del T-000.
-- **Gestion del trabajo:** indice en [README.md](../README.md).
+- **Ticket 000 (planificacion-inicial):** **cerrado** — Step 13 re-validado (reorganización FAQ/backlog); FAQ cerrada.
+- **Ticket 001 (bootstrap):** **pendiente** — ver [001-bootstrap/README.md](../001-bootstrap/README.md).
+- **Gestion del trabajo:** indice en [README.md](../README.md); transversales en [docs/planificacion/](../../docs/planificacion/README.md).
 
 ## Próximos Pasos
 
@@ -280,7 +280,7 @@ Resumen de estado (2026-06-12):
 [x] 11. Ejecutar Step 11: Definir stack tecnologico (FAQ-100, FAQ-101, FAQ-102)
 [x] 12a. Ejecutar Step 12a: N4 implementacion por componente (`{componente}/{tecnologia}/`)
 [x] 12b. Ejecutar Step 12b: Practicas en `docs/implementacion/{componente}/`
-[ ] 13. Ejecutar Step 13: Validar toda la documentacion (re-validacion pendiente)
+[x] 13. Ejecutar Step 13: Validar toda la documentacion (re-validado 2026-06-13)
 
 > **Siguiente trabajo:** [Ticket 001 — Bootstrap](../001-bootstrap/README.md) (no forma parte del Ticket 000).
 
@@ -305,3 +305,4 @@ Resumen de estado (2026-06-12):
 2026-06-12 - Step 12b completado: guias agnosticas por componente en docs/implementacion/
 2026-06-12 - Step 13 completado: validacion documental; informe validacion-documental-step13.md
 2026-06-12 - Step 13 re-validado: historial FAQ corregido; N4 shared/typescript/; H-3 y H-4 cerrados
+2026-06-13 - Step 13 re-validado (reorganizacion FAQ/backlog): FAQ en T-000, transversales en docs/planificacion/, refs T-NNN#F-Gnn / T-NNN#S-YY; FAQ T-000 cerrada; T-001 desbloqueado

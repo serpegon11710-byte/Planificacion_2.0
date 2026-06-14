@@ -179,11 +179,11 @@ Usar antes del **bootstrap con lógica de negocio** o al cerrar [T-000#S-13](../
 
 ### Plan y stack
 
-- [x] [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md) y FAQ del T-000 [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) al día (re-validación [T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md) pendiente)
+- [x] [planificacion-inicial.md](../../backlog/000-planificacion-inicial/planificacion-inicial.md) y FAQ del T-000 [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md) al día (FAQ cerrada)
 - [x] Stack activo en [historial-stack.md](../stack-tecnologico/historial-stack.md)
-- [ ] FAQ del **ticket activo** sin entradas **Abiertas** que bloqueen subtickets (T-000 en curso; 001+ usan su propio `dudas-y-resoluciones.md`)
+- [x] FAQ del ticket activo sin entradas **Abiertas** que bloqueen subtickets (T-000 cerrado; 001+ usan su propio `dudas-y-resoluciones.md`)
 
-**Validación [T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** **pendiente re-validación** (reabierto 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
+**Validación [T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** **completada** (re-validada 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
 
 ---
 

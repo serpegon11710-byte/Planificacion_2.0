@@ -2,7 +2,7 @@
 
 **Última actualización:** 2026-06-13
 
-Reglas para ejecutar trabajo en Planificacion 2.0. Durante la reorganización del backlog, el **Ticket 000** está **en curso** (Step 13 pendiente de re-validación); el **Ticket 001** permanece bloqueado hasta el cierre del T-000.
+Reglas para ejecutar trabajo en Planificacion 2.0. **Ticket 000 cerrado** ([T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md), 2026-06-13). **Ticket activo: 001-bootstrap.**
 
 ---
 
@@ -26,7 +26,7 @@ Antes de abrir un subticket de código:
 | Subticket | `T-NNN-xx-nombre.md` | `T-001-01-monorepo-pnpm.md` |
 
 - El prefijo `T-NNN` corresponde a la épica `NNN`.
-- **Ticket 000:** plan documental Steps 1–13; **en curso** (Step 13 pendiente). No admite subtickets de código ni bootstrap.
+- **Ticket 000:** plan documental Steps 1–13; **cerrado** ([T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md)). No admite subtickets de código ni bootstrap.
 
 ---
 
@@ -115,9 +115,9 @@ No cerrar un subticket si queda una FAQ **abierta** que lo bloquea.
 
 **Referencias comunes** (no son tickets): transversales en [`docs/planificacion/`](README.md); épicas en [`backlog/README.md`](../../backlog/README.md).
 
-**Ticket 000** (`backlog/000-planificacion-inicial/`): planificar y definir la documentación del proyecto (Steps 1–13). Tabla pasos ↔ FAQ: [000-planificacion-inicial/README.md](../../backlog/000-planificacion-inicial/README.md). **En curso** (Step 13 pendiente de re-validación). No admite subtickets de código.
+**Ticket 000** (`backlog/000-planificacion-inicial/`): planificar y definir la documentación del proyecto (Steps 1–13). Tabla pasos ↔ FAQ: [000-planificacion-inicial/README.md](../../backlog/000-planificacion-inicial/README.md). **Cerrado** ([T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md)). No admite subtickets de código.
 
-**Tickets 001+** (bootstrap, UC, …): índice y roadmap en [backlog/README.md](../../backlog/README.md). Convención subtickets `T-NNN-xx`. **001 bloqueado** hasta cierre del T-000.
+**Tickets 001+** (bootstrap, UC, …): índice y roadmap en [backlog/README.md](../../backlog/README.md). Convención subtickets `T-NNN-xx`. **Ticket activo: 001-bootstrap.**
 
 **FAQ vs backlog:** el FAQ del T-000 registra **decisiones de diseño** (Steps 1–13). **No** duplicar en él el listado ni el estado de tickets 001+.
 

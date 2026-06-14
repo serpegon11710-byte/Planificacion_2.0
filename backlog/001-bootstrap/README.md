@@ -1,8 +1,8 @@
 # Ticket 001 — Bootstrap
 
 **Estado:** **Pendiente**  
-**Épica:** andamiaje ejecutable (histórico [Ticket 001 — bootstrap](../000-planificacion-inicial/../001-bootstrap/README.md))  
-**Prerequisito:** Ticket 000 en curso; [T-000#S-13](../000-planificacion-inicial/planificacion-inicial.md) pendiente de re-validación (no iniciar bootstrap)
+**Épica:** andamiaje ejecutable (absorbió el antiguo bootstrap documental; ver [T-000#S-13](../000-planificacion-inicial/planificacion-inicial.md))  
+**Prerequisito:** Ticket 000 cerrado ([T-000#S-13](../000-planificacion-inicial/planificacion-inicial.md) validado, 2026-06-13)
 
 > Protocolo: [protocolo-trabajo-tickets.md](../../docs/planificacion/protocolo-trabajo-tickets.md) · Checklist previo: [vista-general.md](../../docs/planificacion/vista-general.md) §6
 

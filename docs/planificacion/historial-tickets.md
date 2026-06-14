@@ -6,8 +6,8 @@ Estado de las **épicas** (`000`…`008`). Subtickets `T-NNN-xx` y commits de de
 
 | Ticket | Épica | Estado | Apertura | Cierre | Commits / notas |
 |--------|-------|--------|----------|--------|-----------------|
-| **T-000** | [000-planificacion-inicial](../../backlog/000-planificacion-inicial/) | **En curso** | Plan documental Steps 1–13 | — | [T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md) reabierto (2026-06-13, T1); validación previa `c18708e`; cierre previsto T10 |
-| **T-001** | [001-bootstrap](../../backlog/001-bootstrap/) | **Bloqueado** | — | — | Bloqueado hasta cierre T-000 |
+| **T-000** | [000-planificacion-inicial](../../backlog/000-planificacion-inicial/) | **Cerrada** | Plan documental Steps 1–13 | 2026-06-13 | Step 13 re-validado (reorganización FAQ/backlog); validación previa `c18708e` |
+| **T-001** | [001-bootstrap](../../backlog/001-bootstrap/) | **Pendiente** | — | — | Ticket activo; bootstrap andamiaje |
 | **T-002** | [002-proyecto-item](../../backlog/002-proyecto-item/) | Pendiente | — | — | UC-01.2, UC-01.3 |
 | **T-003** | [003-planificacion](../../backlog/003-planificacion/) | Pendiente | — | — | UC-01.4, UC-01.5, UC-03 |
 | **T-004** | [004-wizard-uc01](../../backlog/004-wizard-uc01/) | Pendiente | — | — | UC-01.1 |

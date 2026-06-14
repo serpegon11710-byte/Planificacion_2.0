@@ -1,5 +1,8 @@
 # FAQ — Dudas y resoluciones
 
+> **Ticket 000 — FAQ cerrada en Step 13 (2026-06-13).** Solo lectura; no admite entradas nuevas.
+> Resoluciones ejecutables: ver entregables en `docs/` (acta histórica en este fichero).
+
 Registro centralizado de preguntas abiertas, decisiones tomadas y cambios de nomenclatura del proyecto Planificacion 2.0.
 
 **Ultima actualizacion:** 2026-06-13

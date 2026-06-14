@@ -456,7 +456,7 @@ SQL Server sería alternativa viable en Propuesta 2 (.NET), pero añade coste de
 
 1. **[T-000#S-12a](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** ~~Proyectar N4 canónico~~ **Completado** — [implementacion/](../diagramas-c4/c4-nivel-4/implementacion/).
 2. **[T-000#S-12b](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** ~~Redactar prácticas~~ **Completado** — [docs/implementacion/](../implementacion/).
-3. **[T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** Validar coherencia documental — **pendiente re-validación** ([T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md) reabierto 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
+3. **[T-000#S-13](../../backlog/000-planificacion-inicial/planificacion-inicial.md):** ~~Validar coherencia documental~~ **Completado** (re-validado 2026-06-13) — [validacion-documental-step13.md](../../backlog/000-planificacion-inicial/validacion-documental-step13.md).
 4. **Ticket 001:** Bootstrap del monorepo en `implementacion/` — ver [001-bootstrap/README.md](../../backlog/001-bootstrap/README.md).
 
 FAQ-100, FAQ-101 y FAQ-102 cerradas en [T-000#S-11](../../backlog/000-planificacion-inicial/planificacion-inicial.md) — ver [dudas-y-resoluciones.md](../../backlog/000-planificacion-inicial/dudas-y-resoluciones.md).

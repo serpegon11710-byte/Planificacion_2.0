@@ -17,6 +17,7 @@
 | Roadmap tickets 001+, ticket activo | **Este README** (sección Épicas) |
 | Detalle de una épica (alcance, subtickets) | `00N-nombre/README.md` |
 | Protocolo de ejecución, commits, historial | [docs/planificacion/README.md](../docs/planificacion/README.md) |
+| Reglas para agentes que escriben en el repo | [docs/planificacion/reglas-agentes.md](../docs/planificacion/reglas-agentes.md) |
 
 ---
 

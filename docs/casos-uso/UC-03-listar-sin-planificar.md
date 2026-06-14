@@ -1,4 +1,4 @@
-﻿# UC-03: Visualización de Planificaciones de Tipo "Sin planificar"
+# UC-03: Visualización de Planificaciones de Tipo "Sin planificar"
 
 **ID:** UC-03  
 **Nombre:** Visualización de Planificaciones de Tipo "Sin planificar"  

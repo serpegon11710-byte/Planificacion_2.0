@@ -1,4 +1,4 @@
-﻿# UC-02: Gestión de Ocurrencias
+# UC-02: Gestión de Ocurrencias
 
 **ID:** UC-02  
 **Nombre:** Gestión de Ocurrencias  

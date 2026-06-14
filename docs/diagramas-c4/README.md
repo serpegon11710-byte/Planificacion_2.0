@@ -1,4 +1,4 @@
-﻿# Diagramas C4
+# Diagramas C4
 
 Parte del **[T-000#S-8](../../backlog/000-planificacion-inicial/planificacion-inicial.md)** del plan de documentacion. Visualiza la estructura del software Planificacion 2.0 e integra con arquitectura ([T-000#S-9a](../../backlog/000-planificacion-inicial/planificacion-inicial.md)).
 

@@ -1,4 +1,4 @@
-﻿# UC-01: Mantenimiento de Proyecto
+# UC-01: Mantenimiento de Proyecto
 
 **ID:** UC-01  
 **Nombre:** Mantenimiento de Proyecto  

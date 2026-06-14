@@ -1,4 +1,4 @@
-﻿# BBDD — Guía de implementación
+# BBDD — Guía de implementación
 
 **Componente:** Base de datos (esquema y datos iniciales)  
 **Código:** [`implementacion/bbdd/postgresql/`](../../../implementacion/bbdd/postgresql/)

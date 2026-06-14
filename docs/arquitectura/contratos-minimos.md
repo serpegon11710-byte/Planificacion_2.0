@@ -1,4 +1,4 @@
-﻿# Contratos minimos de arquitectura (sin stack)
+# Contratos minimos de arquitectura (sin stack)
 
 Este documento define la especificacion minima de **contratos de interfaz externa** acordada para el [T-000#S-9a](../../backlog/000-planificacion-inicial/planificacion-inicial.md) de arquitectura (puertos, servicios de aplicacion, DTOs hacia API/UI).
 

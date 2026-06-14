@@ -1,4 +1,4 @@
-﻿# ZC-5: Persistencia y adaptadores
+# ZC-5: Persistencia y adaptadores
 
 **Componente N3:** `Puerto de Persistencia`, `Adaptador de Persistencia`, `Puerto de Conexion a BBDD`  
 **Prioridad:** Media-alta  

@@ -1,4 +1,4 @@
-﻿# Casos de Uso - Planificacion 2.0
+# Casos de Uso - Planificacion 2.0
 
 Este documento contiene el índice de todos los casos de uso del sistema Planificacion 2.0.
 

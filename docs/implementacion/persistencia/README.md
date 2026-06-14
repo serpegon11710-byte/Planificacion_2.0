@@ -1,4 +1,4 @@
-﻿# Persistencia — Guía de implementación
+# Persistencia — Guía de implementación
 
 **Componente:** Capa de Persistencia  
 **Código:** [`implementacion/persistencia/typescript/`](../../../implementacion/persistencia/typescript/)

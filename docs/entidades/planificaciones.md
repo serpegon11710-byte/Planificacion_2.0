@@ -1,4 +1,4 @@
-﻿# Entidad: Planificaciones
+# Entidad: Planificaciones
 
 **Última actualización:** 2026-06-12
 

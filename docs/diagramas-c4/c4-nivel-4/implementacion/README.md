@@ -1,4 +1,4 @@
-﻿# N4 — Implementación (por componente y tecnología)
+# N4 — Implementación (por componente y tecnología)
 
 Vista derivada del [pseudocódigo canónico](../pseudocodigo/). Documenta cómo materializa cada zona crítica el **componente** concreto que la implementa, con su **tecnología** adoptada.
 

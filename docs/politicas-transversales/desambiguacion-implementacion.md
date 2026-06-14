@@ -1,4 +1,4 @@
-﻿# Desambiguación: tres «implementación» en el repositorio
+# Desambiguación: tres «implementación» en el repositorio
 
 **Última actualización:** 2026-06-12
 

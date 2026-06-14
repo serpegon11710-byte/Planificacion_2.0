@@ -1,4 +1,4 @@
-﻿# Revision global de principios SOLID
+# Revision global de principios SOLID
 
 Este documento audita el cumplimiento de los principios SOLID en **toda** la documentacion del proyecto Planificacion 2.0, no solo en la carpeta de arquitectura.
 

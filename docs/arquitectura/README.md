@@ -1,4 +1,4 @@
-﻿# Punto de partida para el analisis de arquitectura
+# Punto de partida para el analisis de arquitectura
 
 ## Estado actual
 

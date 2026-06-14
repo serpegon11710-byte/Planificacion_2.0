@@ -1,4 +1,4 @@
-﻿# ZC-6 — Presentación (React + TypeScript)
+# ZC-6 — Presentación (React + TypeScript)
 
 **Canónico:** [zc-6-presentacion.md](../../../pseudocodigo/zc-6-presentacion.md)  
 **Código:** `implementacion/front-end/react-typescript/src/`

@@ -1,4 +1,4 @@
-﻿# Modelo de clases — Planificación
+# Modelo de clases — Planificación
 
 **Última actualización:** 2026-06-12  
 **Fuente canónica de la jerarquía de dominio.** Complementa [planificaciones.md](planificaciones.md) (reglas) y [modelo-entidad-relacion.md](modelo-entidad-relacion.md) (persistencia).

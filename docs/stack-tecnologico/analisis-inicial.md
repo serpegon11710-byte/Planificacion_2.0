@@ -1,4 +1,4 @@
-﻿# Análisis inicial de stack tecnológico
+# Análisis inicial de stack tecnológico
 
 **Proyecto:** Planificacion 2.0  
 **Fecha:** 2026-06-12  

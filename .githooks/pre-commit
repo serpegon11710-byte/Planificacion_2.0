@@ -1,0 +1,4 @@
+#!/bin/sh
+# Git pre-commit — integrity gate (AGENTS.md §9)
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".githooks/validate-integrity-report.ps1"
+exit $?

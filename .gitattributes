@@ -1,0 +1,11 @@
+# Finales de línea LF en el repositorio (Windows: Git normaliza al indexar).
+* text=auto eol=lf
+
+# Binarios (sin conversión de texto)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .githooks/validate-integrity-report.ps1 -CursorHook",
+        "matcher": "git\\s+commit",
+        "failClosed": true
+      }
+    ]
+  }
+}
